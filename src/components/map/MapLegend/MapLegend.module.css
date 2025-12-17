@@ -1,0 +1,35 @@
+.legend {
+  width: 220px;
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  padding: 12px;
+}
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.logoPh {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+}
+.title { font-weight: 700; justify-self: end; }
+.caret { color: var(--color-text-tertiary); }
+
+.items { display: grid; gap: 8px; font-size: 13px; color: var(--color-text-secondary); }
+.item { display: flex; align-items: center; gap: 10px; }
+.swatchBlue, .swatchRed, .swatchTan, .swatchGray {
+  width: 18px; height: 4px; border-radius: 999px; display: inline-block;
+}
+.swatchBlue { background: #2b6fe3; }
+.swatchRed { background: #d61f2c; }
+.swatchTan { background: #c9b39b; }
+.swatchGray { background: #cbd5e1; }
+.star { color: #f59e0b; font-size: 14px; margin-left: 2px; }

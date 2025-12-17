@@ -1,0 +1,16 @@
+@import url("../design-system/tokens.css");
+@import url("../design-system/typography.css");
+@import url("../design-system/layout.css");
+@import url("../design-system/buttons.css");
+@import url("../design-system/inputs.css");
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  background: var(--color-app-bg);
+}
+a { color: inherit; text-decoration: none; }
+button, input { font-family: inherit; }

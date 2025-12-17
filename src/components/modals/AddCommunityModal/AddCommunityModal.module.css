@@ -1,0 +1,97 @@
+.field { margin-bottom: 14px; }
+
+.uploadCard {
+  margin-top: 12px;
+}
+.drop {
+  border: 2px dashed var(--color-border);
+  border-radius: 10px;
+  background: #fafafa;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dropInner { text-align: center; max-width: 520px; }
+.big { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+.small { font-size: 16px; color: var(--color-text-secondary); }
+.link { color: var(--color-brand); text-decoration: underline; cursor: pointer; }
+.manual {
+  text-align: right;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.genCard { margin-top: 12px; }
+.preview {
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  height: 220px;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.previewPh { color: var(--color-text-tertiary); border: 1px dashed var(--color-border-2); padding: 10px 14px; border-radius: 10px; }
+.genText { padding: 14px 0; }
+.genTitle { font-size: 22px; font-weight: 800; }
+.genSub { color: var(--color-text-secondary); margin-top: 4px; }
+.progress { margin-top: 12px; height: 6px; background: #dbeafe; border-radius: 999px; overflow: hidden; }
+.bar { height: 100%; width: 68%; background: var(--color-brand); }
+
+.fileRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 12px;
+  background: white;
+  margin-top: 12px;
+}
+.fileLeft { display: flex; gap: 12px; align-items: center; }
+.pdf {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #b91c1c;
+}
+.fileName { font-weight: 700; }
+.fileSize { font-size: 12px; color: var(--color-text-tertiary); }
+
+.details { margin-top: 12px; }
+.mapCard {
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+}
+.mapPh {
+  height: 220px;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+}
+.mapCaption { padding: 12px 14px; border-top: 1px solid var(--color-border); }
+.mapCaptionTitle { font-weight: 800; font-size: 22px; }
+.mapCaptionSub { color: var(--color-text-secondary); margin-top: 4px; }
+
+.sectionTitle { margin-top: 18px; font-size: 18px; font-weight: 800; }
+
+.grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 16px;
+}
+.footerRow { display: flex; gap: 10px; }

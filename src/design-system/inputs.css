@@ -1,0 +1,22 @@
+.input {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-4);
+  padding: 10px 12px;
+  font-size: var(--text-md);
+  outline: none;
+  background: white;
+}
+.input:focus {
+  border-color: rgba(29,107,205,0.65);
+  box-shadow: 0 0 0 3px rgba(29,107,205,0.18);
+}
+
+.select {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-4);
+  padding: 10px 12px;
+  font-size: var(--text-md);
+  background: white;
+}

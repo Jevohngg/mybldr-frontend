@@ -1,0 +1,97 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  border-radius: 8px;
+  overflow: hidden;
+
+  /* The design reads more like shadow-first than border-first */
+  border: 1px solid #eae8e6;
+  background: #ffffff;
+
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.16);
+}
+
+/* IMAGE AREA (matches screenshot proportions closely) */
+.img {
+  width: 100%;
+
+  /* Screenshot card width ~379px, image height ~264px */
+  aspect-ratio: 379 / 264;
+
+  background: #eef2f7;
+  position: relative;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  display: block;
+
+  /* Key for “fits perfectly” */
+  object-fit: cover;
+  object-position: center;
+}
+
+/* FOOTER (dark panel) */
+.footer {
+  width: 100%;
+  background: #252628;
+  padding: 16px;
+  gap: 2px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Plan name (large, light weight like design) */
+.name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--Colors-Text-text-primary_on-brand, #FFF);
+font-feature-settings: 'liga' off, 'clig' off;
+font-family: Inter;
+font-size: 1.125rem;
+font-style: normal;
+font-weight: 500;
+line-height: 1.5rem; /* 133.333% */
+}
+
+/* Community name (smaller, bold) */
+.community {
+  height: 1.25rem;
+  align-self: stretch;
+  color: var(--Colors-Text-text-white-primary, #FFF);
+font-family: Inter;
+font-size: 0.875rem;
+font-style: normal;
+font-weight: 600;
+line-height: 1.25rem; /* 142.857% */
+}
+
+/* Meta line */
+.meta {
+  color: var(--Colors-Text-text-primary_on-brand, #FFF);
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem; /* 142.857% */
+  display: flex;
+align-items: center;
+gap: var(--3, 0.375rem);
+}
+
+.dot {
+  opacity: 0.9;
+}

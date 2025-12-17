@@ -1,0 +1,5 @@
+type Props = React.InputHTMLAttributes<HTMLInputElement>
+
+export default function Input({ className = '', ...rest }: Props) {
+  return <input className={`input ${className}`} {...rest} />
+}

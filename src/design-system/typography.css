@@ -1,0 +1,29 @@
+:root {
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-md: 14px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 28px;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+}
+
+.h1 { 
+  color: var(--Colors-Text-text-primary, #0B0C0D);
+
+  /* Typography/h4/Semibold */
+  font-family: Inter;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2rem; /* 133.333% */
+  letter-spacing: 0.01563rem;
+}
+.h2 { font-size: var(--text-xl); font-weight: var(--weight-semibold); letter-spacing: -0.01em; }
+.label { font-size: var(--text-sm); font-weight: var(--weight-medium); color: var(--color-text-secondary); }
+.muted { color: var(--color-text-secondary); }
+.tiny { font-size: var(--text-xs); color: var(--color-text-secondary); }
