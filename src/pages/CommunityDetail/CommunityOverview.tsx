@@ -264,6 +264,7 @@ export default function CommunityOverview() {
           setSelectedPlans(sel)
           setAddPlansOpen(false)
         }}
+        initialSelected={selectedPlans}
       />
     </div>
   )

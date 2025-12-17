@@ -9,10 +9,12 @@ export default function AddPlansModal({
   open,
   onClose,
   onDone,
+  initialSelected = [],
 }: {
   open: boolean
   onClose: () => void
   onDone: (selected: string[]) => void
+  initialSelected?: string[]
 }) {
   const { plans } = useData()
   const [q, setQ] = React.useState('')
@@ -21,8 +23,8 @@ export default function AddPlansModal({
   React.useEffect(() => {
     if (!open) return
     setQ('')
-    setSelected([])
-  }, [open])
+    setSelected([...initialSelected])
+  }, [open, initialSelected])
 
   const filtered = plans.filter(p => p.name.toLowerCase().includes(q.toLowerCase()))
 
@@ -35,7 +37,7 @@ export default function AddPlansModal({
       footer={
         <>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant="primary" onClick={() => onDone(selected)} disabled={selected.length === 0}>
+          <Button variant="primary" onClick={() => onDone(selected)}>
             Done
           </Button>
         </>
