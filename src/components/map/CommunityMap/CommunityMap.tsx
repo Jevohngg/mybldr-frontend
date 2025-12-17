@@ -147,43 +147,44 @@ export default function CommunityMap({ data }: CommunityMapProps) {
           {/* Main development boundary */}
           <rect x="400" y="200" width="600" height="450" fill="#D8D8D0" opacity="0.3" rx="8" />
 
-          {/* Roads */}
-          {/* Perimeter road */}
+          {/* Roads - Logical street layout */}
+
+          {/* Main perimeter road around community */}
           <path
-            d="M 410,210 L 990,210 L 990,640 L 410,640 Z"
+            d="M 385,185 L 1015,185 L 1015,665 L 385,665 Z"
             fill="none"
             stroke="#C4C0B8"
-            strokeWidth="20"
-            opacity="0.4"
+            strokeWidth="30"
+            opacity="0.35"
           />
 
-          {/* Vertical roads */}
-          <rect x="495" y="210" width="14" height="430" fill="#C4C0B8" opacity="0.35" />
-          <rect x="905" y="210" width="14" height="430" fill="#C4C0B8" opacity="0.35" />
+          {/* Horizontal interior streets creating blocks */}
+          {/* Upper interior street - homes on both sides face this */}
+          <rect x="415" y="338" width="570" height="24" fill="#C4C0B8" opacity="0.35" />
 
-          {/* Horizontal roads */}
-          <rect x="410" y="305" width="580" height="14" fill="#C4C0B8" opacity="0.35" />
-          <rect x="410" y="545" width="580" height="14" fill="#C4C0B8" opacity="0.35" />
+          {/* Lower interior street - homes on both sides face this */}
+          <rect x="415" y="488" width="570" height="24" fill="#C4C0B8" opacity="0.35" />
 
-          {/* Center dividing roads */}
-          <rect x="520" y="315" width="380" height="10" fill="#C4C0B8" opacity="0.3" />
-          <rect x="520" y="450" width="380" height="10" fill="#C4C0B8" opacity="0.3" />
+          {/* Main entrance at bottom center */}
+          <rect x="685" y="665" width="30" height="35" fill="#C4C0B8" opacity="0.4" />
 
-          {/* Entrance/Exit at bottom */}
-          <rect x="690" y="640" width="35" height="25" fill="#C4C0B8" opacity="0.45" />
+          {/* Entrance arrow indicator */}
           <path
-            d="M 690,665 L 707.5,680 L 725,665"
+            d="M 685,680 L 700,695 L 715,680"
             fill="none"
             stroke="#C4C0B8"
-            strokeWidth="3"
-            opacity="0.5"
+            strokeWidth="2.5"
+            opacity="0.45"
           />
 
-          {/* Road center lines (dashed) */}
-          <line x1="502" y1="220" x2="502" y2="630" stroke="#FFFFFF" strokeWidth="1.5" strokeDasharray="8,6" opacity="0.4" />
-          <line x1="912" y1="220" x2="912" y2="630" stroke="#FFFFFF" strokeWidth="1.5" strokeDasharray="8,6" opacity="0.4" />
-          <line x1="420" y1="312" x2="980" y2="312" stroke="#FFFFFF" strokeWidth="1.5" strokeDasharray="8,6" opacity="0.4" />
-          <line x1="420" y1="552" x2="980" y2="552" stroke="#FFFFFF" strokeWidth="1.5" strokeDasharray="8,6" opacity="0.4" />
+          {/* Subtle road center lines */}
+          <line x1="400" y1="200" x2="1000" y2="200" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="6,4" opacity="0.3" />
+          <line x1="1000" y1="200" x2="1000" y2="650" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="6,4" opacity="0.3" />
+          <line x1="1000" y1="650" x2="400" y2="650" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="6,4" opacity="0.3" />
+          <line x1="400" y1="650" x2="400" y2="200" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="6,4" opacity="0.3" />
+
+          <line x1="430" y1="350" x2="970" y2="350" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="6,4" opacity="0.3" />
+          <line x1="430" y1="500" x2="970" y2="500" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="6,4" opacity="0.3" />
 
           {lots.map((lot) => (
             <MapLot
