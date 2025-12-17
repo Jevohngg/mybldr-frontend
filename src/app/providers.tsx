@@ -11,6 +11,11 @@ export type Community = {
   lots: number
   thumbnail: string
   planIds: string[]
+  totalValue?: string
+  lotsAvailable?: number
+  occupancyRate?: number
+  activeBuilds?: number
+  mapProjects?: number
 }
 
 export type Plan = typeof plans[number]
@@ -33,6 +38,11 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       id,
       thumbnail: 'placeholder.png',
       planIds: [],
+      totalValue: '0',
+      lotsAvailable: newCommunity.lots || 0,
+      occupancyRate: 0,
+      activeBuilds: 0,
+      mapProjects: 0,
     }
     setCommunities(prev => [...prev, community])
   }, [])

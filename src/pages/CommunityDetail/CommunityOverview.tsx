@@ -19,13 +19,17 @@ export default function CommunityOverview() {
   const [selectedPlans, setSelectedPlans] = React.useState<string[]>([...community.planIds])
   const [viewMode, setViewMode] = React.useState<ViewMode>('cards')
 
+  React.useEffect(() => {
+    setSelectedPlans([...community.planIds])
+  }, [community.id])
+
   const planObjs = plans.filter((p) => selectedPlans.includes(p.id))
 
   const stats = [
-    { label: 'Total Value', value: '2.3 M', icon: '/assets/icons/total-value.svg', active: true },
-    { label: 'Lots Available', value: '96', icon: '/assets/icons/lots-available.svg', active: false },
-    { label: 'Occupancy Rate', value: '25%', icon: '/assets/icons/occupancy-rate.svg', active: false },
-    { label: 'Active Builds', value: '96', icon: '/assets/icons/active-builds.svg', active: false },
+    { label: 'Total Value', value: community.totalValue || '0', icon: '/assets/icons/total-value.svg', active: true },
+    { label: 'Lots Available', value: String(community.lotsAvailable || 0), icon: '/assets/icons/lots-available.svg', active: false },
+    { label: 'Occupancy Rate', value: `${community.occupancyRate || 0}%`, icon: '/assets/icons/occupancy-rate.svg', active: false },
+    { label: 'Active Builds', value: String(community.activeBuilds || 0), icon: '/assets/icons/active-builds.svg', active: false },
   ] as const
   
 
@@ -243,7 +247,7 @@ export default function CommunityOverview() {
           <div className={styles.sectionRow2}>
             <div className={styles.sectionTitle}>
               COMMUNITY MAP <span className={styles.dot}>•</span>{' '}
-              <span className={styles.small}>20 ACTIVE PROJECTS</span>
+              <span className={styles.small}>{community.mapProjects || 0} ACTIVE PROJECTS</span>
             </div>
           </div>
 
