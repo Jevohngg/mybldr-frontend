@@ -248,20 +248,16 @@ export default function CommunityOverview() {
       )}
 
       {/* Community map */}
-      {planObjs.length > 0 && (
-        <>
-          <div className={styles.sectionRow2}>
-            <div className={styles.sectionTitle}>
-              COMMUNITY MAP <span className={styles.dot}>•</span>{' '}
-              <span className={styles.small}>{community.mapProjects || 0} ACTIVE PROJECTS</span>
-            </div>
-          </div>
+      <div className={styles.sectionRow2}>
+        <div className={styles.sectionTitle}>
+          COMMUNITY MAP <span className={styles.dot}>•</span>{' '}
+          <span className={styles.small}>{community.mapProjects || 0} ACTIVE PROJECTS</span>
+        </div>
+      </div>
 
-          <div className={styles.mapWrap}>
-            <CommunityMap data={mapData} />
-          </div>
-        </>
-      )}
+      <div className={styles.mapWrap}>
+        <CommunityMap data={mapData} />
+      </div>
 
       <AddPlansModal
         open={addPlansOpen}

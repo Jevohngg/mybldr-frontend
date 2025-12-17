@@ -19,7 +19,7 @@ export default function AddCommunityModal({
     plans: number
     specs: number
     lots: number
-  }) => void
+  }) => Promise<void>
 }) {
   const [step, setStep] = React.useState<Step>('upload')
   const [name, setName] = React.useState('')
@@ -93,8 +93,8 @@ export default function AddCommunityModal({
     }
   }, [progress, step])
 
-  const handleSave = () => {
-    onSave({
+  const handleSave = async () => {
+    await onSave({
       name,
       division,
       plans: 0,
