@@ -123,27 +123,43 @@ export default function CommunityMap({ data }: CommunityMapProps) {
         >
           <rect width="1400" height="800" fill="#E8F0E8" />
 
-          <ellipse cx="420" cy="380" rx="180" ry="120" fill="#A8C8E0" opacity="0.6" />
-          <ellipse cx="1100" cy="180" rx="140" ry="100" fill="#A8C8E0" opacity="0.6" />
+          <ellipse cx="280" cy="320" rx="160" ry="100" fill="#A8C8E0" opacity="0.6" />
+          <ellipse cx="1180" cy="200" rx="120" ry="85" fill="#A8C8E0" opacity="0.6" />
+          <ellipse cx="1100" cy="680" rx="140" ry="90" fill="#A8C8E0" opacity="0.6" />
 
-          <circle cx="450" cy="280" r="45" fill="#6B8E6B" opacity="0.7" />
-          <circle cx="480" cy="310" r="38" fill="#5A7A5A" opacity="0.7" />
-          <circle cx="520" cy="290" r="42" fill="#6B8E6B" opacity="0.7" />
-          <circle cx="550" cy="330" r="35" fill="#5A7A5A" opacity="0.7" />
+          <circle cx="350" cy="120" r="48" fill="#6B8E6B" opacity="0.75" />
+          <circle cx="410" cy="150" r="42" fill="#5A7A5A" opacity="0.75" />
+          <circle cx="380" cy="200" r="38" fill="#6B8E6B" opacity="0.75" />
+          <circle cx="320" cy="180" r="35" fill="#5A7A5A" opacity="0.75" />
 
-          <circle cx="700" cy="180" r="40" fill="#6B8E6B" opacity="0.7" />
-          <circle cx="735" cy="200" r="35" fill="#5A7A5A" opacity="0.7" />
-          <circle cx="770" cy="165" r="48" fill="#6B8E6B" opacity="0.7" />
+          <circle cx="1200" cy="360" r="45" fill="#6B8E6B" opacity="0.75" />
+          <circle cx="1240" cy="320" r="38" fill="#5A7A5A" opacity="0.75" />
+          <circle cx="1270" cy="380" r="42" fill="#6B8E6B" opacity="0.75" />
 
-          <circle cx="850" cy="210" r="42" fill="#6B8E6B" opacity="0.7" />
-          <circle cx="885" cy="235" r="36" fill="#5A7A5A" opacity="0.7" />
-          <circle cx="910" cy="200" r="40" fill="#6B8E6B" opacity="0.7" />
+          <circle cx="480" cy="620" r="40" fill="#6B8E6B" opacity="0.75" />
+          <circle cx="440" cy="670" r="35" fill="#5A7A5A" opacity="0.75" />
+          <circle cx="520" cy="680" r="38" fill="#6B8E6B" opacity="0.75" />
 
-          <circle cx="1040" cy="290" r="35" fill="#6B8E6B" opacity="0.7" />
-          <circle cx="1075" cy="315" r="40" fill="#5A7A5A" opacity="0.7" />
-          <circle cx="1105" cy="280" r="38" fill="#6B8E6B" opacity="0.7" />
+          <circle cx="1160" cy="540" r="42" fill="#6B8E6B" opacity="0.75" />
+          <circle cx="1200" cy="580" r="36" fill="#5A7A5A" opacity="0.75" />
+          <circle cx="1230" cy="520" r="40" fill="#6B8E6B" opacity="0.75" />
 
-          <path d="M 600 650 Q 400 600 350 450 Q 320 350 400 250 Q 480 150 650 200 Q 750 220 850 300 Q 950 380 1000 500 Q 1020 580 950 650 Q 850 730 700 700 Q 650 690 600 650 Z" fill="#D8D8D0" stroke="white" strokeWidth="3" />
+          <path
+            d="M 870,400 Q 870,240 720,180 Q 600,140 500,180 Q 400,220 380,340 Q 370,420 420,520 Q 470,600 580,650 Q 700,700 800,660 Q 920,610 950,500 Q 970,420 920,340 Q 890,280 840,250"
+            fill="#D8D8D0"
+            stroke="white"
+            strokeWidth="4"
+            opacity="0.9"
+          />
+
+          <ellipse cx="870" cy="360" rx="210" ry="170" fill="none" stroke="white" strokeWidth="50" opacity="0.85" />
+
+          <ellipse cx="870" cy="360" rx="120" ry="95" fill="none" stroke="white" strokeWidth="40" opacity="0.85" />
+
+          <circle cx="870" cy="360" r="45" fill="white" opacity="0.85" />
+
+          <path d="M 1120 200 Q 1050 170 950 180" fill="none" stroke="white" strokeWidth="35" opacity="0.85" />
+          <path d="M 550 620 Q 600 660 680 680" fill="none" stroke="white" strokeWidth="35" opacity="0.85" />
 
           {lots.map((lot) => (
             <MapLot
