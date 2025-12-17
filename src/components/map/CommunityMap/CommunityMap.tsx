@@ -126,31 +126,31 @@ export default function CommunityMap({ data }: CommunityMapProps) {
         >
           <rect x="0" y="0" width="1400" height="800" fill="#E8F0E8" />
 
-          {/* Water features - repositioned closer */}
-          <ellipse cx="450" cy="280" rx="110" ry="75" fill="#A8C8E0" opacity="0.6" />
-          <ellipse cx="950" cy="220" rx="90" ry="65" fill="#A8C8E0" opacity="0.6" />
-          <ellipse cx="920" cy="580" rx="100" ry="70" fill="#A8C8E0" opacity="0.6" />
+          {/* Water features - smaller and at edges */}
+          <ellipse cx="400" cy="220" rx="75" ry="55" fill="#A8C8E0" opacity="0.5" />
+          <ellipse cx="1000" cy="200" rx="70" ry="50" fill="#A8C8E0" opacity="0.5" />
+          <ellipse cx="970" cy="590" rx="75" ry="50" fill="#A8C8E0" opacity="0.5" />
 
-          {/* Trees - organized closer to center */}
-          <circle cx="480" cy="180" r="38" fill="#6B8E6B" opacity="0.75" />
-          <circle cx="530" cy="165" r="34" fill="#5A7A5A" opacity="0.75" />
-          <circle cx="575" cy="185" r="40" fill="#6B8E6B" opacity="0.75" />
+          {/* Trees - smaller and at perimeter */}
+          <circle cx="450" cy="170" r="28" fill="#6B8E6B" opacity="0.7" />
+          <circle cx="490" cy="158" r="25" fill="#5A7A5A" opacity="0.7" />
+          <circle cx="525" cy="175" r="30" fill="#6B8E6B" opacity="0.7" />
 
-          <circle cx="970" cy="310" r="36" fill="#6B8E6B" opacity="0.75" />
-          <circle cx="1010" cy="345" r="40" fill="#5A7A5A" opacity="0.75" />
-          <circle cx="995" cy="395" r="34" fill="#6B8E6B" opacity="0.75" />
+          <circle cx="1020" cy="280" r="27" fill="#6B8E6B" opacity="0.7" />
+          <circle cx="1055" cy="310" r="30" fill="#5A7A5A" opacity="0.7" />
+          <circle cx="1040" cy="350" r="26" fill="#6B8E6B" opacity="0.7" />
 
-          <circle cx="550" cy="600" r="38" fill="#6B8E6B" opacity="0.75" />
-          <circle cx="600" cy="615" r="34" fill="#5A7A5A" opacity="0.75" />
-          <circle cx="645" cy="605" r="36" fill="#6B8E6B" opacity="0.75" />
+          <circle cx="520" cy="610" r="28" fill="#6B8E6B" opacity="0.7" />
+          <circle cx="560" cy="623" r="25" fill="#5A7A5A" opacity="0.7" />
+          <circle cx="600" cy="615" r="27" fill="#6B8E6B" opacity="0.7" />
 
-          <circle cx="915" cy="530" r="34" fill="#6B8E6B" opacity="0.75" />
-          <circle cx="955" cy="560" r="38" fill="#5A7A5A" opacity="0.75" />
-          <circle cx="930" cy="480" r="32" fill="#6B8E6B" opacity="0.75" />
+          <circle cx="965" cy="540" r="25" fill="#6B8E6B" opacity="0.7" />
+          <circle cx="1000" cy="565" r="28" fill="#5A7A5A" opacity="0.7" />
+          <circle cx="980" cy="510" r="24" fill="#6B8E6B" opacity="0.7" />
 
-          {/* Main community area */}
+          {/* Main community area - much larger */}
           <path
-            d="M 780,400 Q 780,270 670,220 Q 580,185 510,220 Q 450,255 440,350 Q 435,415 470,495 Q 510,560 590,600 Q 680,640 760,610 Q 850,570 875,485 Q 890,420 850,355 Q 825,305 785,280"
+            d="M 850,400 Q 850,240 680,170 Q 550,120 430,170 Q 350,210 330,340 Q 320,430 380,550 Q 440,650 570,710 Q 710,770 830,720 Q 970,660 1010,530 Q 1030,440 970,340 Q 935,260 870,220"
             fill="#D8D8D0"
             stroke="white"
             strokeWidth="4"
