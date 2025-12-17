@@ -18,12 +18,14 @@ export default function AddCommunityModal({
   const [step, setStep] = React.useState<Step>('upload')
   const [name, setName] = React.useState('')
   const [progress, setProgress] = React.useState(0)
+  const [hasUploadedFile, setHasUploadedFile] = React.useState(false)
 
   React.useEffect(() => {
     if (!open) return
     setStep('upload')
     setName('')
     setProgress(0)
+    setHasUploadedFile(false)
   }, [open])
 
   React.useEffect(() => {
@@ -83,11 +85,11 @@ export default function AddCommunityModal({
             <div className={styles.dropInner}>
               <div className={styles.big}>Community planning in minutes not months</div>
               <div className={styles.small}>
-                <span className={styles.link} onClick={() => setStep('generating')}>Upload</span> your community map and speed up planning with an interactive community map.
+                <span className={styles.link} onClick={() => { setHasUploadedFile(true); setStep('generating'); }}>Upload</span> your community map and speed up planning with an interactive community map.
               </div>
             </div>
           </div>
-          <button className={styles.manual} onClick={() => setStep('details')}>Enter details manually</button>
+          <button className={styles.manual} onClick={() => { setHasUploadedFile(false); setStep('details'); }}>Enter details manually</button>
         </div>
       )}
 
@@ -127,38 +129,51 @@ export default function AddCommunityModal({
 
       {step === 'details' && (
         <div className={styles.details}>
-          <div className={styles.mapCard}>
-            <div className={styles.mapPh}>Generated community map preview</div>
-            <div className={styles.mapCaption}>
-              <div className={styles.mapCaptionTitle}>Community map</div>
-              <div className={styles.mapCaptionSub}>This was generated based on the map you uploaded.</div>
+          {hasUploadedFile ? (
+            <div className={styles.mapCard}>
+              <div className={styles.mapPh}>Generated community map preview</div>
+              <div className={styles.mapCaption}>
+                <div className={styles.mapCaptionTitle}>Community map</div>
+                <div className={styles.mapCaptionSub}>This was generated based on the map you uploaded.</div>
+              </div>
+              <div className={styles.fileRow}>
+                <div className={styles.fileLeft}>
+                  <div className={styles.pdf}>PDF</div>
+                  <div>
+                    <div className={styles.fileName}>community_map.pdf</div>
+                    <div className={styles.fileSize}>100kb</div>
+                  </div>
+                </div>
+                <Button>Update</Button>
+              </div>
             </div>
-            <div className={styles.fileRow}>
-              <div className={styles.fileLeft}>
-                <div className={styles.pdf}>PDF</div>
-                <div>
-                  <div className={styles.fileName}>community_map.pdf</div>
-                  <div className={styles.fileSize}>100kb</div>
+          ) : (
+            <div className={styles.uploadCard}>
+              <div className={styles.drop}>
+                <div className={styles.dropInner}>
+                  <div className={styles.big}>Community planning in minutes not months</div>
+                  <div className={styles.small}>
+                    <span className={styles.link} onClick={() => { setHasUploadedFile(true); setStep('generating'); }}>Upload</span> your community map and speed up planning with an interactive community map.
+                  </div>
                 </div>
               </div>
-              <Button>Update</Button>
             </div>
-          </div>
+          )}
 
           <div className={styles.sectionTitle}>Community details</div>
 
           <div className={styles.grid}>
-            <div className={styles.field}><div className="label">Community ID</div><Input defaultValue="44332" /></div>
-            <div className={styles.field}><div className="label">Zip Code</div><Input defaultValue="99843" /></div>
+            <div className={styles.field}><div className="label">Community ID</div><Input placeholder="Enter ID" /></div>
+            <div className={styles.field}><div className="label">Zip Code</div><Input placeholder="Enter zip code" /></div>
 
-            <div className={styles.field}><div className="label">Number of Lots</div><Input defaultValue="104" /></div>
+            <div className={styles.field}><div className="label">Number of Lots</div><Input placeholder="Enter number of lots" /></div>
             <div className={styles.field}><div className="label">Expected Start Date</div><Input placeholder="Enter Date" /></div>
 
             <div className={styles.field}><div className="label">Number of Phases</div><Input placeholder="Enter number of phases" /></div>
-            <div className={styles.field}><div className="label">Division</div><Input defaultValue="Northwestern" /></div>
+            <div className={styles.field}><div className="label">Division</div><Input placeholder="Enter division" /></div>
 
-            <div className={styles.field}><div className="label">Zone</div><select className="select"><option>Lorem Ipsum</option></select></div>
-            <div className={styles.field}><div className="label">Master Plan #</div><Input defaultValue="Northwestern" /></div>
+            <div className={styles.field}><div className="label">Zone</div><select className="select"><option>Select zone</option></select></div>
+            <div className={styles.field}><div className="label">Master Plan #</div><Input placeholder="Enter master plan number" /></div>
           </div>
         </div>
       )}
