@@ -58,7 +58,11 @@ export default function LotDetailPopup({ lot, position, onClose }: LotDetailPopu
     }).format(price)
   }
 
-  const matchingPlans = lot.status === 'available' ? plans.slice(0, 3) : []
+  const matchingPlans = lot.status === 'available' ? plans.slice(0, 8) : []
+
+  const handlePopupInteraction = (e: React.MouseEvent | React.WheelEvent) => {
+    e.stopPropagation()
+  }
 
   return (
     <div
@@ -67,6 +71,9 @@ export default function LotDetailPopup({ lot, position, onClose }: LotDetailPopu
         left: `${position.x}px`,
         top: `${position.y}px`,
       }}
+      onClick={handlePopupInteraction}
+      onWheel={handlePopupInteraction}
+      onMouseDown={handlePopupInteraction}
     >
       <button
         className={styles.closeButton}
