@@ -67,7 +67,7 @@ export default function AddPlansModal({
             }}>
               <div className={styles.nameCell}>
                 <div className={checked ? styles.cbOn : styles.cbOff} aria-hidden="true">{checked ? '✓' : ''}</div>
-                <div className={styles.thumb} aria-hidden="true" />
+                <img src="/assets/plans/placeholder.png" alt="" className={styles.thumb} />
                 <div>
                   <div className={styles.planName}>{p.name}</div>
                   <div className={styles.planDesc}>This is a description for th…</div>

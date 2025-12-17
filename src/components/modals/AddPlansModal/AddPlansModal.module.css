@@ -68,10 +68,12 @@
 }
 .cbOn { background: var(--color-brand); border-color: var(--color-brand); }
 .thumb {
-  width: 44px; height: 44px;
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
   background: #e5e7eb;
   flex: 0 0 auto;
+  object-fit: cover;
 }
 .planName { font-weight: 800; }
 .planDesc { font-size: 12px; color: var(--color-text-tertiary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 320px; }
