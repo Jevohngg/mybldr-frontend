@@ -13,7 +13,7 @@ export default function CommunityMap({ data }: CommunityMapProps) {
   const { communityName, lots } = data
 
   const svgRef = React.useRef<SVGSVGElement>(null)
-  const [scale, setScale] = React.useState(1)
+  const [scale, setScale] = React.useState(1.5)
   const [position, setPosition] = React.useState({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = React.useState(false)
   const [dragStart, setDragStart] = React.useState({ x: 0, y: 0 })
@@ -30,7 +30,7 @@ export default function CommunityMap({ data }: CommunityMapProps) {
   }
 
   const handleReset = () => {
-    setScale(1)
+    setScale(1.5)
     setPosition({ x: 0, y: 0 })
   }
 
@@ -117,7 +117,7 @@ export default function CommunityMap({ data }: CommunityMapProps) {
       >
         <svg
           ref={svgRef}
-          viewBox="250 100 900 600"
+          viewBox="0 0 1400 800"
           preserveAspectRatio="xMidYMid meet"
           className={styles.mapSvg}
           style={{
@@ -145,7 +145,7 @@ export default function CommunityMap({ data }: CommunityMapProps) {
           <circle cx="440" cy="685" r="21" fill="#8AA88A" opacity="0.5" />
 
           {/* Road surface - fills gaps between lots */}
-          <rect x="380" y="180" width="650" height="540" fill="#C4C0B8" opacity="0.3" rx="4" />
+          <rect x="400" y="200" width="720" height="420" fill="#C4C0B8" opacity="0.3" rx="4" />
 
           {lots.map((lot) => (
             <MapLot
