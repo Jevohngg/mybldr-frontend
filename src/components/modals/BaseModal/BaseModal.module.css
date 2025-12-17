@@ -19,6 +19,9 @@
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow: 0 28px 80px rgba(0,0,0,0.45);
   overflow: hidden;
+  max-height: calc(100vh - 44px);
+  display: flex;
+  flex-direction: column;
 }
 .header {
   display: flex;
@@ -26,6 +29,7 @@
   justify-content: space-between;
   padding: 18px 20px;
   border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
 }
 .title { font-size: 22px; font-weight: 700; }
 .close {
@@ -36,11 +40,17 @@
   cursor: pointer;
 }
 .close:hover { background: var(--color-surface-2); }
-.body { padding: 18px 20px 20px; }
+.body {
+  padding: 18px 20px 20px;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
 .footer {
   padding: 14px 20px;
   border-top: 1px solid var(--color-border);
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  flex-shrink: 0;
 }
