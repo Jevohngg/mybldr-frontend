@@ -48,6 +48,15 @@ export default function AddCommunityModal({
     return () => clearInterval(timer)
   }, [step])
 
+  React.useEffect(() => {
+    if (progress >= 100 && step === 'generating') {
+      const timer = setTimeout(() => {
+        setStep('details')
+      }, 500)
+      return () => clearTimeout(timer)
+    }
+  }, [progress, step])
+
   const footer = (
     <div className={styles.footerRow}>
       {step === 'details' ? (
