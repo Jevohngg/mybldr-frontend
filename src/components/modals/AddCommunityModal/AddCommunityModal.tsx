@@ -16,13 +16,13 @@ export default function AddCommunityModal({
   onSave: (payload: { name: string }) => void
 }) {
   const [step, setStep] = React.useState<Step>('upload')
-  const [name, setName] = React.useState('Silver Lake')
+  const [name, setName] = React.useState('')
   const [progress, setProgress] = React.useState(0)
 
   React.useEffect(() => {
     if (!open) return
     setStep('upload')
-    setName('Silver Lake')
+    setName('')
     setProgress(0)
   }, [open])
 
