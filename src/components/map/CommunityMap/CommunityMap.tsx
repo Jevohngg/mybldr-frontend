@@ -57,7 +57,6 @@ export default function CommunityMap({ data }: CommunityMapProps) {
   const handleLotClick = (lot: Lot) => {
     if (!svgRef.current) return
 
-    const svgRect = svgRef.current.getBoundingClientRect()
     const lotPoints = lot.position?.points?.split(' ').map((p) => {
       const [x, y] = p.split(',').map(Number)
       return { x, y }
@@ -67,10 +66,10 @@ export default function CommunityMap({ data }: CommunityMapProps) {
       const centerX = lotPoints.reduce((sum, p) => sum + p.x, 0) / lotPoints.length
       const centerY = lotPoints.reduce((sum, p) => sum + p.y, 0) / lotPoints.length
 
-      const screenX = svgRect.left + (centerX * scale) + position.x
-      const screenY = svgRect.top + (centerY * scale) + position.y
+      const relativeX = (centerX * scale) + position.x
+      const relativeY = (centerY * scale) + position.y
 
-      setPopupPosition({ x: screenX, y: screenY })
+      setPopupPosition({ x: relativeX, y: relativeY })
       setSelectedLot(lot)
     }
   }
@@ -209,15 +208,15 @@ export default function CommunityMap({ data }: CommunityMapProps) {
         </svg>
 
         <MapLegend communityName={communityName} />
-      </div>
 
-      {selectedLot && (
-        <LotDetailPopup
-          lot={selectedLot}
-          position={popupPosition}
-          onClose={() => setSelectedLot(null)}
-        />
-      )}
+        {selectedLot && (
+          <LotDetailPopup
+            lot={selectedLot}
+            position={popupPosition}
+            onClose={() => setSelectedLot(null)}
+          />
+        )}
+      </div>
     </div>
   )
 }
