@@ -1,6 +1,6 @@
 import React from 'react'
-import { supabase } from '../../../lib/supabase'
 import { CommunityMapData, Lot } from '../types'
+import { communityLots } from '../../../mock-data/lots'
 
 interface UseCommunityMapDataProps {
   communityId: string
@@ -14,47 +14,13 @@ export function useCommunityMapData({ communityId, communityName }: UseCommunity
   const [error, setError] = React.useState<Error | null>(null)
 
   React.useEffect(() => {
-    const loadMapData = async () => {
+    const loadMapData = () => {
       setIsLoading(true)
       setError(null)
 
       try {
-        const { data: lotsData, error: lotsError } = await supabase
-          .from('lots')
-          .select('*')
-          .eq('community_id', communityId)
-          .order('lot_number')
-
-        if (lotsError) {
-          throw lotsError
-        }
-
-        const transformedLots: Lot[] = (lotsData || []).map((lot) => ({
-          id: lot.id,
-          lot_number: lot.lot_number,
-          community_id: lot.community_id,
-          status: lot.status,
-          moveInReady: lot.move_in_ready || false,
-          move_in_ready: lot.move_in_ready || false,
-          plan_id: lot.plan_id,
-          plan_name: lot.plan_name,
-          sqft: lot.sqft,
-          price: lot.price,
-          position: lot.position,
-          shape_type: lot.shape_type || 'polygon',
-        }))
-
-        setLots(transformedLots)
-
-        const { data: communityData } = await supabase
-          .from('communities')
-          .select('map_image_url')
-          .eq('id', communityId)
-          .maybeSingle()
-
-        if (communityData?.map_image_url) {
-          setMapImageUrl(communityData.map_image_url)
-        }
+        const lotsData = communityLots[communityId] || []
+        setLots(lotsData)
       } catch (err) {
         console.error('Error loading map data:', err)
         setError(err as Error)
