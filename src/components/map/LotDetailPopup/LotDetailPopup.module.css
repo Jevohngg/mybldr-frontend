@@ -1,10 +1,10 @@
 .popup {
   position: absolute;
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  width: 420px;
-  max-height: 600px;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  width: 280px;
+  max-height: 440px;
   overflow-y: auto;
   z-index: 999;
   transform: translate(-50%, -50%);
@@ -24,7 +24,7 @@
 }
 
 .mainInfo {
-  padding: 20px;
+  padding: 14px;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -32,11 +32,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .lotTitle {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--color-text);
   margin: 0;
@@ -45,29 +45,29 @@
 .lotSize {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 16px;
+  gap: 6px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--color-text-secondary);
 }
 
 .closeButton {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 10px;
+  right: 10px;
   background: white;
   border: 1px solid var(--color-border);
-  font-size: 24px;
+  font-size: 20px;
   line-height: 1;
   color: var(--color-text-secondary);
   cursor: pointer;
   padding: 0;
-  width: 32px;
-  height: 32px;
+  width: 26px;
+  height: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: 6px;
   transition: all 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
@@ -79,51 +79,51 @@
 }
 
 .statusBadge {
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 13px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
   font-weight: 600;
   color: white;
 }
 
 .plansSection {
-  padding: 20px;
+  padding: 14px;
 }
 
 .sectionTitle {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--color-text);
-  margin: 0 0 16px 0;
+  margin: 0 0 10px 0;
 }
 
 .plansList {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
 }
 
 .planItem {
   display: flex;
-  gap: 14px;
-  padding: 12px;
+  gap: 10px;
+  padding: 8px;
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: 8px;
   transition: all 0.2s ease;
   cursor: pointer;
 }
 
 .planItem:hover {
   border-color: var(--color-primary);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
 }
 
 .planImage {
-  width: 120px;
-  height: 90px;
+  width: 70px;
+  height: 52px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 6px;
   flex-shrink: 0;
 }
 
@@ -131,37 +131,39 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
 .planName {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--color-text);
   margin: 0;
 }
 
 .planPrice {
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--color-text-secondary);
-  margin: 0 0 8px 0;
+  margin: 0 0 4px 0;
 }
 
 .planFeatures {
   display: flex;
-  gap: 16px;
+  gap: 10px;
 }
 
 .feature {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 14px;
+  gap: 4px;
+  font-size: 11px;
   font-weight: 500;
   color: var(--color-text-secondary);
 }
 
 .feature svg {
   color: var(--color-text-tertiary);
+  width: 12px;
+  height: 12px;
 }

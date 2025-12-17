@@ -86,7 +86,7 @@ export default function LotDetailPopup({ lot, position, onClose }: LotDetailPopu
 
         {lot.sqft && (
           <div className={styles.lotSize}>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M2 2L6 6M14 2L10 6M14 14L10 10M2 14L6 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               <path d="M2 2H14V14H2V2Z" stroke="currentColor" strokeWidth="1.5"/>
             </svg>
@@ -111,7 +111,7 @@ export default function LotDetailPopup({ lot, position, onClose }: LotDetailPopu
                   <p className={styles.planPrice}>Starting at $489,900</p>
                   <div className={styles.planFeatures}>
                     <span className={styles.feature}>
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="2" y="8" width="5" height="6" stroke="currentColor" strokeWidth="1.5"/>
                         <rect x="9" y="8" width="5" height="6" stroke="currentColor" strokeWidth="1.5"/>
                         <path d="M2 8L8 3L14 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -119,14 +119,14 @@ export default function LotDetailPopup({ lot, position, onClose }: LotDetailPopu
                       {plan.beds.split('-')[0]}
                     </span>
                     <span className={styles.feature}>
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="3" y="4" width="10" height="8" rx="1" stroke="currentColor" strokeWidth="1.5"/>
                         <path d="M5 7H11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                       </svg>
                       {plan.baths.split('-')[0]}
                     </span>
                     <span className={styles.feature}>
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 2L6 6M14 2L10 6M14 14L10 10M2 14L6 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                         <path d="M2 2H14V14H2V2Z" stroke="currentColor" strokeWidth="1.5"/>
                       </svg>
