@@ -169,22 +169,24 @@ export default function CommunityOverview() {
       </div>
 
       {/* Stats */}
-      <div className={styles.statsRow}>
-        {stats.map((s) => (
-          <div key={s.label} className={`${styles.stat} ${s.active ? styles.statActive : ''}`}>
-            <div className={styles.statInner}>
-              <div className={styles.statIconWrap}>
-                <img src={s.icon} alt="" className={styles.statIcon} draggable={false} />
-              </div>
+      {planObjs.length > 0 && (
+        <div className={styles.statsRow}>
+          {stats.map((s) => (
+            <div key={s.label} className={`${styles.stat} ${s.active ? styles.statActive : ''}`}>
+              <div className={styles.statInner}>
+                <div className={styles.statIconWrap}>
+                  <img src={s.icon} alt="" className={styles.statIcon} draggable={false} />
+                </div>
 
-              <div className={styles.statText}>
-                <div className={styles.statTop}>{s.label}</div>
-                <div className={styles.statValue}>{s.value}</div>
+                <div className={styles.statText}>
+                  <div className={styles.statTop}>{s.label}</div>
+                  <div className={styles.statValue}>{s.value}</div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       {/* Master plans */}
       <div className={styles.sectionRow}>
@@ -236,16 +238,20 @@ export default function CommunityOverview() {
       )}
 
       {/* Community map */}
-      <div className={styles.sectionRow2}>
-        <div className={styles.sectionTitle}>
-          COMMUNITY MAP <span className={styles.dot}>•</span>{' '}
-          <span className={styles.small}>20 ACTIVE PROJECTS</span>
-        </div>
-      </div>
+      {planObjs.length > 0 && (
+        <>
+          <div className={styles.sectionRow2}>
+            <div className={styles.sectionTitle}>
+              COMMUNITY MAP <span className={styles.dot}>•</span>{' '}
+              <span className={styles.small}>20 ACTIVE PROJECTS</span>
+            </div>
+          </div>
 
-      <div className={styles.mapWrap}>
-        <CommunityMap />
-      </div>
+          <div className={styles.mapWrap}>
+            <CommunityMap />
+          </div>
+        </>
+      )}
 
       <AddPlansModal
         open={addPlansOpen}
