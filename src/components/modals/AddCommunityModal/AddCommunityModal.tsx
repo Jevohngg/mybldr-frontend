@@ -163,17 +163,17 @@ export default function AddCommunityModal({
           <div className={styles.sectionTitle}>Community details</div>
 
           <div className={styles.grid}>
-            <div className={styles.field}><div className="label">Community ID</div><Input placeholder="Enter ID" /></div>
-            <div className={styles.field}><div className="label">Zip Code</div><Input placeholder="Enter zip code" /></div>
+            <div className={styles.field}><div className="label">Community ID</div><Input placeholder="Enter ID" defaultValue={hasUploadedFile ? "44332" : ""} /></div>
+            <div className={styles.field}><div className="label">Zip Code</div><Input placeholder="Enter zip code" defaultValue={hasUploadedFile ? "99843" : ""} /></div>
 
-            <div className={styles.field}><div className="label">Number of Lots</div><Input placeholder="Enter number of lots" /></div>
+            <div className={styles.field}><div className="label">Number of Lots</div><Input placeholder="Enter number of lots" defaultValue={hasUploadedFile ? "104" : ""} /></div>
             <div className={styles.field}><div className="label">Expected Start Date</div><Input placeholder="Enter Date" /></div>
 
             <div className={styles.field}><div className="label">Number of Phases</div><Input placeholder="Enter number of phases" /></div>
-            <div className={styles.field}><div className="label">Division</div><Input placeholder="Enter division" /></div>
+            <div className={styles.field}><div className="label">Division</div><Input placeholder="Enter division" defaultValue={hasUploadedFile ? "Northwestern" : ""} /></div>
 
-            <div className={styles.field}><div className="label">Zone</div><select className="select"><option>Select zone</option></select></div>
-            <div className={styles.field}><div className="label">Master Plan #</div><Input placeholder="Enter master plan number" /></div>
+            <div className={styles.field}><div className="label">Zone</div><select className="select"><option>{hasUploadedFile ? "Lorem Ipsum" : "Select zone"}</option></select></div>
+            <div className={styles.field}><div className="label">Master Plan #</div><Input placeholder="Enter master plan number" defaultValue={hasUploadedFile ? "Northwestern" : ""} /></div>
           </div>
         </div>
       )}
