@@ -6,8 +6,13 @@ import { useData } from '../../app/providers'
 import styles from './CommunitiesPage.module.css'
 
 export default function CommunitiesPage() {
-  const { communities } = useData()
+  const { communities, addCommunity } = useData()
   const [open, setOpen] = React.useState(false)
+
+  const handleSave = (payload: { name: string; division: string; plans: number; specs: number; lots: number }) => {
+    addCommunity(payload)
+    setOpen(false)
+  }
 
   return (
     <div className={styles.page}>
@@ -104,10 +109,7 @@ export default function CommunitiesPage() {
       <AddCommunityModal
         open={open}
         onClose={() => setOpen(false)}
-        onSave={() => {
-          // Prototype-only: simulate save, close modal
-          setOpen(false)
-        }}
+        onSave={handleSave}
       />
     </div>
   )

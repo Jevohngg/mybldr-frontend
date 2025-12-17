@@ -13,12 +13,27 @@ export default function AddCommunityModal({
 }: {
   open: boolean
   onClose: () => void
-  onSave: (payload: { name: string }) => void
+  onSave: (payload: {
+    name: string
+    division: string
+    plans: number
+    specs: number
+    lots: number
+  }) => void
 }) {
   const [step, setStep] = React.useState<Step>('upload')
   const [name, setName] = React.useState('')
   const [progress, setProgress] = React.useState(0)
   const [hasUploadedFile, setHasUploadedFile] = React.useState(false)
+
+  const [communityId, setCommunityId] = React.useState('')
+  const [zipCode, setZipCode] = React.useState('')
+  const [numberOfLots, setNumberOfLots] = React.useState('')
+  const [startDate, setStartDate] = React.useState('')
+  const [numberOfPhases, setNumberOfPhases] = React.useState('')
+  const [division, setDivision] = React.useState('')
+  const [zone, setZone] = React.useState('')
+  const [masterPlan, setMasterPlan] = React.useState('')
 
   React.useEffect(() => {
     if (!open) return
@@ -26,7 +41,26 @@ export default function AddCommunityModal({
     setName('')
     setProgress(0)
     setHasUploadedFile(false)
+    setCommunityId('')
+    setZipCode('')
+    setNumberOfLots('')
+    setStartDate('')
+    setNumberOfPhases('')
+    setDivision('')
+    setZone('')
+    setMasterPlan('')
   }, [open])
+
+  React.useEffect(() => {
+    if (hasUploadedFile && step === 'details') {
+      setCommunityId('44332')
+      setZipCode('99843')
+      setNumberOfLots('104')
+      setDivision('Northwestern')
+      setZone('Lorem Ipsum')
+      setMasterPlan('Northwestern')
+    }
+  }, [hasUploadedFile, step])
 
   React.useEffect(() => {
     if (step !== 'generating') return
@@ -59,12 +93,22 @@ export default function AddCommunityModal({
     }
   }, [progress, step])
 
+  const handleSave = () => {
+    onSave({
+      name,
+      division,
+      plans: 0,
+      specs: 0,
+      lots: parseInt(numberOfLots) || 0,
+    })
+  }
+
   const footer = (
     <div className={styles.footerRow}>
       {step === 'details' ? (
         <>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant="primary" onClick={() => onSave({ name })}>Save</Button>
+          <Button variant="primary" onClick={handleSave}>Save</Button>
         </>
       ) : (
         <Button onClick={onClose}>Close</Button>
@@ -163,17 +207,17 @@ export default function AddCommunityModal({
           <div className={styles.sectionTitle}>Community details</div>
 
           <div className={styles.grid}>
-            <div className={styles.field}><div className="label">Community ID</div><Input placeholder="Enter ID" defaultValue={hasUploadedFile ? "44332" : ""} /></div>
-            <div className={styles.field}><div className="label">Zip Code</div><Input placeholder="Enter zip code" defaultValue={hasUploadedFile ? "99843" : ""} /></div>
+            <div className={styles.field}><div className="label">Community ID</div><Input placeholder="Enter ID" value={communityId} onChange={(e) => setCommunityId(e.target.value)} /></div>
+            <div className={styles.field}><div className="label">Zip Code</div><Input placeholder="Enter zip code" value={zipCode} onChange={(e) => setZipCode(e.target.value)} /></div>
 
-            <div className={styles.field}><div className="label">Number of Lots</div><Input placeholder="Enter number of lots" defaultValue={hasUploadedFile ? "104" : ""} /></div>
-            <div className={styles.field}><div className="label">Expected Start Date</div><Input placeholder="Enter Date" /></div>
+            <div className={styles.field}><div className="label">Number of Lots</div><Input placeholder="Enter number of lots" value={numberOfLots} onChange={(e) => setNumberOfLots(e.target.value)} /></div>
+            <div className={styles.field}><div className="label">Expected Start Date</div><Input placeholder="Enter Date" value={startDate} onChange={(e) => setStartDate(e.target.value)} /></div>
 
-            <div className={styles.field}><div className="label">Number of Phases</div><Input placeholder="Enter number of phases" /></div>
-            <div className={styles.field}><div className="label">Division</div><Input placeholder="Enter division" defaultValue={hasUploadedFile ? "Northwestern" : ""} /></div>
+            <div className={styles.field}><div className="label">Number of Phases</div><Input placeholder="Enter number of phases" value={numberOfPhases} onChange={(e) => setNumberOfPhases(e.target.value)} /></div>
+            <div className={styles.field}><div className="label">Division</div><Input placeholder="Enter division" value={division} onChange={(e) => setDivision(e.target.value)} /></div>
 
-            <div className={styles.field}><div className="label">Zone</div><select className="select"><option>{hasUploadedFile ? "Lorem Ipsum" : "Select zone"}</option></select></div>
-            <div className={styles.field}><div className="label">Master Plan #</div><Input placeholder="Enter master plan number" defaultValue={hasUploadedFile ? "Northwestern" : ""} /></div>
+            <div className={styles.field}><div className="label">Zone</div><select className="select" value={zone} onChange={(e) => setZone(e.target.value)}><option value="">Select zone</option><option value="Lorem Ipsum">Lorem Ipsum</option></select></div>
+            <div className={styles.field}><div className="label">Master Plan #</div><Input placeholder="Enter master plan number" value={masterPlan} onChange={(e) => setMasterPlan(e.target.value)} /></div>
           </div>
         </div>
       )}
