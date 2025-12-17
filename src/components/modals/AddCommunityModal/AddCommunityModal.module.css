@@ -21,6 +21,14 @@
   color: var(--color-text-secondary);
   font-weight: 600;
   margin-top: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  width: 100%;
+}
+.manual:hover {
+  color: var(--color-text-primary);
 }
 
 .genCard { margin-top: 12px; }
@@ -84,6 +92,17 @@
   margin-top: 16px;
   display: flex;
   justify-content: flex-end;
+}
+.manualLink {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+.manualLink:hover {
+  color: var(--color-text-primary);
 }
 
 .details { margin-top: 12px; }
