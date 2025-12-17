@@ -38,8 +38,21 @@
 .genText { padding: 14px 0; }
 .genTitle { font-size: 22px; font-weight: 800; }
 .genSub { color: var(--color-text-secondary); margin-top: 4px; }
-.progress { margin-top: 12px; height: 6px; background: #dbeafe; border-radius: 999px; overflow: hidden; }
-.bar { height: 100%; width: 68%; background: var(--color-brand); }
+.progressWrapper { margin-top: 12px; display: flex; align-items: center; gap: 12px; }
+.progress { flex: 1; height: 6px; background: #dbeafe; border-radius: 999px; overflow: hidden; }
+.bar {
+  height: 100%;
+  background: var(--color-brand);
+  transition: width 0.3s ease-out;
+  border-radius: 999px;
+}
+.progressLabel {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  min-width: 40px;
+  text-align: right;
+}
 
 .fileRow {
   display: flex;
@@ -66,6 +79,12 @@
 }
 .fileName { font-weight: 700; }
 .fileSize { font-size: 12px; color: var(--color-text-tertiary); }
+
+.continueRow {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
 
 .details { margin-top: 12px; }
 .mapCard {

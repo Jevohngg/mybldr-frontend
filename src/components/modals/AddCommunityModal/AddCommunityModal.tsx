@@ -17,12 +17,36 @@ export default function AddCommunityModal({
 }) {
   const [step, setStep] = React.useState<Step>('upload')
   const [name, setName] = React.useState('Silver Lake')
+  const [progress, setProgress] = React.useState(0)
 
   React.useEffect(() => {
     if (!open) return
     setStep('upload')
     setName('Silver Lake')
+    setProgress(0)
   }, [open])
+
+  React.useEffect(() => {
+    if (step !== 'generating') return
+
+    setProgress(0)
+    const duration = 3000
+    const interval = 50
+    const increment = 100 / (duration / interval)
+
+    const timer = setInterval(() => {
+      setProgress(prev => {
+        const next = prev + increment
+        if (next >= 100) {
+          clearInterval(timer)
+          return 100
+        }
+        return next
+      })
+    }, interval)
+
+    return () => clearInterval(timer)
+  }, [step])
 
   const footer = (
     <div className={styles.footerRow}>
@@ -67,8 +91,11 @@ export default function AddCommunityModal({
           <div className={styles.genText}>
             <div className={styles.genTitle}>Generating community map</div>
             <div className={styles.genSub}>Analyzing project. You can close this window…</div>
-            <div className={styles.progress}>
-              <div className={styles.bar} />
+            <div className={styles.progressWrapper}>
+              <div className={styles.progress}>
+                <div className={styles.bar} style={{ width: `${progress}%` }} />
+              </div>
+              <div className={styles.progressLabel}>{Math.round(progress)}%</div>
             </div>
           </div>
 
@@ -83,7 +110,7 @@ export default function AddCommunityModal({
             <Button>Update</Button>
           </div>
 
-          <div style={{ marginTop: 16 }}>
+          <div className={styles.continueRow}>
             <Button variant="primary" onClick={() => setStep('details')}>Continue</Button>
           </div>
         </div>
