@@ -1,6 +1,6 @@
 import React from 'react'
 import { CommunityMapData, Lot } from '../types'
-import { communityLots } from '../../../mock-data/lots'
+import { useData } from '../../../app/providers'
 
 interface UseCommunityMapDataProps {
   communityId: string
@@ -8,6 +8,7 @@ interface UseCommunityMapDataProps {
 }
 
 export function useCommunityMapData({ communityId, communityName }: UseCommunityMapDataProps) {
+  const { lots: allLots } = useData()
   const [lots, setLots] = React.useState<Lot[]>([])
   const [mapImageUrl, setMapImageUrl] = React.useState<string | undefined>(undefined)
   const [isLoading, setIsLoading] = React.useState(false)
@@ -19,7 +20,7 @@ export function useCommunityMapData({ communityId, communityName }: UseCommunity
       setError(null)
 
       try {
-        const lotsData = communityLots[communityId] || []
+        const lotsData = allLots[communityId] || []
         setLots(lotsData)
       } catch (err) {
         console.error('Error loading map data:', err)
@@ -30,7 +31,7 @@ export function useCommunityMapData({ communityId, communityName }: UseCommunity
     }
 
     loadMapData()
-  }, [communityId])
+  }, [communityId, allLots])
 
   const mapData: CommunityMapData = React.useMemo(() => ({
     communityId,
