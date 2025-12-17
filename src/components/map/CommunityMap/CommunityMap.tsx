@@ -124,68 +124,28 @@ export default function CommunityMap({ data }: CommunityMapProps) {
             transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
           }}
         >
-          <rect x="0" y="0" width="1400" height="800" fill="#E8F0E8" />
+          <rect x="0" y="0" width="1400" height="800" fill="#E8EEE8" />
 
           {/* Water features */}
-          <ellipse cx="350" cy="180" rx="80" ry="60" fill="#A8C8E0" opacity="0.4" />
-          <ellipse cx="1050" cy="180" rx="75" ry="55" fill="#A8C8E0" opacity="0.4" />
-          <ellipse cx="1030" cy="620" rx="80" ry="55" fill="#A8C8E0" opacity="0.4" />
+          <ellipse cx="280" cy="150" rx="90" ry="65" fill="#B8D4E8" opacity="0.35" />
+          <ellipse cx="1120" cy="170" rx="85" ry="60" fill="#B8D4E8" opacity="0.35" />
+          <ellipse cx="1100" cy="650" rx="90" ry="60" fill="#B8D4E8" opacity="0.35" />
 
           {/* Trees */}
-          <circle cx="400" cy="150" r="25" fill="#7A9A7A" opacity="0.6" />
-          <circle cx="435" cy="140" r="22" fill="#6A8A6A" opacity="0.6" />
-          <circle cx="465" cy="155" r="27" fill="#7A9A7A" opacity="0.6" />
+          <circle cx="330" cy="120" r="22" fill="#8AA88A" opacity="0.5" />
+          <circle cx="360" cy="108" r="20" fill="#7A987A" opacity="0.5" />
+          <circle cx="390" cy="125" r="24" fill="#8AA88A" opacity="0.5" />
 
-          <circle cx="1080" cy="240" r="24" fill="#7A9A7A" opacity="0.6" />
-          <circle cx="1110" cy="265" r="27" fill="#6A8A6A" opacity="0.6" />
-          <circle cx="1100" cy="305" r="23" fill="#7A9A7A" opacity="0.6" />
+          <circle cx="1150" cy="230" r="21" fill="#8AA88A" opacity="0.5" />
+          <circle cx="1180" cy="255" r="24" fill="#7A987A" opacity="0.5" />
+          <circle cx="1170" cy="290" r="20" fill="#8AA88A" opacity="0.5" />
 
-          <circle cx="480" cy="640" r="25" fill="#7A9A7A" opacity="0.6" />
-          <circle cx="515" cy="653" r="22" fill="#6A8A6A" opacity="0.6" />
-          <circle cx="545" cy="645" r="24" fill="#7A9A7A" opacity="0.6" />
+          <circle cx="380" cy="680" r="22" fill="#8AA88A" opacity="0.5" />
+          <circle cx="410" cy="693" r="20" fill="#7A987A" opacity="0.5" />
+          <circle cx="440" cy="685" r="21" fill="#8AA88A" opacity="0.5" />
 
-          {/* Main development area */}
-          <ellipse cx="700" cy="400" rx="320" ry="245" fill="#D5D5CA" opacity="0.95" />
-
-          {/* Outer ring road */}
-          <ellipse cx="700" cy="400" rx="185" ry="150" fill="none" stroke="white" strokeWidth="45" opacity="0.9" />
-
-          {/* Inner ring road */}
-          <ellipse cx="700" cy="400" rx="105" ry="85" fill="none" stroke="white" strokeWidth="35" opacity="0.9" />
-
-          {/* Center circle */}
-          <circle cx="700" cy="400" r="40" fill="white" opacity="0.9" />
-
-          {/* Connecting roads */}
-          <rect x="685" y="200" width="30" height="50" fill="white" opacity="0.9" />
-          <rect x="685" y="550" width="30" height="50" fill="white" opacity="0.9" />
-
-          {/* Background lots - outer ring top section */}
-          <polygon points="590,230 625,226 629,272 590,276" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-          <polygon points="830,235 865,242 862,288 827,281" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-
-          {/* Background lots - right side */}
-          <polygon points="865,510 905,525 901,571 861,556" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-
-          {/* Background lots - bottom section */}
-          <polygon points="585,570 625,574 621,620 581,616" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-          <polygon points="805,568 845,575 841,621 801,614" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-
-          {/* Background lots - left side */}
-          <polygon points="510,330 545,339 542,385 507,376" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-          <polygon points="502,275 537,284 534,330 499,321" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-
-          {/* Background lots - inner ring - more compact */}
-          <polygon points="670,325 705,323 707,365 670,367" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-          <polygon points="730,323 765,325 767,367 730,365" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-          <polygon points="742,465 777,463 779,505 742,507" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-          <polygon points="690,468 725,470 727,512 690,510" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-          <polygon points="630,468 665,470 667,512 630,510" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-          <polygon points="585,452 620,454 622,496 585,494" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-          <polygon points="562,395 597,397 599,439 562,437" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-          <polygon points="570,340 605,342 607,384 570,382" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-          <polygon points="770,375 805,373 807,415 770,417" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
-          <polygon points="790,328 825,326 827,368 790,370" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
+          {/* Main development boundary */}
+          <rect x="400" y="200" width="600" height="450" fill="#D8D8D0" opacity="0.3" rx="8" />
 
           {lots.map((lot) => (
             <MapLot
