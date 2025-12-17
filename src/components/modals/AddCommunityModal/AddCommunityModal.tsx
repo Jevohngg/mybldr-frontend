@@ -65,7 +65,7 @@ export default function AddCommunityModal({
     <BaseModal open={open} title="Add Community" onClose={onClose} footer={step === 'details' ? footer : undefined} width={880}>
       <div className={styles.field}>
         <div className="label">Community Name</div>
-        <Input value={name} onChange={(e) => setName(e.target.value)} />
+        <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter community name" />
       </div>
 
       {step === 'upload' && (
