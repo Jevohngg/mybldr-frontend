@@ -5,6 +5,7 @@ import Button from '../../components/ui/Button'
 import PlanCard from '../../components/cards/PlanCard/PlanCard'
 import CommunityMap from '../../components/map/CommunityMap/CommunityMap'
 import AddPlansModal from '../../components/modals/AddPlansModal/AddPlansModal'
+import { useCommunityMapData } from '../../components/map'
 import styles from './CommunityOverview.module.css'
 
 type ViewMode = 'cards' | 'list' | 'grid'
@@ -18,6 +19,11 @@ export default function CommunityOverview() {
   const [addPlansOpen, setAddPlansOpen] = React.useState(false)
   const [selectedPlans, setSelectedPlans] = React.useState<string[]>([...community.planIds])
   const [viewMode, setViewMode] = React.useState<ViewMode>('cards')
+
+  const { mapData } = useCommunityMapData({
+    communityId: community.id,
+    communityName: community.name,
+  })
 
   React.useEffect(() => {
     setSelectedPlans([...community.planIds])
@@ -252,7 +258,7 @@ export default function CommunityOverview() {
           </div>
 
           <div className={styles.mapWrap}>
-            <CommunityMap />
+            <CommunityMap data={mapData} />
           </div>
         </>
       )}

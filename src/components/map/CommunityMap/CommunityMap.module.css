@@ -34,6 +34,15 @@
   align-items: center;
   justify-content: center;
   background: #f9fafb;
+  overflow: hidden;
+  user-select: none;
+}
+
+.mapSvg {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.1s ease-out;
+  transform-origin: center;
 }
 
 .mapPlaceholder {

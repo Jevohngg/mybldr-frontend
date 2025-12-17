@@ -1,11 +1,15 @@
 import styles from './MapLegend.module.css'
 
-export default function MapLegend() {
+interface MapLegendProps {
+  communityName: string
+}
+
+export default function MapLegend({ communityName }: MapLegendProps) {
   return (
     <div className={styles.legend}>
       <div className={styles.header}>
-        {/* TODO: add logo at public/assets/logos/oakrest.svg */}
-        <div className={styles.logoPh}>Oakrest Ridge</div>
+        {/* TODO: add logo at public/assets/logos/community.svg */}
+        <div className={styles.logoPh}>{communityName}</div>
         <div className={styles.title}>Legend</div>
         <div className={styles.caret} aria-hidden="true">▾</div>
       </div>
