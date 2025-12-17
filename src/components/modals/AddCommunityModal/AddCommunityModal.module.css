@@ -114,11 +114,10 @@
 }
 .mapPh {
   height: 220px;
+  width: 100%;
+  object-fit: cover;
   background: #f3f4f6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-text-tertiary);
+  display: block;
 }
 .mapCaption { padding: 12px 14px; border-top: 1px solid var(--color-border); }
 .mapCaptionTitle { font-weight: 800; font-size: 22px; }

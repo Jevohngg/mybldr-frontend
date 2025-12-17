@@ -175,7 +175,7 @@ export default function AddCommunityModal({
         <div className={styles.details}>
           {hasUploadedFile ? (
             <div className={styles.mapCard}>
-              <div className={styles.mapPh}>Generated community map preview</div>
+              <img src="/assets/maps/placeholder.png" alt="Community map preview" className={styles.mapPh} />
               <div className={styles.mapCaption}>
                 <div className={styles.mapCaptionTitle}>Community map</div>
                 <div className={styles.mapCaptionSub}>This was generated based on the map you uploaded.</div>
