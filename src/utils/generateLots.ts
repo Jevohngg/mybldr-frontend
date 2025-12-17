@@ -15,23 +15,51 @@ function getRandomStatus(): LotStatus {
   return 'available'
 }
 
-export function generateDefaultLots(communityId: string, count: number): Lot[] {
+export function generateDefaultLots(communityId: string): Lot[] {
   const lots: Lot[] = []
-  const startX = 420
-  const startY = 220
-  const lotWidth = 80
-  const lotHeight = 80
-  const lotsPerRow = 7
 
-  for (let i = 0; i < count; i++) {
-    const row = Math.floor(i / lotsPerRow)
-    const col = i % lotsPerRow
+  const row1 = [
+    { x1: 420, y1: 220, x2: 500, y2: 300 },
+    { x1: 520, y1: 220, x2: 600, y2: 300 },
+    { x1: 620, y1: 220, x2: 700, y2: 300 },
+    { x1: 720, y1: 220, x2: 800, y2: 300 },
+    { x1: 820, y1: 220, x2: 900, y2: 300 },
+    { x1: 920, y1: 220, x2: 1000, y2: 300 },
+    { x1: 1020, y1: 220, x2: 1100, y2: 300 },
+  ]
 
-    const x1 = startX + col * (lotWidth + 20)
-    const y1 = startY + row * (lotHeight + 20)
-    const x2 = x1 + lotWidth
-    const y2 = y1 + lotHeight
+  const row2 = [
+    { x1: 420, y1: 320, x2: 500, y2: 400 },
+    { x1: 520, y1: 320, x2: 600, y2: 400 },
+    { x1: 620, y1: 320, x2: 700, y2: 400 },
+    { x1: 720, y1: 320, x2: 800, y2: 400 },
+    { x1: 820, y1: 320, x2: 900, y2: 400 },
+    { x1: 920, y1: 320, x2: 1000, y2: 400 },
+    { x1: 1020, y1: 320, x2: 1100, y2: 400 },
+  ]
 
+  const row3 = [
+    { x1: 420, y1: 420, x2: 500, y2: 500 },
+    { x1: 520, y1: 420, x2: 600, y2: 500 },
+    { x1: 620, y1: 420, x2: 700, y2: 500 },
+    { x1: 720, y1: 420, x2: 800, y2: 500 },
+    { x1: 820, y1: 420, x2: 900, y2: 500 },
+    { x1: 920, y1: 420, x2: 1000, y2: 500 },
+    { x1: 1020, y1: 420, x2: 1100, y2: 500 },
+  ]
+
+  const row4 = [
+    { x1: 520, y1: 520, x2: 620, y2: 600 },
+    { x1: 640, y1: 520, x2: 740, y2: 600 },
+    { x1: 760, y1: 520, x2: 860, y2: 600 },
+    { x1: 880, y1: 520, x2: 980, y2: 600 },
+    { x1: 1000, y1: 520, x2: 1100, y2: 600 },
+  ]
+
+  const allPositions = [...row1, ...row2, ...row3, ...row4]
+
+  for (let i = 0; i < allPositions.length; i++) {
+    const pos = allPositions[i]
     const lotNumber = String(801 + i)
     const status = getRandomStatus()
     const moveInReady = status === 'available' && Math.random() > 0.7
@@ -43,7 +71,7 @@ export function generateDefaultLots(communityId: string, count: number): Lot[] {
       status,
       moveInReady,
       position: {
-        points: `${x1},${y1} ${x2},${y1} ${x2},${y2} ${x1},${y2}`
+        points: `${pos.x1},${pos.y1} ${pos.x2},${pos.y1} ${pos.x2},${pos.y2} ${pos.x1},${pos.y2}`
       },
       shape_type: 'polygon'
     })

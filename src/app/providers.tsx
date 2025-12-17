@@ -50,7 +50,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     }
     setCommunities(prev => [...prev, community])
 
-    const defaultLots = generateDefaultLots(id, newCommunity.lots || 0)
+    const defaultLots = generateDefaultLots(id)
     setLots(prev => ({ ...prev, [id]: defaultLots }))
   }, [])
 
