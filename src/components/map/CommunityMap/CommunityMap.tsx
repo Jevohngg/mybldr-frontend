@@ -35,7 +35,7 @@ export default function CommunityMap({ data }: CommunityMapProps) {
   }
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (e.button === 0 && e.target === svgRef.current) {
+    if (e.button === 0) {
       setIsDragging(true)
       setDragStart({ x: e.clientX - position.x, y: e.clientY - position.y })
     }
