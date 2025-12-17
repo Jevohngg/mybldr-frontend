@@ -7,7 +7,7 @@ interface MapLotProps {
   isHovered: boolean
   isSelected: boolean
   onHover: (lotId: string | null) => void
-  onClick: (lot: Lot) => void
+  onClick: (lot: Lot, event: React.MouseEvent) => void
   scale: number
 }
 
@@ -83,8 +83,8 @@ export default function MapLot({
     onHover(null)
   }
 
-  const handleClick = () => {
-    onClick(lot)
+  const handleClick = (event: React.MouseEvent) => {
+    onClick(lot, event)
   }
 
   if (lot.shape_type === 'polygon' && lot.position?.points) {

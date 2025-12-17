@@ -54,24 +54,16 @@ export default function CommunityMap({ data }: CommunityMapProps) {
     setIsDragging(false)
   }
 
-  const handleLotClick = (lot: Lot) => {
-    if (!svgRef.current) return
+  const handleLotClick = (lot: Lot, event: React.MouseEvent) => {
+    const canvas = (event.currentTarget as Element).closest(`.${styles.canvas}`)
+    if (!canvas) return
 
-    const lotPoints = lot.position?.points?.split(' ').map((p) => {
-      const [x, y] = p.split(',').map(Number)
-      return { x, y }
-    }) || []
+    const canvasRect = canvas.getBoundingClientRect()
+    const centerX = canvasRect.width / 2
+    const centerY = canvasRect.height / 2
 
-    if (lotPoints.length > 0) {
-      const centerX = lotPoints.reduce((sum, p) => sum + p.x, 0) / lotPoints.length
-      const centerY = lotPoints.reduce((sum, p) => sum + p.y, 0) / lotPoints.length
-
-      const relativeX = (centerX * scale) + position.x
-      const relativeY = (centerY * scale) + position.y
-
-      setPopupPosition({ x: relativeX, y: relativeY })
-      setSelectedLot(lot)
-    }
+    setPopupPosition({ x: centerX, y: centerY })
+    setSelectedLot(lot)
   }
 
   const handleWheel = (e: React.WheelEvent) => {
