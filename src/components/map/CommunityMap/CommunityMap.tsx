@@ -76,12 +76,6 @@ export default function CommunityMap({ data }: CommunityMapProps) {
     setSelectedLot(lot)
   }
 
-  const handleWheel = (e: React.WheelEvent) => {
-    e.preventDefault()
-    const delta = e.deltaY > 0 ? 0.9 : 1.1
-    setScale((prev) => Math.min(Math.max(prev * delta, 0.5), 4))
-  }
-
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && selectedLot) {
@@ -111,7 +105,6 @@ export default function CommunityMap({ data }: CommunityMapProps) {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
-        onWheel={handleWheel}
         onClick={handleCanvasClick}
         style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
       >
