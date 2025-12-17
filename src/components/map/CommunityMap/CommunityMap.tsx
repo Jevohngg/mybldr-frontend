@@ -117,7 +117,7 @@ export default function CommunityMap({ data }: CommunityMapProps) {
       >
         <svg
           ref={svgRef}
-          viewBox="350 150 700 500"
+          viewBox="250 100 900 600"
           preserveAspectRatio="xMidYMid meet"
           className={styles.mapSvg}
           style={{
