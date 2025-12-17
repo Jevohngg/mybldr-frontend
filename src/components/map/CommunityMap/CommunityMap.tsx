@@ -147,16 +147,6 @@ export default function CommunityMap({ data }: CommunityMapProps) {
           {/* Road surface - fills gaps between lots */}
           <rect x="380" y="180" width="650" height="540" fill="#C4C0B8" opacity="0.3" rx="4" />
 
-          {/* Main entrance at bottom */}
-          <rect x="685" y="695" width="30" height="25" fill="#C4C0B8" opacity="0.35" />
-          <path
-            d="M 685,705 L 700,715 L 715,705"
-            fill="none"
-            stroke="#9A958D"
-            strokeWidth="2"
-            opacity="0.5"
-          />
-
           {lots.map((lot) => (
             <MapLot
               key={lot.id}
