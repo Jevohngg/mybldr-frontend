@@ -126,49 +126,39 @@ export default function CommunityMap({ data }: CommunityMapProps) {
         >
           <rect x="0" y="0" width="1400" height="800" fill="#E8F0E8" />
 
-          {/* Water features - smaller and at edges */}
-          <ellipse cx="400" cy="220" rx="75" ry="55" fill="#A8C8E0" opacity="0.5" />
-          <ellipse cx="1000" cy="200" rx="70" ry="50" fill="#A8C8E0" opacity="0.5" />
-          <ellipse cx="970" cy="590" rx="75" ry="50" fill="#A8C8E0" opacity="0.5" />
+          {/* Water features */}
+          <ellipse cx="350" cy="180" rx="80" ry="60" fill="#A8C8E0" opacity="0.4" />
+          <ellipse cx="1050" cy="180" rx="75" ry="55" fill="#A8C8E0" opacity="0.4" />
+          <ellipse cx="1030" cy="620" rx="80" ry="55" fill="#A8C8E0" opacity="0.4" />
 
-          {/* Trees - smaller and at perimeter */}
-          <circle cx="450" cy="170" r="28" fill="#6B8E6B" opacity="0.7" />
-          <circle cx="490" cy="158" r="25" fill="#5A7A5A" opacity="0.7" />
-          <circle cx="525" cy="175" r="30" fill="#6B8E6B" opacity="0.7" />
+          {/* Trees */}
+          <circle cx="400" cy="150" r="25" fill="#7A9A7A" opacity="0.6" />
+          <circle cx="435" cy="140" r="22" fill="#6A8A6A" opacity="0.6" />
+          <circle cx="465" cy="155" r="27" fill="#7A9A7A" opacity="0.6" />
 
-          <circle cx="1020" cy="280" r="27" fill="#6B8E6B" opacity="0.7" />
-          <circle cx="1055" cy="310" r="30" fill="#5A7A5A" opacity="0.7" />
-          <circle cx="1040" cy="350" r="26" fill="#6B8E6B" opacity="0.7" />
+          <circle cx="1080" cy="240" r="24" fill="#7A9A7A" opacity="0.6" />
+          <circle cx="1110" cy="265" r="27" fill="#6A8A6A" opacity="0.6" />
+          <circle cx="1100" cy="305" r="23" fill="#7A9A7A" opacity="0.6" />
 
-          <circle cx="520" cy="610" r="28" fill="#6B8E6B" opacity="0.7" />
-          <circle cx="560" cy="623" r="25" fill="#5A7A5A" opacity="0.7" />
-          <circle cx="600" cy="615" r="27" fill="#6B8E6B" opacity="0.7" />
+          <circle cx="480" cy="640" r="25" fill="#7A9A7A" opacity="0.6" />
+          <circle cx="515" cy="653" r="22" fill="#6A8A6A" opacity="0.6" />
+          <circle cx="545" cy="645" r="24" fill="#7A9A7A" opacity="0.6" />
 
-          <circle cx="965" cy="540" r="25" fill="#6B8E6B" opacity="0.7" />
-          <circle cx="1000" cy="565" r="28" fill="#5A7A5A" opacity="0.7" />
-          <circle cx="980" cy="510" r="24" fill="#6B8E6B" opacity="0.7" />
+          {/* Main development area */}
+          <ellipse cx="700" cy="400" rx="320" ry="245" fill="#D5D5CA" opacity="0.95" />
 
-          {/* Main community area - much larger */}
-          <path
-            d="M 850,400 Q 850,240 680,170 Q 550,120 430,170 Q 350,210 330,340 Q 320,430 380,550 Q 440,650 570,710 Q 710,770 830,720 Q 970,660 1010,530 Q 1030,440 970,340 Q 935,260 870,220"
-            fill="#D8D8D0"
-            stroke="white"
-            strokeWidth="4"
-            opacity="0.9"
-          />
+          {/* Outer ring road */}
+          <ellipse cx="700" cy="400" rx="185" ry="150" fill="none" stroke="white" strokeWidth="45" opacity="0.9" />
 
-          {/* Outer ring road - more compact */}
-          <ellipse cx="700" cy="400" rx="185" ry="150" fill="none" stroke="white" strokeWidth="45" opacity="0.85" />
-
-          {/* Inner ring road - more compact */}
-          <ellipse cx="700" cy="400" rx="105" ry="85" fill="none" stroke="white" strokeWidth="35" opacity="0.85" />
+          {/* Inner ring road */}
+          <ellipse cx="700" cy="400" rx="105" ry="85" fill="none" stroke="white" strokeWidth="35" opacity="0.9" />
 
           {/* Center circle */}
-          <circle cx="700" cy="400" r="40" fill="white" opacity="0.85" />
+          <circle cx="700" cy="400" r="40" fill="white" opacity="0.9" />
 
           {/* Connecting roads */}
-          <path d="M 910 250 Q 860 230 790 235" fill="none" stroke="white" strokeWidth="32" opacity="0.85" />
-          <path d="M 540 580 Q 575 605 635 615" fill="none" stroke="white" strokeWidth="32" opacity="0.85" />
+          <rect x="685" y="200" width="30" height="50" fill="white" opacity="0.9" />
+          <rect x="685" y="550" width="30" height="50" fill="white" opacity="0.9" />
 
           {/* Background lots - outer ring top section */}
           <polygon points="590,230 625,226 629,272 590,276" fill="#C8C8C0" opacity="0.5" stroke="white" strokeWidth="1.5" />
