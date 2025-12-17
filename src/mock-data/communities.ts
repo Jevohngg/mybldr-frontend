@@ -19,4 +19,4 @@ export const communities = [
     thumbnail: 'real-forest-thumb.png',
     planIds: ['serena', 'charlotte', 'aiden', 'davenport'],
   },
-] as const
+]
