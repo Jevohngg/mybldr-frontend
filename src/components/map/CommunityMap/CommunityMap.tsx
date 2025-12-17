@@ -144,47 +144,18 @@ export default function CommunityMap({ data }: CommunityMapProps) {
           <circle cx="410" cy="693" r="20" fill="#7A987A" opacity="0.5" />
           <circle cx="440" cy="685" r="21" fill="#8AA88A" opacity="0.5" />
 
-          {/* Main development boundary */}
-          <rect x="400" y="200" width="600" height="450" fill="#D8D8D0" opacity="0.3" rx="8" />
+          {/* Road surface - fills gaps between lots */}
+          <rect x="380" y="180" width="650" height="540" fill="#C4C0B8" opacity="0.3" rx="4" />
 
-          {/* Roads - Logical street layout */}
-
-          {/* Main perimeter road around community */}
+          {/* Main entrance at bottom */}
+          <rect x="685" y="695" width="30" height="25" fill="#C4C0B8" opacity="0.35" />
           <path
-            d="M 385,185 L 1015,185 L 1015,665 L 385,665 Z"
+            d="M 685,705 L 700,715 L 715,705"
             fill="none"
-            stroke="#C4C0B8"
-            strokeWidth="30"
-            opacity="0.35"
+            stroke="#9A958D"
+            strokeWidth="2"
+            opacity="0.5"
           />
-
-          {/* Horizontal interior streets creating blocks */}
-          {/* Upper interior street - homes on both sides face this */}
-          <rect x="415" y="338" width="570" height="24" fill="#C4C0B8" opacity="0.35" />
-
-          {/* Lower interior street - homes on both sides face this */}
-          <rect x="415" y="488" width="570" height="24" fill="#C4C0B8" opacity="0.35" />
-
-          {/* Main entrance at bottom center */}
-          <rect x="685" y="665" width="30" height="35" fill="#C4C0B8" opacity="0.4" />
-
-          {/* Entrance arrow indicator */}
-          <path
-            d="M 685,680 L 700,695 L 715,680"
-            fill="none"
-            stroke="#C4C0B8"
-            strokeWidth="2.5"
-            opacity="0.45"
-          />
-
-          {/* Subtle road center lines */}
-          <line x1="400" y1="200" x2="1000" y2="200" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="6,4" opacity="0.3" />
-          <line x1="1000" y1="200" x2="1000" y2="650" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="6,4" opacity="0.3" />
-          <line x1="1000" y1="650" x2="400" y2="650" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="6,4" opacity="0.3" />
-          <line x1="400" y1="650" x2="400" y2="200" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="6,4" opacity="0.3" />
-
-          <line x1="430" y1="350" x2="970" y2="350" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="6,4" opacity="0.3" />
-          <line x1="430" y1="500" x2="970" y2="500" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="6,4" opacity="0.3" />
 
           {lots.map((lot) => (
             <MapLot
