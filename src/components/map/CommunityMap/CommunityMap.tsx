@@ -13,7 +13,7 @@ export default function CommunityMap({ data }: CommunityMapProps) {
   const { communityName, lots } = data
 
   const svgRef = React.useRef<SVGSVGElement>(null)
-  const [scale, setScale] = React.useState(1.2)
+  const [scale, setScale] = React.useState(1.5)
   const [position, setPosition] = React.useState({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = React.useState(false)
   const [dragStart, setDragStart] = React.useState({ x: 0, y: 0 })
@@ -26,11 +26,11 @@ export default function CommunityMap({ data }: CommunityMapProps) {
   }
 
   const handleZoomOut = () => {
-    setScale((prev) => Math.max(prev / 1.3, 0.3))
+    setScale((prev) => Math.max(prev / 1.3, 0.5))
   }
 
   const handleReset = () => {
-    setScale(1.2)
+    setScale(1.5)
     setPosition({ x: 0, y: 0 })
   }
 
@@ -117,61 +117,32 @@ export default function CommunityMap({ data }: CommunityMapProps) {
       >
         <svg
           ref={svgRef}
-          viewBox="0 0 2400 1600"
+          viewBox="0 0 1400 800"
           preserveAspectRatio="xMidYMid meet"
           className={styles.mapSvg}
           style={{
             transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
           }}
         >
-          <rect x="0" y="0" width="2400" height="1600" fill="#E8EEE8" />
+          <rect x="0" y="0" width="1400" height="800" fill="#E8EEE8" />
 
-          {/* Water features - expanded */}
-          <ellipse cx="280" cy="250" rx="110" ry="80" fill="#B8D4E8" opacity="0.35" />
-          <ellipse cx="1950" cy="320" rx="130" ry="95" fill="#B8D4E8" opacity="0.35" />
-          <ellipse cx="1850" cy="1250" rx="140" ry="100" fill="#B8D4E8" opacity="0.35" />
-          <ellipse cx="450" cy="1350" rx="120" ry="85" fill="#B8D4E8" opacity="0.35" />
-          <ellipse cx="2100" cy="800" rx="100" ry="70" fill="#B8D4E8" opacity="0.35" />
-          <ellipse cx="200" cy="900" rx="95" ry="65" fill="#B8D4E8" opacity="0.35" />
+          {/* Water features */}
+          <ellipse cx="280" cy="150" rx="90" ry="65" fill="#B8D4E8" opacity="0.35" />
+          <ellipse cx="1120" cy="170" rx="85" ry="60" fill="#B8D4E8" opacity="0.35" />
+          <ellipse cx="1100" cy="650" rx="90" ry="60" fill="#B8D4E8" opacity="0.35" />
 
-          {/* Trees - expanded across canvas */}
-          {/* Top left area */}
-          <circle cx="330" cy="180" r="22" fill="#8AA88A" opacity="0.5" />
-          <circle cx="360" cy="160" r="20" fill="#7A987A" opacity="0.5" />
-          <circle cx="390" cy="195" r="24" fill="#8AA88A" opacity="0.5" />
-          <circle cx="250" cy="140" r="21" fill="#8AA88A" opacity="0.5" />
-          <circle cx="280" cy="165" r="23" fill="#7A987A" opacity="0.5" />
+          {/* Trees */}
+          <circle cx="330" cy="120" r="22" fill="#8AA88A" opacity="0.5" />
+          <circle cx="360" cy="108" r="20" fill="#7A987A" opacity="0.5" />
+          <circle cx="390" cy="125" r="24" fill="#8AA88A" opacity="0.5" />
 
-          {/* Top right area */}
-          <circle cx="1950" cy="210" r="21" fill="#8AA88A" opacity="0.5" />
-          <circle cx="1980" cy="235" r="24" fill="#7A987A" opacity="0.5" />
-          <circle cx="2020" cy="195" r="20" fill="#8AA88A" opacity="0.5" />
-          <circle cx="2100" cy="250" r="22" fill="#7A987A" opacity="0.5" />
-          <circle cx="2150" cy="180" r="21" fill="#8AA88A" opacity="0.5" />
+          <circle cx="1150" cy="230" r="21" fill="#8AA88A" opacity="0.5" />
+          <circle cx="1180" cy="255" r="24" fill="#7A987A" opacity="0.5" />
+          <circle cx="1170" cy="290" r="20" fill="#8AA88A" opacity="0.5" />
 
-          {/* Bottom left area */}
-          <circle cx="380" cy="1300" r="22" fill="#8AA88A" opacity="0.5" />
-          <circle cx="410" cy="1330" r="20" fill="#7A987A" opacity="0.5" />
-          <circle cx="340" cy="1280" r="21" fill="#8AA88A" opacity="0.5" />
-          <circle cx="250" cy="1400" r="23" fill="#7A987A" opacity="0.5" />
-          <circle cx="290" cy="1370" r="22" fill="#8AA88A" opacity="0.5" />
-
-          {/* Bottom right area */}
-          <circle cx="1900" cy="1350" r="22" fill="#8AA88A" opacity="0.5" />
-          <circle cx="1940" cy="1380" r="24" fill="#7A987A" opacity="0.5" />
-          <circle cx="1980" cy="1340" r="21" fill="#8AA88A" opacity="0.5" />
-          <circle cx="2080" cy="1420" r="23" fill="#7A987A" opacity="0.5" />
-          <circle cx="2120" cy="1380" r="22" fill="#8AA88A" opacity="0.5" />
-
-          {/* Right side */}
-          <circle cx="2150" cy="650" r="21" fill="#8AA88A" opacity="0.5" />
-          <circle cx="2180" cy="690" r="23" fill="#7A987A" opacity="0.5" />
-          <circle cx="2200" cy="730" r="20" fill="#8AA88A" opacity="0.5" />
-
-          {/* Left side */}
-          <circle cx="150" cy="500" r="22" fill="#8AA88A" opacity="0.5" />
-          <circle cx="180" cy="540" r="21" fill="#7A987A" opacity="0.5" />
-          <circle cx="200" cy="580" r="23" fill="#8AA88A" opacity="0.5" />
+          <circle cx="380" cy="680" r="22" fill="#8AA88A" opacity="0.5" />
+          <circle cx="410" cy="693" r="20" fill="#7A987A" opacity="0.5" />
+          <circle cx="440" cy="685" r="21" fill="#8AA88A" opacity="0.5" />
 
           {/* Road surface - fills gaps between lots */}
           <rect x="400" y="200" width="720" height="420" fill="#C4C0B8" opacity="0.3" rx="4" />
