@@ -75,15 +75,10 @@
 }
 .fileLeft { display: flex; gap: 12px; align-items: center; }
 .pdf {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  background: #fee2e2;
-  border: 1px solid #fecaca;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  color: #b91c1c;
+  width: 40px;
+  height: 40px;
+  display: block;
+  object-fit: contain;
 }
 .fileName { font-weight: 700; }
 .fileSize { font-size: 12px; color: var(--color-text-tertiary); }

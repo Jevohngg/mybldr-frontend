@@ -156,7 +156,7 @@ export default function AddCommunityModal({
 
           <div className={styles.fileRow}>
             <div className={styles.fileLeft}>
-              <div className={styles.pdf}>PDF</div>
+              <img src="/assets/pdf.png" alt="PDF" className={styles.pdf} />
               <div>
                 <div className={styles.fileName}>community_map.pdf</div>
                 <div className={styles.fileSize}>100kb</div>
@@ -182,7 +182,7 @@ export default function AddCommunityModal({
               </div>
               <div className={styles.fileRow}>
                 <div className={styles.fileLeft}>
-                  <div className={styles.pdf}>PDF</div>
+                  <img src="/assets/pdf.png" alt="PDF" className={styles.pdf} />
                   <div>
                     <div className={styles.fileName}>community_map.pdf</div>
                     <div className={styles.fileSize}>100kb</div>
