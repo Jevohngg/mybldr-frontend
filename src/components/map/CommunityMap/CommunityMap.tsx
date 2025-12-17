@@ -54,6 +54,16 @@ export default function CommunityMap({ data }: CommunityMapProps) {
     setIsDragging(false)
   }
 
+  const handleCanvasClick = (e: React.MouseEvent) => {
+    if (!isDragging && selectedLot) {
+      const target = e.target as Element
+      if (!target.closest(`.${styles.canvas} svg`)) {
+        return
+      }
+      setSelectedLot(null)
+    }
+  }
+
   const handleLotClick = (lot: Lot, event: React.MouseEvent) => {
     const canvas = (event.currentTarget as Element).closest(`.${styles.canvas}`)
     if (!canvas) return
@@ -102,6 +112,7 @@ export default function CommunityMap({ data }: CommunityMapProps) {
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         onWheel={handleWheel}
+        onClick={handleCanvasClick}
         style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
       >
         <svg
