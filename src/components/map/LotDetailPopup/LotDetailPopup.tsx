@@ -102,7 +102,14 @@ export default function LotDetailPopup({ lot, position, onClose }: LotDetailPopu
         )}
       </div>
 
-      {matchingPlans.length > 0 && (
+      {lot.status === 'reserved' ? (
+        <div className={styles.plansSection}>
+          <h4 className={styles.sectionTitle}>Matching Plans</h4>
+          <div className={styles.reservedMessage}>
+            <p>This lot is reserved and there are no matching plans available at this time.</p>
+          </div>
+        </div>
+      ) : matchingPlans.length > 0 ? (
         <div className={styles.plansSection}>
           <h4 className={styles.sectionTitle}>Matching Plans</h4>
           <div className={styles.plansList}>
@@ -145,7 +152,7 @@ export default function LotDetailPopup({ lot, position, onClose }: LotDetailPopu
             ))}
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   )
 }
