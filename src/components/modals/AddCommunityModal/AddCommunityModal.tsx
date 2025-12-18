@@ -174,11 +174,13 @@ export default function AddCommunityModal({
       {step === 'details' && (
         <div className={styles.details}>
           {hasUploadedFile ? (
-            <div className={styles.mapCard}>
-              <img src="/assets/maps/placeholder2.png" alt="Community map preview" className={styles.mapPh} />
-              <div className={styles.mapCaption}>
-                <div className={styles.mapCaptionTitle}>Community map</div>
-                <div className={styles.mapCaptionSub}>This was generated based on the map you uploaded.</div>
+            <>
+              <div className={styles.mapCard}>
+                <img src="/assets/maps/placeholder2.png" alt="Community map preview" className={styles.mapPh} />
+                <div className={styles.mapCaption}>
+                  <div className={styles.mapCaptionTitle}>Community map</div>
+                  <div className={styles.mapCaptionSub}>This was generated based on the map you uploaded.</div>
+                </div>
               </div>
               <div className={styles.fileRow}>
                 <div className={styles.fileLeft}>
@@ -190,7 +192,7 @@ export default function AddCommunityModal({
                 </div>
                 <Button>Update</Button>
               </div>
-            </div>
+            </>
           ) : (
             <div className={styles.uploadCard}>
               <div className={styles.drop}>
