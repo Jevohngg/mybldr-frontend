@@ -16,7 +16,6 @@
   position: relative;
   background: white;
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.08);
   box-shadow: 0 28px 80px rgba(0,0,0,0.45);
   overflow: hidden;
   max-height: calc(100vh - 44px);
@@ -28,14 +27,12 @@
   align-items: center;
   justify-content: space-between;
   padding: 18px 20px;
-  border-bottom: 1px solid var(--color-border);
   flex-shrink: 0;
 }
 .title { font-size: 22px; font-weight: 700; }
 .close {
   width: 34px; height: 34px;
   border-radius: 8px;
-  border: 1px solid var(--color-border);
   background: white;
   cursor: pointer;
 }
