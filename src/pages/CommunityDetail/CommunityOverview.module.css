@@ -31,8 +31,8 @@
   align-items: center;
   gap: var(--3, 0.375rem);
   border-radius: var(--borderRadius, 0.25rem);
-border: 1px solid var(--Colors-Border-border-primary, #D8D9DA);
-background: var(--Colors-Background-bg-primary, #FFF);
+  border: 1px solid var(--Colors-Border-border-primary, #D8D9DA);
+  background: var(--Colors-Background-bg-primary, #FFF);
 }
 
 .iconButtonIcon {
@@ -41,13 +41,11 @@ background: var(--Colors-Background-bg-primary, #FFF);
   display: block;
   opacity: 0.9;
   display: flex;
-justify-content: center;
-align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Primary "Add New" button */
-
-
 .buttonContent {
   display: inline-flex;
   align-items: center;
@@ -122,21 +120,21 @@ align-items: center;
   gap: var(--3, 0.375rem);
 
   border-radius: var(--borderRadius, 0.25rem);
-border: 1px solid var(--Colors-Border-border-primary, #D8D9DA);
-background: var(--Colors-Background-bg-primary, #FFF);
+  border: 1px solid var(--Colors-Border-border-primary, #D8D9DA);
+  background: var(--Colors-Background-bg-primary, #FFF);
 
-/* Shadow/xs */
-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  /* Shadow/xs */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 
-color: var(--Colors-Text-text-secondary, #3E4041);
+  color: var(--Colors-Text-text-secondary, #3E4041);
 
-/* Button/medium */
-font-family: Inter;
-font-size: 0.875rem;
-font-style: normal;
-font-weight: 600;
-line-height: 1.25rem; /* 142.857% */
-transition: all 0.3s ease;
+  /* Button/medium */
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.25rem; /* 142.857% */
+  transition: all 0.3s ease;
 }
 
 .controlButton:hover {
@@ -168,9 +166,9 @@ transition: all 0.3s ease;
   padding: 0.125rem;
   align-items: center;
   border-radius: 0.5rem;
-border: 1px solid var(--Colors-Border-border-primary, #D8D9DA);
-background: #efefef;
-height: 40px;
+  border: 1px solid var(--Colors-Border-border-primary, #D8D9DA);
+  background: #efefef;
+  height: 40px;
 }
 
 .viewToggleButton {
@@ -180,24 +178,19 @@ height: 40px;
   gap: var(--spacing-none, 0);
   cursor: pointer;
   border: none;
-
 }
-
-
-
 
 .viewToggleActive {
   display: flex;
-padding: var(--2, 0.25rem);
-align-items: flex-start;
-gap: var(--spacing-none, 0);
-border-radius: 0.375rem;
-border: 1px solid var(--Colors-Border-border-secondary, #EFF0F0);
-background: var(--Colors-Background-bg-primary, #FFF);
+  padding: var(--2, 0.25rem);
+  align-items: flex-start;
+  gap: var(--spacing-none, 0);
+  border-radius: 0.375rem;
+  border: 1px solid var(--Colors-Border-border-secondary, #EFF0F0);
+  background: var(--Colors-Background-bg-primary, #FFF);
 
-/* Shadow/xs */
-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-
+  /* Shadow/xs */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .viewToggleButton:focus-visible {
@@ -229,11 +222,11 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   flex: 1 0 0;
 
   border-radius: 0.5rem;
-border: 1px solid var(--Colors-Border-border-secondary, #E9EAEB);
-background: var(--Colors-Background-bg-primary, #FFF);
+  border: 1px solid var(--Colors-Border-border-secondary, #E9EAEB);
+  background: var(--Colors-Background-bg-primary, #FFF);
 
-/* Shadows/shadow-xs */
-box-shadow: 0 1px 2px 0 var(--Colors-Effects-Shadows-shadow-xs, rgba(10, 13, 18, 0.05));
+  /* Shadows/shadow-xs */
+  box-shadow: 0 1px 2px 0 var(--Colors-Effects-Shadows-shadow-xs, rgba(10, 13, 18, 0.05));
 }
 
 .statActive {
@@ -255,11 +248,12 @@ box-shadow: 0 1px 2px 0 var(--Colors-Effects-Shadows-shadow-xs, rgba(10, 13, 18,
   aspect-ratio: 1/1;
 
   border-radius: 0.375rem;
-border: 1px solid var(--Colors-Border-border-primary, #D5D7DA);
-background: var(--Colors-Background-bg-primary, #FFF);
+  border: 1px solid var(--Colors-Border-border-primary, #D5D7DA);
+  background: var(--Colors-Background-bg-primary, #FFF);
 
-/* Shadows/shadow-xs-skeuomorphic */
-box-shadow: 0 0 0 1px var(--Colors-Effects-Shadows-shadow-skeumorphic-inner-border, rgba(10, 13, 18, 0.05)) inset, 0 -1px 0 0 var(--Colors-Effects-Shadows-shadow-skeumorphic-inner, rgba(10, 13, 18, 0.01)) inset, 0 1px 1px 0 var(--Colors-Effects-Shadows-shadow-xs, rgba(10, 13, 18, 0.02));
+  /* Shadows/shadow-xs-skeuomorphic */
+  box-shadow: 0 0 0 1px rgba(10, 13, 18, 0.05) inset, 0 -1px 0 0 rgba(10, 13, 18, 0.01) inset,
+    0 1px 1px 0 rgba(10, 13, 18, 0.02);
 }
 
 .statIcon {
@@ -277,26 +271,22 @@ box-shadow: 0 0 0 1px var(--Colors-Effects-Shadows-shadow-skeumorphic-inner-bord
 }
 
 .statTop {
-  color: var(--colors-text-text-tertiary-600, #535862);
-
-  /* Text sm/Semibold */
-  font-family: var(--Font-family-font-family-body, Inter);
-  font-size: var(--Font-size-text-sm, 0.875rem);
+  color: #535862;
+  font-family: Inter;
+  font-size: 0.875rem;
   font-style: normal;
   font-weight: 600;
-  line-height: var(--Line-height-text-sm, 1.25rem); /* 142.857% */
+  line-height: 1.25rem;
   align-self: stretch;
 }
 
 .statValue {
-  color: var(--colors-text-text-primary-900, #181D27);
-
-  /* Display sm/Semibold */
-  font-family: var(--Font-family-font-family-display, Inter);
-  font-size: var(--Font-size-display-sm, 1.875rem);
+  color: #181D27;
+  font-family: Inter;
+  font-size: 1.875rem;
   font-style: normal;
   font-weight: 600;
-  line-height: var(--Line-height-display-sm, 2.375rem); /* 126.667% */
+  line-height: 2.375rem;
 }
 
 /* Section headers */
@@ -377,38 +367,141 @@ box-shadow: 0 0 0 1px var(--Colors-Effects-Shadows-shadow-skeumorphic-inner-bord
   outline-offset: 2px;
 }
 
-/* Empty state */
+/* Empty state (pixel-matched to screenshot) */
 .empty {
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
+  border: 1px solid #E6E7E8;
+  border-radius: 14px;
   background: #fff;
-  box-shadow: var(--shadow-sm);
-  padding: 22px;
+  box-shadow: 0 1px 2px rgba(10, 13, 18, 0.05);
+  padding: 36px 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 180px;
+  min-height: 340px;
+}
+
+.emptyArt img{
+  max-width: 100%;
 }
 
 .emptyBox {
   text-align: center;
-  max-width: 420px;
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.emptyArt {
+  position: relative;
+  width: 260px;
+  height: 170px;
+  margin: 6px auto 18px;
+}
+
+.artImg {
+  position: absolute;
+  top: 18px;
+  width: 140px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  filter: saturate(1.05) contrast(1.02);
+}
+
+.artImgLeft {
+  left: 18px;
+  transform: rotate(-10deg);
+}
+
+.artImgRight {
+  right: 18px;
+  transform: rotate(10deg);
+}
+
+.artCard {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 132px;
+  height: 150px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.artCardInner {
+  width: 112px;
+  height: 130px;
+  border-radius: 12px;
+  border: 2px dashed #E6E7E8;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  padding-top: 8px;
+}
+
+.artIconWrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  color: #6B6E70;
+}
+
+.artIcon {
+  display: block;
+}
+
+.artLine {
+  width: 86px;
+  height: 10px;
+  border-radius: 999px;
+  background: #E6E7E8;
+  margin-top: 46px;
 }
 
 .emptyTitle {
+  font-family: Inter;
+  font-size: 20px;
   font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #111827;
+  margin-top: 4px;
   margin-bottom: 6px;
 }
 
 .emptySub {
-  color: var(--color-text-secondary);
-  margin-bottom: 14px;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: 500;
+  color: #6B7280;
+  margin-bottom: 18px;
 }
 
 .emptyPrimaryBtn {
   height: 40px;
   padding: 0 14px !important;
-  border-radius: 4px !important;
+  border-radius: 6px !important;
+}
+
+.emptyBtnContent {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.emptyBtnIcon {
+  width: 16px;
+  height: 16px;
+  display: block;
 }
 
 /* Map wrapper */
@@ -439,6 +532,20 @@ box-shadow: 0 0 0 1px var(--Colors-Effects-Shadows-shadow-skeumorphic-inner-bord
   .controlsRow {
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .empty {
+    padding: 28px 14px;
+  }
+
+  .emptyArt {
+    width: 240px;
+    height: 160px;
+  }
+
+  .artImg {
+    width: 130px;
+    height: 102px;
   }
 }
 

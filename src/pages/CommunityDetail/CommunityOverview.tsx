@@ -37,7 +37,6 @@ export default function CommunityOverview() {
     { label: 'Occupancy Rate', value: `${community.occupancyRate || 0}%`, icon: '/assets/icons/occupancy-rate.svg', active: false },
     { label: 'Active Builds', value: String(community.activeBuilds || 0), icon: '/assets/icons/active-builds.svg', active: false },
   ] as const
-  
 
   return (
     <div className={styles.page}>
@@ -209,21 +208,30 @@ export default function CommunityOverview() {
       {planObjs.length === 0 ? (
         <div className={styles.empty}>
           <div className={styles.emptyBox}>
-            <div className={styles.emptyTitle}>No master plans added to this community</div>
-            <div className={styles.emptySub}>
-              Add master plans to start planning and track progress.
-            </div>
+            {/* Illustration stack */}
+            <div className={styles.emptyArt} aria-hidden="true">
+  <img
+    src="/assets/empty-state-image.png"
+    alt=""
+    className={styles.emptyArtImg}
+    draggable={false}
+  />
+</div>
+
+
+            <div className={styles.emptyTitle}>No plans added to this community</div>
+            <div className={styles.emptySub}>Add plans to this community to start planning</div>
 
             <Button
               variant="primary"
               onClick={() => setAddPlansOpen(true)}
               className={styles.emptyPrimaryBtn}
             >
-              <span className={styles.buttonContent}>
+              <span className={styles.emptyBtnContent}>
                 <img
                   src="/assets/icons/plus.svg"
                   alt=""
-                  className={styles.buttonIcon}
+                  className={styles.emptyBtnIcon}
                   draggable={false}
                 />
                 <span>Add Plans</span>
