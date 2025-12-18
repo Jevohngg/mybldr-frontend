@@ -35,6 +35,7 @@
   border-radius: 8px;
   background: white;
   cursor: pointer;
+  border: none;
 }
 .close:hover { background: var(--color-surface-2); }
 .body {
