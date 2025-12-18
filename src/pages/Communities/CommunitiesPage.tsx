@@ -68,7 +68,7 @@ export default function CommunitiesPage() {
 
           <div className={`pill ${styles.pill}`}>
             <img
-              src="/assets/icons/divisions.svg"
+              src=""
               alt=""
               className={styles.pillIcon}
               draggable={false}
