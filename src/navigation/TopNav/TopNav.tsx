@@ -36,7 +36,7 @@ export default function TopNav() {
       <div className={styles.leftBrand}>
         <div className={styles.logoBox} aria-hidden="true">
           <img
-            src="assets/myBLDR-icon.png"
+            src="/assets/myBLDR-icon.png"
             alt=""
             style={{
               maxWidth: "100%",
