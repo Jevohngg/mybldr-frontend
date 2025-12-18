@@ -56,14 +56,45 @@ line-height: var(--Line-height-text-md, 1.5rem); /* 150% */
   align-items: center;
   justify-content: center;
 }
-.dropInner { text-align: center; max-width: 520px; }
-.heroGraphic {
-  width: 160px;
-  height: auto;
-  margin-bottom: 16px;
+.dropInner { 
+  display: flex;
+  padding: var(--8, 2rem) var(--6, 1rem);
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  align-self: stretch;
+  max-width: 400px;
+  text-align: center;
 }
-.big { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
-.small { font-size: 16px; color: var(--color-text-secondary); }
+.heroGraphic {
+  width: 5.85938rem;
+  height: 3rem;
+  margin-bottom: 12px;
+}
+.big { 
+  color: var(--Colors-Text-text-primary, #0B0C0D);
+  font-feature-settings: 'liga' off, 'clig' off;
+  
+  /* Typography/subtitle1/Semibold */
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.5rem; /* 150% */
+}
+.small { 
+
+  color: var(--Colors-Text-text-secondary, #3E4041);
+
+  /* Typography/body2/Regular */
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem;
+
+
+}
 .link { color: var(--color-brand); text-decoration: underline; cursor: pointer; }
 .manual {
   text-align: right;
