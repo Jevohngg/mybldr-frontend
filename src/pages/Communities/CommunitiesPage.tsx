@@ -52,7 +52,7 @@ export default function CommunitiesPage() {
         <div className={styles.rightFilters}>
           <div className={`pill ${styles.pill}`}>
             <img
-              src="/assets/icons/globe.svg"
+              src=""
               alt=""
               className={styles.pillIcon}
               draggable={false}
