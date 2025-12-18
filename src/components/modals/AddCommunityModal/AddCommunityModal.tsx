@@ -197,6 +197,7 @@ export default function AddCommunityModal({
             <div className={styles.uploadCard}>
               <div className={styles.drop}>
                 <div className={styles.dropInner}>
+                  <img src="/assets/upload-hero.png" alt="Upload files" className={styles.heroGraphic} />
                   <div className={styles.big}>Community planning in minutes not months</div>
                   <div className={styles.small}>
                     <span className={styles.link} onClick={() => { setHasUploadedFile(true); setStep('generating'); }}>Upload</span> your community map and speed up planning with an interactive community map.
