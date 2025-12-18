@@ -149,7 +149,7 @@ line-height: var(--Line-height-text-md, 1.5rem); /* 150% */
   border: 1px solid var(--color-border);
   border-radius: 10px;
   background: white;
-  padding: 16px;
+
 }
 .mapCard {
   border: 1px solid var(--color-border);
