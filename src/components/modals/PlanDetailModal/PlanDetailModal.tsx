@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './PlanDetailModal.module.css'
 
 interface Plan {
@@ -17,22 +17,41 @@ interface PlanDetailModalProps {
 }
 
 export default function PlanDetailModal({ plan, onClose, onSelect }: PlanDetailModalProps) {
+  const [isLoading, setIsLoading] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => setIsVisible(true), 10)
+  }, [])
+
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
-      onClose()
+      handleClose()
     }
   }
 
-  const handleSelect = () => {
+  const handleClose = () => {
+    setIsVisible(false)
+    setTimeout(() => onClose(), 300)
+  }
+
+  const handleSelect = async () => {
+    setIsLoading(true)
+
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
     if (onSelect) {
       onSelect(plan)
     }
-    onClose()
+    handleClose()
   }
 
   return (
-    <div className={styles.overlay} onClick={handleOverlayClick}>
-      <div className={styles.modal}>
+    <div
+      className={`${styles.overlay} ${isVisible ? styles.visible : ''}`}
+      onClick={handleOverlayClick}
+    >
+      <div className={`${styles.modal} ${isVisible ? styles.visible : ''}`}>
         <img
           src="/assets/plans/placeholder.png"
           alt={plan.name}
@@ -92,15 +111,21 @@ export default function PlanDetailModal({ plan, onClose, onSelect }: PlanDetailM
         <div className={styles.actions}>
           <button
             className={`${styles.button} ${styles.cancelButton}`}
-            onClick={onClose}
+            onClick={handleClose}
+            disabled={isLoading}
           >
             Cancel
           </button>
           <button
             className={`${styles.button} ${styles.selectButton}`}
             onClick={handleSelect}
+            disabled={isLoading}
           >
-            Select Model
+            {isLoading ? (
+              <span className={styles.spinner}></span>
+            ) : (
+              'Select Model'
+            )}
           </button>
         </div>
       </div>
