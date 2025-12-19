@@ -102,7 +102,51 @@ export default function PlanDetailModal({ plan, onClose, onSelect }: PlanDetailM
               </div>
               <div className={styles.featureRow}>
                 <div className={styles.featureLabel}>Name</div>
-                <div className={styles.featureValue}>Aberdeen</div>
+                <div className={styles.featureValue}>{plan.name}</div>
+              </div>
+              <div className={styles.featureRow}>
+                <div className={styles.featureLabel}>Max Full Bathroom #</div>
+                <div className={styles.featureValue}>{plan.baths}</div>
+              </div>
+              <div className={styles.featureRow}>
+                <div className={styles.featureLabel}>Max Garage Bay #</div>
+                <div className={styles.featureValue}>Telluride</div>
+              </div>
+              <div className={styles.featureRow}>
+                <div className={styles.featureLabel}>Base Width</div>
+                <div className={styles.featureValue}>30 ft</div>
+              </div>
+              <div className={styles.featureRow}>
+                <div className={styles.featureLabel}>Max Width</div>
+                <div className={styles.featureValue}>50 ft</div>
+              </div>
+              <div className={styles.featureRow}>
+                <div className={styles.featureLabel}>Base Depth</div>
+                <div className={styles.featureValue}>70 ft</div>
+              </div>
+              <div className={styles.featureRow}>
+                <div className={styles.featureLabel}>Max Depth</div>
+                <div className={styles.featureValue}>80 ft</div>
+              </div>
+              <div className={styles.featureRow}>
+                <div className={styles.featureLabel}>Building Code</div>
+                <div className={styles.featureValue}>2021 IRC</div>
+              </div>
+              <div className={styles.featureRow}>
+                <div className={styles.featureLabel}>First Floor Sq Ft</div>
+                <div className={styles.featureValue}>1500</div>
+              </div>
+              <div className={styles.featureRow}>
+                <div className={styles.featureLabel}>Second Floor Sq Ft</div>
+                <div className={styles.featureValue}>1500</div>
+              </div>
+              <div className={styles.featureRow}>
+                <div className={styles.featureLabel}>Total Finished Sq Ft</div>
+                <div className={styles.featureValue}>2200</div>
+              </div>
+              <div className={styles.featureRow}>
+                <div className={styles.featureLabel}>Total Unfinished Sq Ft</div>
+                <div className={styles.featureValue}>1900</div>
               </div>
             </div>
           </div>
