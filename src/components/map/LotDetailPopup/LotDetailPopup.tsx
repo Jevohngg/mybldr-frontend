@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Lot } from '../types'
 import { plans } from '../../../mock-data/plans'
+import PlanDetailModal from '../../modals/PlanDetailModal/PlanDetailModal'
 import styles from './LotDetailPopup.module.css'
 
 interface LotDetailPopupProps {
@@ -19,6 +20,8 @@ interface Plan {
 }
 
 export default function LotDetailPopup({ lot, position, onClose }: LotDetailPopupProps) {
+  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null)
+
   const getStatusLabel = (status: string) => {
     switch (status) {
       case 'available':
@@ -114,7 +117,12 @@ export default function LotDetailPopup({ lot, position, onClose }: LotDetailPopu
           <h4 className={styles.sectionTitle}>Matching Plans</h4>
           <div className={styles.plansList}>
             {matchingPlans.map((plan) => (
-              <div key={plan.id} className={styles.planItem}>
+              <div
+                key={plan.id}
+                className={styles.planItem}
+                onClick={() => setSelectedPlan(plan)}
+                style={{ cursor: 'pointer' }}
+              >
                 <img
                   src="/assets/plans/placeholder.png"
                   alt={plan.name}
@@ -153,6 +161,13 @@ export default function LotDetailPopup({ lot, position, onClose }: LotDetailPopu
           </div>
         </div>
       ) : null}
+
+      {selectedPlan && (
+        <PlanDetailModal
+          plan={selectedPlan}
+          onClose={() => setSelectedPlan(null)}
+        />
+      )}
     </div>
   )
 }

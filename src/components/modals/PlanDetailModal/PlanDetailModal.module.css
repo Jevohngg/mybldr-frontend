@@ -1,0 +1,178 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 24px;
+}
+
+.modal {
+  background: white;
+  border-radius: 16px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.heroImage {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 16px 16px 0 0;
+}
+
+.content {
+  padding: 48px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.titleSection {
+  flex: 1;
+}
+
+.planName {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 8px 0;
+  color: #1a1a1a;
+}
+
+.price {
+  font-size: 18px;
+  color: #666;
+  margin: 0;
+}
+
+.priceAmount {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.stats {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+}
+
+.stat {
+  text-align: center;
+}
+
+.statValue {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 4px 0;
+  color: #1a1a1a;
+}
+
+.statLabel {
+  font-size: 18px;
+  color: #666;
+  margin: 0;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.sectionTitle {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  color: #1a1a1a;
+}
+
+.description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+}
+
+.featuresTable {
+  background: #f8f8f8;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.featureRow {
+  display: flex;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.featureRow:last-child {
+  border-bottom: none;
+}
+
+.featureLabel {
+  flex: 1;
+  font-weight: 600;
+  color: #666;
+}
+
+.featureValue {
+  flex: 1;
+  color: #1a1a1a;
+  text-align: right;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 24px 48px;
+  border-top: 1px solid #e5e5e5;
+  background: #fafafa;
+  border-radius: 0 0 16px 16px;
+}
+
+.button {
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.cancelButton {
+  background: white;
+  color: #333;
+  border: 2px solid #ddd;
+}
+
+.cancelButton:hover {
+  border-color: #999;
+  background: #f5f5f5;
+}
+
+.selectButton {
+  background: #4A90E2;
+  color: white;
+  border: 2px solid #4A90E2;
+}
+
+.selectButton:hover {
+  background: #3a7bc8;
+  border-color: #3a7bc8;
+}
