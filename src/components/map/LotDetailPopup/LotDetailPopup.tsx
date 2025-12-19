@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Lot } from '../types'
 import { plans } from '../../../mock-data/plans'
-import PlanDetailModal from '../../modals/PlanDetailModal/PlanDetailModal'
 import styles from './LotDetailPopup.module.css'
 
 interface LotDetailPopupProps {
   lot: Lot
   position: { x: number; y: number }
   onClose: () => void
+  onPlanClick: (plan: Plan) => void
 }
 
 interface Plan {
@@ -19,9 +19,7 @@ interface Plan {
   image: string
 }
 
-export default function LotDetailPopup({ lot, position, onClose }: LotDetailPopupProps) {
-  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null)
-
+export default function LotDetailPopup({ lot, position, onClose, onPlanClick }: LotDetailPopupProps) {
   const getStatusLabel = (status: string) => {
     switch (status) {
       case 'available':
@@ -120,7 +118,7 @@ export default function LotDetailPopup({ lot, position, onClose }: LotDetailPopu
               <div
                 key={plan.id}
                 className={styles.planItem}
-                onClick={() => setSelectedPlan(plan)}
+                onClick={() => onPlanClick(plan)}
                 style={{ cursor: 'pointer' }}
               >
                 <img
@@ -161,13 +159,6 @@ export default function LotDetailPopup({ lot, position, onClose }: LotDetailPopu
           </div>
         </div>
       ) : null}
-
-      {selectedPlan && (
-        <PlanDetailModal
-          plan={selectedPlan}
-          onClose={() => setSelectedPlan(null)}
-        />
-      )}
     </div>
   )
 }

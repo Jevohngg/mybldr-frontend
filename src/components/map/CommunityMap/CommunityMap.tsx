@@ -3,7 +3,17 @@ import styles from './CommunityMap.module.css'
 import MapLegend from '../MapLegend/MapLegend'
 import MapLot from '../MapLot/MapLot'
 import LotDetailPopup from '../LotDetailPopup/LotDetailPopup'
+import PlanDetailModal from '../../modals/PlanDetailModal/PlanDetailModal'
 import { CommunityMapData, Lot } from '../types'
+
+interface Plan {
+  id: string
+  name: string
+  beds: string
+  baths: string
+  aru: string
+  image: string
+}
 
 interface CommunityMapProps {
   data: CommunityMapData
@@ -20,6 +30,7 @@ export default function CommunityMap({ data }: CommunityMapProps) {
   const [hoveredLotId, setHoveredLotId] = React.useState<string | null>(null)
   const [selectedLot, setSelectedLot] = React.useState<Lot | null>(null)
   const [popupPosition, setPopupPosition] = React.useState({ x: 0, y: 0 })
+  const [selectedPlan, setSelectedPlan] = React.useState<Plan | null>(null)
 
   const handleZoomIn = () => {
     setScale((prev) => Math.min(prev * 1.3, 4))
@@ -160,9 +171,17 @@ export default function CommunityMap({ data }: CommunityMapProps) {
             lot={selectedLot}
             position={popupPosition}
             onClose={() => setSelectedLot(null)}
+            onPlanClick={setSelectedPlan}
           />
         )}
       </div>
+
+      {selectedPlan && (
+        <PlanDetailModal
+          plan={selectedPlan}
+          onClose={() => setSelectedPlan(null)}
+        />
+      )}
     </div>
   )
 }
