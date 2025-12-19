@@ -195,6 +195,7 @@ background: var(--Colors-Background-bg-primary, #FFF);
 
 /* Shadow/xs */
 box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+font-size: 14px;
 }
 
 .cancelButton:hover:not(:disabled) {
@@ -215,6 +216,7 @@ background: var(--Colors-Background-bg-brand-solid, #1D6BCD);
 /* Shadow/xs */
 box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 color: white;
+font-size: 14px;
 }
 
 .selectButton:hover:not(:disabled) {
