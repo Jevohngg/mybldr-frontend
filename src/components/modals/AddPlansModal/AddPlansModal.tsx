@@ -37,7 +37,7 @@ export default function AddPlansModal({
       footer={
         <>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant="primary" onClick={() => onDone(selected)}>
+          <Button variant="primary" className={styles.doneButton} onClick={() => onDone(selected)}>
             Done
           </Button>
         </>
