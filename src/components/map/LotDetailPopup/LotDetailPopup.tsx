@@ -122,7 +122,7 @@ export default function LotDetailPopup({ lot, position, onClose, onPlanClick }: 
                 style={{ cursor: 'pointer' }}
               >
                 <img
-                  src="/assets/plans/placeholder.png"
+                  src={plan.image}
                   alt={plan.name}
                   className={styles.planImage}
                 />

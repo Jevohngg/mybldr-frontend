@@ -53,7 +53,7 @@ export default function PlanDetailModal({ plan, onClose, onSelect }: PlanDetailM
     >
       <div className={`${styles.modal} ${isVisible ? styles.visible : ''}`}>
         <img
-          src="/assets/plans/placeholder.png"
+          src={plan.image}
           alt={plan.name}
           className={styles.heroImage}
         />

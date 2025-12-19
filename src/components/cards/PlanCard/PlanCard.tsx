@@ -53,11 +53,11 @@ export default function PlanCard({ plan }: { plan: Plan }) {
 
   // Image handling:
   // - Put images in: public/assets/plans/
-  // - If plan.image exists, we use that filename.
+  // - If plan.image exists, we use that (can be full path or filename).
   // - Otherwise we try: <plan.id>.jpg
   // - If missing, we fallback to: /assets/plans/placeholder.jpg
   const plannedSrc = typedPlan.image
-    ? `/assets/plans/${typedPlan.image}`
+    ? (typedPlan.image.startsWith('/') ? typedPlan.image : `/assets/plans/${typedPlan.image}`)
     : `/assets/plans/${(typedPlan as any).id}.jpg`
 
   const [imgSrc, setImgSrc] = React.useState(plannedSrc)
