@@ -47,9 +47,9 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
           <div className={styles.backdrop} onClick={onClose} />
           <motion.div
             className={styles.panel}
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '100%' }}
             transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
           >
             <div className={styles.container}>
