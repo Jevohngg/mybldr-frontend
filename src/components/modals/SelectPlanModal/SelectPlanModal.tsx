@@ -20,8 +20,18 @@ interface SelectPlanModalProps {
 }
 
 export default function SelectPlanModal({ open, onClose, onSelect, plan }: SelectPlanModalProps) {
+  const [loading, setLoading] = React.useState(false)
   const price = plan.price || '$489,900'
   const description = plan.description || `Welcome to The ${plan.name}, where timeless elegance meets modern comfort. This thoughtfully designed home features an open-concept living space bathed in natural light, seamlessly connecting the gourmet kitchen to a spacious great room—perfect for both everyday living and entertaining.`
+
+  const handleSelect = () => {
+    setLoading(true)
+    setTimeout(() => {
+      onSelect()
+      onClose()
+      setLoading(false)
+    }, 2000)
+  }
 
   return (
     <BaseModal
@@ -32,8 +42,8 @@ export default function SelectPlanModal({ open, onClose, onSelect, plan }: Selec
       hideCloseButton={true}
       footer={
         <div className={styles.footerButtons}>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button variant="primary" onClick={onSelect}>
+          <Button onClick={onClose} disabled={loading}>Cancel</Button>
+          <Button variant="primary" onClick={handleSelect} loading={loading}>
             Select Model
           </Button>
         </div>
