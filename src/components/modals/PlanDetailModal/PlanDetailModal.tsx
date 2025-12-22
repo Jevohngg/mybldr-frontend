@@ -89,13 +89,15 @@ function OverviewTab({ formData, setFormData }: {
   setFormData: React.Dispatch<React.SetStateAction<{ name: string; description: string }>>
 }) {
   const [isUploading, setIsUploading] = React.useState(false)
+  const [isCompleted, setIsCompleted] = React.useState(false)
   const [progress, setProgress] = React.useState(0)
 
   const handleUpload = () => {
     setIsUploading(true)
+    setIsCompleted(false)
     setProgress(0)
 
-    const duration = 2000
+    const duration = 3000
     const interval = 20
     const steps = duration / interval
     const increment = 100 / steps
@@ -106,6 +108,10 @@ function OverviewTab({ formData, setFormData }: {
       if (currentProgress >= 100) {
         setProgress(100)
         clearInterval(timer)
+        setTimeout(() => {
+          setIsUploading(false)
+          setIsCompleted(true)
+        }, 300)
       } else {
         setProgress(currentProgress)
       }
@@ -114,6 +120,12 @@ function OverviewTab({ formData, setFormData }: {
 
   const handleCancel = () => {
     setIsUploading(false)
+    setIsCompleted(false)
+    setProgress(0)
+  }
+
+  const handleClear = () => {
+    setIsCompleted(false)
     setProgress(0)
   }
 
@@ -144,7 +156,7 @@ function OverviewTab({ formData, setFormData }: {
         <div className={styles.masterPlanSection}>
           <h2 className={styles.sectionTitle}>Master Plan Set</h2>
           <div className={styles.masterPlanContainer}>
-            {!isUploading ? (
+            {!isUploading && !isCompleted ? (
               <div className={styles.emptyState}>
                 <img src="/assets/empty-states/master-plan-set.svg" alt="" className={styles.emptyIcon} />
                 <div className={styles.emptyTitle}>Master plan set not selected</div>
@@ -158,7 +170,7 @@ function OverviewTab({ formData, setFormData }: {
                   Upload File
                 </button>
               </div>
-            ) : (
+            ) : isUploading ? (
               <div className={styles.loadingState}>
                 <div className={styles.imageSection}>
                   <img src="/assets/plans/placeholder.png" alt="" className={styles.backgroundImage} />
@@ -181,6 +193,44 @@ function OverviewTab({ formData, setFormData }: {
                   <div className={styles.fileActions}>
                     <button className={styles.updateBtn}>Update</button>
                     <button className={styles.cancelBtn} onClick={handleCancel}>✕</button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className={styles.completedState}>
+                <div className={styles.visualizerSection}>
+                  <div className={styles.visualizerImage}>
+                    <img src="/assets/plans/placeholder.png" alt="" />
+                  </div>
+                  <div className={styles.visualizerInfo}>
+                    <h3 className={styles.visualizerTitle}>Visualizer</h3>
+                    <p className={styles.visualizerDescription}>Step inside your AI-rendered home.</p>
+                    <button className={styles.viewNowBtn}>View Now</button>
+                  </div>
+                </div>
+                <div className={styles.completedContent}>
+                  <div className={styles.completedCard}>
+                    <div className={styles.pdfHeader}>
+                      <img src="/assets/pdf.png" alt="" className={styles.pdfIconLarge} />
+                      <div className={styles.pdfInfo}>
+                        <h4 className={styles.pdfTitle}>Master plan set selected</h4>
+                        <div className={styles.pdfFilename}>master_plan_name.pdf</div>
+                      </div>
+                    </div>
+                    <div className={styles.pdfActions}>
+                      <button className={styles.updateBtnLarge}>Update</button>
+                      <button className={styles.clearBtn} onClick={handleClear}>Clear</button>
+                    </div>
+                  </div>
+                  <div className={styles.completedCard}>
+                    <h4 className={styles.paletteTitle}>View with your palettes</h4>
+                    <p className={styles.paletteDescription}>Preview your design by uploading your look book.</p>
+                    <button className={styles.uploadPaletteBtn}>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ marginRight: 6 }}>
+                        <path d="M8 10V3M5 6l3-3 3 3M3 13h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      Upload
+                    </button>
                   </div>
                 </div>
               </div>
