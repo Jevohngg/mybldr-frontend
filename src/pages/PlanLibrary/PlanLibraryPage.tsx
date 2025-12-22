@@ -1,11 +1,13 @@
 import React from 'react'
 import Button from '../../components/ui/Button'
 import PlanCard from '../../components/cards/PlanCard/PlanCard'
+import PlanDetailModal from '../../components/modals/PlanDetailModal/PlanDetailModal'
 import { useData } from '../../app/providers'
 import styles from './PlanLibraryPage.module.css'
 
 export default function PlanLibraryPage() {
   const { plans } = useData()
+  const [selectedPlan, setSelectedPlan] = React.useState<{ id: string; name: string; communityCount: number } | null>(null)
 
   return (
     <div className={styles.page}>
@@ -50,9 +52,27 @@ export default function PlanLibraryPage() {
 
       <div className={styles.grid}>
         {plans.map(p => (
-          <PlanCard key={p.id} plan={p} />
+          <PlanCard
+            key={p.id}
+            plan={p}
+            onClick={() => setSelectedPlan({
+              id: (p as any).id,
+              name: p.name,
+              communityCount: (p as any).communityCount || 0
+            })}
+          />
         ))}
       </div>
+
+      {selectedPlan && (
+        <PlanDetailModal
+          open={!!selectedPlan}
+          onClose={() => setSelectedPlan(null)}
+          planId={selectedPlan.id}
+          planName={selectedPlan.name}
+          communityCount={selectedPlan.communityCount}
+        />
+      )}
     </div>
   )
 }

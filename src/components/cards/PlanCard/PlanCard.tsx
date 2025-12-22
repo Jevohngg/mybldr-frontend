@@ -34,7 +34,7 @@ function formatArea(value: unknown) {
   return `${s} sqft`
 }
 
-export default function PlanCard({ plan }: { plan: Plan }) {
+export default function PlanCard({ plan, onClick }: { plan: Plan; onClick?: () => void }) {
   const typedPlan = plan as PlanWithOptionalImage
 
   // Try to match the design line that shows the community name (e.g. "Silver Lake")
@@ -73,7 +73,7 @@ export default function PlanCard({ plan }: { plan: Plan }) {
   const communityCount = (typedPlan as any).communityCount
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
       <div className={styles.img}>
         <img
           src={imgSrc}

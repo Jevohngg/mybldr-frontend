@@ -1,177 +1,186 @@
-import React, { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import React from 'react'
 import styles from './PlanDetailModal.module.css'
+import PlanDetailSideNav from '../../../navigation/PlanDetailSideNav/PlanDetailSideNav'
 
-interface Plan {
-  id: string
-  name: string
-  beds: string
-  baths: string
-  aru: string
-  image: string
-}
+type TabType = 'overview' | 'plans'
 
 interface PlanDetailModalProps {
-  plan: Plan
+  open: boolean
   onClose: () => void
-  onSelect?: (plan: Plan) => void
+  planId: string
+  planName: string
+  communityCount: number
 }
 
-export default function PlanDetailModal({ plan, onClose, onSelect }: PlanDetailModalProps) {
-  const [isLoading, setIsLoading] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
+export default function PlanDetailModal({ open, onClose, planId, planName, communityCount }: PlanDetailModalProps) {
+  const [activeTab, setActiveTab] = React.useState<TabType>('overview')
+  const [formData, setFormData] = React.useState({
+    name: planName,
+    description: '',
+  })
 
-  useEffect(() => {
-    setTimeout(() => setIsVisible(true), 10)
-  }, [])
-
-  const handleOverlayClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      handleClose()
+  React.useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
     }
-  }
+    if (open) window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open, onClose])
 
-  const handleClose = () => {
-    setIsVisible(false)
-    setTimeout(() => onClose(), 300)
-  }
-
-  const handleSelect = async () => {
-    setIsLoading(true)
-
-    await new Promise(resolve => setTimeout(resolve, 2000))
-
-    if (onSelect) {
-      onSelect(plan)
+  React.useEffect(() => {
+    if (open) {
+      setFormData({ name: planName, description: '' })
+      setActiveTab('overview')
     }
-    handleClose()
-  }
+  }, [open, planName])
 
   return (
-    <div
-      className={`${styles.overlay} ${isVisible ? styles.visible : ''}`}
-      onClick={handleOverlayClick}
-    >
-      <div className={`${styles.modal} ${isVisible ? styles.visible : ''}`}>
-        <img
-          src={plan.image}
-          alt={plan.name}
-          className={styles.heroImage}
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          className={styles.overlay}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <div className={styles.backdrop} onClick={onClose} />
+          <motion.div
+            className={styles.panel}
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+          >
+            <div className={styles.container}>
+              <PlanDetailSideNav
+                planName={planName}
+                communityCount={communityCount}
+                activeTab={activeTab}
+                onTabChange={setActiveTab}
+              />
+
+              <div className={styles.content}>
+                <div className={styles.header}>
+                  <h1 className={styles.title}>{activeTab === 'overview' ? 'Overview' : 'Plans'}</h1>
+                  <button className={styles.closeBtn} onClick={onClose} aria-label="Close">✕</button>
+                </div>
+
+                <div className={styles.body}>
+                  {activeTab === 'overview' && (
+                    <OverviewTab formData={formData} setFormData={setFormData} />
+                  )}
+                  {activeTab === 'plans' && (
+                    <PlansTab />
+                  )}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
+function OverviewTab({ formData, setFormData }: {
+  formData: { name: string; description: string }
+  setFormData: React.Dispatch<React.SetStateAction<{ name: string; description: string }>>
+}) {
+  return (
+    <div className={styles.overviewTab}>
+      <div className={styles.formSection}>
+        <label className={styles.label}>Name</label>
+        <input
+          type="text"
+          className={styles.input}
+          value={formData.name}
+          onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
         />
+      </div>
 
-        <div className={styles.content}>
-          <div className={styles.header}>
-            <div className={styles.titleSection}>
-              <h2 className={styles.planName}>{plan.name}</h2>
-              <p className={styles.price}>
-                Starting at <span className={styles.priceAmount}>$489,900</span>
-              </p>
-            </div>
+      <div className={styles.formSection}>
+        <label className={styles.label}>Description</label>
+        <textarea
+          className={styles.textarea}
+          placeholder="Enter the description to be used on marketing material..."
+          value={formData.description}
+          onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+          rows={5}
+        />
+      </div>
 
-            <div className={styles.stats}>
-              <div className={styles.stat}>
-                <div className={styles.statValue}>{plan.beds}</div>
-                <div className={styles.statLabel}>Beds</div>
-              </div>
-              <div className={styles.stat}>
-                <div className={styles.statValue}>{plan.baths}</div>
-                <div className={styles.statLabel}>baths</div>
-              </div>
-              <div className={styles.stat}>
-                <div className={styles.statValue}>{plan.aru.replace(' ft²', '')}</div>
-                <div className={styles.statLabel}>ft²</div>
-              </div>
-            </div>
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>Master Plan Set</h2>
+        <div className={styles.emptyState}>
+          <img src="/assets/empty-states/master-plan-set.svg" alt="" className={styles.emptyIcon} />
+          <div className={styles.emptyTitle}>Master plan set not selected</div>
+          <div className={styles.emptyDescription}>
+            Speed up takeoffs, get bids faster, and preview a render of your plan set.
           </div>
+          <button className={styles.uploadBtn}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ marginRight: 6 }}>
+              <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            Upload File
+          </button>
+        </div>
+      </div>
 
-          <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>Description</h3>
-            <p className={styles.description}>
-              Welcome to The {plan.name}, where timeless elegance meets modern comfort.
-              This thoughtfully designed home features an open-concept living space bathed
-              in natural light, seamlessly connecting the gourmet kitchen to a spacious
-              great room—perfect for both everyday living and entertaining.
-            </p>
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>Communities that contain this plan set</h2>
+        <div className={styles.table}>
+          <div className={styles.tableHeader}>
+            <div className={styles.tableHeaderCell}>Community</div>
+            <div className={styles.tableHeaderCell}>Lots</div>
           </div>
-
-          <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>Features</h3>
-            <div className={styles.featuresTable}>
-              <div className={styles.featureRow}>
-                <div className={styles.featureLabel}>Detail</div>
-                <div className={styles.featureValue}></div>
-              </div>
-              <div className={styles.featureRow}>
-                <div className={styles.featureLabel}>Name</div>
-                <div className={styles.featureValue}>{plan.name}</div>
-              </div>
-              <div className={styles.featureRow}>
-                <div className={styles.featureLabel}>Max Full Bathroom #</div>
-                <div className={styles.featureValue}>{plan.baths}</div>
-              </div>
-              <div className={styles.featureRow}>
-                <div className={styles.featureLabel}>Max Garage Bay #</div>
-                <div className={styles.featureValue}>Telluride</div>
-              </div>
-              <div className={styles.featureRow}>
-                <div className={styles.featureLabel}>Base Width</div>
-                <div className={styles.featureValue}>30 ft</div>
-              </div>
-              <div className={styles.featureRow}>
-                <div className={styles.featureLabel}>Max Width</div>
-                <div className={styles.featureValue}>50 ft</div>
-              </div>
-              <div className={styles.featureRow}>
-                <div className={styles.featureLabel}>Base Depth</div>
-                <div className={styles.featureValue}>70 ft</div>
-              </div>
-              <div className={styles.featureRow}>
-                <div className={styles.featureLabel}>Max Depth</div>
-                <div className={styles.featureValue}>80 ft</div>
-              </div>
-              <div className={styles.featureRow}>
-                <div className={styles.featureLabel}>Building Code</div>
-                <div className={styles.featureValue}>2021 IRC</div>
-              </div>
-              <div className={styles.featureRow}>
-                <div className={styles.featureLabel}>First Floor Sq Ft</div>
-                <div className={styles.featureValue}>1500</div>
-              </div>
-              <div className={styles.featureRow}>
-                <div className={styles.featureLabel}>Second Floor Sq Ft</div>
-                <div className={styles.featureValue}>1500</div>
-              </div>
-              <div className={styles.featureRow}>
-                <div className={styles.featureLabel}>Total Finished Sq Ft</div>
-                <div className={styles.featureValue}>2200</div>
-              </div>
-              <div className={styles.featureRow}>
-                <div className={styles.featureLabel}>Total Unfinished Sq Ft</div>
-                <div className={styles.featureValue}>1900</div>
-              </div>
+          <div className={styles.emptyState}>
+            <img src="/assets/empty-states/no-communities.svg" alt="" className={styles.emptyIcon} />
+            <div className={styles.emptyTitle}>No communities are currently using this plan set</div>
+            <div className={styles.emptyDescription}>
+              Communities that use this plan set will be shown here.
             </div>
           </div>
         </div>
-
-        <div className={styles.actions}>
-          <button
-            className={`${styles.button} ${styles.cancelButton}`}
-            onClick={handleClose}
-            disabled={isLoading}
-          >
-            Cancel
-          </button>
-          <button
-            className={`${styles.button} ${styles.selectButton}`}
-            onClick={handleSelect}
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <span className={styles.spinner}></span>
-            ) : (
-              'Select Model'
-            )}
-          </button>
+        <div className={styles.pagination}>
+          <span className={styles.paginationText}>Rows per page: 10</span>
+          <span className={styles.paginationText}>0 of 0</span>
+          <button className={styles.paginationBtn} disabled>‹</button>
+          <button className={styles.paginationBtn} disabled>›</button>
         </div>
+      </div>
+
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>Projects using this plan set</h2>
+        <div className={styles.table}>
+          <div className={styles.tableHeader}>
+            <div className={styles.tableHeaderCell}>Project Name</div>
+            <div className={styles.tableHeaderCell}>Community</div>
+          </div>
+          <div className={styles.emptyState}>
+            <img src="/assets/empty-states/no-projects.svg" alt="" className={styles.emptyIcon} />
+            <div className={styles.emptyTitle}>No projects are currently using this plan set</div>
+            <div className={styles.emptyDescription}>
+              Projects that use this plan set will be shown here.
+            </div>
+          </div>
+        </div>
+        <div className={styles.pagination}>
+          <span className={styles.paginationText}>Rows per page: 10</span>
+          <span className={styles.paginationText}>1-5 of 13</span>
+          <button className={styles.paginationBtn} disabled>‹</button>
+          <button className={styles.paginationBtn}>›</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function PlansTab() {
+  return (
+    <div className={styles.plansTab}>
+      <div className={styles.emptyState}>
+        <div className={styles.emptyTitle}>Plans content coming soon</div>
       </div>
     </div>
   )

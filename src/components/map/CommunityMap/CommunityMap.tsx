@@ -178,7 +178,10 @@ export default function CommunityMap({ data }: CommunityMapProps) {
 
       {selectedPlan && (
         <PlanDetailModal
-          plan={selectedPlan}
+          open={true}
+          planId={(selectedPlan as any).id || selectedPlan.name}
+          planName={selectedPlan.name}
+          communityCount={(selectedPlan as any).communityCount || 0}
           onClose={() => setSelectedPlan(null)}
         />
       )}
