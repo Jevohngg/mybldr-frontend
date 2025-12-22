@@ -101,9 +101,9 @@ function OverviewTab({ formData, setFormData }: {
 
     setTimeout(() => {
       if (containerRef.current) {
-        containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+        containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
       }
-    }, 100)
+    }, 50)
 
     setTimeout(() => {
       setIsPreparing(false)
@@ -128,7 +128,7 @@ function OverviewTab({ formData, setFormData }: {
           setProgress(currentProgress)
         }
       }, interval)
-    }, 2000)
+    }, 600)
   }
 
   const handleCancel = () => {
