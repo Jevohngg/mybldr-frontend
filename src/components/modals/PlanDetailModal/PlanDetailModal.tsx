@@ -88,37 +88,51 @@ function OverviewTab({ formData, setFormData }: {
   formData: { name: string; description: string }
   setFormData: React.Dispatch<React.SetStateAction<{ name: string; description: string }>>
 }) {
+  const [isPreparing, setIsPreparing] = React.useState(false)
   const [isUploading, setIsUploading] = React.useState(false)
   const [isCompleted, setIsCompleted] = React.useState(false)
   const [progress, setProgress] = React.useState(0)
+  const containerRef = React.useRef<HTMLDivElement>(null)
 
   const handleUpload = () => {
-    setIsUploading(true)
+    setIsPreparing(true)
     setIsCompleted(false)
     setProgress(0)
 
-    const duration = 3000
-    const interval = 20
-    const steps = duration / interval
-    const increment = 100 / steps
-
-    let currentProgress = 0
-    const timer = setInterval(() => {
-      currentProgress += increment
-      if (currentProgress >= 100) {
-        setProgress(100)
-        clearInterval(timer)
-        setTimeout(() => {
-          setIsUploading(false)
-          setIsCompleted(true)
-        }, 300)
-      } else {
-        setProgress(currentProgress)
+    setTimeout(() => {
+      if (containerRef.current) {
+        containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
       }
-    }, interval)
+    }, 100)
+
+    setTimeout(() => {
+      setIsPreparing(false)
+      setIsUploading(true)
+
+      const duration = 3000
+      const interval = 20
+      const steps = duration / interval
+      const increment = 100 / steps
+
+      let currentProgress = 0
+      const timer = setInterval(() => {
+        currentProgress += increment
+        if (currentProgress >= 100) {
+          setProgress(100)
+          clearInterval(timer)
+          setTimeout(() => {
+            setIsUploading(false)
+            setIsCompleted(true)
+          }, 300)
+        } else {
+          setProgress(currentProgress)
+        }
+      }, interval)
+    }, 2000)
   }
 
   const handleCancel = () => {
+    setIsPreparing(false)
     setIsUploading(false)
     setIsCompleted(false)
     setProgress(0)
@@ -155,8 +169,8 @@ function OverviewTab({ formData, setFormData }: {
 
         <div className={styles.masterPlanSection}>
           <h2 className={styles.sectionTitle}>Master Plan Set</h2>
-          <div className={styles.masterPlanContainer}>
-            {!isUploading && !isCompleted ? (
+          <div className={styles.masterPlanContainer} ref={containerRef}>
+            {!isPreparing && !isUploading && !isCompleted ? (
               <div className={styles.emptyState}>
                 <img src="/assets/empty-states/master-plan-set.svg" alt="" className={styles.emptyIcon} />
                 <div className={styles.emptyTitle}>Master plan set not selected</div>
@@ -169,6 +183,15 @@ function OverviewTab({ formData, setFormData }: {
                   </svg>
                   Upload File
                 </button>
+              </div>
+            ) : isPreparing ? (
+              <div className={styles.preparingState}>
+                <div className={styles.spinner}>
+                  <svg className={styles.spinnerSvg} viewBox="0 0 50 50">
+                    <circle className={styles.spinnerCircle} cx="25" cy="25" r="20" fill="none" strokeWidth="4"></circle>
+                  </svg>
+                </div>
+                <div className={styles.preparingText}>Preparing upload...</div>
               </div>
             ) : isUploading ? (
               <div className={styles.loadingState}>
