@@ -3,7 +3,7 @@ import styles from './CommunityMap.module.css'
 import MapLegend from '../MapLegend/MapLegend'
 import MapLot from '../MapLot/MapLot'
 import LotDetailPopup from '../LotDetailPopup/LotDetailPopup'
-import PlanDetailModal from '../../modals/PlanDetailModal/PlanDetailModal'
+import SelectPlanModal from '../../modals/SelectPlanModal/SelectPlanModal'
 import { CommunityMapData, Lot } from '../types'
 
 interface Plan {
@@ -97,6 +97,14 @@ export default function CommunityMap({ data }: CommunityMapProps) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [selectedLot])
 
+  const handleSelectPlan = () => {
+    if (selectedPlan && selectedLot) {
+      console.log(`Assigning plan ${selectedPlan.name} to lot ${selectedLot.lot_number}`)
+      setSelectedPlan(null)
+      setSelectedLot(null)
+    }
+  }
+
   return (
     <div className={styles.wrap}>
       <div className={styles.controls}>
@@ -177,12 +185,11 @@ export default function CommunityMap({ data }: CommunityMapProps) {
       </div>
 
       {selectedPlan && (
-        <PlanDetailModal
+        <SelectPlanModal
           open={true}
-          planId={(selectedPlan as any).id || selectedPlan.name}
-          planName={selectedPlan.name}
-          communityCount={(selectedPlan as any).communityCount || 0}
+          plan={selectedPlan}
           onClose={() => setSelectedPlan(null)}
+          onSelect={handleSelectPlan}
         />
       )}
     </div>
