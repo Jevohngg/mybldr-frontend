@@ -21,10 +21,15 @@ interface SelectPlanModalProps {
 
 export default function SelectPlanModal({ open, onClose, onSelect, plan }: SelectPlanModalProps) {
   const [loading, setLoading] = React.useState(false)
+  const [buttonWidth, setButtonWidth] = React.useState<number | undefined>(undefined)
+  const buttonRef = React.useRef<HTMLButtonElement>(null)
   const price = plan.price || '$489,900'
   const description = plan.description || `Welcome to The ${plan.name}, where timeless elegance meets modern comfort. This thoughtfully designed home features an open-concept living space bathed in natural light, seamlessly connecting the gourmet kitchen to a spacious great room—perfect for both everyday living and entertaining.`
 
   const handleSelect = () => {
+    if (buttonRef.current) {
+      setButtonWidth(buttonRef.current.offsetWidth)
+    }
     setLoading(true)
     setTimeout(() => {
       onSelect()
@@ -43,7 +48,13 @@ export default function SelectPlanModal({ open, onClose, onSelect, plan }: Selec
       footer={
         <div className={styles.footerButtons}>
           <Button onClick={onClose} disabled={loading}>Cancel</Button>
-          <Button variant="primary" onClick={handleSelect} loading={loading}>
+          <Button
+            ref={buttonRef}
+            variant="primary"
+            onClick={handleSelect}
+            loading={loading}
+            fixedWidth={buttonWidth}
+          >
             Select Model
           </Button>
         </div>
