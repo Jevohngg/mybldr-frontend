@@ -70,9 +70,7 @@ export default function PlanCard({ plan }: { plan: Plan }) {
     setImgSrc((prev) => (prev === '/assets/plans/placeholder.jpg' ? prev : '/assets/plans/placeholder.jpg'))
   }
 
-  const beds = formatBeds((typedPlan as any).beds)
-  const baths = formatBaths((typedPlan as any).baths)
-  const area = formatArea((typedPlan as any).aru)
+  const communityCount = (typedPlan as any).communityCount
 
   return (
     <div className={styles.card}>
@@ -90,17 +88,9 @@ export default function PlanCard({ plan }: { plan: Plan }) {
       <div className={styles.footer}>
         <div className={styles.name}>{typedPlan.name}</div>
 
-        {derivedCommunityName ? (
-          <div className={styles.community}>{derivedCommunityName}</div>
-        ) : null}
-
-        <div className={styles.meta} aria-label="Plan details">
-          {beds && <span>{beds}</span>}
-          {beds && baths && <span className={styles.dot}>•</span>}
-          {baths && <span>{baths}</span>}
-          {(beds || baths) && area && <span className={styles.dot}>•</span>}
-          {area && <span>{area}</span>}
-        </div>
+        {communityCount != null && (
+          <div className={styles.community}>{communityCount} Communities</div>
+        )}
       </div>
     </div>
   )

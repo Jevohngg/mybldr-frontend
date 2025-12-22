@@ -1,7 +1,7 @@
 .card {
   display: flex;
   flex-direction: column;
-  width: 379px;
+  width: 255px;
   flex-shrink: 0;
 
   border-radius: 8px;
@@ -24,8 +24,8 @@
 .img {
   width: 100%;
 
-  /* Screenshot card width ~379px, image height ~264px */
-  aspect-ratio: 379 / 264;
+  /* Screenshot card width ~255px, image height ~178px */
+  aspect-ratio: 255 / 178;
 
   background: #eef2f7;
   position: relative;
