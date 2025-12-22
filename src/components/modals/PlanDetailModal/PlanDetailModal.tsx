@@ -36,13 +36,14 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
   }, [open, planName])
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {open && (
         <motion.div
           className={styles.overlay}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
         >
           <div className={styles.backdrop} onClick={onClose} />
           <motion.div
