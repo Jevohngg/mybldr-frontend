@@ -9,6 +9,7 @@ export default function BaseModal({
   onClose,
   footer,
   width = 760,
+  hideCloseButton = false,
 }: {
   open: boolean
   title: string
@@ -16,6 +17,7 @@ export default function BaseModal({
   onClose: () => void
   footer?: React.ReactNode
   width?: number
+  hideCloseButton?: boolean
 }) {
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -43,7 +45,7 @@ export default function BaseModal({
           >
             <div className={styles.header}>
               <div className={styles.title}>{title}</div>
-              <button className={styles.close} onClick={onClose} aria-label="Close">✕</button>
+              {!hideCloseButton && <button className={styles.close} onClick={onClose} aria-label="Close">✕</button>}
             </div>
 
             <div className={styles.body}>{children}</div>
