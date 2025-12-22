@@ -107,7 +107,14 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
 
     setTimeout(() => {
       if (containerRef.current) {
-        containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        const element = containerRef.current
+        const elementRect = element.getBoundingClientRect()
+        const absoluteElementTop = elementRect.top + window.pageYOffset
+        const middle = absoluteElementTop - 100
+        const scrollableParent = element.closest(`.${styles.content}`)
+        if (scrollableParent) {
+          scrollableParent.scrollTo({ top: element.offsetTop - 100, behavior: 'smooth' })
+        }
       }
     }, 50)
 
