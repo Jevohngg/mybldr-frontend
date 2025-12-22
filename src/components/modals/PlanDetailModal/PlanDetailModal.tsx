@@ -101,7 +101,7 @@ function OverviewTab({ formData, setFormData }: {
 
     setTimeout(() => {
       if (containerRef.current) {
-        containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
     }, 50)
 
