@@ -30,7 +30,9 @@
   height: 100%;
   overflow: hidden;
   padding: 24px;
-  gap: 24px;
+  gap: 32px;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 .content {
