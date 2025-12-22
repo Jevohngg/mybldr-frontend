@@ -64,15 +64,13 @@ export default function PlanLibraryPage() {
         ))}
       </div>
 
-      {selectedPlan && (
-        <PlanDetailModal
-          open={!!selectedPlan}
-          onClose={() => setSelectedPlan(null)}
-          planId={selectedPlan.id}
-          planName={selectedPlan.name}
-          communityCount={selectedPlan.communityCount}
-        />
-      )}
+      <PlanDetailModal
+        open={!!selectedPlan}
+        onClose={() => setSelectedPlan(null)}
+        planId={selectedPlan?.id || ''}
+        planName={selectedPlan?.name || ''}
+        communityCount={selectedPlan?.communityCount || 0}
+      />
     </div>
   )
 }
