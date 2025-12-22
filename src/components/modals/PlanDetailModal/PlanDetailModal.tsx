@@ -112,18 +112,20 @@ function OverviewTab({ formData, setFormData }: {
 
       <div className={styles.section}>
         <h2 className={styles.sectionTitle}>Master Plan Set</h2>
-        <div className={styles.emptyState}>
-          <img src="/assets/empty-states/master-plan-set.svg" alt="" className={styles.emptyIcon} />
-          <div className={styles.emptyTitle}>Master plan set not selected</div>
-          <div className={styles.emptyDescription}>
-            Speed up takeoffs, get bids faster, and preview a render of your plan set.
+        <div className={styles.masterPlanContainer}>
+          <div className={styles.emptyState}>
+            <img src="/assets/empty-states/master-plan-set.svg" alt="" className={styles.emptyIcon} />
+            <div className={styles.emptyTitle}>Master plan set not selected</div>
+            <div className={styles.emptyDescription}>
+              Speed up takeoffs, get bids faster, and preview a render of your plan set.
+            </div>
+            <button className={styles.uploadBtn}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ marginRight: 6 }}>
+                <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+              Upload File
+            </button>
           </div>
-          <button className={styles.uploadBtn}>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ marginRight: 6 }}>
-              <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-            Upload File
-          </button>
         </div>
       </div>
 
