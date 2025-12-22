@@ -160,30 +160,27 @@ function OverviewTab({ formData, setFormData }: {
               </div>
             ) : (
               <div className={styles.loadingState}>
-                <div className={styles.loadingBackground}>
+                <div className={styles.imageSection}>
                   <img src="/assets/plans/placeholder.png" alt="" className={styles.backgroundImage} />
-                  <div className={styles.loadingOverlay} />
                 </div>
-                <div className={styles.loadingContent}>
-                  <div className={styles.loadingHeader}>
-                    <h3 className={styles.loadingTitle}>Loading Visualizer</h3>
-                  </div>
+                <div className={styles.loadingSection}>
+                  <h3 className={styles.loadingTitle}>Loading Visualizer</h3>
                   <div className={styles.loadingText}>Analyzing project...</div>
                   <div className={styles.progressBar}>
                     <div className={styles.progressFill} style={{ width: `${progress}%` }} />
                   </div>
-                  <div className={styles.fileInfo}>
-                    <div className={styles.fileDetails}>
-                      <img src="/assets/pdf.png" alt="" className={styles.pdfIcon} />
-                      <div className={styles.fileText}>
-                        <div className={styles.fileName}>master_plan_name.pdf</div>
-                        <div className={styles.fileSize}>100kb</div>
-                      </div>
+                </div>
+                <div className={styles.fileInfo}>
+                  <div className={styles.fileDetails}>
+                    <img src="/assets/pdf.png" alt="" className={styles.pdfIcon} />
+                    <div className={styles.fileText}>
+                      <div className={styles.fileName}>master_plan_name.pdf</div>
+                      <div className={styles.fileSize}>100kb</div>
                     </div>
-                    <div className={styles.fileActions}>
-                      <button className={styles.updateBtn}>Update</button>
-                      <button className={styles.cancelBtn} onClick={handleCancel}>✕</button>
-                    </div>
+                  </div>
+                  <div className={styles.fileActions}>
+                    <button className={styles.updateBtn}>Update</button>
+                    <button className={styles.cancelBtn} onClick={handleCancel}>✕</button>
                   </div>
                 </div>
               </div>
