@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import React from 'react'
 import styles from './PlanDetailModal.module.css'
 import PlanDetailSideNav from '../../../navigation/PlanDetailSideNav/PlanDetailSideNav'
+import AIPreviewOverlay from '../../ai-preview/AIPreviewOverlay'
 
 type TabType = 'overview' | 'plans'
 
@@ -15,6 +16,7 @@ interface PlanDetailModalProps {
 
 export default function PlanDetailModal({ open, onClose, planId, planName, communityCount }: PlanDetailModalProps) {
   const [activeTab, setActiveTab] = React.useState<TabType>('overview')
+  const [aiPreviewOpen, setAiPreviewOpen] = React.useState(false)
   const [formData, setFormData] = React.useState({
     name: planName,
     description: '',
@@ -36,8 +38,10 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
   }, [open, planName])
 
   return (
-    <AnimatePresence mode="wait">
-      {open && (
+    <>
+      <AIPreviewOverlay open={aiPreviewOpen} onClose={() => setAiPreviewOpen(false)} />
+      <AnimatePresence mode="wait">
+        {open && (
         <motion.div
           className={styles.overlay}
           initial={{ opacity: 0 }}
@@ -69,7 +73,7 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
 
                 <div className={styles.body}>
                   {activeTab === 'overview' && (
-                    <OverviewTab formData={formData} setFormData={setFormData} />
+                    <OverviewTab formData={formData} setFormData={setFormData} onOpenAIPreview={() => setAiPreviewOpen(true)} />
                   )}
                   {activeTab === 'plans' && (
                     <PlansTab />
@@ -79,14 +83,16 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
             </div>
           </motion.div>
         </motion.div>
-      )}
-    </AnimatePresence>
+        )}
+      </AnimatePresence>
+    </>
   )
 }
 
-function OverviewTab({ formData, setFormData }: {
+function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
   formData: { name: string; description: string }
   setFormData: React.Dispatch<React.SetStateAction<{ name: string; description: string }>>
+  onOpenAIPreview: () => void
 }) {
   const [isPreparing, setIsPreparing] = React.useState(false)
   const [isUploading, setIsUploading] = React.useState(false)
@@ -228,7 +234,7 @@ function OverviewTab({ formData, setFormData }: {
                   <div className={styles.visualizerInfo}>
                     <h3 className={styles.visualizerTitle}>Visualizer</h3>
                     <p className={styles.visualizerDescription}>Step inside your AI-rendered home.</p>
-                    <button className={styles.viewNowBtn}>View Now</button>
+                    <button className={styles.viewNowBtn} onClick={onOpenAIPreview}>View Now</button>
                   </div>
                 </div>
                 <div className={styles.completedContent}>
