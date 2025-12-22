@@ -43,10 +43,12 @@ export default function BaseModal({
             aria-modal="true"
             aria-label={title}
           >
-            <div className={styles.header}>
-              <div className={styles.title}>{title}</div>
-              {!hideCloseButton && <button className={styles.close} onClick={onClose} aria-label="Close">✕</button>}
-            </div>
+            {(title || !hideCloseButton) && (
+              <div className={styles.header}>
+                <div className={styles.title}>{title}</div>
+                {!hideCloseButton && <button className={styles.close} onClick={onClose} aria-label="Close">✕</button>}
+              </div>
+            )}
 
             <div className={styles.body}>{children}</div>
 
