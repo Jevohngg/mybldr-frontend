@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { DataProvider } from './providers'
 import AppLayout from '../layouts/AppLayout/AppLayout'
 import CommunitiesPage from '../pages/Communities/CommunitiesPage'
+import PlanLibraryPage from '../pages/PlanLibrary/PlanLibraryPage'
 import CommunityLayout from '../layouts/CommunityLayout/CommunityLayout'
 import CommunityOverview from '../pages/CommunityDetail/CommunityOverview'
 import HOARequirements from '../pages/CommunityDetail/HOARequirements'
@@ -29,6 +30,8 @@ export default function App() {
         <AnimatePresence mode="wait">
           <Routes>
             <Route path="/" element={<Navigate to="/communities" replace />} />
+
+            <Route path="/plan-library" element={<Page><PlanLibraryPage /></Page>} />
 
             <Route path="/communities" element={<Page><CommunitiesPage /></Page>} />
 

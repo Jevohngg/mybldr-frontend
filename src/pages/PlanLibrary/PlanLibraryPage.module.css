@@ -1,0 +1,53 @@
+.filtersRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 18px;
+  width: 100%;
+}
+.rightFilters {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.page{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+.buttonContent{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pill {
+  cursor: pointer;
+  user-select: none;
+}
+
+.pillLeft {
+  margin-right: auto;
+}
+
+.pillIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.pillChevron {
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
+}
