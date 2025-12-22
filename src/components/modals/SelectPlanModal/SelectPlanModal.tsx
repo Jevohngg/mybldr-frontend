@@ -20,8 +20,6 @@ interface SelectPlanModalProps {
 }
 
 export default function SelectPlanModal({ open, onClose, onSelect, plan }: SelectPlanModalProps) {
-  const [detailsExpanded, setDetailsExpanded] = React.useState(false)
-
   const price = plan.price || '$489,900'
   const description = plan.description || `Welcome to The ${plan.name}, where timeless elegance meets modern comfort. This thoughtfully designed home features an open-concept living space bathed in natural light, seamlessly connecting the gourmet kitchen to a spacious great room—perfect for both everyday living and entertaining.`
 
@@ -77,68 +75,60 @@ export default function SelectPlanModal({ open, onClose, onSelect, plan }: Selec
           <div className={styles.section}>
             <h3 className={styles.sectionTitle}>Features</h3>
             <div className={styles.features}>
-              <button
-                className={styles.featureRow}
-                onClick={() => setDetailsExpanded(!detailsExpanded)}
-              >
+              <div className={styles.featureRow}>
                 <span className={styles.featureLabel}>Detail</span>
-                <span className={styles.featureChevron}>
-                  {detailsExpanded ? '▼' : '▶'}
-                </span>
-              </button>
+              </div>
 
-              {detailsExpanded && (
-                <div className={styles.featureDetails}>
-                  <div className={styles.featureDetailRow}>
-                    <span className={styles.featureDetailLabel}>Name</span>
-                    <span className={styles.featureDetailValue}>Aberdeen</span>
-                  </div>
-                  <div className={styles.featureDetailRow}>
-                    <span className={styles.featureDetailLabel}>Max Full Bathroom #</span>
-                    <span className={styles.featureDetailValue}>3</span>
-                  </div>
-                  <div className={styles.featureDetailRow}>
-                    <span className={styles.featureDetailLabel}>Max Garage Bay #</span>
-                    <span className={styles.featureDetailValue}>Telluride</span>
-                  </div>
-                  <div className={styles.featureDetailRow}>
-                    <span className={styles.featureDetailLabel}>Base Width</span>
-                    <span className={styles.featureDetailValue}>30 ft</span>
-                  </div>
-                  <div className={styles.featureDetailRow}>
-                    <span className={styles.featureDetailLabel}>Max Width</span>
-                    <span className={styles.featureDetailValue}>50 ft</span>
-                  </div>
-                  <div className={styles.featureDetailRow}>
-                    <span className={styles.featureDetailLabel}>Base Depth</span>
-                    <span className={styles.featureDetailValue}>70 ft</span>
-                  </div>
-                  <div className={styles.featureDetailRow}>
-                    <span className={styles.featureDetailLabel}>Max Depth</span>
-                    <span className={styles.featureDetailValue}>80 ft</span>
-                  </div>
-                  <div className={styles.featureDetailRow}>
-                    <span className={styles.featureDetailLabel}>Building Code</span>
-                    <span className={styles.featureDetailValue}>2021 IRC</span>
-                  </div>
-                  <div className={styles.featureDetailRow}>
-                    <span className={styles.featureDetailLabel}>First Floor Sq Ft</span>
-                    <span className={styles.featureDetailValue}>1500</span>
-                  </div>
-                  <div className={styles.featureDetailRow}>
-                    <span className={styles.featureDetailLabel}>Second Floor Sq Ft</span>
-                    <span className={styles.featureDetailValue}>1500</span>
-                  </div>
-                  <div className={styles.featureDetailRow}>
-                    <span className={styles.featureDetailLabel}>Total Finished Sq Ft</span>
-                    <span className={styles.featureDetailValue}>2200</span>
-                  </div>
-                  <div className={styles.featureDetailRow}>
-                    <span className={styles.featureDetailLabel}>Total Unfinished Sq Ft</span>
-                    <span className={styles.featureDetailValue}>1900</span>
-                  </div>
+              <div className={styles.featureDetails}>
+                <div className={styles.featureDetailRow}>
+                  <span className={styles.featureDetailLabel}>Name</span>
+                  <span className={styles.featureDetailValue}>Aberdeen</span>
                 </div>
-              )}
+                <div className={styles.featureDetailRow}>
+                  <span className={styles.featureDetailLabel}>Max Full Bathroom #</span>
+                  <span className={styles.featureDetailValue}>3</span>
+                </div>
+                <div className={styles.featureDetailRow}>
+                  <span className={styles.featureDetailLabel}>Max Garage Bay #</span>
+                  <span className={styles.featureDetailValue}>Telluride</span>
+                </div>
+                <div className={styles.featureDetailRow}>
+                  <span className={styles.featureDetailLabel}>Base Width</span>
+                  <span className={styles.featureDetailValue}>30 ft</span>
+                </div>
+                <div className={styles.featureDetailRow}>
+                  <span className={styles.featureDetailLabel}>Max Width</span>
+                  <span className={styles.featureDetailValue}>50 ft</span>
+                </div>
+                <div className={styles.featureDetailRow}>
+                  <span className={styles.featureDetailLabel}>Base Depth</span>
+                  <span className={styles.featureDetailValue}>70 ft</span>
+                </div>
+                <div className={styles.featureDetailRow}>
+                  <span className={styles.featureDetailLabel}>Max Depth</span>
+                  <span className={styles.featureDetailValue}>80 ft</span>
+                </div>
+                <div className={styles.featureDetailRow}>
+                  <span className={styles.featureDetailLabel}>Building Code</span>
+                  <span className={styles.featureDetailValue}>2021 IRC</span>
+                </div>
+                <div className={styles.featureDetailRow}>
+                  <span className={styles.featureDetailLabel}>First Floor Sq Ft</span>
+                  <span className={styles.featureDetailValue}>1500</span>
+                </div>
+                <div className={styles.featureDetailRow}>
+                  <span className={styles.featureDetailLabel}>Second Floor Sq Ft</span>
+                  <span className={styles.featureDetailValue}>1500</span>
+                </div>
+                <div className={styles.featureDetailRow}>
+                  <span className={styles.featureDetailLabel}>Total Finished Sq Ft</span>
+                  <span className={styles.featureDetailValue}>2200</span>
+                </div>
+                <div className={styles.featureDetailRow}>
+                  <span className={styles.featureDetailLabel}>Total Unfinished Sq Ft</span>
+                  <span className={styles.featureDetailValue}>1900</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
