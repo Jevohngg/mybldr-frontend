@@ -101,9 +101,7 @@ function OverviewTab({ formData, setFormData }: {
 
     setTimeout(() => {
       if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect()
-        const offset = 80
-        window.scrollBy({ top: rect.top - offset, behavior: 'smooth' })
+        containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
     }, 50)
 
