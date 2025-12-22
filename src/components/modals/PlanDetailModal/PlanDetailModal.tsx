@@ -88,6 +88,35 @@ function OverviewTab({ formData, setFormData }: {
   formData: { name: string; description: string }
   setFormData: React.Dispatch<React.SetStateAction<{ name: string; description: string }>>
 }) {
+  const [isUploading, setIsUploading] = React.useState(false)
+  const [progress, setProgress] = React.useState(0)
+
+  const handleUpload = () => {
+    setIsUploading(true)
+    setProgress(0)
+
+    const duration = 2000
+    const interval = 20
+    const steps = duration / interval
+    const increment = 100 / steps
+
+    let currentProgress = 0
+    const timer = setInterval(() => {
+      currentProgress += increment
+      if (currentProgress >= 100) {
+        setProgress(100)
+        clearInterval(timer)
+      } else {
+        setProgress(currentProgress)
+      }
+    }, interval)
+  }
+
+  const handleCancel = () => {
+    setIsUploading(false)
+    setProgress(0)
+  }
+
   return (
     <div className={styles.overviewTab}>
       <div className={styles.sectionCard}>
@@ -115,19 +144,50 @@ function OverviewTab({ formData, setFormData }: {
         <div className={styles.masterPlanSection}>
           <h2 className={styles.sectionTitle}>Master Plan Set</h2>
           <div className={styles.masterPlanContainer}>
-            <div className={styles.emptyState}>
-              <img src="/assets/empty-states/master-plan-set.svg" alt="" className={styles.emptyIcon} />
-              <div className={styles.emptyTitle}>Master plan set not selected</div>
-              <div className={styles.emptyDescription}>
-                Speed up takeoffs, get bids faster, and preview a render of your plan set.
+            {!isUploading ? (
+              <div className={styles.emptyState}>
+                <img src="/assets/empty-states/master-plan-set.svg" alt="" className={styles.emptyIcon} />
+                <div className={styles.emptyTitle}>Master plan set not selected</div>
+                <div className={styles.emptyDescription}>
+                  Speed up takeoffs, get bids faster, and preview a render of your plan set.
+                </div>
+                <button className={styles.uploadBtn} onClick={handleUpload}>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ marginRight: 6 }}>
+                    <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                  Upload File
+                </button>
               </div>
-              <button className={styles.uploadBtn}>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ marginRight: 6 }}>
-                  <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                </svg>
-                Upload File
-              </button>
-            </div>
+            ) : (
+              <div className={styles.loadingState}>
+                <div className={styles.loadingBackground}>
+                  <img src="/assets/plans/placeholder.png" alt="" className={styles.backgroundImage} />
+                  <div className={styles.loadingOverlay} />
+                </div>
+                <div className={styles.loadingContent}>
+                  <div className={styles.loadingHeader}>
+                    <h3 className={styles.loadingTitle}>Loading Visualizer</h3>
+                  </div>
+                  <div className={styles.loadingText}>Analyzing project...</div>
+                  <div className={styles.progressBar}>
+                    <div className={styles.progressFill} style={{ width: `${progress}%` }} />
+                  </div>
+                  <div className={styles.fileInfo}>
+                    <div className={styles.fileDetails}>
+                      <img src="/assets/pdf.png" alt="" className={styles.pdfIcon} />
+                      <div className={styles.fileText}>
+                        <div className={styles.fileName}>master_plan_name.pdf</div>
+                        <div className={styles.fileSize}>100kb</div>
+                      </div>
+                    </div>
+                    <div className={styles.fileActions}>
+                      <button className={styles.updateBtn}>Update</button>
+                      <button className={styles.cancelBtn} onClick={handleCancel}>✕</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
