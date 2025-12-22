@@ -57,6 +57,7 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
             exit={{ y: '100%' }}
             transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
           >
+            <button className={styles.closeBtn} onClick={onClose} aria-label="Close">✕</button>
             <div className={styles.container}>
               <PlanDetailSideNav
                 planName={planName}
@@ -68,7 +69,6 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
               <div className={styles.content}>
                 <div className={styles.header}>
                   <h1 className={styles.title}>{activeTab === 'overview' ? 'Overview' : 'Plans'}</h1>
-                  <button className={styles.closeBtn} onClick={onClose} aria-label="Close">✕</button>
                 </div>
 
                 <div className={styles.body}>

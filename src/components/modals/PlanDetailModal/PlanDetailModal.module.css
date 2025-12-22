@@ -51,7 +51,6 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 32px 32px 24px;
   background: transparent;
   flex-shrink: 0;
@@ -69,6 +68,9 @@
 }
 
 .closeBtn {
+  position: absolute;
+  top: 32px;
+  right: 32px;
   width: 32px;
   height: 32px;
   border-radius: 6px;
@@ -81,6 +83,7 @@
   font-size: 20px;
   color: #6b7280;
   transition: background 0.15s;
+  z-index: 10;
 }
 
 .closeBtn:hover {
