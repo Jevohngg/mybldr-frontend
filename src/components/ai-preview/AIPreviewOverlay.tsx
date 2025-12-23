@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import styles from './AIPreviewOverlay.module.css'
-import PaletteSelector from './PaletteSelector'
+import PaletteSelector, { palettes } from './PaletteSelector'
 
 interface AIPreviewOverlayProps {
   open: boolean
@@ -10,6 +10,7 @@ interface AIPreviewOverlayProps {
 
 export default function AIPreviewOverlay({ open, onClose }: AIPreviewOverlayProps) {
   const [showPaletteSelector, setShowPaletteSelector] = React.useState(true)
+  const [selectedPaletteId, setSelectedPaletteId] = React.useState('1')
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -18,6 +19,8 @@ export default function AIPreviewOverlay({ open, onClose }: AIPreviewOverlayProp
     if (open) window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [open, onClose])
+
+  const selectedPalette = palettes.find(p => p.id === selectedPaletteId) || palettes[0]
 
   return (
     <AnimatePresence mode="wait">
@@ -47,12 +50,14 @@ export default function AIPreviewOverlay({ open, onClose }: AIPreviewOverlayProp
               <PaletteSelector
                 open={showPaletteSelector}
                 onClose={() => setShowPaletteSelector(false)}
+                selectedPaletteId={selectedPaletteId}
+                onSelectPalette={setSelectedPaletteId}
               />
 
               <div className={styles.previewArea}>
                 <div className={styles.previewContainer}>
                   <img
-                    src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=1920"
+                    src={selectedPalette.previewImage}
                     alt="AI Generated House Preview"
                     className={styles.previewImage}
                   />

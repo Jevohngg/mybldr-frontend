@@ -4,23 +4,40 @@ import styles from './PaletteSelector.module.css'
 interface PaletteSelectorProps {
   open: boolean
   onClose: () => void
+  selectedPaletteId: string
+  onSelectPalette: (paletteId: string) => void
 }
 
-interface ColorPalette {
+interface Palette {
   id: string
-  colors: string[]
+  paletteImage: string
+  previewImage: string
 }
 
-const palettes: ColorPalette[] = [
-  { id: '1', colors: ['#5B6B82', '#394A5E', '#1F2937', '#4A5E77'] },
-  { id: '2', colors: ['#9CA3AF', '#D1D5DB', '#F3F4F6', '#6B7280'] },
-  { id: '3', colors: ['#C4B5A0', '#8B7355', '#E5DDD5', '#6B5D4F'] },
-  { id: '4', colors: ['#8B9BAD', '#CBD5E1', '#F1F5F9', '#64748B'] },
+export const palettes: Palette[] = [
+  {
+    id: '1',
+    paletteImage: 'https://images.pexels.com/photos/534172/pexels-photo-534172.jpeg?auto=compress&cs=tinysrgb&w=400',
+    previewImage: 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=1920'
+  },
+  {
+    id: '2',
+    paletteImage: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=400',
+    previewImage: 'https://images.pexels.com/photos/206172/pexels-photo-206172.jpeg?auto=compress&cs=tinysrgb&w=1920'
+  },
+  {
+    id: '3',
+    paletteImage: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=400',
+    previewImage: 'https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg?auto=compress&cs=tinysrgb&w=1920'
+  },
+  {
+    id: '4',
+    paletteImage: 'https://images.pexels.com/photos/2121121/pexels-photo-2121121.jpeg?auto=compress&cs=tinysrgb&w=400',
+    previewImage: 'https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=1920'
+  },
 ]
 
-export default function PaletteSelector({ open, onClose }: PaletteSelectorProps) {
-  const [selectedPalette, setSelectedPalette] = React.useState<string | null>(null)
-
+export default function PaletteSelector({ open, onClose, selectedPaletteId, onSelectPalette }: PaletteSelectorProps) {
   if (!open) return null
 
   return (
@@ -36,18 +53,14 @@ export default function PaletteSelector({ open, onClose }: PaletteSelectorProps)
         {palettes.map((palette) => (
           <button
             key={palette.id}
-            className={`${styles.paletteCard} ${selectedPalette === palette.id ? styles.selected : ''}`}
-            onClick={() => setSelectedPalette(palette.id)}
+            className={`${styles.paletteCard} ${selectedPaletteId === palette.id ? styles.selected : ''}`}
+            onClick={() => onSelectPalette(palette.id)}
           >
-            <div className={styles.colorGrid}>
-              {palette.colors.map((color, index) => (
-                <div
-                  key={index}
-                  className={styles.colorSwatch}
-                  style={{ backgroundColor: color }}
-                />
-              ))}
-            </div>
+            <img
+              src={palette.paletteImage}
+              alt={`Palette ${palette.id}`}
+              className={styles.paletteImage}
+            />
           </button>
         ))}
       </div>
