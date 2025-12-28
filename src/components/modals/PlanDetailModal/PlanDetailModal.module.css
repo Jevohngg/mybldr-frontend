@@ -601,13 +601,20 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .completedCard {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 24px;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
+display: flex;
+padding: var(--6, 1rem);
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+gap: var(--6, 1rem);
+flex: 1 0 0;
+
+  border-radius: 0.5rem;
+border: 1px solid var(--Colors-Border-border-secondary, #EFF0F0);
+background: var(--Colors-Background-bg-primary, #FFF);
+
+/* Shadow/xs */
+box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .pdfHeader {
