@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './PlanDetailModal.module.css'
 import PlanDetailSideNav from '../../../navigation/PlanDetailSideNav/PlanDetailSideNav'
 import AIPreviewOverlay from '../../ai-preview/AIPreviewOverlay'
+import TitleBlockInfo from './TitleBlockInfo'
 
 type TabType = 'overview' | 'plans'
 
@@ -80,6 +81,8 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
                   )}
                 </div>
               </div>
+
+              {activeTab === 'overview' && <TitleBlockInfo />}
             </div>
           </motion.div>
         </motion.div>
