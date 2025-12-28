@@ -87,8 +87,8 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
                   {activeTab === 'overview' && (
                     <div className={styles.rightSidebar}>
                       <TitleBlockInfo />
-                      <RecordInfo />
                       <PlanFeatures />
+                      <RecordInfo />
                     </div>
                   )}
                 </div>

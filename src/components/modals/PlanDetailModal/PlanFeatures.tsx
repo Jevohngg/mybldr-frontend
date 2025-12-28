@@ -15,13 +15,13 @@ export default function PlanFeatures() {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Plan Features</h2>
+      <h3 className={styles.title}>Plan Features</h3>
       <div className={styles.featuresGrid}>
         {features.map((feature) => (
-          <div key={feature} className={styles.featureTag}>
+          <button key={feature} className={styles.featureTag}>
             <span className={styles.featurePlus}>+</span>
             <span className={styles.featureText}>{feature}</span>
-          </div>
+          </button>
         ))}
       </div>
     </div>
