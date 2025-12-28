@@ -477,8 +477,9 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   gap: 12px;
 }
 
-.updateBtn {
-  padding: 8px 16px;
+/* Shared button style for all action buttons */
+.actionButton {
+  padding: 10px 20px;
   font-size: 14px;
   font-weight: 500;
   color: #374151;
@@ -489,9 +490,14 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   transition: background 0.15s, border-color 0.15s;
 }
 
-.updateBtn:hover {
+.actionButton:hover {
   background: #f9fafb;
- 
+}
+
+/* Individual button classes now extend the shared style */
+.updateBtn {
+  composes: actionButton;
+  padding: 8px 16px;
 }
 
 .cancelBtn {
@@ -558,20 +564,7 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .viewNowBtn {
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  background: white;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
-}
-
-.viewNowBtn:hover {
-  background: #f9fafb;
-
+  composes: actionButton;
 }
 
 .completedContent {
@@ -627,37 +620,11 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .updateBtnLarge {
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  background: white;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
-}
-
-.updateBtnLarge:hover {
-  background: #f9fafb;
-
+  composes: actionButton;
 }
 
 .clearBtn {
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  background: white;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
-}
-
-.clearBtn:hover {
-  background: #f9fafb;
-
+  composes: actionButton;
 }
 
 .paletteTitle {
@@ -675,21 +642,8 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .uploadPaletteBtn {
+  composes: actionButton;
   display: inline-flex;
   align-items: center;
   align-self: flex-start;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  background: white;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
-}
-
-.uploadPaletteBtn:hover {
-  background: #f9fafb;
-  
 }
