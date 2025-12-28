@@ -4,7 +4,16 @@ import styles from './TitleBlockInfo.module.css'
 export default function TitleBlockInfo() {
   const [buildingCodes, setBuildingCodes] = React.useState(['2021 IRC', '2023 NEC'])
   const [adaCompliant, setAdaCompliant] = React.useState('no')
-  const [planFeatures] = React.useState(['Finished Lower Level', 'Covered porch/patio'])
+  const [planFeatures] = React.useState([
+    'Finished Lower Level',
+    'Covered porch/patio',
+    'Office/Flex Space',
+    'Kitchen island',
+    'Family room',
+    'Bonus room',
+    'Pocket Door',
+    'Fireplace'
+  ])
 
   const removeCode = (code: string) => {
     setBuildingCodes(buildingCodes.filter(c => c !== code))
@@ -38,7 +47,11 @@ export default function TitleBlockInfo() {
               </button>
             </div>
           ))}
-          <button className={styles.addTagBtn}>×</button>
+          <button className={styles.dropdownBtn}>
+            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+              <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
         </div>
       </div>
 

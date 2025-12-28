@@ -4,6 +4,7 @@ import styles from './PlanDetailModal.module.css'
 import PlanDetailSideNav from '../../../navigation/PlanDetailSideNav/PlanDetailSideNav'
 import AIPreviewOverlay from '../../ai-preview/AIPreviewOverlay'
 import TitleBlockInfo from './TitleBlockInfo'
+import RecordInfo from './RecordInfo'
 
 type TabType = 'overview' | 'plans'
 
@@ -67,22 +68,29 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
                 onTabChange={setActiveTab}
               />
 
-              <div className={styles.content}>
+              <div className={styles.mainContent}>
                 <div className={styles.header}>
                   <h1 className={styles.title}>{activeTab === 'overview' ? 'Overview' : 'Plans'}</h1>
                 </div>
 
-                <div className={styles.body}>
+                <div className={styles.scrollableWrapper}>
+                  <div className={styles.centerContent}>
+                    {activeTab === 'overview' && (
+                      <OverviewTab formData={formData} setFormData={setFormData} onOpenAIPreview={() => setAiPreviewOpen(true)} />
+                    )}
+                    {activeTab === 'plans' && (
+                      <PlansTab />
+                    )}
+                  </div>
+
                   {activeTab === 'overview' && (
-                    <OverviewTab formData={formData} setFormData={setFormData} onOpenAIPreview={() => setAiPreviewOpen(true)} />
-                  )}
-                  {activeTab === 'plans' && (
-                    <PlansTab />
+                    <div className={styles.rightSidebar}>
+                      <TitleBlockInfo />
+                      <RecordInfo />
+                    </div>
                   )}
                 </div>
               </div>
-
-              {activeTab === 'overview' && <TitleBlockInfo />}
             </div>
           </motion.div>
         </motion.div>

@@ -36,14 +36,14 @@
   margin: 0 auto;
 }
 
-.content {
+.mainContent {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   background: #f9fafb;
   border-radius: 12px;
   min-width: 0;
+  overflow: hidden;
 }
 
 .header {
@@ -52,6 +52,7 @@
   padding: 32px 32px 24px;
   background: transparent;
   border-radius: 12px 12px 0 0;
+  flex-shrink: 0;
 }
 
 .title {
@@ -84,10 +85,24 @@
   background: #f3f4f6;
 }
 
-.body {
-  padding: 0 32px 32px;
+.scrollableWrapper {
+  flex: 1;
   display: flex;
-  justify-content: center;
+  gap: 24px;
+  overflow-y: auto;
+  padding: 0 32px 32px;
+}
+
+.centerContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.rightSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex-shrink: 0;
 }
 
 .overviewTab {
