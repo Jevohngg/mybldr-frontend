@@ -588,9 +588,14 @@ line-height: 1.5rem; /* 150% */
 }
 
 .visualizerDescription {
-  font-size: 16px;
-  color: #6b7280;
-  margin: 0 0 20px 0;
+color: var(--Colors-Text-text-secondary, #3E4041);
+
+/* Typography/body1/Regular */
+font-family: Inter;
+font-size: 1rem;
+font-style: normal;
+font-weight: 400;
+line-height: 1.5rem; /* 150% */
 }
 
 .viewNowBtn {
