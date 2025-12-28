@@ -5,6 +5,7 @@ import PlanDetailSideNav from '../../../navigation/PlanDetailSideNav/PlanDetailS
 import AIPreviewOverlay from '../../ai-preview/AIPreviewOverlay'
 import TitleBlockInfo from './TitleBlockInfo'
 import RecordInfo from './RecordInfo'
+import PlanFeatures from './PlanFeatures'
 
 type TabType = 'overview' | 'plans'
 
@@ -87,6 +88,7 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
                     <div className={styles.rightSidebar}>
                       <TitleBlockInfo />
                       <RecordInfo />
+                      <PlanFeatures />
                     </div>
                   )}
                 </div>

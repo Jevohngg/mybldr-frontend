@@ -4,16 +4,6 @@ import styles from './TitleBlockInfo.module.css'
 export default function TitleBlockInfo() {
   const [buildingCodes, setBuildingCodes] = React.useState(['2021 IRC', '2023 NEC'])
   const [adaCompliant, setAdaCompliant] = React.useState('no')
-  const [planFeatures] = React.useState([
-    'Finished Lower Level',
-    'Covered porch/patio',
-    'Office/Flex Space',
-    'Kitchen island',
-    'Family room',
-    'Bonus room',
-    'Pocket Door',
-    'Fireplace'
-  ])
 
   const removeCode = (code: string) => {
     setBuildingCodes(buildingCodes.filter(c => c !== code))
@@ -138,18 +128,6 @@ export default function TitleBlockInfo() {
             />
             <span className={styles.radioText}>No</span>
           </label>
-        </div>
-      </div>
-
-      <div className={styles.section}>
-        <label className={styles.label}>Plan Features</label>
-        <div className={styles.featuresList}>
-          {planFeatures.map((feature, index) => (
-            <div key={index} className={styles.featureItem}>
-              <span className={styles.featurePlus}>+</span>
-              <span className={styles.featureText}>{feature}</span>
-            </div>
-          ))}
         </div>
       </div>
     </div>
