@@ -5,8 +5,8 @@
   padding: 24px;
   flex-shrink: 0;
   height: fit-content;
-  position: sticky;
-  top: 0;
+  align-self: flex-start;
+  margin-top: 32px;
 }
 
 .title {
