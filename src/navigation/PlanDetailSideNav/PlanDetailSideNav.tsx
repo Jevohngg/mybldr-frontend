@@ -14,7 +14,7 @@ export default function PlanDetailSideNav({ planName, communityCount, activeTab,
     <div className={styles.sidebar}>
       <div className={styles.header}>
         <div className={styles.icon}>
-          <img src="/assets/icons/plan-detail-header2.svg" alt="" width="20" height="20" />
+          <img src="/assets/icons/plan-detail-header.svg" alt="" width="20" height="20" />
         </div>
         <div className={styles.headerInfo}>
           <div className={styles.planName}>{planName}</div>
