@@ -35,8 +35,14 @@ export default function AIPreviewOverlay({ open, onClose }: AIPreviewOverlayProp
           <div className={styles.container}>
             <header className={styles.header}>
               <div className={styles.headerLeft}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className={styles.icon}>
-                </svg>
+<img
+  src="/assets/icons/plan-detail-header2.svg"
+  width={24}
+  height={24}
+  className={styles.icon}
+  alt=""
+/>
+
                 <h1 className={styles.title}>AI Generated Preview</h1>
               </div>
               <div className={styles.headerRight}>
