@@ -38,9 +38,7 @@ export default function TitleBlockInfo() {
             </div>
           ))}
           <button className={styles.dropdownBtn}>
-            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-              <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <img src="/assets/icons/chevron-down.svg" alt="" width="12" height="8" />
           </button>
         </div>
       </div>
@@ -58,20 +56,14 @@ export default function TitleBlockInfo() {
         <div className={styles.dateField}>
           <label className={styles.label}>Issued</label>
           <div className={styles.dateInput}>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={styles.dateIcon}>
-              <rect x="2" y="3" width="12" height="11" rx="1" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-              <path d="M2 6h12M5 1v2M11 1v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
+            <img src="/assets/icons/calendar.svg" alt="" width="16" height="16" className={styles.dateIcon} />
             <span className={styles.datePlaceholder}>11/22...</span>
           </div>
         </div>
         <div className={styles.dateField}>
           <label className={styles.label}>Expires</label>
           <div className={styles.dateInput}>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={styles.dateIcon}>
-              <rect x="2" y="3" width="12" height="11" rx="1" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-              <path d="M2 6h12M5 1v2M11 1v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
+            <img src="/assets/icons/calendar.svg" alt="" width="16" height="16" className={styles.dateIcon} />
             <span className={styles.datePlaceholder}>11/22...</span>
           </div>
         </div>

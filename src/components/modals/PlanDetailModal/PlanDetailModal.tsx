@@ -204,9 +204,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
                   Speed up takeoffs, get bids faster, and preview a render of your plan set.
                 </div>
                 <button className={styles.uploadBtn} onClick={handleUpload}>
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ marginRight: 6 }}>
-                    <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                  </svg>
+                  <img src="/assets/icons/plus.svg" alt="" width="16" height="16" style={{ marginRight: 6 }} />
                   Upload File
                 </button>
               </div>
@@ -275,9 +273,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
                     <h4 className={styles.paletteTitle}>View with your palettes</h4>
                     <p className={styles.paletteDescription}>Preview your design by uploading your look book.</p>
                     <button className={styles.uploadPaletteBtn}>
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ marginRight: 6 }}>
-                        <path d="M8 10V3M5 6l3-3 3 3M3 13h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
+                      <img src="/assets/icons/upload.svg" alt="" width="16" height="16" style={{ marginRight: 6 }} />
                       Upload
                     </button>
                   </div>

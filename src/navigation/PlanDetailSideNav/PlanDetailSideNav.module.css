@@ -29,6 +29,10 @@
   flex-shrink: 0;
 }
 
+.icon img {
+  filter: invert(46%) sepia(6%) saturate(693%) hue-rotate(178deg) brightness(94%) contrast(86%);
+}
+
 .headerInfo {
   flex: 1;
   min-width: 0;
@@ -84,4 +88,13 @@
 
 .navIcon {
   flex-shrink: 0;
+  filter: invert(46%) sepia(6%) saturate(693%) hue-rotate(178deg) brightness(94%) contrast(86%);
+}
+
+.navItem:hover .navIcon {
+  filter: invert(28%) sepia(8%) saturate(627%) hue-rotate(178deg) brightness(96%) contrast(92%);
+}
+
+.navItem.active .navIcon {
+  filter: invert(7%) sepia(7%) saturate(1042%) hue-rotate(176deg) brightness(96%) contrast(95%);
 }

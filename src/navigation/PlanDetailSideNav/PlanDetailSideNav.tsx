@@ -14,10 +14,7 @@ export default function PlanDetailSideNav({ planName, communityCount, activeTab,
     <div className={styles.sidebar}>
       <div className={styles.header}>
         <div className={styles.icon}>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M3 7h14M7 3v14" stroke="currentColor" strokeWidth="1.5" />
-          </svg>
+          <img src="/assets/icons/plan-detail-header.svg" alt="" width="20" height="20" />
         </div>
         <div className={styles.headerInfo}>
           <div className={styles.planName}>{planName}</div>
@@ -30,10 +27,7 @@ export default function PlanDetailSideNav({ planName, communityCount, activeTab,
           className={`${styles.navItem} ${activeTab === 'overview' ? styles.active : ''}`}
           onClick={() => onTabChange('overview')}
         >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={styles.navIcon}>
-            <rect x="2" y="2" width="12" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M2 5h12M5 2v12" stroke="currentColor" strokeWidth="1.5" />
-          </svg>
+          <img src="/assets/icons/overview.svg" alt="" width="16" height="16" className={styles.navIcon} />
           Overview
         </button>
 
@@ -41,9 +35,7 @@ export default function PlanDetailSideNav({ planName, communityCount, activeTab,
           className={`${styles.navItem} ${activeTab === 'plans' ? styles.active : ''}`}
           onClick={() => onTabChange('plans')}
         >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={styles.navIcon}>
-            <path d="M3 2h10M3 14h10M2 6h12M2 10h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
+          <img src="/assets/icons/plans-list.svg" alt="" width="16" height="16" className={styles.navIcon} />
           Plans
         </button>
       </nav>
