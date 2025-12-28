@@ -199,10 +199,10 @@
 }
 
 .emptyIcon {
-  width: 64px;
-  height: 64px;
+  width: 94px;
+
   margin: 0 auto 16px;
-  opacity: 0.6;
+  opacity: 1;
 }
 
 .emptyTitle {
