@@ -220,6 +220,7 @@
 }
 
 .uploadBtn {
+  border:none;
 display: flex;
 padding: var(--3, 0.375rem) var(--4, 0.5rem);
 justify-content: center;
