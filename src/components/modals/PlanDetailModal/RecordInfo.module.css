@@ -1,11 +1,12 @@
 .container {
   width: 320px;
   background: white;
-  border-radius: 12px;
+  border-radius: 20px;
   padding: 24px;
   flex-shrink: 0;
   height: fit-content;
   align-self: flex-start;
+  border: 1px solid #EFF0F0;
 }
 
 .section {
