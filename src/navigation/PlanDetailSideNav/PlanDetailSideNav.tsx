@@ -35,7 +35,7 @@ export default function PlanDetailSideNav({ planName, communityCount, activeTab,
           className={`${styles.navItem} ${activeTab === 'plans' ? styles.active : ''}`}
           onClick={() => onTabChange('plans')}
         >
-          <img src="/assets/icons/plans-list.svg" alt="" width="16" height="16" className={styles.navIcon} />
+          <img src="/assets/icons/document.svg" alt="" width="16" height="16" className={styles.navIcon} />
           Plans
         </button>
       </nav>
