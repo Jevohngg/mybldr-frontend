@@ -211,7 +211,7 @@ text-transform: capitalize;
       display: flex;
     flex-wrap: wrap;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 24px;
 }
 
 .materialCard {
