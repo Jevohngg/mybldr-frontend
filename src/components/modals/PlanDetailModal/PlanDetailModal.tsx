@@ -30,6 +30,18 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
     specificationLevel: [] as string[],
     division: [] as string[],
     description: '',
+    bedrooms: 0,
+    bathrooms: 0,
+    halfBaths: 0,
+    garageSpaces: 0,
+    totalFinishedSqft: 0,
+    totalUnfinishedSqft: 0,
+    width: "0'",
+    depth: "0'",
+    numberOfElevations: 0,
+    foundationTypes: [] as string[],
+    costPerSquareFoot: 0,
+    floors: 0,
   })
 
   React.useEffect(() => {
@@ -52,6 +64,18 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
         specificationLevel: ['Live.M'],
         division: ['DFW', 'Houston'],
         description: '',
+        bedrooms: 0,
+        bathrooms: 0,
+        halfBaths: 0,
+        garageSpaces: 0,
+        totalFinishedSqft: 0,
+        totalUnfinishedSqft: 0,
+        width: "0'",
+        depth: "0'",
+        numberOfElevations: 0,
+        foundationTypes: ['Slab on Grade', 'Piles'],
+        costPerSquareFoot: 0,
+        floors: 0,
       })
       setActiveTab('overview')
     }
@@ -130,6 +154,18 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
     specificationLevel: string[]
     division: string[]
     description: string
+    bedrooms: number
+    bathrooms: number
+    halfBaths: number
+    garageSpaces: number
+    totalFinishedSqft: number
+    totalUnfinishedSqft: number
+    width: string
+    depth: string
+    numberOfElevations: number
+    foundationTypes: string[]
+    costPerSquareFoot: number
+    floors: number
   }
   setFormData: React.Dispatch<React.SetStateAction<{
     name: string
@@ -141,6 +177,18 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
     specificationLevel: string[]
     division: string[]
     description: string
+    bedrooms: number
+    bathrooms: number
+    halfBaths: number
+    garageSpaces: number
+    totalFinishedSqft: number
+    totalUnfinishedSqft: number
+    width: string
+    depth: string
+    numberOfElevations: number
+    foundationTypes: string[]
+    costPerSquareFoot: number
+    floors: number
   }>>
   onOpenAIPreview: () => void
 }) {
@@ -148,6 +196,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
   const [isUploading, setIsUploading] = React.useState(false)
   const [isCompleted, setIsCompleted] = React.useState(false)
   const [progress, setProgress] = React.useState(0)
+  const [allDetailsExpanded, setAllDetailsExpanded] = React.useState(false)
   const containerRef = React.useRef<HTMLDivElement>(null)
 
   const handleUpload = () => {
@@ -471,25 +520,169 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
       </div>
 
       <div className={styles.sectionCard}>
-        <h2 className={styles.sectionTitle}>Communities that contain this plan set</h2>
-        <div className={styles.table}>
-          <div className={styles.tableHeader}>
-            <div className={styles.tableHeaderCell}>Community</div>
-            <div className={styles.tableHeaderCell}>Lots</div>
+        <h2 className={styles.baseHouseTitle}>Base house</h2>
+
+        <div className={styles.formRow}>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Bedrooms</label>
+            <input
+              type="number"
+              className={styles.input}
+              value={formData.bedrooms}
+              onChange={(e) => setFormData(prev => ({ ...prev, bedrooms: Number(e.target.value) }))}
+            />
           </div>
-          <div className={styles.emptyState}>
-            <img src="/assets/empty-states/no-communities.svg" alt="" className={styles.emptyIcon} />
-            <div className={styles.emptyTitle}>No communities are currently using this plan set</div>
-            <div className={styles.emptyDescription}>
-              Communities that use this plan set will be shown here.
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Bathrooms</label>
+            <input
+              type="number"
+              className={styles.input}
+              value={formData.bathrooms}
+              onChange={(e) => setFormData(prev => ({ ...prev, bathrooms: Number(e.target.value) }))}
+            />
+          </div>
+        </div>
+
+        <div className={styles.formRow}>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Half baths</label>
+            <input
+              type="number"
+              className={styles.input}
+              value={formData.halfBaths}
+              onChange={(e) => setFormData(prev => ({ ...prev, halfBaths: Number(e.target.value) }))}
+            />
+          </div>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Garage spaces</label>
+            <input
+              type="number"
+              className={styles.input}
+              value={formData.garageSpaces}
+              onChange={(e) => setFormData(prev => ({ ...prev, garageSpaces: Number(e.target.value) }))}
+            />
+          </div>
+        </div>
+
+        <div className={styles.formRow}>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Total finished square footage</label>
+            <div className={styles.inputWithSuffix}>
+              <input
+                type="number"
+                className={styles.input}
+                value={formData.totalFinishedSqft}
+                onChange={(e) => setFormData(prev => ({ ...prev, totalFinishedSqft: Number(e.target.value) }))}
+              />
+              <span className={styles.inputSuffix}>Sqft</span>
+            </div>
+          </div>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Total unfinished square footage</label>
+            <div className={styles.inputWithSuffix}>
+              <input
+                type="number"
+                className={styles.input}
+                value={formData.totalUnfinishedSqft}
+                onChange={(e) => setFormData(prev => ({ ...prev, totalUnfinishedSqft: Number(e.target.value) }))}
+              />
+              <span className={styles.inputSuffix}>Sqft</span>
             </div>
           </div>
         </div>
-        <div className={styles.pagination}>
-          <span className={styles.paginationText}>Rows per page: 10</span>
-          <span className={styles.paginationText}>0 of 0</span>
-          <button className={styles.paginationBtn} disabled>‹</button>
-          <button className={styles.paginationBtn} disabled>›</button>
+
+        <div className={styles.formRow}>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Width</label>
+            <input
+              type="text"
+              className={styles.input}
+              value={formData.width}
+              onChange={(e) => setFormData(prev => ({ ...prev, width: e.target.value }))}
+            />
+          </div>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Depth</label>
+            <input
+              type="text"
+              className={styles.input}
+              value={formData.depth}
+              onChange={(e) => setFormData(prev => ({ ...prev, depth: e.target.value }))}
+            />
+          </div>
+        </div>
+
+        <div className={styles.formRow}>
+          <div className={styles.formColumn}>
+            <label className={styles.label}># of elevations</label>
+            <input
+              type="number"
+              className={styles.input}
+              value={formData.numberOfElevations}
+              onChange={(e) => setFormData(prev => ({ ...prev, numberOfElevations: Number(e.target.value) }))}
+            />
+          </div>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Foundation types</label>
+            <div className={styles.multiSelect}>
+              <div className={styles.multiSelectContent}>
+                {formData.foundationTypes.map(item => (
+                  <span key={item} className={styles.tag}>
+                    {item}
+                    <button
+                      type="button"
+                      className={styles.tagRemove}
+                      onClick={() => handleRemoveTag('foundationTypes', item)}
+                    >
+                      ✕
+                    </button>
+                  </span>
+                ))}
+              </div>
+              <svg className={styles.dropdownIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.formRow}>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Cost per square foot</label>
+            <input
+              type="number"
+              className={styles.input}
+              value={formData.costPerSquareFoot}
+              onChange={(e) => setFormData(prev => ({ ...prev, costPerSquareFoot: Number(e.target.value) }))}
+            />
+          </div>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Floors</label>
+            <input
+              type="number"
+              className={styles.input}
+              value={formData.floors}
+              onChange={(e) => setFormData(prev => ({ ...prev, floors: Number(e.target.value) }))}
+            />
+          </div>
+        </div>
+
+        <div className={styles.allDetailsSection}>
+          <button
+            className={styles.allDetailsToggle}
+            onClick={() => setAllDetailsExpanded(!allDetailsExpanded)}
+          >
+            <span className={styles.allDetailsLabel}>All Details</span>
+            <svg
+              className={`${styles.allDetailsChevron} ${allDetailsExpanded ? styles.expanded : ''}`}
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
         </div>
       </div>
 
