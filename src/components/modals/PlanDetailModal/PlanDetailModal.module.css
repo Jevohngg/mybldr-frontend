@@ -631,11 +631,11 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 
 .plansPaginationText {
   font-size: 13px;
-  color: #6b7280;
+  color: #d1d5db;
 }
 
 .paginationDropdownIcon {
-  color: #9ca3af;
+  color: #d1d5db;
 }
 
 .plansPaginationButtons {
@@ -649,21 +649,20 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #d1d5db;
-  background: #4a4a4a;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
   border-radius: 6px;
-  cursor: pointer;
+  cursor: not-allowed;
   font-size: 18px;
-  color: white;
-  transition: background 0.15s;
+  color: #d1d5db;
+  transition: none;
 }
 
 .plansPaginationBtn:hover {
-  background: #5a5a5a;
+  background: #f9fafb;
 }
 
 .plansPaginationBtn:disabled {
-  opacity: 0.4;
   cursor: not-allowed;
 }
 

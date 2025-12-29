@@ -715,8 +715,8 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
           </div>
           <span className={styles.plansPaginationText}>1-5 of 13</span>
           <div className={styles.plansPaginationButtons}>
-            <button className={styles.plansPaginationBtn}>‹</button>
-            <button className={styles.plansPaginationBtn}>›</button>
+            <button className={styles.plansPaginationBtn} disabled>‹</button>
+            <button className={styles.plansPaginationBtn} disabled>›</button>
           </div>
         </div>
       </div>
