@@ -138,26 +138,24 @@ export default function CustomPaletteEditor({ open, onClose }: CustomPaletteEdit
           </button>
         </header>
 
+        {uploadedFile && <div className={styles.uploadedHeader}>BASED ON FILE</div>}
         <div className={styles.uploadSection}>
           {uploadedFile ? (
-            <>
-              <div className={styles.uploadedHeader}>BASED ON FILE</div>
-              <div className={styles.uploadedContent}>
-                <div className={styles.fileInfo}>
-                  <img src="/assets/pdf.png" alt="PDF" className={styles.pdfIcon} />
-                  <div className={styles.fileDetails}>
-                    <div className={styles.fileName}>{uploadedFile.name}</div>
-                    <div className={styles.fileSize}>{uploadedFile.size}</div>
-                  </div>
-                </div>
-                <div className={styles.fileActions}>
-                  <button className={styles.updateBtn}>Update</button>
-                  <button className={styles.removeBtn} onClick={handleRemoveFile} aria-label="Remove file">
-                    ✕
-                  </button>
+            <div className={styles.uploadedContent}>
+              <div className={styles.fileInfo}>
+                <img src="/assets/pdf.png" alt="PDF" className={styles.pdfIcon} />
+                <div className={styles.fileDetails}>
+                  <div className={styles.fileName}>{uploadedFile.name}</div>
+                  <div className={styles.fileSize}>{uploadedFile.size}</div>
                 </div>
               </div>
-            </>
+              <div className={styles.fileActions}>
+                <button className={styles.updateBtn}>Update</button>
+                <button className={styles.removeBtn} onClick={handleRemoveFile} aria-label="Remove file">
+                  ✕
+                </button>
+              </div>
+            </div>
           ) : uploadProgress !== null ? (
             <div className={styles.loadingContent}>
               <div className={styles.loadingText}>Uploading... {uploadProgress}%</div>
