@@ -56,10 +56,16 @@
 }
 
 .title {
-  font-size: 28px;
-  font-weight: 600;
-  margin: 0;
-  color: #111827;
+color: var(--Colors-Text-text-primary, #0B0C0D);
+font-feature-settings: 'liga' off, 'clig' off;
+
+/* Typography/subtitle1/Semibold */
+font-family: Inter;
+font-size: 1rem;
+font-style: normal;
+font-weight: 600;
+line-height: 1.5rem; /* 150% */
+  margin:0px'
 }
 
 .closeBtn {
