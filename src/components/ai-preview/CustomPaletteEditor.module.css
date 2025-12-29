@@ -283,11 +283,13 @@ font-size: 0.875rem;
 font-style: normal;
 font-weight: 600;
 line-height: 1.25rem; /* 142.857% */
+  transition: background 0.3s ease-in-out;
+cursor: pointer;
 }
 
 .cancelBtn:hover {
   background: #f9fafb;
-  border-color: #9ca3af;
+
 }
 
 .saveBtn {
@@ -310,8 +312,8 @@ font-size: 0.875rem;
 font-style: normal;
 font-weight: 600;
 line-height: 1.25rem; /* 142.857% */
-transision: background .3s ease-in-out;
-  cursor: pointer;
+transition: background 0.3s ease-in-out;
+cursor: pointer;
 }
 
 .saveBtn:hover {
