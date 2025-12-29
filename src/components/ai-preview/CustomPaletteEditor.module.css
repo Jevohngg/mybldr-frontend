@@ -173,6 +173,7 @@
   cursor: pointer;
   transition: all 0.2s;
   font-weight: 400;
+  border-radius: 4px;
 }
 
 .categoryBtn:hover {
