@@ -709,9 +709,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
         <div className={styles.plansPagination}>
           <div className={styles.plansPaginationLeft}>
             <span className={styles.plansPaginationText}>Rows per page: 10</span>
-            <svg className={styles.paginationDropdownIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <img src="/assets/icons/chevron-down.svg" alt="" className={styles.paginationDropdownIcon} />
           </div>
           <span className={styles.plansPaginationText}>1-5 of 13</span>
           <div className={styles.plansPaginationButtons}>

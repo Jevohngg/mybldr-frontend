@@ -633,7 +633,9 @@ line-height: 1.5rem; /* 150% */
 }
 
 .paginationDropdownIcon {
-  color: #d1d5db;
+  width: 16px;
+  height: 16px;
+  opacity: 0.5;
 }
 
 .plansPaginationButtons {
