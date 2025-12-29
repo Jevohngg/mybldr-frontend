@@ -115,7 +115,7 @@ export default function CustomPaletteEditor({ open, onClose }: CustomPaletteEdit
                 Upload your look book and preview your design selections on your render in real time.
               </p>
             </div>
-            <img src="/assets/materials/palette-preview-mockup.jpg" alt="Preview mockup" className={styles.uploadMockup} />
+            <img src="/assets/materials/palette-image.png" alt="Preview mockup" className={styles.uploadMockup} />
           </div>
           <button className={styles.uploadBtn}>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
