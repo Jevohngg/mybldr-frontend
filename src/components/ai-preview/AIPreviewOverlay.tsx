@@ -67,7 +67,7 @@ export default function AIPreviewOverlay({ open, onClose }: AIPreviewOverlayProp
                     className={styles.previewImage}
                   />
                   <button className={styles.imageControlBtn} aria-label="Image controls">
-                    <img src="/assets/icons/view-grid.svg" alt="" width="20" height="20" />
+                    <img src="/assets/icons/enviroment.svg" alt="" width="20" height="20" />
                   </button>
                 </div>
 
