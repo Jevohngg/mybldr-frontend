@@ -17,7 +17,7 @@ const materialOptions: Record<string, MaterialOption[]> = {
     { id: 'aluminum', name: 'Aluminum', image: '/assets/materials/main-siding/aluminum.png' },
     { id: 'stucco', name: 'Stucco', image: '/assets/materials/main-siding/stucco.jpg' },
     { id: 'wood-grain', name: 'Wood Grain', image: '/assets/materials/main-siding/wood-grain.png' },
-    { id: 'wood-shake', name: 'Wood Shake', image: '/assets/materials/main-siding/wood-shake.jpg' },
+    { id: 'wood-shake', name: 'Wood Shake', image: '/assets/materials/main-siding/wood-shake.png' },
   ],
   'Accent Siding': [
     { id: 'brick', name: 'Brick', image: '/assets/materials/accent-siding/brick.jpg' },
