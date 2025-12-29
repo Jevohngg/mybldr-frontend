@@ -6,6 +6,7 @@ interface PaletteSelectorProps {
   onClose: () => void
   selectedPaletteId: string
   onSelectPalette: (paletteId: string) => void
+  onCreateCustom: () => void
 }
 
 interface Palette {
@@ -37,7 +38,7 @@ export const palettes: Palette[] = [
   },
 ]
 
-export default function PaletteSelector({ open, onClose, selectedPaletteId, onSelectPalette }: PaletteSelectorProps) {
+export default function PaletteSelector({ open, onClose, selectedPaletteId, onSelectPalette, onCreateCustom }: PaletteSelectorProps) {
   if (!open) return null
 
   return (
@@ -65,7 +66,7 @@ export default function PaletteSelector({ open, onClose, selectedPaletteId, onSe
         ))}
       </div>
 
-      <button className={styles.createCustomBtn}>
+      <button className={styles.createCustomBtn} onClick={onCreateCustom}>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>

@@ -2,6 +2,7 @@ import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import styles from './AIPreviewOverlay.module.css'
 import PaletteSelector, { palettes } from './PaletteSelector'
+import CustomPaletteEditor from './CustomPaletteEditor'
 
 interface AIPreviewOverlayProps {
   open: boolean
@@ -11,6 +12,7 @@ interface AIPreviewOverlayProps {
 export default function AIPreviewOverlay({ open, onClose }: AIPreviewOverlayProps) {
   const [showPaletteSelector, setShowPaletteSelector] = React.useState(true)
   const [selectedPaletteId, setSelectedPaletteId] = React.useState('1')
+  const [showCustomPaletteEditor, setShowCustomPaletteEditor] = React.useState(false)
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -57,6 +59,12 @@ export default function AIPreviewOverlay({ open, onClose }: AIPreviewOverlayProp
                 onClose={() => setShowPaletteSelector(false)}
                 selectedPaletteId={selectedPaletteId}
                 onSelectPalette={setSelectedPaletteId}
+                onCreateCustom={() => setShowCustomPaletteEditor(true)}
+              />
+
+              <CustomPaletteEditor
+                open={showCustomPaletteEditor}
+                onClose={() => setShowCustomPaletteEditor(false)}
               />
 
               <div className={styles.previewArea}>
