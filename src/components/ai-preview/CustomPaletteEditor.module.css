@@ -159,7 +159,131 @@ text-transform: capitalize;
 
 .uploadBtn:hover {
   background: #f9fafb;
- 
+
+}
+
+.uploadedHeader {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.uploadedContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.fileInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.pdfIcon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.fileDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fileName {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.fileSize {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.fileActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.updateBtn {
+  display: flex;
+  padding: var(--3, 0.375rem) var(--4, 0.5rem);
+  justify-content: center;
+  align-items: center;
+  gap: var(--3, 0.375rem);
+  border-radius: var(--borderRadius, 0.25rem);
+  border: 1px solid var(--Colors-Border-border-primary, #D8D9DA);
+  background: var(--Colors-Background-bg-primary, #FFF);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  color: var(--Colors-Text-text-secondary, #3E4041);
+  font-family: Inter;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1rem;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.updateBtn:hover {
+  background: #f9fafb;
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #9ca3af;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.removeBtn:hover {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.loadingContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.loadingText {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.progressBarContainer {
+  width: 100%;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  border-radius: 4px;
+  transition: width 0.1s linear;
 }
 
 .main {

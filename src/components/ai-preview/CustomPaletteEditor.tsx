@@ -85,6 +85,37 @@ export default function CustomPaletteEditor({ open, onClose }: CustomPaletteEdit
     'Flooring': 'hardwood',
     'Sink': 'stainless'
   })
+  const [uploadProgress, setUploadProgress] = React.useState<number | null>(null)
+  const [uploadedFile, setUploadedFile] = React.useState<{ name: string; size: string } | null>(null)
+
+  const handleUpload = () => {
+    setUploadProgress(0)
+
+    const duration = 2000
+    const steps = 100
+    const interval = duration / steps
+    let current = 0
+
+    const timer = setInterval(() => {
+      current += 1
+      setUploadProgress(current)
+
+      if (current >= 100) {
+        clearInterval(timer)
+        setTimeout(() => {
+          setUploadProgress(null)
+          setUploadedFile({
+            name: 'aberdeen_standards.pdf',
+            size: '100kb'
+          })
+        }, 200)
+      }
+    }, interval)
+  }
+
+  const handleRemoveFile = () => {
+    setUploadedFile(null)
+  }
 
   if (!open) return null
 
@@ -108,21 +139,54 @@ export default function CustomPaletteEditor({ open, onClose }: CustomPaletteEdit
         </header>
 
         <div className={styles.uploadSection}>
-          <div className={styles.uploadContent}>
-            <div className={styles.uploadText}>
-              <h3 className={styles.uploadTitle}>Your palettes rendered in real time</h3>
-              <p className={styles.uploadDescription}>
-                Upload your look book and preview your design selections on your render in real time.
-              </p>
+          {uploadedFile ? (
+            <>
+              <div className={styles.uploadedHeader}>BASED ON FILE</div>
+              <div className={styles.uploadedContent}>
+                <div className={styles.fileInfo}>
+                  <img src="/assets/pdf.png" alt="PDF" className={styles.pdfIcon} />
+                  <div className={styles.fileDetails}>
+                    <div className={styles.fileName}>{uploadedFile.name}</div>
+                    <div className={styles.fileSize}>{uploadedFile.size}</div>
+                  </div>
+                </div>
+                <div className={styles.fileActions}>
+                  <button className={styles.updateBtn}>Update</button>
+                  <button className={styles.removeBtn} onClick={handleRemoveFile} aria-label="Remove file">
+                    ✕
+                  </button>
+                </div>
+              </div>
+            </>
+          ) : uploadProgress !== null ? (
+            <div className={styles.loadingContent}>
+              <div className={styles.loadingText}>Uploading... {uploadProgress}%</div>
+              <div className={styles.progressBarContainer}>
+                <div
+                  className={styles.progressBar}
+                  style={{ width: `${uploadProgress}%` }}
+                />
+              </div>
             </div>
-            <img src="/assets/materials/palette-image.png" alt="Preview mockup" className={styles.uploadMockup} />
-          </div>
-          <button className={styles.uploadBtn}>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M14 10v2.667A1.333 1.333 0 0 1 12.667 14H3.333A1.333 1.333 0 0 1 2 12.667V10M11.333 5.333 8 2m0 0L4.667 5.333M8 2v8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            Upload
-          </button>
+          ) : (
+            <>
+              <div className={styles.uploadContent}>
+                <div className={styles.uploadText}>
+                  <h3 className={styles.uploadTitle}>Your palettes rendered in real time</h3>
+                  <p className={styles.uploadDescription}>
+                    Upload your look book and preview your design selections on your render in real time.
+                  </p>
+                </div>
+                <img src="/assets/materials/palette-image.png" alt="Preview mockup" className={styles.uploadMockup} />
+              </div>
+              <button className={styles.uploadBtn} onClick={handleUpload}>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M14 10v2.667A1.333 1.333 0 0 1 12.667 14H3.333A1.333 1.333 0 0 1 2 12.667V10M11.333 5.333 8 2m0 0L4.667 5.333M8 2v8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                Upload
+              </button>
+            </>
+          )}
         </div>
 
         <div className={styles.main}>
