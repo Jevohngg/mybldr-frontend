@@ -687,25 +687,37 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
       </div>
 
       <div className={styles.sectionCard}>
-        <h2 className={styles.sectionTitle}>Projects using this plan set</h2>
-        <div className={styles.table}>
-          <div className={styles.tableHeader}>
-            <div className={styles.tableHeaderCell}>Project Name</div>
-            <div className={styles.tableHeaderCell}>Community</div>
+        <h2 className={styles.plansCreatedTitle}>Plans created from this model</h2>
+        <div className={styles.plansTable}>
+          <div className={styles.plansTableHeader}>
+            <div className={styles.plansTableHeaderCell}>Name</div>
+            <div className={styles.plansTableHeaderCell}>Beds</div>
+            <div className={styles.plansTableHeaderCell}>Baths</div>
+            <div className={styles.plansTableHeaderCell}>AUR</div>
+            <div className={styles.plansTableHeaderCell}>Features</div>
           </div>
-          <div className={styles.emptyState}>
-            <img src="/assets/empty-states/no-projects.svg" alt="" className={styles.emptyIcon} />
-            <div className={styles.emptyTitle}>No projects are currently using this plan set</div>
-            <div className={styles.emptyDescription}>
-              Projects that use this plan set will be shown here.
+          <div className={styles.plansEmptyState}>
+            <div className={styles.plansEmptyIconWrapper}>
+              <img src="/assets/icons/plans-list.svg" alt="" className={styles.plansEmptyIcon} />
+            </div>
+            <div className={styles.plansEmptyTitle}>No plans have been created from this model</div>
+            <div className={styles.plansEmptyDescription}>
+              Plans that share this model will appear here
             </div>
           </div>
         </div>
-        <div className={styles.pagination}>
-          <span className={styles.paginationText}>Rows per page: 10</span>
-          <span className={styles.paginationText}>1-5 of 13</span>
-          <button className={styles.paginationBtn} disabled>‹</button>
-          <button className={styles.paginationBtn}>›</button>
+        <div className={styles.plansPagination}>
+          <div className={styles.plansPaginationLeft}>
+            <span className={styles.plansPaginationText}>Rows per page: 10</span>
+            <svg className={styles.paginationDropdownIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <span className={styles.plansPaginationText}>1-5 of 13</span>
+          <div className={styles.plansPaginationButtons}>
+            <button className={styles.plansPaginationBtn}>‹</button>
+            <button className={styles.plansPaginationBtn}>›</button>
+          </div>
         </div>
       </div>
     </div>

@@ -543,6 +543,130 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   text-align: center;
 }
 
+.plansCreatedTitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 24px 0;
+  color: #1a1a1a;
+}
+
+.plansTable {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f8f9fa;
+}
+
+.plansTableHeader {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+  padding: 16px 24px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.plansTableHeaderCell {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.plansEmptyState {
+  background: white;
+  padding: 80px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.plansEmptyIconWrapper {
+  width: 80px;
+  height: 80px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.plansEmptyIcon {
+  width: 40px;
+  height: 40px;
+  opacity: 0.6;
+}
+
+.plansEmptyTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.plansEmptyDescription {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  max-width: 400px;
+}
+
+.plansPagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0 0;
+  margin-top: 16px;
+}
+
+.plansPaginationLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.plansPaginationText {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.paginationDropdownIcon {
+  color: #9ca3af;
+}
+
+.plansPaginationButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.plansPaginationBtn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d1d5db;
+  background: #4a4a4a;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  color: white;
+  transition: background 0.15s;
+}
+
+.plansPaginationBtn:hover {
+  background: #5a5a5a;
+}
+
+.plansPaginationBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .loadingState {
   background: white;
   border-radius: 6px;
