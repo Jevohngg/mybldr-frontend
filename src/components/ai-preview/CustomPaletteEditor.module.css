@@ -127,16 +127,28 @@
 }
 
 .uploadBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background: white;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
+display: flex;
+padding: var(--3, 0.375rem) var(--4, 0.5rem);
+justify-content: center;
+align-items: center;
+gap: var(--3, 0.375rem);
+border-radius: var(--borderRadius, 0.25rem);
+border: 1px solid var(--Colors-Border-border-primary, #D8D9DA);
+background: var(--Colors-Background-bg-primary, #FFF);
+
+/* Shadow/xs */
+box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+color: var(--Colors-Text-text-secondary, #3E4041);
+
+/* Button/small */
+font-family: Inter;
+font-size: 0.75rem;
+font-style: normal;
+font-weight: 600;
+line-height: 1rem; /* 133.333% */
+text-transform: capitalize;
+  
+  
   cursor: pointer;
   transition: all 0.2s;
 }
