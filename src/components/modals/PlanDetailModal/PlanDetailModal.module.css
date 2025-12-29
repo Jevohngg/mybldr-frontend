@@ -71,7 +71,7 @@ line-height: 1.5rem; /* 150% */
 .closeBtn {
   position: absolute;
   top: 32px;
-  right: 32px;
+  right: 16px;
   width: 32px;
   height: 32px;
   border-radius: 6px;
