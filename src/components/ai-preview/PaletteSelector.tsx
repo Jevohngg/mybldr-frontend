@@ -18,23 +18,23 @@ interface Palette {
 export const palettes: Palette[] = [
   {
     id: '1',
-    paletteImage: 'https://images.pexels.com/photos/534172/pexels-photo-534172.jpeg?auto=compress&cs=tinysrgb&w=400',
-    previewImage: 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=1920'
+    paletteImage: '/assets/palettes/palette-1.jpg',
+    previewImage: '/assets/palettes/preview-1.jpg'
   },
   {
     id: '2',
-    paletteImage: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=400',
-    previewImage: 'https://images.pexels.com/photos/206172/pexels-photo-206172.jpeg?auto=compress&cs=tinysrgb&w=1920'
+    paletteImage: '/assets/palettes/palette-2.jpg',
+    previewImage: '/assets/palettes/preview-2.jpg'
   },
   {
     id: '3',
-    paletteImage: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=400',
-    previewImage: 'https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg?auto=compress&cs=tinysrgb&w=1920'
+    paletteImage: '/assets/palettes/palette-3.jpg',
+    previewImage: '/assets/palettes/preview-3.jpg'
   },
   {
     id: '4',
-    paletteImage: 'https://images.pexels.com/photos/2121121/pexels-photo-2121121.jpeg?auto=compress&cs=tinysrgb&w=400',
-    previewImage: 'https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=1920'
+    paletteImage: '/assets/palettes/palette-4.jpg',
+    previewImage: '/assets/palettes/preview-4.jpg'
   },
 ]
 
