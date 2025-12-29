@@ -209,10 +209,15 @@
 }
 
 .baseHouseTitle {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 0 0 24px 0;
-  color: #1a1a1a;
+color: var(--Colors-Text-text-primary, #0B0C0D);
+font-feature-settings: 'liga' off, 'clig' off;
+
+/* Typography/subtitle1/Semibold */
+font-family: Inter;
+font-size: 1rem;
+font-style: normal;
+font-weight: 600;
+line-height: 1.5rem; /* 150% */
 }
 
 .inputWithSuffix {
