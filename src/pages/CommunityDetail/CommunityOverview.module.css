@@ -326,8 +326,8 @@
 /* Plans grid */
 .plansRow {
   display: grid;
-  grid-template-columns: repeat(4, minmax(220px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
 }
 
 /* "View All" divider row */
