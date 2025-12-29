@@ -310,6 +310,7 @@ font-size: 0.875rem;
 font-style: normal;
 font-weight: 600;
 line-height: 1.25rem; /* 142.857% */
+  transision: all .2s ease-in-out;
 }
 
 .saveBtn:hover {
