@@ -299,6 +299,14 @@ background: var(--Colors-Background-bg-brand-solid, #1D6BCD);
 
 color: white;
   border: none;
+  color: var(--Colors-Text-text-primary_on-brand, #FFF);
+
+/* Button/medium */
+font-family: Inter;
+font-size: 0.875rem;
+font-style: normal;
+font-weight: 600;
+line-height: 1.25rem; /* 142.857% */
 }
 
 .saveBtn:hover {
