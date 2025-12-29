@@ -22,6 +22,13 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
   const [aiPreviewOpen, setAiPreviewOpen] = React.useState(false)
   const [formData, setFormData] = React.useState({
     name: planName,
+    modelId: '',
+    masterModelId: '',
+    collection: [] as string[],
+    series: [] as string[],
+    structureType: [] as string[],
+    specificationLevel: [] as string[],
+    division: [] as string[],
     description: '',
   })
 
@@ -35,7 +42,17 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
 
   React.useEffect(() => {
     if (open) {
-      setFormData({ name: planName, description: '' })
+      setFormData({
+        name: planName,
+        modelId: '',
+        masterModelId: '',
+        collection: ['River Collection'],
+        series: ["30' Series", "50' Series"],
+        structureType: ['Single Family', 'Villa'],
+        specificationLevel: ['Live.M'],
+        division: ['DFW', 'Houston'],
+        description: '',
+      })
       setActiveTab('overview')
     }
   }, [open, planName])
@@ -103,8 +120,28 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
 }
 
 function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
-  formData: { name: string; description: string }
-  setFormData: React.Dispatch<React.SetStateAction<{ name: string; description: string }>>
+  formData: {
+    name: string
+    modelId: string
+    masterModelId: string
+    collection: string[]
+    series: string[]
+    structureType: string[]
+    specificationLevel: string[]
+    division: string[]
+    description: string
+  }
+  setFormData: React.Dispatch<React.SetStateAction<{
+    name: string
+    modelId: string
+    masterModelId: string
+    collection: string[]
+    series: string[]
+    structureType: string[]
+    specificationLevel: string[]
+    division: string[]
+    description: string
+  }>>
   onOpenAIPreview: () => void
 }) {
   const [isPreparing, setIsPreparing] = React.useState(false)
@@ -169,6 +206,15 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
     setProgress(0)
   }
 
+  const handleRemoveTag = (field: keyof typeof formData, value: string) => {
+    if (Array.isArray(formData[field])) {
+      setFormData(prev => ({
+        ...prev,
+        [field]: (prev[field] as string[]).filter(item => item !== value)
+      }))
+    }
+  }
+
   return (
     <div className={styles.overviewTab}>
       <div className={styles.sectionCard}>
@@ -182,11 +228,151 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
           />
         </div>
 
+        <div className={styles.formRow}>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Model ID</label>
+            <input
+              type="text"
+              className={styles.input}
+              placeholder="Enter model id number"
+              value={formData.modelId}
+              onChange={(e) => setFormData(prev => ({ ...prev, modelId: e.target.value }))}
+            />
+          </div>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Master model ID</label>
+            <input
+              type="text"
+              className={styles.input}
+              placeholder="Enter master model ID"
+              value={formData.masterModelId}
+              onChange={(e) => setFormData(prev => ({ ...prev, masterModelId: e.target.value }))}
+            />
+          </div>
+        </div>
+
+        <div className={styles.formRow}>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Collection</label>
+            <div className={styles.multiSelect}>
+              <div className={styles.multiSelectContent}>
+                {formData.collection.map(item => (
+                  <span key={item} className={styles.tag}>
+                    {item}
+                    <button
+                      type="button"
+                      className={styles.tagRemove}
+                      onClick={() => handleRemoveTag('collection', item)}
+                    >
+                      ✕
+                    </button>
+                  </span>
+                ))}
+              </div>
+              <svg className={styles.dropdownIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Series</label>
+            <div className={styles.multiSelect}>
+              <div className={styles.multiSelectContent}>
+                {formData.series.map(item => (
+                  <span key={item} className={styles.tag}>
+                    {item}
+                    <button
+                      type="button"
+                      className={styles.tagRemove}
+                      onClick={() => handleRemoveTag('series', item)}
+                    >
+                      ✕
+                    </button>
+                  </span>
+                ))}
+              </div>
+              <svg className={styles.dropdownIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.formRow}>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Structure Type</label>
+            <div className={styles.multiSelect}>
+              <div className={styles.multiSelectContent}>
+                {formData.structureType.map(item => (
+                  <span key={item} className={styles.tag}>
+                    {item}
+                    <button
+                      type="button"
+                      className={styles.tagRemove}
+                      onClick={() => handleRemoveTag('structureType', item)}
+                    >
+                      ✕
+                    </button>
+                  </span>
+                ))}
+              </div>
+              <svg className={styles.dropdownIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div className={styles.formColumn}>
+            <label className={styles.label}>Specification Level</label>
+            <div className={styles.multiSelect}>
+              <div className={styles.multiSelectContent}>
+                {formData.specificationLevel.map(item => (
+                  <span key={item} className={styles.tag}>
+                    {item}
+                    <button
+                      type="button"
+                      className={styles.tagRemove}
+                      onClick={() => handleRemoveTag('specificationLevel', item)}
+                    >
+                      ✕
+                    </button>
+                  </span>
+                ))}
+              </div>
+              <svg className={styles.dropdownIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.formSection}>
+          <label className={styles.label}>Division</label>
+          <div className={styles.multiSelect}>
+            <div className={styles.multiSelectContent}>
+              {formData.division.map(item => (
+                <span key={item} className={styles.tag}>
+                  {item}
+                  <button
+                    type="button"
+                    className={styles.tagRemove}
+                    onClick={() => handleRemoveTag('division', item)}
+                  >
+                    ✕
+                  </button>
+                </span>
+              ))}
+            </div>
+            <svg className={styles.dropdownIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
         <div className={styles.formSection}>
           <label className={styles.label}>Description</label>
           <textarea
             className={styles.textarea}
-            placeholder="Enter the description to be used on marketing material..."
+            placeholder="Enter plan description"
             value={formData.description}
             onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
             rows={5}
