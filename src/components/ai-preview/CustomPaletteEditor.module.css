@@ -213,15 +213,16 @@ text-transform: capitalize;
 }
 
 .materialCard {
-  position: relative;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 16px;
-  cursor: pointer;
-  transition: all 0.2s;
-  background: white;
-  display: flex;
-  flex-direction: column;
+max-width: 180px;
+    position: relative;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: white;
+    display: flex;
+    flex-direction: column;
 }
 
 .materialCard:hover {
