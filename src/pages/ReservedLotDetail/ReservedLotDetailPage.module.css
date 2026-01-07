@@ -406,7 +406,7 @@ line-height: 1.25rem; /* 142.857% */
   padding: 16px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  background: #f9fafb;
+  background: transparent;
 }
 
 .pdfIcon {
