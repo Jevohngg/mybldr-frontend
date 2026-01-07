@@ -71,7 +71,7 @@
   border: none;
   cursor: pointer;
   transition: background 0.15s;
-  max-width: 58px !important;
+  max-width: 40px !important;
       position: absolute;
     right: 31px;
 }
