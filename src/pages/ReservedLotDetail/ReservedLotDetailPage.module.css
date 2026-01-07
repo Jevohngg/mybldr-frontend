@@ -391,6 +391,10 @@ line-height: 1.25rem; /* 142.857% */
   white-space: nowrap;
 }
 
+.planWithSelectionContainer{
+  background: white;
+}
+
 .makeSelectionsBtn:hover {
   background: #FAFAFA;
 }
