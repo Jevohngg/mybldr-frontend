@@ -320,6 +320,7 @@ align-self: stretch;
   border-radius: var(--border-radius, 0.25rem);
 border: 1px solid var(--Colors-Border-border-primary, #D8D9DA);
 background: var(--Colors-Background-bg-primary, #FFF);
+  flex-direction: row;
 
   
 }
