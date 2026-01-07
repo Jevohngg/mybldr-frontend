@@ -35,7 +35,7 @@ export default function ReservedLotSideNav({ lotNumber, communityName, activeTab
           className={`${styles.navItem} ${activeTab === 'quotes' ? styles.active : ''}`}
           onClick={() => onTabChange('quotes')}
         >
-          <img src="/assets/icons/document.svg" alt="" width="16" height="16" className={styles.navIcon} />
+          <img src="/assets/icons/quotes.svg" alt="" width="16" height="16" className={styles.navIcon} />
           Quotes
         </button>
 
