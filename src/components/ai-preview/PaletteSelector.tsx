@@ -24,12 +24,12 @@ export const palettes: Palette[] = [
   {
     id: '2',
     paletteImage: '/assets/palettes/palette-2.png',
-    previewImage: '/assets/palettes/preview-2.jpg'
+    previewImage: '/assets/palettes/preview-2.png'
   },
   {
     id: '3',
     paletteImage: '/assets/palettes/palette-3.png',
-    previewImage: '/assets/palettes/preview-3.jpg'
+    previewImage: '/assets/palettes/preview-3.png'
   },
   {
     id: '4',
