@@ -72,6 +72,8 @@
   cursor: pointer;
   transition: background 0.15s;
   max-width: 58px !important;
+      position: absolute;
+    right: 31px;
 }
 
 .addButton:hover {
