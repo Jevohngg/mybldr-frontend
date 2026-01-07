@@ -304,23 +304,19 @@
 
 .urlInput {
 display: flex;
-align-items: flex-start;
-gap: 0.5rem;
-  border-radius: 0.5rem;
-  display: flex;
-width: 12.8125rem;
-flex-direction: column;
-align-items: flex-start;
-gap: 0.5rem;
-  display: flex;
-padding: var(--2, 0.25rem) var(--2, 0.25rem) var(--2, 0.25rem) var(--5, 0.75rem);
+flex-direction: row;
 align-items: center;
 gap: 0.5rem;
+
+width: 12.8125rem;
 align-self: stretch;
-  border-radius: var(--border-radius, 0.25rem);
+
+padding: var(--2, 0.25rem) var(--2, 0.25rem) var(--2, 0.25rem) var(--5, 0.75rem);
+
+border-radius: var(--border-radius, 0.25rem);
 border: 1px solid var(--Colors-Border-border-primary, #D8D9DA);
 background: var(--Colors-Background-bg-primary, #FFF);
-  flex-direction: row;
+
 
   
 }
