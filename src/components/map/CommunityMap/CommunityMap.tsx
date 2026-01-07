@@ -3,6 +3,7 @@ import styles from './CommunityMap.module.css'
 import MapLegend from '../MapLegend/MapLegend'
 import MapLot from '../MapLot/MapLot'
 import LotDetailPopup from '../LotDetailPopup/LotDetailPopup'
+import ReservedLotPopup from '../ReservedLotPopup/ReservedLotPopup'
 import SelectPlanModal from '../../modals/SelectPlanModal/SelectPlanModal'
 import { CommunityMapData, Lot } from '../types'
 
@@ -175,12 +176,20 @@ export default function CommunityMap({ data }: CommunityMapProps) {
         <MapLegend communityName={communityName} />
 
         {selectedLot && (
-          <LotDetailPopup
-            lot={selectedLot}
-            position={popupPosition}
-            onClose={() => setSelectedLot(null)}
-            onPlanClick={setSelectedPlan}
-          />
+          selectedLot.status === 'reserved' ? (
+            <ReservedLotPopup
+              lot={selectedLot}
+              position={popupPosition}
+              onClose={() => setSelectedLot(null)}
+            />
+          ) : (
+            <LotDetailPopup
+              lot={selectedLot}
+              position={popupPosition}
+              onClose={() => setSelectedLot(null)}
+              onPlanClick={setSelectedPlan}
+            />
+          )
         )}
       </div>
 

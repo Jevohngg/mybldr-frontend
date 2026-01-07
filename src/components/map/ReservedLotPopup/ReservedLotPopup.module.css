@@ -1,0 +1,151 @@
+.popup {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  padding: 24px;
+  width: 580px;
+  max-width: 90vw;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.closeButton:hover {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.content {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.imageSection {
+  flex-shrink: 0;
+  width: 240px;
+  height: 180px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f3f4f6;
+}
+
+.planImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detailsSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.planName {
+  font-size: 36px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.galtId {
+  font-size: 24px;
+  color: #6b7280;
+  margin: 0 0 24px 0;
+  font-weight: 400;
+}
+
+.features {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #4b5563;
+}
+
+.feature svg {
+  width: 24px;
+  height: 24px;
+  color: #6b7280;
+}
+
+.feature span {
+  font-size: 20px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.progressSection {
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.progressTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 16px 0;
+}
+
+.progressBar {
+  width: 100%;
+  height: 12px;
+  background: #e5e7eb;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progressFill {
+  height: 100%;
+  background: #3b82f6;
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+.progressLabel {
+  text-align: right;
+  font-size: 24px;
+  font-weight: 600;
+  color: #111827;
+}
