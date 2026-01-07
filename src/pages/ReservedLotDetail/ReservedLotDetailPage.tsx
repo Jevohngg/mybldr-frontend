@@ -223,33 +223,35 @@ function OverviewTab({ lotData }: { lotData: ReservedLotData }) {
         </div>
 
         <div className={styles.planContainer}>
-          <div className={styles.planSection}>
-            <label className={styles.label}>Plan</label>
-            <div className={styles.planImage}>
-              <img src={lotData.image} alt={lotData.model} />
+          <div className={styles.planWithSelectionContainer}>
+            <div className={styles.planSection}>
+              <label className={styles.label}>Plan</label>
+              <div className={styles.planImage}>
+                <img src={lotData.image} alt={lotData.model} />
+              </div>
             </div>
-          </div>
 
-          <div className={styles.selectionSection}>
-            <h3 className={styles.selectionTitle}>3D Selection</h3>
-            <p className={styles.selectionDescription}>
-              See your home come to life as you choose your finishes and features in 3D.
-            </p>
-            <div className={styles.progressInfo}>
-              <div className={styles.progressBar}>
-                <div className={styles.progressFill} style={{ width: `${lotData.selectionProgress}%` }} />
+            <div className={styles.selectionSection}>
+              <h3 className={styles.selectionTitle}>3D Selection</h3>
+              <p className={styles.selectionDescription}>
+                See your home come to life as you choose your finishes and features in 3D.
+              </p>
+              <div className={styles.progressInfo}>
+                <div className={styles.progressBar}>
+                  <div className={styles.progressFill} style={{ width: `${lotData.selectionProgress}%` }} />
+                </div>
+                <span className={styles.progressText}>{lotData.selectionsMade}/{lotData.totalSelections} Selections Made</span>
               </div>
-              <span className={styles.progressText}>{lotData.selectionsMade}/{lotData.totalSelections} Selections Made</span>
-            </div>
-            <div className={styles.urlSection}>
-              <div className={styles.urlInput}>
-                <span className={styles.urlText}>https://<strong>{lotData.selectionUrl.replace('https://', '')}</strong></span>
-                <button className={styles.copyBtn} onClick={handleCopy}>Copy</button>
+              <div className={styles.urlSection}>
+                <div className={styles.urlInput}>
+                  <span className={styles.urlText}>https://<strong>{lotData.selectionUrl.replace('https://', '')}</strong></span>
+                  <button className={styles.copyBtn} onClick={handleCopy}>Copy</button>
+                </div>
+                <button className={styles.makeSelectionsBtn}>
+                  <img src="/assets/icons/arrow-right.svg" alt="" width="16" height="16" />
+                  Make Selections
+                </button>
               </div>
-              <button className={styles.makeSelectionsBtn}>
-                <img src="/assets/icons/arrow-right.svg" alt="" width="16" height="16" />
-                Make Selections
-              </button>
             </div>
           </div>
 
