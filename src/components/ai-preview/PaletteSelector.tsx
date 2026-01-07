@@ -18,23 +18,23 @@ interface Palette {
 export const palettes: Palette[] = [
   {
     id: '1',
-    paletteImage: '/assets/palettes/palette-1.jpg',
-    previewImage: '/assets/palettes/preview-1.jpg'
+    paletteImage: '/assets/palettes/palette-1.png',
+    previewImage: '/assets/palettes/preview-1.png'
   },
   {
     id: '2',
-    paletteImage: '/assets/palettes/palette-2.jpg',
+    paletteImage: '/assets/palettes/palette-2.png',
     previewImage: '/assets/palettes/preview-2.jpg'
   },
   {
     id: '3',
-    paletteImage: '/assets/palettes/palette-3.jpg',
+    paletteImage: '/assets/palettes/palette-3.png',
     previewImage: '/assets/palettes/preview-3.jpg'
   },
   {
     id: '4',
-    paletteImage: '/assets/palettes/palette-4.jpg',
-    previewImage: '/assets/palettes/preview-4.jpg'
+    paletteImage: '/assets/palettes/palette-4.png',
+    previewImage: '/assets/palettes/preview-4.png'
   },
 ]
 
