@@ -1,5 +1,6 @@
 import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { useData } from '../../app/providers'
 import ReservedLotSideNav from '../../navigation/ReservedLotSideNav/ReservedLotSideNav'
 import styles from './ReservedLotDetailPage.module.css'
@@ -86,7 +87,13 @@ export default function ReservedLotDetailPage() {
   }
 
   return (
-    <div className={styles.page}>
+    <motion.div
+      className={styles.page}
+      initial={{ y: '100%' }}
+      animate={{ y: 0 }}
+      exit={{ y: '100%' }}
+      transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+    >
       <button className={styles.closeBtn} onClick={handleClose} aria-label="Close">✕</button>
       <div className={styles.container}>
         <ReservedLotSideNav
@@ -117,7 +124,7 @@ export default function ReservedLotDetailPage() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

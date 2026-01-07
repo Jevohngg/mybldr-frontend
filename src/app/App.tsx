@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { DataProvider } from './providers'
 import AppLayout from '../layouts/AppLayout/AppLayout'
@@ -24,12 +24,12 @@ function Page({ children }: { children: React.ReactNode }) {
   )
 }
 
-export default function App() {
+function AppRoutes() {
+  const location = useLocation()
+
   return (
-    <DataProvider>
-      <AppLayout>
-        <AnimatePresence mode="wait">
-          <Routes>
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Navigate to="/communities" replace />} />
 
             <Route path="/plan-library" element={<Page><PlanLibraryPage /></Page>} />
@@ -49,6 +49,14 @@ export default function App() {
             <Route path="*" element={<Navigate to="/communities" replace />} />
           </Routes>
         </AnimatePresence>
+  )
+}
+
+export default function App() {
+  return (
+    <DataProvider>
+      <AppLayout>
+        <AppRoutes />
       </AppLayout>
     </DataProvider>
   )
