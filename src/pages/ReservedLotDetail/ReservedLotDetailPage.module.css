@@ -71,6 +71,7 @@
   border: none;
   cursor: pointer;
   transition: background 0.15s;
+  max-width: 58px !important;
 }
 
 .addButton:hover {
