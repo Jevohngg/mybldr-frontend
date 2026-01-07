@@ -67,7 +67,7 @@
   text-transform: capitalize;
   border-radius: var(--borderRadius, 0.25rem);
   background: transparent;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  
   border: none;
   cursor: pointer;
   transition: background 0.15s;
