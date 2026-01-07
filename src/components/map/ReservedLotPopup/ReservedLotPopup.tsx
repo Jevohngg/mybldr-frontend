@@ -210,7 +210,7 @@ export default function ReservedLotPopup({ lot, position, onClose }: ReservedLot
 
           <div className={styles.features}>
             <div className={styles.feature}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="3" y="12" width="7" height="9" stroke="currentColor" strokeWidth="1.5"/>
                 <rect x="14" y="12" width="7" height="9" stroke="currentColor" strokeWidth="1.5"/>
                 <path d="M3 12L12 4L21 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -219,7 +219,7 @@ export default function ReservedLotPopup({ lot, position, onClose }: ReservedLot
             </div>
 
             <div className={styles.feature}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="4" y="6" width="16" height="12" rx="1" stroke="currentColor" strokeWidth="1.5"/>
                 <path d="M7 10H17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
@@ -227,7 +227,7 @@ export default function ReservedLotPopup({ lot, position, onClose }: ReservedLot
             </div>
 
             <div className={styles.feature}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M3 3L9 9M21 3L15 9M21 21L15 15M3 21L9 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                 <path d="M3 3H21V21H3V3Z" stroke="currentColor" strokeWidth="1.5"/>
               </svg>
