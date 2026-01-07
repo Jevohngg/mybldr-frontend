@@ -343,6 +343,15 @@ gap: var(--3, 0.375rem);
   border-radius: var(--borderRadius, 0.25rem);
 border: 1px solid var(--Colors-Border-border-primary, #D8D9DA);
 background: var(--Colors-Background-bg-primary, #FFF);
+  color: var(--Colors-Text-text-secondary, #3E4041);
+
+/* Button/small */
+font-family: Inter;
+font-size: 0.75rem;
+font-style: normal;
+font-weight: 600;
+line-height: 1rem; /* 133.333% */
+text-transform: capitalize;
 
 /* Shadow/xs */
 box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
