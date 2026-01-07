@@ -302,6 +302,10 @@
   margin-bottom: 16px;
 }
 
+.planContainer{
+  background-color: red;
+}
+
 .urlInput {
 display: flex;
 flex-direction: row;
