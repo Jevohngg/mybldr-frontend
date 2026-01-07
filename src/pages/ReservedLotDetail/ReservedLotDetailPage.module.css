@@ -73,7 +73,8 @@
   transition: background 0.15s;
   max-width: 40px !important;
   position: absolute;
-  right: 32px;
+  right: 72px;
+  top20px
 }
 
 .addButton:hover {
