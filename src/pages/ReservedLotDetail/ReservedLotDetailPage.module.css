@@ -254,6 +254,8 @@
   border-top: 1px solid #e5e7eb;
   padding-left:16px;
   padding-right:16px;
+  border-bottom: #EFF0F0;
+  border-radius: 0px 0px 8px 8px;
 }
 
 .selectionTitle {
