@@ -9,6 +9,7 @@ import CommunityOverview from '../pages/CommunityDetail/CommunityOverview'
 import HOARequirements from '../pages/CommunityDetail/HOARequirements'
 import Documents from '../pages/CommunityDetail/Documents'
 import Specifications from '../pages/CommunityDetail/Specifications'
+import ReservedLotDetailPage from '../pages/ReservedLotDetail/ReservedLotDetailPage'
 
 function Page({ children }: { children: React.ReactNode }) {
   return (
@@ -42,6 +43,8 @@ export default function App() {
               <Route path="documents" element={<Page><Documents /></Page>} />
               <Route path="specifications" element={<Page><Specifications /></Page>} />
             </Route>
+
+            <Route path="/communities/:communityId/lots/:lotNumber" element={<ReservedLotDetailPage />} />
 
             <Route path="*" element={<Navigate to="/communities" replace />} />
           </Routes>

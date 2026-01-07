@@ -1,5 +1,7 @@
 import React from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Lot } from '../types'
+import { routes } from '../../../app/routes'
 import styles from './ReservedLotPopup.module.css'
 
 interface ReservedLotPopupProps {
@@ -166,6 +168,8 @@ const reservedLotPlans: Record<string, PlanDetails> = {
 }
 
 export default function ReservedLotPopup({ lot, position, onClose }: ReservedLotPopupProps) {
+  const navigate = useNavigate()
+  const { communityId } = useParams<{ communityId: string }>()
   const planDetails = reservedLotPlans[lot.lot_number]
 
   if (!planDetails) {
@@ -174,6 +178,10 @@ export default function ReservedLotPopup({ lot, position, onClose }: ReservedLot
 
   const handlePopupInteraction = (e: React.MouseEvent | React.WheelEvent) => {
     e.stopPropagation()
+  }
+
+  const handleNavigate = () => {
+    navigate(routes.reservedLot(communityId || '', lot.lot_number))
   }
 
   return (
@@ -195,7 +203,7 @@ export default function ReservedLotPopup({ lot, position, onClose }: ReservedLot
         ×
       </button>
 
-      <div className={styles.content}>
+      <div className={styles.content} onClick={handleNavigate} style={{ cursor: 'pointer' }}>
         <div className={styles.imageSection}>
           <img
             src={planDetails.image}
