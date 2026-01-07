@@ -97,8 +97,8 @@ export default function ReservedLotDetailPage() {
       <button className={styles.closeBtn} onClick={handleClose} aria-label="Close">✕</button>
       <div className={styles.container}>
         <ReservedLotSideNav
-          lotNumber={lotData.lotNumber}
-          communityName={lotData.communityName}
+          lotNumber={lotNumber || ''}
+          communityName={community.name}
           activeTab={activeTab}
           onTabChange={setActiveTab}
         />
