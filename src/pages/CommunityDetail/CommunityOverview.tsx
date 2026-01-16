@@ -58,7 +58,7 @@ export default function CommunityOverview() {
 
           <Button
             variant="secondary"
-            onClick={() => window.open('https://www.google.com', '_blank')}
+            onClick={() => window.open('https://homeselection.mybuild.wtsparadigm.com/communities/f737219e-e08e-4496-a609-a178a6632c1a/menu', '_blank')}
           >
             <span className={styles.buttonContent}>
               <span>Sales Kiosk</span>
