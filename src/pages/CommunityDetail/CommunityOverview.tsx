@@ -57,6 +57,21 @@ export default function CommunityOverview() {
           </Button>
 
           <Button
+            variant="secondary"
+            onClick={() => window.open('https://www.google.com', '_blank')}
+          >
+            <span className={styles.buttonContent}>
+              <span>Sales Kiosk</span>
+              <img
+                src="/assets/icons/arrow-right.svg"
+                alt=""
+                className={styles.buttonIcon}
+                draggable={false}
+              />
+            </span>
+          </Button>
+
+          <Button
             variant="primary"
             className={styles.addNewButton}
             onClick={() => setAddPlansOpen(true)}
