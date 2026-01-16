@@ -6,6 +6,7 @@ import AIPreviewOverlay from '../../ai-preview/AIPreviewOverlay'
 import TitleBlockInfo from './TitleBlockInfo'
 import RecordInfo from './RecordInfo'
 import PlanFeatures from './PlanFeatures'
+import HomeBuyerContent from './HomeBuyerContent'
 
 type TabType = 'overview' | 'plans'
 
@@ -128,6 +129,7 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
                   {activeTab === 'overview' && (
                     <div className={styles.rightSidebar}>
                       <TitleBlockInfo />
+                      <HomeBuyerContent />
                       <PlanFeatures />
                       <RecordInfo />
                     </div>
