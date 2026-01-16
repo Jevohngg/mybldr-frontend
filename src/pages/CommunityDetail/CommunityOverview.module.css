@@ -11,6 +11,11 @@
   margin-bottom: 20px;
 }
 
+.salesKioskButton{
+  color: red !importaint;
+  
+}
+
 .headerLeft {
   display: flex;
   flex-direction: column;
