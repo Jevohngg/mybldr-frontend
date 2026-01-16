@@ -56,20 +56,27 @@ export default function CommunityOverview() {
             />
           </Button>
 
-          <Button
-            variant="secondary"
-            onClick={() => window.open('https://homeselection.mybuild.wtsparadigm.com/communities/f737219e-e08e-4496-a609-a178a6632c1a/menu', '_blank')}
-          >
-            <span className={styles.buttonContent}>
-              <span>Sales Kiosk</span>
-              <img
-                src="/assets/icons/arrow-right.svg"
-                alt=""
-                className={styles.buttonIcon}
-                draggable={false}
-              />
-            </span>
-          </Button>
+<Button
+  variant="secondary"
+  className={styles.salesKioskButton}
+  onClick={() =>
+    window.open(
+      'https://homeselection.mybuild.wtsparadigm.com/communities/f737219e-e08e-4496-a609-a178a6632c1a/menu',
+      '_blank'
+    )
+  }
+>
+  <span className={styles.buttonContent}>
+    <span>Sales Kiosk</span>
+    <img
+      src="/assets/icons/arrow-right.svg"
+      alt=""
+      className={styles.buttonIcon}
+      draggable={false}
+    />
+  </span>
+</Button>
+
 
           <Button
             variant="primary"
