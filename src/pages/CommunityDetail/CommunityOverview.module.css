@@ -58,6 +58,16 @@
   display: block;
 }
 
+/* Sales Kiosk button - matches Add New font styling */
+.salesKioskButton {
+  height: 40px;
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.5rem;
+}
+
 /* Subheader (Showing + Filter/Sort/View controls) */
 .subheaderRow {
   display: flex;

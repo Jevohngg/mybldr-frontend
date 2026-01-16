@@ -58,6 +58,7 @@ export default function CommunityOverview() {
 
           <Button
             variant="secondary"
+            className={styles.salesKioskButton}
             onClick={() => window.open('https://www.google.com', '_blank')}
           >
             <span className={styles.buttonContent}>
