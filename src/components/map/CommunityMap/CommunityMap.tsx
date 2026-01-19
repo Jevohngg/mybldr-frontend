@@ -28,7 +28,8 @@ interface CommunityMapProps {
 const IFRAME_URL = 'https://interactive-communit-e1t4.bolt.host/'
 
 function mapIframeStatusToLocal(iframeStatus: string): LotStatus {
-  switch (iframeStatus) {
+  const status = iframeStatus?.toLowerCase() || ''
+  switch (status) {
     case 'available':
       return 'available'
     case 'sold':
@@ -62,10 +63,14 @@ export default function CommunityMap({ data }: CommunityMapProps) {
     const handleMessage = (event: MessageEvent) => {
       const { type, payload } = event.data || {}
 
+      console.log('Message from iframe:', { type, payload })
+
       if (type === 'LOT_CLICKED' && payload) {
         const lotPayload = payload as IframeLotPayload
+        console.log('Lot clicked:', lotPayload)
         const localLotNumber = formatLotNumber(lotPayload.lotNumber)
         const localStatus = mapIframeStatusToLocal(lotPayload.status)
+        console.log('Mapped status:', lotPayload.status, '->', localStatus)
 
         const virtualLot: Lot = {
           id: `lot-${localLotNumber}`,
