@@ -46,9 +46,8 @@ function mapIframeStatusToLocal(iframeStatus: string): LotStatus {
   }
 }
 
-function convertLotNumber(iframeLotNumber: string): string {
-  const num = parseInt(iframeLotNumber, 10)
-  return `8${iframeLotNumber.padStart(2, '0')}`
+function formatLotNumber(iframeLotNumber: string): string {
+  return iframeLotNumber
 }
 
 export default function CommunityMap({ data }: CommunityMapProps) {
@@ -65,7 +64,7 @@ export default function CommunityMap({ data }: CommunityMapProps) {
 
       if (type === 'LOT_CLICKED' && payload) {
         const lotPayload = payload as IframeLotPayload
-        const localLotNumber = convertLotNumber(lotPayload.lotNumber)
+        const localLotNumber = formatLotNumber(lotPayload.lotNumber)
         const localStatus = mapIframeStatusToLocal(lotPayload.status)
 
         const virtualLot: Lot = {
