@@ -22,7 +22,7 @@ export default function HomeBuyerContent() {
         <div className={styles.row}>
           <span className={styles.label}>Selection Book</span>
           <a
-            href="https://google.com"
+            href="https://visualize.mybuild.wtsparadigm.com/?exlineId=ed90fcd9-1a16-4a32-9dc4-a62faf1696c8&exquoteId=2cc25f7b-1de0-4eac-bb9c-da6c7f0fba5d&signin=true"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.link}
