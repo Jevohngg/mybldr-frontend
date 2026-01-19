@@ -39,13 +39,6 @@ export default function CommunityOverview() {
     { label: 'Spec Homes', value: '2', icon: '/assets/icons/enviroment.svg', active: false },
   ] as const
 
-  const statsBottomRow = [
-    { label: 'Total Value', value: '2.3M', icon: '/assets/icons/total-value.svg', active: false },
-    { label: 'Lots Available', value: '96', icon: '/assets/icons/lots-available.svg', active: false },
-    { label: 'Occupancy Rate', value: '25%', icon: '/assets/icons/occupancy-rate.svg', active: false },
-    { label: 'Active Builds', value: '96', icon: '/assets/icons/active-builds.svg', active: false },
-  ] as const
-
   return (
     <div className={styles.page}>
       {/* Header row (title + primary actions) */}
@@ -209,40 +202,22 @@ export default function CommunityOverview() {
 
       {/* Stats */}
       {planObjs.length > 0 && (
-        <>
-          <div className={styles.statsRowTop}>
-            {statsTopRow.map((s) => (
-              <div key={s.label} className={`${styles.stat} ${s.active ? styles.statActive : ''}`}>
-                <div className={styles.statInner}>
-                  <div className={styles.statIconWrap}>
-                    <img src={s.icon} alt="" className={styles.statIcon} draggable={false} />
-                  </div>
+        <div className={styles.statsRowTop}>
+          {statsTopRow.map((s) => (
+            <div key={s.label} className={`${styles.stat} ${s.active ? styles.statActive : ''}`}>
+              <div className={styles.statInner}>
+                <div className={styles.statIconWrap}>
+                  <img src={s.icon} alt="" className={styles.statIcon} draggable={false} />
+                </div>
 
-                  <div className={styles.statText}>
-                    <div className={styles.statTop}>{s.label}</div>
-                    <div className={styles.statValue}>{s.value}</div>
-                  </div>
+                <div className={styles.statText}>
+                  <div className={styles.statTop}>{s.label}</div>
+                  <div className={styles.statValue}>{s.value}</div>
                 </div>
               </div>
-            ))}
-          </div>
-          <div className={styles.statsRowBottom}>
-            {statsBottomRow.map((s) => (
-              <div key={s.label} className={`${styles.stat} ${s.active ? styles.statActive : ''}`}>
-                <div className={styles.statInner}>
-                  <div className={styles.statIconWrap}>
-                    <img src={s.icon} alt="" className={styles.statIcon} draggable={false} />
-                  </div>
-
-                  <div className={styles.statText}>
-                    <div className={styles.statTop}>{s.label}</div>
-                    <div className={styles.statValue}>{s.value}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </>
+            </div>
+          ))}
+        </div>
       )}
 
       {/* Master plans */}
