@@ -174,7 +174,7 @@ const defaultPlanDetails: PlanDetails = {
   baths: 2,
   sqft: 2200,
   image: '/assets/plans/home-plan1.png',
-  selectionProgress: 100
+  selectionProgress: 35
 }
 
 export default function ReservedLotPopup({ lot, position, onClose }: ReservedLotPopupProps) {
