@@ -31,11 +31,19 @@ export default function CommunityOverview() {
 
   const planObjs = plans.filter((p) => selectedPlans.includes(p.id))
 
-  const stats = [
-    { label: 'Total Value', value: community.totalValue || '0', icon: '/assets/icons/total-value.svg', active: true },
-    { label: 'Lots Available', value: String(community.lotsAvailable || 0), icon: '/assets/icons/lots-available.svg', active: false },
-    { label: 'Occupancy Rate', value: `${community.occupancyRate || 0}%`, icon: '/assets/icons/occupancy-rate.svg', active: false },
-    { label: 'Active Builds', value: String(community.activeBuilds || 0), icon: '/assets/icons/active-builds.svg', active: false },
+  const statsTopRow = [
+    { label: 'Sold', value: '120', icon: '/assets/icons/community.svg', active: true },
+    { label: 'Released', value: '240', icon: '/assets/icons/document.svg', active: false },
+    { label: 'Started', value: '20', icon: '/assets/icons/active-builds.svg', active: false },
+    { label: 'Not Started', value: '220', icon: '/assets/icons/community-plans.svg', active: false },
+    { label: 'Spec Homes', value: '2', icon: '/assets/icons/enviroment.svg', active: false },
+  ] as const
+
+  const statsBottomRow = [
+    { label: 'Total Value', value: '2.3M', icon: '/assets/icons/total-value.svg', active: false },
+    { label: 'Lots Available', value: '96', icon: '/assets/icons/lots-available.svg', active: false },
+    { label: 'Occupancy Rate', value: '25%', icon: '/assets/icons/occupancy-rate.svg', active: false },
+    { label: 'Active Builds', value: '96', icon: '/assets/icons/active-builds.svg', active: false },
   ] as const
 
   return (
@@ -201,22 +209,40 @@ export default function CommunityOverview() {
 
       {/* Stats */}
       {planObjs.length > 0 && (
-        <div className={styles.statsRow}>
-          {stats.map((s) => (
-            <div key={s.label} className={`${styles.stat} ${s.active ? styles.statActive : ''}`}>
-              <div className={styles.statInner}>
-                <div className={styles.statIconWrap}>
-                  <img src={s.icon} alt="" className={styles.statIcon} draggable={false} />
-                </div>
+        <>
+          <div className={styles.statsRowTop}>
+            {statsTopRow.map((s) => (
+              <div key={s.label} className={`${styles.stat} ${s.active ? styles.statActive : ''}`}>
+                <div className={styles.statInner}>
+                  <div className={styles.statIconWrap}>
+                    <img src={s.icon} alt="" className={styles.statIcon} draggable={false} />
+                  </div>
 
-                <div className={styles.statText}>
-                  <div className={styles.statTop}>{s.label}</div>
-                  <div className={styles.statValue}>{s.value}</div>
+                  <div className={styles.statText}>
+                    <div className={styles.statTop}>{s.label}</div>
+                    <div className={styles.statValue}>{s.value}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+          <div className={styles.statsRowBottom}>
+            {statsBottomRow.map((s) => (
+              <div key={s.label} className={`${styles.stat} ${s.active ? styles.statActive : ''}`}>
+                <div className={styles.statInner}>
+                  <div className={styles.statIconWrap}>
+                    <img src={s.icon} alt="" className={styles.statIcon} draggable={false} />
+                  </div>
+
+                  <div className={styles.statText}>
+                    <div className={styles.statTop}>{s.label}</div>
+                    <div className={styles.statValue}>{s.value}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
 
       {/* Master plans */}
