@@ -167,14 +167,20 @@ const reservedLotPlans: Record<string, PlanDetails> = {
   }
 }
 
+const defaultPlanDetails: PlanDetails = {
+  name: 'Assigned Plan',
+  galtId: '#000000',
+  beds: 3,
+  baths: 2,
+  sqft: 2200,
+  image: '/assets/plans/home-plan1.png',
+  selectionProgress: 100
+}
+
 export default function ReservedLotPopup({ lot, position, onClose }: ReservedLotPopupProps) {
   const navigate = useNavigate()
   const { communityId } = useParams<{ communityId: string }>()
-  const planDetails = reservedLotPlans[lot.lot_number]
-
-  if (!planDetails) {
-    return null
-  }
+  const planDetails = reservedLotPlans[lot.lot_number] || defaultPlanDetails
 
   const handlePopupInteraction = (e: React.MouseEvent | React.WheelEvent) => {
     e.stopPropagation()

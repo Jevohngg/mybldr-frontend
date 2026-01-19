@@ -63,14 +63,10 @@ export default function CommunityMap({ data }: CommunityMapProps) {
     const handleMessage = (event: MessageEvent) => {
       const { type, payload } = event.data || {}
 
-      console.log('Message from iframe:', { type, payload })
-
       if (type === 'LOT_CLICKED' && payload) {
         const lotPayload = payload as IframeLotPayload
-        console.log('Lot clicked:', lotPayload)
         const localLotNumber = formatLotNumber(lotPayload.lotNumber)
         const localStatus = mapIframeStatusToLocal(lotPayload.status)
-        console.log('Mapped status:', lotPayload.status, '->', localStatus)
 
         const virtualLot: Lot = {
           id: `lot-${localLotNumber}`,
