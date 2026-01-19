@@ -87,6 +87,8 @@ export default function CustomPaletteEditor({ open, onClose }: CustomPaletteEdit
   })
   const [uploadProgress, setUploadProgress] = React.useState<number | null>(null)
   const [uploadedFile, setUploadedFile] = React.useState<{ name: string; size: string } | null>(null)
+  const [isRefreshing, setIsRefreshing] = React.useState(false)
+  const [isSaving, setIsSaving] = React.useState(false)
 
   const handleUpload = () => {
     setUploadProgress(0)
@@ -108,6 +110,10 @@ export default function CustomPaletteEditor({ open, onClose }: CustomPaletteEdit
             name: 'aberdeen_standards.pdf',
             size: '100kb'
           })
+          setIsRefreshing(true)
+          setTimeout(() => {
+            setIsRefreshing(false)
+          }, 600)
         }, 200)
       }
     }, interval)
@@ -115,6 +121,14 @@ export default function CustomPaletteEditor({ open, onClose }: CustomPaletteEdit
 
   const handleRemoveFile = () => {
     setUploadedFile(null)
+  }
+
+  const handleSave = () => {
+    setIsSaving(true)
+    setTimeout(() => {
+      setIsSaving(false)
+      onClose()
+    }, 1500)
   }
 
   if (!open) return null
@@ -201,7 +215,7 @@ export default function CustomPaletteEditor({ open, onClose }: CustomPaletteEdit
           </aside>
 
           <div className={styles.content}>
-            <div className={styles.materialsGrid}>
+            <div className={`${styles.materialsGrid} ${isRefreshing ? styles.refreshing : ''}`}>
               {materialOptions[activeCategory]?.map((option) => (
                 <label key={option.id} className={styles.materialCard}>
                   <input
@@ -223,8 +237,20 @@ export default function CustomPaletteEditor({ open, onClose }: CustomPaletteEdit
         </div>
 
         <footer className={styles.footer}>
-          <button className={styles.cancelBtn} onClick={onClose}>Cancel</button>
-          <button className={styles.saveBtn}>Save</button>
+          <button className={styles.cancelBtn} onClick={onClose} disabled={isSaving}>Cancel</button>
+          <button className={styles.saveBtn} onClick={handleSave} disabled={isSaving}>
+            {isSaving ? (
+              <>
+                <svg className={styles.spinner} width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="2" strokeOpacity="0.25" />
+                  <path d="M14 8a6 6 0 0 1-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+                Saving...
+              </>
+            ) : (
+              'Save'
+            )}
+          </button>
         </footer>
       </div>
     </div>

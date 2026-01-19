@@ -337,11 +337,30 @@ text-transform: capitalize;
 }
 
 .materialsGrid {
-
-      display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.materialsGrid.refreshing {
+  animation: refreshPulse 0.6s ease;
+}
+
+@keyframes refreshPulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .materialCard {
@@ -461,6 +480,29 @@ transition: background 0.3s ease-in-out;
 cursor: pointer;
 }
 
-.saveBtn:hover {
+.saveBtn:hover:not(:disabled) {
   background: #1858A8;
+}
+
+.saveBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.cancelBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spinner {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
