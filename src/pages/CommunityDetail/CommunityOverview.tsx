@@ -32,11 +32,11 @@ export default function CommunityOverview() {
   const planObjs = plans.filter((p) => selectedPlans.includes(p.id))
 
   const statsTopRow = [
-    { label: 'Sold', value: '120', icon: '/assets/icons/community.svg', active: true },
-    { label: 'Released', value: '240', icon: '/assets/icons/document.svg', active: false },
-    { label: 'Started', value: '20', icon: '/assets/icons/active-builds.svg', active: false },
-    { label: 'Not Started', value: '220', icon: '/assets/icons/community-plans.svg', active: false },
-    { label: 'Spec Homes', value: '2', icon: '/assets/icons/enviroment.svg', active: false },
+    { label: 'Sold', value: '120', icon: '/assets/icons/sold-icon.svg', active: true },
+    { label: 'Released', value: '240', icon: '/assets/icons/released-icon.svg', active: false },
+    { label: 'Started', value: '20', icon: '/assets/icons/started-icon.svg', active: false },
+    { label: 'Not Started', value: '220', icon: '/assets/icons/not-started-icon.svg', active: false },
+    { label: 'Spec Homes', value: '2', icon: '/assets/icons/spec-homes-icon.svg', active: false },
   ] as const
 
   return (
