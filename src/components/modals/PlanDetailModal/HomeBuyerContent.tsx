@@ -10,7 +10,7 @@ export default function HomeBuyerContent() {
         <div className={styles.row}>
           <span className={styles.label}>Video Walkthrough</span>
           <a
-            href="https://google.com"
+            href="https://3dtour.wtsparadigm.com/LGIHomes/SpringbrookReserve-Birch/"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.link}
