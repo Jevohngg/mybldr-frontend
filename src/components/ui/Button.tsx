@@ -2,17 +2,19 @@ import React from 'react'
 
 type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary' | 'ghost'
+  size?: 'default' | 'small'
   iconOnly?: boolean
   loading?: boolean
   fixedWidth?: number
 }
 
 const Button = React.forwardRef<HTMLButtonElement, Props>(
-  ({ variant = 'secondary', iconOnly, loading, fixedWidth, className = '', children, style, ...rest }, ref) => {
+  ({ variant = 'secondary', size = 'default', iconOnly, loading, fixedWidth, className = '', children, style, ...rest }, ref) => {
+    const sizeClass = size === 'small' ? 'btnSmall' : '';
     const cls =
       iconOnly
         ? `btn btnIcon ${className}`
-        : `btn ${variant === 'primary' ? 'btnPrimary' : variant === 'ghost' ? 'btnGhost' : 'btnSecondary'} ${className}`
+        : `btn ${variant === 'primary' ? 'btnPrimary' : variant === 'ghost' ? 'btnGhost' : 'btnSecondary'} ${sizeClass} ${className}`.trim()
 
     const buttonStyle = fixedWidth ? { ...style, width: `${fixedWidth}px` } : style
 
