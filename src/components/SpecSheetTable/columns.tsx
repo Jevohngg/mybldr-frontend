@@ -69,3 +69,50 @@ export const defaultVisibleColumns = {
   quantity: false,
   warranty: false,
 };
+
+// Global specifications columns (for top-level /specifications page)
+export const getGlobalColumns = (): GridColDef[] => [
+  {
+    field: 'subCategory',
+    headerName: 'Category / Sub Category',
+    flex: 1,
+    minWidth: 200,
+    editable: true,
+  },
+  {
+    field: 'description',
+    headerName: 'Description',
+    flex: 1.5,
+    minWidth: 250,
+    editable: true,
+  },
+  {
+    field: 'region',
+    headerName: 'Region',
+    flex: 1,
+    minWidth: 180,
+    editable: true,
+  },
+  {
+    field: 'division',
+    headerName: 'Division',
+    flex: 1,
+    minWidth: 150,
+    editable: true,
+  },
+  {
+    field: 'community',
+    headerName: 'Community',
+    flex: 1,
+    minWidth: 180,
+    editable: true,
+  },
+];
+
+export const defaultGlobalVisibleColumns = {
+  subCategory: true,
+  description: true,
+  region: true,
+  division: true,
+  community: true,
+};

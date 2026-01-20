@@ -9,11 +9,16 @@ export interface SpecItem {
   color?: string;
   quantity?: string;
   warranty?: string;
+  // Global specs fields
+  region?: string;
+  division?: string;
+  community?: string;
 }
 
 export interface SpecSheetTableProps {
   data: SpecItem[];
   title?: string;
+  variant?: 'default' | 'global';
 }
 
 export interface SpecRowData extends SpecItem {

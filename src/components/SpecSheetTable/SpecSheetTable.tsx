@@ -27,7 +27,7 @@ import SortIcon from '@mui/icons-material/Sort';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { SpecSheetTableProps, SpecItem } from './types';
-import { getColumns, defaultVisibleColumns } from './columns';
+import { getColumns, defaultVisibleColumns, getGlobalColumns, defaultGlobalVisibleColumns } from './columns';
 import './SpecSheetTable.css';
 
 interface TreeDataRow extends SpecItem {
@@ -86,10 +86,13 @@ function CustomToolbar() {
   );
 }
 
-export function SpecSheetTable({ data, title }: SpecSheetTableProps) {
+export function SpecSheetTable({ data, title, variant = 'default' }: SpecSheetTableProps) {
   const apiRef = useGridApiRef();
   const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>({ type: 'include', ids: new Set() });
-  const [columnVisibilityModel, setColumnVisibilityModel] = useState<GridColumnVisibilityModel>(defaultVisibleColumns);
+  const isGlobal = variant === 'global';
+  const [columnVisibilityModel, setColumnVisibilityModel] = useState<GridColumnVisibilityModel>(
+    isGlobal ? defaultGlobalVisibleColumns : defaultVisibleColumns
+  );
   const [rows, setRows] = useState<TreeDataRow[]>([]);
 
   // Transform flat data into tree structure
@@ -240,10 +243,10 @@ export function SpecSheetTable({ data, title }: SpecSheetTableProps) {
   }, []);
 
   const columns = useMemo(() => {
-    const baseColumns = getColumns();
+    const baseColumns = isGlobal ? getGlobalColumns() : getColumns();
     // Remove subCategory from regular columns since it's shown in grouping column
     return baseColumns.filter(col => col.field !== 'subCategory');
-  }, []);
+  }, [isGlobal]);
 
   const getTreeDataPath = useCallback((row: TreeDataRow) => row.hierarchy, []);
 
