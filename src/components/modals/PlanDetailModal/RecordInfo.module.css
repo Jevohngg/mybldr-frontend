@@ -45,3 +45,76 @@
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
+
+/* ==========================================
+   RESPONSIVE - TABLET
+   ========================================== */
+
+@media (max-width: 1023px) {
+  .container {
+    width: 280px;
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .section {
+    margin-bottom: 16px;
+  }
+
+  .label {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .input {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - MOBILE
+   ========================================== */
+
+@media (max-width: 767px) {
+  .container {
+    width: 100%;
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .section {
+    margin-bottom: 14px;
+  }
+
+  .label {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  .input {
+    padding: 10px 12px;
+    font-size: 16px; /* Prevent iOS zoom */
+    min-height: 44px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - SMALL MOBILE
+   ========================================== */
+
+@media (max-width: 479px) {
+  .container {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .section {
+    margin-bottom: 12px;
+  }
+
+  .label {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+}

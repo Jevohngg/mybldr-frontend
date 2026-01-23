@@ -3,6 +3,7 @@
 @import url("../design-system/layout.css");
 @import url("../design-system/buttons.css");
 @import url("../design-system/inputs.css");
+@import url("./responsive.css");
 
 * { box-sizing: border-box; }
 html, body { height: 100%; }
@@ -14,3 +15,344 @@ body {
 }
 a { color: inherit; text-decoration: none; }
 button, input { font-family: inherit; }
+
+/* ==========================================
+   MUI DataGrid - Disable internal scrolling
+   ==========================================
+   Prevents DataGrid from capturing scroll events when user is trying
+   to scroll the page. Tables expand to fit content with autoHeight.
+   ========================================== */
+.MuiDataGrid-root .MuiDataGrid-main {
+  overflow: visible !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-virtualScroller {
+  overflow: visible !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-virtualScrollerContent {
+  overflow: visible !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-virtualScrollerRenderZone {
+  position: relative !important;
+  transform: none !important;
+}
+
+/* ==========================================
+   MUI DataGrid - Global Table Styling
+   ==========================================
+   Consistent table styling across all MUI DataGrids.
+   Matches Figma design specifications.
+   ========================================== */
+
+/* Table Container */
+.MuiDataGrid-root {
+  border: 1px solid #EFF0F0 !important;
+  border-radius: 12px !important;
+  background: #FFFFFF !important;
+  font-family: Inter, inherit !important;
+}
+
+/* Remove double borders */
+.MuiDataGrid-root .MuiDataGrid-withBorderColor {
+  border-color: #EFF0F0 !important;
+}
+
+/* Column Headers */
+.MuiDataGrid-root .MuiDataGrid-columnHeaders {
+  background-color: #FAFAFA !important;
+  border-bottom: 1px solid #EFF0F0 !important;
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+  min-height: 52px !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-columnHeader {
+  padding: 0 16px !important;
+  border-right: none !important;
+}
+
+/* Override padding for checkbox column header specifically */
+.MuiDataGrid-root .MuiDataGrid-columnHeader.MuiDataGrid-columnHeader--checkboxSelection {
+  padding: 0 !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-columnHeaderCheckbox {
+  padding: 0 !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-columnHeaderTitle {
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  color: #636769 !important;
+  text-transform: none !important;
+  line-height: 1.33 !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-columnSeparator {
+  display: none !important;
+}
+
+/* Cell Rows */
+.MuiDataGrid-root .MuiDataGrid-row {
+  border-bottom: 1px solid #EFF0F0 !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-row:last-child {
+  border-bottom: none !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-row:hover {
+  background-color: #FAFAFA !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-row.Mui-selected {
+  background-color: rgba(29, 107, 205, 0.08) !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-row.Mui-selected:hover {
+  background-color: rgba(29, 107, 205, 0.12) !important;
+}
+
+/* Cells */
+.MuiDataGrid-root .MuiDataGrid-cell {
+  padding: 0 16px !important;
+  border-bottom: none !important;
+  border-right: none !important;
+  font-size: 14px !important;
+  line-height: 1.43 !important;
+  color: #3E4041 !important;
+  display: flex !important;
+  align-items: center !important;
+  overflow: hidden !important;
+  min-width: 0 !important;
+}
+
+/* Cell content text overflow with ellipsis */
+.MuiDataGrid-root .MuiDataGrid-cell .MuiDataGrid-cellContent,
+.MuiDataGrid-root .MuiDataGrid-cell > div,
+.MuiDataGrid-root .MuiDataGrid-cell > span {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  min-width: 0 !important;
+}
+
+/* Override padding for checkbox cells specifically */
+.MuiDataGrid-root .MuiDataGrid-cell.MuiDataGrid-cellCheckbox {
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-cell:focus,
+.MuiDataGrid-root .MuiDataGrid-cell:focus-within {
+  outline: none !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-columnHeader:focus,
+.MuiDataGrid-root .MuiDataGrid-columnHeader:focus-within {
+  outline: none !important;
+}
+
+/* Cell editing state */
+.MuiDataGrid-root .MuiDataGrid-cell--editing {
+  background-color: #FEF9C3 !important;
+  box-shadow: inset 0 0 0 2px #F59E0B !important;
+}
+
+/* Checkbox column - header alignment fix */
+/* The header has: columnHeader > columnHeaderDraggableContainer > columnHeaderTitleContainer > checkbox */
+.MuiDataGrid-root .MuiDataGrid-columnHeader--checkboxSelection {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-columnHeader--checkboxSelection .MuiDataGrid-columnHeaderDraggableContainer {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-columnHeader--checkboxSelection .MuiDataGrid-columnHeaderTitleContainer {
+  width: auto !important;
+  flex-grow: 0 !important;
+  padding: 0 !important;
+  justify-content: center !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-columnHeader--checkboxSelection .MuiDataGrid-columnHeaderTitleContainerContent {
+  overflow: visible !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+/* Checkbox styling */
+.MuiDataGrid-root .MuiCheckbox-root {
+  color: #D1D5DB !important;
+}
+
+.MuiDataGrid-root .MuiCheckbox-root.Mui-checked {
+  color: #1D6BCD !important;
+}
+
+/* Ensure checkbox column has consistent width */
+.MuiDataGrid-root .MuiDataGrid-columnHeader[data-field="__check__"],
+.MuiDataGrid-root .MuiDataGrid-cell[data-field="__check__"] {
+  min-width: 52px !important;
+  max-width: 52px !important;
+  width: 52px !important;
+}
+
+/* Tree data grouping cells */
+.MuiDataGrid-root .MuiDataGrid-treeDataGroupingCell {
+  padding-left: 8px !important;
+}
+
+/* Category/group rows */
+.MuiDataGrid-root .MuiDataGrid-row--groupNode {
+  background-color: #FAFAFA !important;
+  font-weight: 600 !important;
+}
+
+/* Footer (if visible) */
+.MuiDataGrid-root .MuiDataGrid-footerContainer {
+  border-top: 1px solid #EFF0F0 !important;
+  min-height: 48px !important;
+}
+
+/* Scrollbar styling (for horizontal scroll if needed) */
+.MuiDataGrid-root .MuiDataGrid-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #D1D5DB transparent;
+}
+
+.MuiDataGrid-root .MuiDataGrid-scrollbar::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.MuiDataGrid-root .MuiDataGrid-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.MuiDataGrid-root .MuiDataGrid-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #D1D5DB;
+  border-radius: 4px;
+}
+
+/* Remove any extra borders from nested elements */
+.MuiDataGrid-root .MuiDataGrid-pinnedColumns,
+.MuiDataGrid-root .MuiDataGrid-pinnedColumnHeaders {
+  box-shadow: none !important;
+}
+
+/* ==========================================
+   MUI DataGrid - Responsive Styles
+   ========================================== */
+
+@media (max-width: 1023px) {
+  .MuiDataGrid-root {
+    border-radius: 10px !important;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-columnHeaders {
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+    min-height: 48px !important;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-columnHeader {
+    padding: 0 12px !important;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-cell {
+    padding: 0 12px !important;
+    font-size: 13px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .MuiDataGrid-root {
+    border-radius: 8px !important;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-columnHeaders {
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+    min-height: 44px !important;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-columnHeader {
+    padding: 0 10px !important;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-columnHeaderTitle {
+    font-size: 11px !important;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-cell {
+    padding: 0 10px !important;
+    font-size: 12px !important;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-footerContainer {
+    min-height: 44px !important;
+    padding: 0 8px !important;
+  }
+
+  /* Make table horizontally scrollable on mobile */
+  .MuiDataGrid-root .MuiDataGrid-main {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Pagination adjustments */
+  .MuiDataGrid-root .MuiTablePagination-displayedRows {
+    font-size: 12px !important;
+  }
+
+  .MuiDataGrid-root .MuiTablePagination-selectLabel {
+    display: none !important;
+  }
+}
+
+@media (max-width: 479px) {
+  .MuiDataGrid-root {
+    border-radius: 6px !important;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-columnHeaders {
+    border-top-left-radius: 6px !important;
+    border-top-right-radius: 6px !important;
+    min-height: 40px !important;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-columnHeader {
+    padding: 0 8px !important;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-columnHeaderTitle {
+    font-size: 10px !important;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-cell {
+    padding: 0 8px !important;
+    font-size: 11px !important;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-footerContainer {
+    min-height: 40px !important;
+    padding: 0 4px !important;
+  }
+
+  /* Hide checkbox column on very small screens */
+  .MuiDataGrid-root .MuiDataGrid-columnHeader[data-field="__check__"],
+  .MuiDataGrid-root .MuiDataGrid-cell[data-field="__check__"] {
+    display: none !important;
+  }
+}

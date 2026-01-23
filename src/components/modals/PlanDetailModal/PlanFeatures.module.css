@@ -33,7 +33,7 @@ line-height: 1.5rem; /* 150% */
   padding: 8px 12px;
   background: #f9fafb;
   border: 1px solid #e5e7eb;
-  border-radius: 6px;
+  border-radius: 4px;
   font-size: 13px;
   color: #374151;
   transition: all 0.15s;
@@ -42,7 +42,6 @@ line-height: 1.5rem; /* 150% */
 
 .featureTag:hover {
   background: #f3f4f6;
-  border-color: #d1d5db;
 }
 
 .featurePlus {
@@ -55,4 +54,107 @@ line-height: 1.5rem; /* 150% */
 .featureText {
   color: #374151;
   font-weight: 400;
+}
+
+/* ==========================================
+   RESPONSIVE - TABLET
+   ========================================== */
+
+@media (max-width: 1023px) {
+  .container {
+    width: 280px;
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .title {
+    font-size: 0.9375rem;
+    line-height: 1.375rem;
+  }
+
+  .featuresGrid {
+    gap: 6px;
+  }
+
+  .featureTag {
+    padding: 6px 10px;
+    font-size: 12px;
+    gap: 5px;
+  }
+
+  .featurePlus {
+    font-size: 14px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - MOBILE
+   ========================================== */
+
+@media (max-width: 767px) {
+  .container {
+    width: 100%;
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .title {
+    font-size: 0.9375rem;
+    line-height: 1.375rem;
+    margin-bottom: 16px;
+  }
+
+  .featuresGrid {
+    gap: 8px;
+  }
+
+  .featureTag {
+    padding: 10px 14px;
+    font-size: 14px;
+    gap: 8px;
+    min-height: 44px;
+  }
+
+  .featurePlus {
+    font-size: 16px;
+  }
+
+  .featureText {
+    font-size: 14px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - SMALL MOBILE
+   ========================================== */
+
+@media (max-width: 479px) {
+  .container {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .title {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    margin-bottom: 14px;
+  }
+
+  .featuresGrid {
+    gap: 6px;
+  }
+
+  .featureTag {
+    padding: 8px 12px;
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .featurePlus {
+    font-size: 14px;
+  }
+
+  .featureText {
+    font-size: 13px;
+  }
 }

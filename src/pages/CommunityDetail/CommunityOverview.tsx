@@ -5,6 +5,7 @@ import Button from '../../components/ui/Button'
 import PlanCard from '../../components/cards/PlanCard/PlanCard'
 import CommunityMap from '../../components/map/CommunityMap/CommunityMap'
 import AddPlansModal from '../../components/modals/AddPlansModal/AddPlansModal'
+import PlanDetailModal from '../../components/modals/PlanDetailModal/PlanDetailModal'
 import { useCommunityMapData } from '../../components/map'
 import styles from './CommunityOverview.module.css'
 
@@ -19,6 +20,7 @@ export default function CommunityOverview() {
   const [addPlansOpen, setAddPlansOpen] = React.useState(false)
   const [selectedPlans, setSelectedPlans] = React.useState<string[]>([...community.planIds])
   const [viewMode, setViewMode] = React.useState<ViewMode>('cards')
+  const [selectedPlan, setSelectedPlan] = React.useState<{ id: string; name: string; communityCount: number } | null>(null)
 
   const { mapData } = useCommunityMapData({
     communityId: community.id,
@@ -266,7 +268,15 @@ export default function CommunityOverview() {
         <>
           <div className={styles.plansRow}>
             {planObjs.slice(0, 4).map((p) => (
-              <PlanCard key={p.id} plan={p} />
+              <PlanCard
+                key={p.id}
+                plan={p}
+                onClick={() => setSelectedPlan({
+                  id: p.id,
+                  name: p.name,
+                  communityCount: (p as any).communityCount || 1
+                })}
+              />
             ))}
           </div>
 
@@ -298,6 +308,14 @@ export default function CommunityOverview() {
           setAddPlansOpen(false)
         }}
         initialSelected={selectedPlans}
+      />
+
+      <PlanDetailModal
+        open={!!selectedPlan}
+        onClose={() => setSelectedPlan(null)}
+        planId={selectedPlan?.id || ''}
+        planName={selectedPlan?.name || ''}
+        communityCount={selectedPlan?.communityCount || 0}
       />
     </div>
   )

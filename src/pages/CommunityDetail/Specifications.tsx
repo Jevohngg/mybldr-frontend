@@ -5,6 +5,7 @@ import { useData } from '../../app/providers';
 import { SpecSheetTable, constructionSpecs } from '@/components/SpecSheetTable';
 import Button from '../../components/ui/Button';
 import styles from './Specifications.module.css';
+import { breadcrumbStyles } from '@/components/Breadcrumb';
 
 // Animation variants for page transitions
 const pageVariants = {
@@ -122,7 +123,7 @@ export default function Specifications() {
       >
         {/* Page Header */}
         <div className={styles.pageHeader}>
-          <h1 className={styles.pageTitle}>{community.name} Specifications</h1>
+          <div className="h1">{community.name} Specifications</div>
         </div>
 
         {/* Community Section */}
@@ -138,26 +139,26 @@ export default function Specifications() {
             </Button>
           </div>
 
-          {/* Inner Table Container - toolbar + table + pagination */}
-          <div className={styles.innerTableContainer}>
-            {/* Toolbar */}
-            <div className={styles.toolbar}>
-              <div className={styles.toolbarLeft}>
-                <button type="button" className={styles.toolbarButton}>
-                  <img src="/assets/icons/search.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                  <span>Search</span>
-                </button>
-                <button type="button" className={styles.toolbarButton}>
-                  <img src="/assets/icons/filter.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                  <span>Filter</span>
-                </button>
-                <button type="button" className={styles.toolbarButton}>
-                  <img src="/assets/icons/sort.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                  <span>Sort</span>
-                </button>
-              </div>
+          {/* Toolbar - sits under section header, separate from table */}
+          <div className={styles.toolbar}>
+            <div className={styles.toolbarLeft}>
+              <button type="button" className={styles.toolbarButton}>
+                <img src="/assets/icons/search.svg" alt="" className={styles.toolbarIcon} draggable={false} />
+                <span>Search</span>
+              </button>
+              <button type="button" className={styles.toolbarButton}>
+                <img src="/assets/icons/filter.svg" alt="" className={styles.toolbarIcon} draggable={false} />
+                <span>Filter</span>
+              </button>
+              <button type="button" className={styles.toolbarButton}>
+                <img src="/assets/icons/sort.svg" alt="" className={styles.toolbarIcon} draggable={false} />
+                <span>Sort</span>
+              </button>
             </div>
+          </div>
 
+          {/* Inner Table Container - table + pagination with border */}
+          <div className={styles.innerTableContainer}>
             {/* Community Table - Editable */}
             <div className={styles.tableWrapper}>
               <table className={styles.table}>
@@ -345,13 +346,17 @@ export default function Specifications() {
       {/* Header */}
       <div className={styles.detailHeader}>
         <div className={styles.detailHeaderLeft}>
-          <button type="button" className={styles.backLink} onClick={handleBackClick}>
-            <img src="/assets/icons/chevron-left.svg" alt="Back" className={styles.backIcon} draggable={false} />
-          </button>
-          <div className={styles.breadcrumb}>
-            <img src="/assets/icons/community.svg" alt="" className={styles.breadcrumbIcon} draggable={false} />
-            <span className={styles.breadcrumbSeparator}>/</span>
-            <span className={styles.breadcrumbText}>{selectedPackage}</span>
+          <div className={breadcrumbStyles.breadcrumb}>
+            <button
+              type="button"
+              className={breadcrumbStyles.breadcrumbIconButton}
+              onClick={handleBackClick}
+              data-tooltip="Specifications"
+            >
+              <img src="/assets/icons/community.svg" alt="" className={breadcrumbStyles.breadcrumbIcon} draggable={false} />
+            </button>
+            <span className={breadcrumbStyles.breadcrumbSeparator}>/</span>
+            <span className={breadcrumbStyles.breadcrumbCurrent}>{selectedPackage}</span>
           </div>
         </div>
         <div className={styles.detailHeaderRight}>

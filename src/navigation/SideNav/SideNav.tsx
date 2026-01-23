@@ -2,6 +2,7 @@ import * as React from 'react'
 import { NavLink, matchPath, useLocation } from 'react-router-dom'
 import styles from './SideNav.module.css'
 import { useData } from '../../app/providers'
+import { useMobileNav } from '../../contexts/MobileNavContext'
 
 function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(' ')
@@ -101,6 +102,15 @@ function useActiveChildConnector(open: boolean, depKey: string) {
 export default function SideNav() {
   const { communities = [] } = useData() as any
   const location = useLocation()
+  const { closeMobileNav, isMobile, isTablet } = useMobileNav()
+  const shouldCloseMobileNav = isMobile || isTablet
+
+  // Close mobile nav when route changes
+  React.useEffect(() => {
+    if (shouldCloseMobileNav) {
+      closeMobileNav()
+    }
+  }, [location.pathname, shouldCloseMobileNav, closeMobileNav])
 
   const communityMatch =
     matchPath({ path: '/communities/:communityId/*' }, location.pathname) ||
@@ -196,13 +206,14 @@ export default function SideNav() {
                       cx(styles.childRow, isActive && styles.childRowActive)
                     }
                   >
-                    Specification Templates
+                    Templates
                   </NavLink>
                 </div>
               </div>
             </div>
           </div>
 
+          {/* Team navigation - Hidden for now, can be re-enabled later
           <div className={styles.group}>
             <NavLink
               to="/team"
@@ -216,7 +227,6 @@ export default function SideNav() {
               <span>Team</span>
             </NavLink>
 
-            {/* Smooth expand/collapse wrapper */}
             <div
               className={cx(styles.collapse, teamOpen && styles.collapseOpen)}
               aria-hidden={!teamOpen}
@@ -242,6 +252,7 @@ export default function SideNav() {
               </div>
             </div>
           </div>
+          */}
         </div>
 
         {/* Communities */}

@@ -9,15 +9,9 @@
 /* Page Header */
 .pageHeader {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-}
-
-.pageTitle {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--color-text-primary);
-  margin: 0;
+  gap: 16px;
 }
 
 /* Button Styles */
@@ -57,11 +51,12 @@
   margin-bottom: 16px;
 }
 
-/* Inner Table Container - nested inside card with its own border */
+/* Inner Table Container - wraps table + pagination with border */
 .innerTableContainer {
-  border: 1px solid #E5E7EB;
-  border-radius: 8px;
+  border: 1px solid #EFF0F0;
+  border-radius: 12px;
   overflow: hidden;
+  background: #FFFFFF;
 }
 
 .sectionTitle {
@@ -82,9 +77,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   padding: 12px 16px;
-  background: #fff;
-  border-bottom: 1px solid #E5E7EB;
+  background: #FAFAFA;
+  border: 1px solid #EFF0F0;
+  border-radius: 8px;
+  margin-bottom: 16px;
 }
 
 .toolbarLeft {
@@ -104,10 +102,10 @@
   padding: 8px 12px;
   align-items: center;
   gap: 6px;
-  border-radius: 6px;
+  border-radius: 4px;
   border: none;
   background: transparent;
-  color: #6B7280;
+  color: #3E4041;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -115,7 +113,7 @@
 }
 
 .toolbarButton:hover {
-  background: #F3F4F6;
+  background: #ECEDEF;
 }
 
 .toolbarButton:active {
@@ -125,7 +123,7 @@
 .toolbarIcon {
   width: 16px;
   height: 16px;
-  color: #6B7280;
+  opacity: 0.7;
 }
 
 /* Tables */
@@ -136,48 +134,52 @@
 .table {
   width: 100%;
   border-collapse: collapse;
+  font-family: Inter, sans-serif;
+  table-layout: fixed;
 }
 
 .tableHeaderRow {
-  background: #F9FAFB;
+  background: #FAFAFA;
 }
 
 .th {
   text-align: left;
-  padding: 12px 16px;
+  padding: 16px;
   font-size: 12px;
   font-weight: 500;
-  color: #6B7280;
-  border-bottom: 1px solid #E5E7EB;
+  color: #636769;
+  line-height: 1.33;
+  border-bottom: 1px solid #EFF0F0;
 }
 
 .thCenter {
   text-align: center;
-  padding: 12px 16px;
+  padding: 16px;
   font-size: 12px;
   font-weight: 500;
-  color: #6B7280;
-  border-bottom: 1px solid #E5E7EB;
+  color: #636769;
+  line-height: 1.33;
+  border-bottom: 1px solid #EFF0F0;
 }
 
 .thAction {
   width: 50px;
   text-align: center;
-  padding: 12px;
-  border-bottom: 1px solid #E5E7EB;
+  padding: 16px 12px;
+  border-bottom: 1px solid #EFF0F0;
 }
 
 .thIconCol {
   width: 50px;
   text-align: center;
-  padding: 12px;
-  border-bottom: 1px solid #E5E7EB;
+  padding: 16px 12px;
+  border-bottom: 1px solid #EFF0F0;
 }
 
 .thIconColSmall {
   width: 40px;
-  padding: 12px 8px;
-  border-bottom: 1px solid #E5E7EB;
+  padding: 16px 8px;
+  border-bottom: 1px solid #EFF0F0;
 }
 
 .headerIcon {
@@ -188,16 +190,21 @@
 
 /* Table Rows */
 .rowEven {
-  background: #fff;
+  background: #FFFFFF;
 }
 
 .rowOdd {
-  background: #FAFAFA;
+  background: #FCFDFD;
 }
 
 .rowEven:hover,
 .rowOdd:hover {
-  background: #F5F7FA;
+  background: #FAFAFA;
+}
+
+/* Remove bottom border from last row cells */
+.table tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .rowClickable {
@@ -205,14 +212,16 @@
 }
 
 .rowClickable:hover {
-  background: #F0F4F8 !important;
+  background: #FAFAFA !important;
 }
 
 /* Table Cells - Editable */
 .tdEditable {
   padding: 0;
-  border-bottom: 1px solid #F0F0F0;
+  border-bottom: 1px solid #EFF0F0;
   cursor: text;
+  max-width: 0;
+  overflow: hidden;
 }
 
 .tdEditable:hover {
@@ -221,8 +230,9 @@
 
 .tdEditableDescription {
   padding: 0;
-  border-bottom: 1px solid #F0F0F0;
-  max-width: 400px;
+  border-bottom: 1px solid #EFF0F0;
+  max-width: 0;
+  overflow: hidden;
   cursor: text;
 }
 
@@ -232,17 +242,22 @@
 
 .cellText {
   display: block;
-  padding: 14px 20px;
+  padding: 16px;
   font-size: 14px;
-  color: var(--color-text-primary);
+  line-height: 1.43;
+  color: #3E4041;
   font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cellTextDescription {
   display: block;
-  padding: 14px 20px;
+  padding: 16px;
   font-size: 14px;
-  color: #6B7280;
+  line-height: 1.43;
+  color: #636769;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -250,9 +265,9 @@
 
 .editInput {
   width: 100%;
-  padding: 14px 20px;
+  padding: 16px;
   font-size: 14px;
-  color: var(--color-text-primary);
+  color: #3E4041;
   border: none;
   background: #FEF3C7;
   outline: none;
@@ -267,47 +282,54 @@
 .tdAction {
   width: 50px;
   text-align: center;
-  padding: 14px 12px;
-  border-bottom: 1px solid #F0F0F0;
+  padding: 16px 12px;
+  border-bottom: 1px solid #EFF0F0;
 }
 
 .tdClickable {
-  padding: 14px 20px;
-  border-bottom: 1px solid #F0F0F0;
+  padding: 16px;
+  border-bottom: 1px solid #EFF0F0;
+  max-width: 0;
+  overflow: hidden;
 }
 
 .tdCenter {
   text-align: center;
-  padding: 14px 20px;
+  padding: 16px;
   font-size: 14px;
-  color: var(--color-text-primary);
-  border-bottom: 1px solid #F0F0F0;
+  line-height: 1.43;
+  color: #3E4041;
+  border-bottom: 1px solid #EFF0F0;
 }
 
 .tdIconCol {
   width: 50px;
   text-align: center;
-  padding: 14px 12px;
-  border-bottom: 1px solid #F0F0F0;
+  padding: 16px 12px;
+  border-bottom: 1px solid #EFF0F0;
 }
 
 .tdChevron {
   width: 40px;
   text-align: center;
-  padding: 14px 8px;
-  border-bottom: 1px solid #F0F0F0;
+  padding: 16px 8px;
+  border-bottom: 1px solid #EFF0F0;
 }
 
 /* Package Name - Clickable with underline on hover */
 .packageName {
   font-size: 14px;
   font-weight: 500;
-  color: var(--color-text-primary);
+  line-height: 1.43;
+  color: #3E4041;
   transition: all 0.15s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .rowClickable:hover .packageName {
-  color: #2563EB;
+  color: #1D6BCD;
   text-decoration: underline;
 }
 
@@ -377,8 +399,8 @@
   justify-content: flex-end;
   gap: 24px;
   padding: 12px 16px;
-  background: #fff;
-  border-top: 1px solid #E5E7EB;
+  background: #FFFFFF;
+  border-top: 1px solid #EFF0F0;
 }
 
 .paginationLeft {
@@ -388,8 +410,8 @@
 }
 
 .paginationLabel {
-  font-size: 13px;
-  color: #6B7280;
+  font-size: 14px;
+  color: #636769;
 }
 
 .paginationDropdown {
@@ -397,16 +419,16 @@
   align-items: center;
   gap: 4px;
   padding: 4px 8px;
-  border: 1px solid #D1D5DB;
+  border: 1px solid #EFF0F0;
   border-radius: 4px;
-  background: #fff;
-  font-size: 13px;
-  color: var(--color-text-primary);
+  background: #FFFFFF;
+  font-size: 14px;
+  color: #3E4041;
   cursor: pointer;
 }
 
 .paginationDropdown:hover {
-  background: #F9FAFB;
+  background: #FAFAFA;
 }
 
 .paginationChevron {
@@ -416,8 +438,8 @@
 }
 
 .paginationInfo {
-  font-size: 13px;
-  color: #6B7280;
+  font-size: 14px;
+  color: #636769;
 }
 
 .paginationArrows {
@@ -432,15 +454,15 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  border: 1px solid #D1D5DB;
+  border: 1px solid #EFF0F0;
   border-radius: 4px;
-  background: #fff;
+  background: #FFFFFF;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .paginationArrow:hover:not(:disabled) {
-  background: #F9FAFB;
+  background: #FAFAFA;
 }
 
 .paginationArrow:disabled {
@@ -478,58 +500,7 @@
   gap: 12px;
 }
 
-/* Back Link */
-.backLink {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-  border: none;
-  border-radius: 4px;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.backLink:hover {
-  background: #F3F4F6;
-}
-
-.backLink:hover .backIcon {
-  opacity: 1;
-}
-
-.backIcon {
-  width: 20px;
-  height: 20px;
-  opacity: 0.6;
-  transition: opacity 0.15s ease;
-}
-
-/* Breadcrumb */
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.breadcrumbIcon {
-  width: 20px;
-  height: 20px;
-  opacity: 0.6;
-}
-
-.breadcrumbSeparator {
-  color: #9CA3AF;
-  font-size: 16px;
-  font-weight: 400;
-}
-
-.breadcrumbText {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--color-text-primary);
-}
+/* Note: Breadcrumb styles are now consolidated in @/components/Breadcrumb/Breadcrumb.module.css */
 
 /* Tabs */
 .tabsContainer {
@@ -571,7 +542,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--color-text-primary);
+  background: #1D6BCD;
 }
 
 .tabAdd {
@@ -627,22 +598,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 0 12px 0;
-  background: #FFFFFF;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #FAFAFA;
+  border: 1px solid #EFF0F0;
+  border-radius: 8px;
+  margin-bottom: 16px;
   flex-shrink: 0;
 }
 
 .specTableInner {
   flex: 1;
   min-height: 0;
-  overflow: auto;
   background: #FFFFFF;
-}
-
-/* Remove border/radius from inner table - container handles it */
-.specTableInner :global(.MuiDataGrid-root) {
-  border: none;
-  border-radius: 0;
+  /* Global styles in globals.css handle the DataGrid styling */
 }
 
 .specTableContainer {
@@ -781,18 +750,44 @@
   color: var(--color-text-primary);
 }
 
-/* Responsive */
+/* ==========================================
+   RESPONSIVE - TABLET
+   ========================================== */
+
 @media (max-width: 1024px) {
   .contentLayout {
     flex-direction: column;
+    gap: 20px;
+    min-height: auto;
   }
 
   .sidebarPanel {
     width: 100%;
+    order: 1;
+  }
+
+  .mainPanel {
+    order: 2;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .specTableCard {
+    min-height: 400px;
   }
 }
 
-@media (max-width: 640px) {
+/* ==========================================
+   RESPONSIVE - MOBILE
+   ========================================== */
+
+@media (max-width: 767px) {
+  .page {
+    gap: 16px;
+  }
+
   .pageHeader,
   .detailHeader {
     flex-direction: column;
@@ -804,24 +799,291 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .sectionTitle {
+    font-size: 15px;
   }
 
   .detailHeaderLeft {
     flex-direction: column;
     align-items: flex-start;
+    gap: 12px;
   }
 
   .detailHeaderRight {
     width: 100%;
     justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .sectionActions {
     width: 100%;
     justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
-  .toolbarLeft {
+  .contentLayout {
+    gap: 16px;
+  }
+
+  .card {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .mainPanel {
+    padding: 12px;
+  }
+
+  .specTableCard {
+    min-height: 350px;
+  }
+
+  .specToolbar {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .toolbarLeft,
+  .toolbarRight {
+    width: 100%;
+    justify-content: flex-start;
     flex-wrap: wrap;
+  }
+
+  .toolbarButton {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  /* Tables */
+  .tableWrapper {
+    margin: 0 -12px;
+    padding: 0 12px;
+  }
+
+  .th,
+  .thCenter {
+    padding: 12px 10px;
+    font-size: 11px;
+  }
+
+  .tdClickable,
+  .tdCenter {
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+
+  .cellText,
+  .cellTextDescription {
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+
+  .packageName {
+    font-size: 13px;
+  }
+
+  /* Tabs */
+  .tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab {
+    padding: 10px 14px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  /* Pagination */
+  .pagination {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+    align-items: stretch;
+  }
+
+  .paginationLeft {
+    justify-content: center;
+  }
+
+  .paginationInfo {
+    text-align: center;
+    font-size: 13px;
+  }
+
+  .paginationArrows {
+    justify-content: center;
+  }
+
+  /* Library Sidebar */
+  .sidebarCard {
+    border-radius: 10px;
+  }
+
+  .libraryHeader {
+    padding: 14px;
+  }
+
+  .libraryTitle {
+    font-size: 15px;
+  }
+
+  .librarySearch {
+    margin: 14px;
+    padding: 10px;
+  }
+
+  .searchInput {
+    font-size: 14px;
+  }
+
+  .libraryItem {
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - SMALL MOBILE
+   ========================================== */
+
+@media (max-width: 479px) {
+  .page {
+    gap: 12px;
+  }
+
+  .card {
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .mainPanel {
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .sectionTitle {
+    font-size: 14px;
+  }
+
+  .specToolbar,
+  .toolbar {
+    padding: 8px 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+
+  .toolbarButton {
+    padding: 6px 8px;
+    font-size: 12px;
+    gap: 4px;
+  }
+
+  .toolbarIcon {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Tables */
+  .th,
+  .thCenter {
+    padding: 10px 8px;
+    font-size: 10px;
+  }
+
+  .tdClickable,
+  .tdCenter {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+
+  .cellText,
+  .cellTextDescription {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+
+  .packageName {
+    font-size: 12px;
+  }
+
+  /* Hide non-essential columns on very small screens */
+  .thAction,
+  .tdAction,
+  .thIconColSmall,
+  .tdChevron {
+    display: none;
+  }
+
+  /* Tabs */
+  .tab {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  /* Pagination */
+  .pagination {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .paginationLabel,
+  .paginationInfo {
+    font-size: 12px;
+  }
+
+  .paginationArrow {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Library */
+  .sidebarCard {
+    border-radius: 8px;
+  }
+
+  .libraryHeader {
+    padding: 12px;
+  }
+
+  .libraryTitle {
+    font-size: 14px;
+  }
+
+  .librarySearch {
+    margin: 12px;
+    padding: 8px 10px;
+  }
+
+  .searchInput {
+    font-size: 13px;
+  }
+
+  .librarySectionTitle {
+    font-size: 10px;
+  }
+
+  .libraryItem {
+    padding: 10px 12px;
+    font-size: 12px;
+    gap: 10px;
+  }
+
+  .libraryItemIcon {
+    width: 18px;
+    height: 18px;
   }
 }

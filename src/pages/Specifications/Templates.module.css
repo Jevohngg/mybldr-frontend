@@ -1,0 +1,415 @@
+/* Page Layout */
+.page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ==========================================
+   PAGE HEADER (List View)
+   ========================================== */
+
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* Add New Button */
+.addButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #1D6BCD;
+  border: none;
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.addButton:hover {
+  background: #1859A9;
+}
+
+.addButtonIcon {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) invert(1);
+}
+
+/* ==========================================
+   DETAIL HEADER (Detail View)
+   ========================================== */
+
+.detailHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.detailHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.detailHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Note: Breadcrumb styles are now consolidated in @/components/Breadcrumb/Breadcrumb.module.css */
+
+/* Header Buttons */
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #FFFFFF;
+  border: 1px solid #D1D5DB;
+  border-radius: 4px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.secondaryButton:hover {
+  background: #F9FAFB;
+}
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #1D6BCD;
+  border: none;
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.primaryButton:hover {
+  background: #1859A9;
+}
+
+.buttonIconSmall {
+  width: 14px;
+  height: 14px;
+}
+
+/* ==========================================
+   TABS (Detail View - Outside Card)
+   ========================================== */
+
+.tabsContainer {
+  border-bottom: 1px solid #E5E7EB;
+  margin: 0 -24px;
+  padding: 0 24px;
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.tab {
+  padding: 12px 20px;
+  border: none;
+  background: transparent;
+  color: #6B7280;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+}
+
+.tab:hover {
+  color: var(--color-text-primary);
+}
+
+.tabActive {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.tabActive::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #1D6BCD;
+}
+
+.tabAdd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-left: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.tabAdd:hover .tabAddIcon {
+  opacity: 0.8;
+}
+
+.tabAddIcon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+}
+
+/* ==========================================
+   CARD CONTAINER
+   ========================================== */
+
+.card {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+}
+
+/* ==========================================
+   TOOLBAR
+   ========================================== */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #FAFAFA;
+  border: 1px solid #EFF0F0;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.toolbarLeft {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.toolbarRight {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.toolbarButton {
+  display: inline-flex;
+  padding: 8px 12px;
+  align-items: center;
+  gap: 6px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: #3E4041;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.toolbarButton:hover {
+  background: #ECEDEF;
+}
+
+.toolbarButton:active {
+  background: #E5E7EB;
+}
+
+.toolbarIcon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+}
+
+/* ==========================================
+   TABLE STYLES
+   ========================================== */
+
+.tableWrapper {
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableHeaderRow {
+  background: #F9FAFB;
+}
+
+/* Package List Table Headers */
+.thName {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6B7280;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.thLevels {
+  text-align: center;
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6B7280;
+  border-bottom: 1px solid #E5E7EB;
+  width: 100px;
+}
+
+.thActions {
+  width: 50px;
+  padding: 12px;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+/* Package Row */
+.packageRow {
+  background: #FFFFFF;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.packageRow:hover {
+  background: #F5F7FA;
+}
+
+.tdName {
+  padding: 14px 16px;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.packageName {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  transition: text-decoration 0.15s ease;
+}
+
+/* Underline on hover but keep color black */
+.packageRow:hover .packageName {
+  text-decoration: underline;
+}
+
+.tdLevels {
+  text-align: center;
+  padding: 14px 16px;
+  font-size: 14px;
+  color: #6B7280;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.tdChevron {
+  width: 50px;
+  text-align: center;
+  padding: 14px 12px;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.rowChevron {
+  width: 16px;
+  height: 16px;
+  opacity: 0.4;
+  transition: opacity 0.15s ease;
+}
+
+.packageRow:hover .rowChevron {
+  opacity: 0.7;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 640px) {
+  .page {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .pageHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .detailHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .detailHeaderLeft {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .detailHeaderRight {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .tabsContainer {
+    margin: 0 -16px;
+    padding: 0 16px;
+    overflow-x: auto;
+  }
+
+  .tabs {
+    min-width: max-content;
+  }
+
+  .tab {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .toolbarLeft {
+    flex-wrap: wrap;
+  }
+
+  .tableWrapper {
+    overflow-x: auto;
+  }
+
+  .table {
+    min-width: 400px;
+  }
+}

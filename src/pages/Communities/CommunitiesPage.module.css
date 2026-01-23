@@ -32,3 +32,85 @@ align-self: stretch;
   align-items: center;
   gap: 6px;
 }
+
+/* ==========================================
+   RESPONSIVE - TABLET
+   ========================================== */
+
+@media (max-width: 1023px) {
+  .page {
+    gap: 1.5rem;
+  }
+
+  .filtersRow {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-bottom: 14px;
+  }
+
+  .rightFilters {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .grid {
+    gap: 14px;
+    justify-content: center;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - MOBILE
+   ========================================== */
+
+@media (max-width: 767px) {
+  .page {
+    gap: 1.25rem;
+  }
+
+  .filtersRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding-bottom: 12px;
+  }
+
+  .rightFilters {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .grid {
+    gap: 12px;
+    flex-direction: column;
+  }
+
+  .grid > * {
+    width: 100%;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - SMALL MOBILE
+   ========================================== */
+
+@media (max-width: 479px) {
+  .page {
+    gap: 1rem;
+  }
+
+  .filtersRow {
+    gap: 10px;
+    padding-bottom: 10px;
+  }
+
+  .rightFilters {
+    gap: 6px;
+  }
+
+  .buttonContent {
+    gap: 4px;
+    font-size: 0.875rem;
+  }
+}

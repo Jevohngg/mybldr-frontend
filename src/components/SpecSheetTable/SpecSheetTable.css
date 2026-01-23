@@ -1,7 +1,6 @@
 /* SpecSheetTable styles */
 
 .spec-sheet-table-container {
-  height: 100%;
   width: 100%;
 }
 
@@ -11,23 +10,40 @@
   align-items: center;
 }
 
+/* Cell text overflow with ellipsis */
+.MuiDataGrid-cell {
+  overflow: hidden !important;
+}
+
+.MuiDataGrid-cell > * {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.MuiDataGrid-cellContent {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
 /* Category row styling */
 .category-row {
-  background-color: #f5f5f5;
+  background-color: #FAFAFA;
   font-weight: 600;
 }
 
 .category-row:hover {
-  background-color: #eeeeee !important;
+  background-color: #F4F5F5 !important;
 }
 
 /* Alternating row colors */
 .even-row {
-  background-color: #ffffff;
+  background-color: #FFFFFF;
 }
 
 .odd-row {
-  background-color: #fafafa;
+  background-color: #FCFDFD;
 }
 
 /* Expand/collapse icon styling */
@@ -48,4 +64,107 @@
 
 .MuiDataGrid-row.Mui-selected:hover {
   background-color: rgba(25, 118, 210, 0.12) !important;
+}
+
+/* ==========================================
+   RESPONSIVE - TABLET
+   ========================================== */
+
+@media (max-width: 1023px) {
+  .spec-sheet-table-container {
+    font-size: 13px;
+  }
+
+  .MuiDataGrid-columnHeaderTitle {
+    font-size: 12px;
+  }
+
+  .MuiDataGrid-cell {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .MuiDataGrid-footerContainer {
+    min-height: 48px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - MOBILE
+   ========================================== */
+
+@media (max-width: 767px) {
+  .spec-sheet-table-container {
+    font-size: 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .MuiDataGrid-root {
+    min-width: 600px;
+  }
+
+  .MuiDataGrid-columnHeaderTitle {
+    font-size: 11px;
+  }
+
+  .MuiDataGrid-cell {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .MuiDataGrid-treeDataGroupingCell {
+    font-size: 12px;
+  }
+
+  .MuiDataGrid-footerContainer {
+    min-height: 44px;
+    padding: 0 8px;
+  }
+
+  .MuiTablePagination-displayedRows {
+    font-size: 12px;
+  }
+
+  .MuiTablePagination-selectLabel {
+    display: none;
+  }
+
+  .MuiTablePagination-select {
+    padding-left: 4px;
+    padding-right: 20px;
+    font-size: 12px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - SMALL MOBILE
+   ========================================== */
+
+@media (max-width: 479px) {
+  .MuiDataGrid-root {
+    min-width: 500px;
+  }
+
+  .MuiDataGrid-columnHeaderTitle {
+    font-size: 10px;
+  }
+
+  .MuiDataGrid-cell {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .MuiDataGrid-treeDataGroupingCell {
+    font-size: 11px;
+  }
+
+  .MuiDataGrid-treeDataGroupingCellToggle {
+    margin-right: 4px;
+  }
+
+  .MuiDataGrid-footerContainer {
+    min-height: 40px;
+    padding: 0 4px;
+  }
 }

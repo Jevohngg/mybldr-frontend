@@ -1,9 +1,6 @@
 import { useState, useMemo, useCallback } from 'react';
 import {
   DataGridPremium,
-  GridToolbarContainer,
-  GridToolbarQuickFilter,
-  GridToolbarColumnsButton,
   GridRowParams,
   useGridApiRef,
   GridRowSelectionModel,
@@ -16,14 +13,10 @@ import {
 } from '@mui/x-data-grid-premium';
 import {
   Box,
-  Button,
   Typography,
-  Paper,
   IconButton,
   TextField,
 } from '@mui/material';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import SortIcon from '@mui/icons-material/Sort';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { SpecSheetTableProps, SpecItem } from './types';
@@ -32,58 +25,6 @@ import './SpecSheetTable.css';
 
 interface TreeDataRow extends SpecItem {
   hierarchy: string[];
-}
-
-function CustomToolbar() {
-  return (
-    <GridToolbarContainer sx={{ p: 2, gap: 1, borderBottom: '1px solid #e0e0e0' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flex: 1 }}>
-        <GridToolbarQuickFilter
-          placeholder="Search..."
-          sx={{
-            '& .MuiInputBase-root': {
-              backgroundColor: '#f5f5f5',
-              borderRadius: '8px',
-              padding: '4px 12px',
-              '&:before, &:after': { display: 'none' },
-            },
-            width: 200,
-          }}
-        />
-        <Button
-          size="small"
-          startIcon={<FilterListIcon />}
-          sx={{
-            color: '#666',
-            textTransform: 'none',
-            '&:hover': { backgroundColor: '#f5f5f5' }
-          }}
-        >
-          Filter
-        </Button>
-        <Button
-          size="small"
-          startIcon={<SortIcon />}
-          sx={{
-            color: '#666',
-            textTransform: 'none',
-            '&:hover': { backgroundColor: '#f5f5f5' }
-          }}
-        >
-          Sort
-        </Button>
-      </Box>
-      <Box sx={{
-        '& .MuiButton-root': {
-          color: '#666',
-          textTransform: 'none',
-          '&:hover': { backgroundColor: '#f5f5f5' }
-        }
-      }}>
-        <GridToolbarColumnsButton />
-      </Box>
-    </GridToolbarContainer>
-  );
 }
 
 export function SpecSheetTable({ data, title, variant = 'default' }: SpecSheetTableProps) {
@@ -124,18 +65,22 @@ export function SpecSheetTable({ data, title, variant = 'default' }: SpecSheetTa
           alignItems: 'center',
           width: '100%',
           height: '100%',
+          overflow: 'hidden',
         }}>
           <IconButton
             size="small"
             onClick={handleToggle}
-            sx={{ mr: 1 }}
+            sx={{ mr: 1, flexShrink: 0 }}
           >
             {isExpanded ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
           </IconButton>
           <Typography
+            noWrap
             sx={{
               fontWeight: 600,
               color: '#333',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
             }}
           >
             {groupNode.groupingKey}
@@ -158,10 +103,18 @@ export function SpecSheetTable({ data, title, variant = 'default' }: SpecSheetTa
           width: '100%',
           pl: 5,
           cursor: 'text',
+          overflow: 'hidden',
         }}
         onDoubleClick={handleDoubleClick}
       >
-        <Typography sx={{ color: '#555' }}>
+        <Typography
+          noWrap
+          sx={{
+            color: '#555',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
           {params.row.subCategory}
         </Typography>
       </Box>
@@ -263,83 +216,38 @@ export function SpecSheetTable({ data, title, variant = 'default' }: SpecSheetTa
   }, [rows]);
 
   return (
-    <Paper
-      elevation={0}
-      sx={{
-        height: '100%',
-        width: '100%',
-        borderRadius: '12px',
-        border: '1px solid #e0e0e0',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <div style={{ width: '100%' }}>
       {title && (
-        <Box sx={{ p: 2, borderBottom: '1px solid #e0e0e0' }}>
+        <Box sx={{ p: 2, mb: 2 }}>
           <Typography variant="h6" sx={{ fontWeight: 600 }}>
             {title}
           </Typography>
         </Box>
       )}
-      <Box sx={{ flex: 1, minHeight: 0 }}>
-        <DataGridPremium
-          apiRef={apiRef}
-          rows={rows}
-          columns={columns}
-          treeData
-          getTreeDataPath={getTreeDataPath}
-          groupingColDef={groupingColDef}
-          defaultGroupingExpansionDepth={-1}
-          checkboxSelection
-          disableRowSelectionOnClick
-          rowSelectionModel={rowSelectionModel}
-          onRowSelectionModelChange={handleRowSelectionChange}
-          columnVisibilityModel={{
-            ...columnVisibilityModel,
-            [GRID_TREE_DATA_GROUPING_FIELD]: true,
-          }}
-          onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModel(newModel)}
-          isCellEditable={isCellEditable}
-          processRowUpdate={processRowUpdate}
-          slots={{
-            toolbar: CustomToolbar,
-          }}
-          getRowClassName={getRowClassName}
-          rowHeight={50}
-          sx={{
-            border: 'none',
-            height: '100%',
-            '& .MuiDataGrid-columnHeaders': {
-              backgroundColor: '#fafafa',
-              borderBottom: '2px solid #e0e0e0',
-            },
-            '& .MuiDataGrid-columnHeaderTitle': {
-              fontWeight: 600,
-              color: '#333',
-            },
-            '& .MuiDataGrid-cell': {
-              borderBottom: '1px solid #f0f0f0',
-            },
-            '& .MuiDataGrid-row:hover': {
-              backgroundColor: '#f8f9fa',
-            },
-            '& .even-row': {
-              backgroundColor: '#ffffff',
-            },
-            '& .odd-row': {
-              backgroundColor: '#fafafa',
-            },
-            '& .category-row': {
-              backgroundColor: '#f5f5f5',
-              fontWeight: 600,
-            },
-            '& .MuiDataGrid-footerContainer': {
-              borderTop: '1px solid #e0e0e0',
-            },
-          }}
-        />
-      </Box>
-    </Paper>
+      <DataGridPremium
+        autoHeight
+        apiRef={apiRef}
+        rows={rows}
+        columns={columns}
+        treeData
+        getTreeDataPath={getTreeDataPath}
+        groupingColDef={groupingColDef}
+        defaultGroupingExpansionDepth={-1}
+        checkboxSelection
+        disableRowSelectionOnClick
+        rowSelectionModel={rowSelectionModel}
+        onRowSelectionModelChange={handleRowSelectionChange}
+        columnVisibilityModel={{
+          ...columnVisibilityModel,
+          [GRID_TREE_DATA_GROUPING_FIELD]: true,
+        }}
+        onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModel(newModel)}
+        isCellEditable={isCellEditable}
+        processRowUpdate={processRowUpdate}
+        getRowClassName={getRowClassName}
+        rowHeight={52}
+        hideFooter
+      />
+    </div>
   );
 }

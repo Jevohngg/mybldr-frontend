@@ -1,0 +1,435 @@
+/**
+ * RESPONSIVE SYSTEM
+ * ==================
+ * Central file for all responsive breakpoints and utilities.
+ *
+ * Breakpoints:
+ * - Desktop: 1200px+ (default)
+ * - Tablet Landscape: 1024px - 1199px
+ * - Tablet Portrait: 768px - 1023px
+ * - Mobile Large: 576px - 767px
+ * - Mobile Small: < 576px
+ *
+ * Note: All desktop styles remain unchanged.
+ * These styles ONLY apply at smaller breakpoints.
+ */
+
+/* ==========================================
+   CSS VARIABLES FOR RESPONSIVE
+   ========================================== */
+
+:root {
+  /* Layout dimensions */
+  --sidenav-w: 260px;
+  --sidenav-collapsed-w: 0px;
+  --topnav-h: 56px;
+  --mobile-nav-h: 60px;
+
+  /* Responsive padding */
+  --page-padding-desktop: 2rem;
+  --page-padding-tablet: 1.5rem;
+  --page-padding-mobile: 1rem;
+
+  /* Transition timing */
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-fast: 0.15s ease-out;
+}
+
+/* ==========================================
+   RESPONSIVE UTILITY CLASSES
+   ========================================== */
+
+/* Hide/Show at breakpoints */
+.hide-desktop { display: none !important; }
+.hide-tablet { }
+.hide-mobile { }
+
+@media (max-width: 1199px) {
+  .hide-tablet-down { display: none !important; }
+}
+
+@media (max-width: 1023px) {
+  .hide-tablet { display: none !important; }
+  .show-tablet { display: block !important; }
+  .show-tablet-flex { display: flex !important; }
+}
+
+@media (max-width: 767px) {
+  .hide-mobile { display: none !important; }
+  .show-mobile { display: block !important; }
+  .show-mobile-flex { display: flex !important; }
+}
+
+/* ==========================================
+   RESPONSIVE GRID UTILITIES
+   ========================================== */
+
+.responsive-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* 4-column grid that collapses */
+.grid-4-col {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* 3-column grid that collapses */
+.grid-3-col {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* 2-column grid that collapses */
+.grid-2-col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 1199px) {
+  .grid-4-col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1023px) {
+  .grid-4-col,
+  .grid-3-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .grid-4-col,
+  .grid-3-col,
+  .grid-2-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE SPACING
+   ========================================== */
+
+@media (max-width: 1023px) {
+  .responsive-padding {
+    padding: var(--page-padding-tablet) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .responsive-padding {
+    padding: var(--page-padding-mobile) !important;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE TYPOGRAPHY
+   ========================================== */
+
+@media (max-width: 767px) {
+  .h1 {
+    font-size: 1.25rem !important;
+    line-height: 1.75rem !important;
+  }
+
+  .h2 {
+    font-size: 1.125rem !important;
+    line-height: 1.5rem !important;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE TABLE WRAPPER
+   ========================================== */
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 767px) {
+  .table-responsive {
+    margin: 0 -1rem;
+    padding: 0 1rem;
+    width: calc(100% + 2rem);
+  }
+}
+
+/* ==========================================
+   RESPONSIVE CARD LAYOUTS
+   ========================================== */
+
+.cards-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+@media (max-width: 767px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE STAT CARDS
+   ========================================== */
+
+.stats-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.stats-grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.stats-grid-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+@media (max-width: 1199px) {
+  .stats-grid-5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1023px) {
+  .stats-grid-4,
+  .stats-grid-5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 575px) {
+  .stats-grid-4,
+  .stats-grid-5 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE FLEX UTILITIES
+   ========================================== */
+
+.flex-responsive {
+  display: flex;
+  gap: 1rem;
+}
+
+@media (max-width: 767px) {
+  .flex-responsive {
+    flex-direction: column;
+  }
+
+  .flex-responsive-reverse {
+    flex-direction: column-reverse;
+  }
+}
+
+/* ==========================================
+   MOBILE OVERLAY
+   ========================================== */
+
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-smooth), visibility var(--transition-smooth);
+}
+
+.mobile-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ==========================================
+   MICRO ANIMATIONS
+   ========================================== */
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide up animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide in from left */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide in from right */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Scale in animation */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Bounce in animation */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Stagger animation classes */
+.animate-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Stagger delays for lists */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+
+/* ==========================================
+   TOUCH-FRIENDLY INTERACTIONS
+   ========================================== */
+
+@media (max-width: 1023px) {
+  /* Increase touch targets */
+  button,
+  [role="button"],
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Disable hover effects on touch devices */
+  @media (hover: none) {
+    button:hover,
+    a:hover {
+      transform: none !important;
+    }
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .mobile-overlay {
+    transition: none;
+  }
+}
+
+/* ==========================================
+   SAFE AREA INSETS (notch support)
+   ========================================== */
+
+@supports (padding: max(0px)) {
+  .safe-area-top {
+    padding-top: max(env(safe-area-inset-top), 0px);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: max(env(safe-area-inset-bottom), 0px);
+  }
+
+  .safe-area-left {
+    padding-left: max(env(safe-area-inset-left), 0px);
+  }
+
+  .safe-area-right {
+    padding-right: max(env(safe-area-inset-right), 0px);
+  }
+}
+
+/* ==========================================
+   SCROLLBAR STYLING (mobile)
+   ========================================== */
+
+@media (max-width: 767px) {
+  /* Hide scrollbar but keep functionality */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ==========================================
+   PULL TO REFRESH SPACE
+   ========================================== */
+
+@media (max-width: 767px) {
+  .pull-refresh-space {
+    padding-top: env(safe-area-inset-top);
+  }
+}

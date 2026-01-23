@@ -1,272 +1,666 @@
 /**
  * TopNav.module.css
  *
- * Matches reference: white brand block + angled transition into dark icon/label nav.
- * Icons are stacked above labels and centered.
+ * Pixel-perfect styling matching Figma design specifications.
+ * Search dropdown is absolutely positioned to float over content.
+ *
+ * Old styles preserved in ./_archive/TopNav.old.module.css
  */
 
- .top {
-  height: 73px;
+/* Main navigation bar - Figma: layout_Q5SB54 */
+.topNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 24px;
   width: 100%;
-  display: grid;
-  grid-template-columns: 274px 1fr;
-
-  align-items: stretch;
+  height: 56px;
+  min-height: 56px;
+  max-height: 56px;
+  background: #252628;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 100;
 }
 
-
-/* ----------------------------
-   LEFT BRAND (white panel)
------------------------------ */
-
-.leftBrand {
-  background: #ffffff;
+/* Logo section */
+.logo {
   display: flex;
   align-items: center;
-  gap: 14px;
-  position: relative;
-  overflow: visible;
-  z-index: 2;
-  padding-right: 66px; /* notch width (54) + breathing room */
-
-
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-/* right-pointing chevron at the end of the white brand block */
-.leftBrand::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0px;
-  width: 24px;
-  
-  height: 100%;
-  background: #333333; /* key change */
-  clip-path: polygon(
-    0 0,
-    65% 50%,
-    0 100%,
-    100% 100%,
-    100% 0
-  );
-  
-  
-
-  pointer-events: none;
-
-}
-
-
-.navIconImg {
-  min-width: 25px;
-  height: 25px;
-  display: block;
+.logoImage {
+  width: 103px;
+  height: 32px;
   object-fit: contain;
 }
 
+/* ==========================================
+   SEARCH CONTAINER
+   ========================================== */
 
-
-.logoBox {
-  min-width: 73px;
-  max-width: 73px;
-  height: 100%;
-  background: #d11b2a; /* red square */
+.searchContainer {
+  position: relative;
+  z-index: 101;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.homeMark {
-  width: 42px;
-  height: 42px;
-  color: #ffffff;
+/* Collapsed Search field - Figma: layout_6W2DEJ */
+.searchField {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 0 40px;
+  width: 465px;
+  height: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  background: #3E4041;
+  border: 1px solid #D8D9DA;
+  border-radius: 8px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
 }
 
-.brandText {
-  line-height: 1.1;
+.searchFieldHidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.98);
 }
 
-.company {
-  overflow: hidden;
-  color: var(--Colors-Text-text-primary, #0B0C0D);
-  font-feature-settings: 'liga' off, 'clig' off;
-  text-overflow: ellipsis;
-  font-family: Inter;
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 1rem; /* 133.333% */
+.searchIcon {
+  flex-shrink: 0;
+  color: #FFFFFF;
+  width: 20px;
+  height: 20px;
 }
 
-.sub {
-  color: var(--Colors-Text-text-secondary, #3E4041);
-
-  /* Typography/overline/Regular */
-  font-family: Inter;
-  font-size: 0.75rem;
-  font-style: normal;
+.searchPlaceholder {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1rem; /* 133.333% */
-  letter-spacing: 0.015rem;
+  line-height: 1.5em;
+  color: #FFFFFF;
+}
+
+/* ==========================================
+   SEARCH DROPDOWN (Active State)
+   Positioned to align search input with collapsed search bar
+   ========================================== */
+
+.searchDropdown {
+  position: absolute;
+  /* Align so the search input inside matches the collapsed bar position */
+  /* Dropdown header has 16px padding, input wrapper has 8px padding = 24px offset */
+  /* Collapsed search bar has 8px padding = 8px offset */
+  /* Difference: 24 - 8 = 16px, so we offset up by 16px */
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.98);
+  width: 520px;
+  background: #FFFFFF;
+  border: 1px solid #EFF0F0;
+  border-radius: 12px;
+  box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.06), 0px 4px 8px -2px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+  z-index: 1000;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+.searchDropdownVisible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) scale(1);
+}
+
+/* Search Input Section */
+.searchDropdownHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border-bottom: 1px solid #EFF0F0;
+}
+
+.searchInputWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* Match the collapsed search bar dimensions: 465px wide, fixed height */
+  width: 465px;
+  height: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  margin: 0 auto;
+  padding: 0 12px;
+  background: #FFFFFF;
+  border: 1px solid #1D6BCD;
+  border-radius: 8px;
+  box-shadow: 0px 0px 0px 4px rgba(47, 108, 222, 0.24), 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+.searchInputIcon {
+  flex-shrink: 0;
+  color: #636769;
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+}
+
+.searchDropdownInput {
+  flex: 1;
+  height: 24px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #0B0C0D;
+  caret-color: #0B0C0D;
+}
+
+.searchDropdownInput::placeholder {
+  color: #636769;
+}
+
+/* Reserve space for clear button to prevent layout shift */
+.clearButtonWrapper {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.clearButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 4px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #636769;
+  transition: background-color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.clearButton:hover {
+  background: #F4F5F5;
+}
+
+/* Quick Filter Chips */
+.quickFilters {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filterChip {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  background: #FFFFFF;
+  border: 1px solid #D8D9DA;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.33em;
+  color: #3E4041;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.filterChip:hover {
+  background: #F4F5F5;
+}
+
+.filterChip:active {
+  background: #EFF0F0;
+}
+
+/* ==========================================
+   RECENT SEARCHES SECTION
+   ========================================== */
+
+.recentSection {
+  display: flex;
+  flex-direction: column;
+  padding: 0 4px 8px;
+}
+
+.recentHeader {
+  padding: 8px 12px 4px;
+}
+
+.recentTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.43em;
+  color: #636769;
+}
+
+.recentList {
+  display: flex;
+  flex-direction: column;
+}
+
+.recentItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  border-radius: 8px;
+  margin: 0 4px;
+}
+
+.recentItem:hover {
+  background: #F4F5F5;
+}
+
+.recentItemIcon {
+  display: flex;
+  align-items: center;
+  padding-right: 12px;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.resultIcon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.dateCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #FFFFFF;
+  border: 1px solid #EFF0F0;
+  border-radius: 4px;
+  padding: 0 4px;
+}
+
+.dateMonth {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1em;
+  color: #636769;
   text-transform: uppercase;
 }
 
-/* ----------------------------
-   RIGHT BAR (dark area)
------------------------------ */
-
-.bar {
-  position: relative;
-  background: #333333;
-  display: grid;
-  grid-template-columns: 1fr 100px; /* nav + user */
-  align-items: center;
-  padding-right: 10px;
+.dateDay {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.43em;
+  color: #3E4041;
 }
 
-
-/* nav layout */
-.nav {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding-left: 18px;
- /* notch is now part of leftBrand, so less padding needed */
-  /* pushes past angled notch */
-  overflow: hidden;
-}
-
-/* each item: icon above label */
-.navItem {
-  height: 100%;
+.recentItemContent {
   display: flex;
   flex-direction: column;
+  padding: 4px 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.recentItemTitle {
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
   gap: 6px;
-
-  text-decoration: none;
-  color: #f2f2f2;
-
-  padding: 0 10px;
-  min-width: 64px;
-  user-select: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.43em;
+  color: #3E4041;
 }
 
-.navItem:hover {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-/* normal active tabs */
-.active {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-/* community-only active state */
-.communityActive {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-/* optional: stronger hover consistency */
-.communityActive:hover {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-
-.icon {
+.statusChip {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  height: 26px;
+  padding: 0 6px;
+  background: #EDF5EB;
+  border-radius: 2px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.6em;
+  letter-spacing: 0.02em;
+  color: #177802;
 }
 
-.iconSvg {
-  min-width: 25px;
-  height: 25px;
-  color: #f5f5f5;
-}
-
-.label {
-  color: var(--Colors-Text-text-primary_on-brand, #FFF);
-  text-align: center;
-  font-feature-settings: 'liga' off, 'clig' off;
-  
-  /* Typography/caption/Regular */
-  font-family: Inter;
-  font-size: 0.75rem;
-  font-style: normal;
+.recentItemSubtitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
   font-weight: 400;
-  line-height: 1rem; /* 133.333% */
+  line-height: 1.33em;
+  color: #636769;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* active state: subtle underline indicator like screenshot */
-.active {
-  position: relative;
+.dot {
+  width: 2px;
+  height: 2px;
+  background: #75787B;
+  border-radius: 999px;
+  flex-shrink: 0;
 }
 
+/* ==========================================
+   OVERLAY
+   ========================================== */
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  z-index: 99;
+  animation: fadeIn 0.2s ease-out;
+}
 
-/* ----------------------------
-   USER (right side)
------------------------------ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
-.user {
-  height: 100%;
+/* ==========================================
+   AVATAR
+   ========================================== */
+
+/* Avatar wrapper - Figma: layout_C6U93O, fill_7K7PN3 */
+.avatarWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  padding: 0 2px 0 0;
+  background: #3E4041;
+  border-radius: 29px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease;
+}
+
+/* Avatar circle - Figma: fill_GGON8Q, stroke_H7FSIV */
+.avatar {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  color: #ffffff;
+  width: 32px;
+  height: 32px;
+  background: #F4F5F5;
+  border: 1px solid #EFF0F0;
+  border-radius: 100px;
+  box-sizing: border-box;
 }
 
-.userIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 26px;
-}
-
-.userLabel {
-  color: var(--Colors-Text-text-primary_on-brand, #FFF);
-  text-align: center;
-  font-feature-settings: 'liga' off, 'clig' off;
-  
-  /* Typography/caption/Regular */
-  font-family: Inter;
-  font-size: 0.75rem;
-  font-style: normal;
+/* Avatar initials - Figma: fill_WH5E9V, Avatar/initialsLg */
+.avatarInitials {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
   font-weight: 400;
-  line-height: 1rem; /* 133.333% */
+  line-height: 1em;
+  text-align: center;
+  color: #636769;
 }
 
-/* ----------------------------
-   Small-screen behavior
------------------------------ */
+/* Dropdown icon - white */
+.dropdownIcon {
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
 
-@media (max-width: 1100px) {
-  .nav {
+/* Hover states */
+.avatarWrapper:hover {
+  background: #4a4b4d;
+}
+
+/* ==========================================
+   HAMBURGER MENU
+   ========================================== */
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.hamburger:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.hamburger:active {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.hamburgerLine {
+  width: 20px;
+  height: 2px;
+  background-color: #FFFFFF;
+  border-radius: 1px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animated X when active */
+.hamburgerActive .hamburgerLine:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburgerActive .hamburgerLine:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburgerActive .hamburgerLine:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 900px) {
+  .searchField {
+    width: 350px;
+    padding: 8px 24px;
+  }
+
+  .searchDropdown {
+    width: 400px;
+  }
+
+  .searchInputWrapper {
+    width: 350px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .topNav {
     gap: 12px;
   }
-  .navItem {
-    min-width: 56px;
-    padding: 0 8px;
+
+  .logo {
+    flex: 1;
+    justify-content: flex-start;
   }
 }
 
-@media (max-width: 980px) {
-  .top {
-    grid-template-columns: 274px 1fr;
+@media (max-width: 767px) {
+  .topNav {
+    padding: 8px 12px;
+    gap: 8px;
+  }
 
+  .searchField {
+    width: 100%;
+    max-width: 200px;
+    padding: 8px 12px;
+    flex: 1;
   }
-  .label {
-    font-size: 12px;
+
+  .searchPlaceholder {
+    font-size: 14px;
   }
-  .iconSvg {
-    width: 22px;
-    height: 22px;
+
+  .searchDropdown {
+    position: fixed;
+    top: var(--topnav-h);
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: none;
+    border-radius: 0;
+    border-top: none;
+    max-height: calc(100vh - var(--topnav-h));
+    transform: translateY(-10px);
+  }
+
+  .searchDropdownVisible {
+    transform: translateY(0);
+  }
+
+  .searchInputWrapper {
+    width: 100%;
+  }
+
+  .quickFilters {
+    display: none;
+  }
+
+  .logoImage {
+    width: 90px;
+    height: auto;
+  }
+
+  .avatarWrapper {
+    padding: 0;
+  }
+
+  .dropdownIcon {
+    display: none;
   }
 }
 
+@media (max-width: 479px) {
+  .topNav {
+    padding: 8px;
+    gap: 6px;
+  }
 
+  .searchField {
+    max-width: none;
+    flex: 1;
+  }
+
+  .hamburger {
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+  }
+
+  .hamburgerLine {
+    width: 18px;
+  }
+
+  .logoImage {
+    width: 80px;
+  }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .avatarInitials {
+    font-size: 14px;
+  }
+
+  .recentItem {
+    padding: 8px;
+  }
+
+  .recentItemTitle {
+    font-size: 13px;
+  }
+
+  .recentItemSubtitle {
+    font-size: 11px;
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .hamburger,
+  .hamburgerLine,
+  .searchDropdown {
+    transition: none;
+  }
+}

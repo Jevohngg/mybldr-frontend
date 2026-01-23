@@ -87,7 +87,7 @@
   right: 32px;
   width: 32px;
   height: 32px;
-  border-radius: 6px;
+  border-radius: 4px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -481,7 +481,7 @@ line-height: 1.25rem; /* 142.857% */
   color: #6b7280;
   background: white;
   border: 1px solid #d1d5db;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background 0.15s;
 }
@@ -602,7 +602,7 @@ line-height: 1.25rem; /* 142.857% */
   justify-content: center;
   border: 1px solid #e5e7eb;
   background: #f9fafb;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: not-allowed;
   font-size: 18px;
   color: #d1d5db;
@@ -628,4 +628,310 @@ line-height: 1.25rem; /* 142.857% */
 .emptyDescription {
   font-size: 14px;
   color: #6b7280;
+}
+
+/* ==========================================
+   RESPONSIVE - TABLET
+   ========================================== */
+
+@media (max-width: 1023px) {
+  .container {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .sectionCard {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .planImage {
+    height: 280px;
+  }
+
+  .quotesTableHeader,
+  .quotesTableRow {
+    grid-template-columns: 2fr 1fr 1fr;
+    padding: 14px 18px;
+  }
+
+  .quotesTableHeaderCell:nth-child(2) {
+    display: none;
+  }
+
+  .quotesTableCell:nth-child(2) {
+    display: none;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - MOBILE
+   ========================================== */
+
+@media (max-width: 767px) {
+  .container {
+    padding: 12px;
+    gap: 12px;
+    flex-direction: column;
+  }
+
+  .closeBtn {
+    top: 12px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .addButton {
+    right: 60px;
+    top: 16px;
+    width: 44px;
+    height: 44px;
+    max-width: 44px !important;
+  }
+
+  .scrollableWrapper {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .sectionCard {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .label {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .input,
+  .textarea,
+  .select {
+    padding: 10px 12px;
+    font-size: 16px; /* Prevent zoom on iOS */
+    border-radius: 8px;
+  }
+
+  .planImage {
+    height: 220px;
+    border-radius: 8px;
+  }
+
+  .selectionSection {
+    padding: 10px 14px;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .urlSection {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .urlInput {
+    width: 100%;
+  }
+
+  .makeSelectionsBtn {
+    width: 100%;
+  }
+
+  .pdfAttachment {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .pdfActions {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .sectionTitle {
+    font-size: 15px;
+    margin-bottom: 16px;
+  }
+
+  .quotesTable {
+    border-radius: 8px;
+  }
+
+  .quotesTableHeader,
+  .quotesTableRow {
+    grid-template-columns: 1.5fr 1fr;
+    padding: 12px 14px;
+  }
+
+  .quotesTableHeaderCell:nth-child(2),
+  .quotesTableHeaderCell:nth-child(4) {
+    display: none;
+  }
+
+  .quotesTableCell:nth-child(2),
+  .quotesTableCell:nth-child(4) {
+    display: none;
+  }
+
+  .quotesTableHeaderCell {
+    font-size: 11px;
+  }
+
+  .quotesTableCell {
+    font-size: 13px;
+  }
+
+  .statusBadge {
+    padding: 3px 8px;
+    font-size: 11px;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    padding-top: 12px;
+  }
+
+  .paginationLeft {
+    justify-content: center;
+  }
+
+  .paginationButtons {
+    justify-content: center;
+  }
+
+  .emptyState {
+    padding: 60px 16px;
+  }
+
+  .emptyTitle {
+    font-size: 14px;
+  }
+
+  .emptyDescription {
+    font-size: 13px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - SMALL MOBILE
+   ========================================== */
+
+@media (max-width: 479px) {
+  .container {
+    padding: 8px;
+    gap: 10px;
+  }
+
+  .closeBtn {
+    top: 8px;
+    right: 8px;
+  }
+
+  .addButton {
+    right: 52px;
+    top: 12px;
+  }
+
+  .sectionCard {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .formRow {
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .input,
+  .textarea,
+  .select {
+    padding: 8px 10px;
+  }
+
+  .planImage {
+    height: 180px;
+  }
+
+  .selectionSection {
+    padding: 8px 12px;
+  }
+
+  .selectionTitle {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .selectionDescription {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .progressText {
+    font-size: 13px;
+  }
+
+  .copyBtn {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .makeSelectionsBtn {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .pdfIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .pdfName {
+    font-size: 13px;
+  }
+
+  .pdfSize {
+    font-size: 12px;
+  }
+
+  .updateBtn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .removeBtn {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+
+  .sectionTitle {
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+
+  .quotesTableHeader,
+  .quotesTableRow {
+    padding: 10px 12px;
+  }
+
+  .emptyState {
+    padding: 40px 12px;
+  }
 }

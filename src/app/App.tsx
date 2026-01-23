@@ -1,10 +1,12 @@
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { DataProvider } from './providers'
+import { MobileNavProvider } from '../contexts/MobileNavContext'
 import AppLayout from '../layouts/AppLayout/AppLayout'
 import CommunitiesPage from '../pages/Communities/CommunitiesPage'
 import PlanLibraryPage from '../pages/PlanLibrary/PlanLibraryPage'
 import GlobalSpecifications from '../pages/Specifications/GlobalSpecifications'
+import Templates from '../pages/Specifications/Templates'
 import CommunityLayout from '../layouts/CommunityLayout/CommunityLayout'
 import CommunityOverview from '../pages/CommunityDetail/CommunityOverview'
 import HOARequirements from '../pages/CommunityDetail/HOARequirements'
@@ -36,6 +38,7 @@ function AppRoutes() {
             <Route path="/plan-library" element={<Page><PlanLibraryPage /></Page>} />
 
             <Route path="/specifications" element={<Page><GlobalSpecifications /></Page>} />
+            <Route path="/specifications/templates" element={<Page><Templates /></Page>} />
 
             <Route path="/communities" element={<Page><CommunitiesPage /></Page>} />
 
@@ -58,9 +61,11 @@ function AppRoutes() {
 export default function App() {
   return (
     <DataProvider>
-      <AppLayout>
-        <AppRoutes />
-      </AppLayout>
+      <MobileNavProvider>
+        <AppLayout>
+          <AppRoutes />
+        </AppLayout>
+      </MobileNavProvider>
     </DataProvider>
   )
 }

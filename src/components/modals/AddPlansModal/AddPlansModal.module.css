@@ -86,7 +86,7 @@
   align-items: center;
   gap: var(--3, 0.375rem);
   color: white;
-  border-radius: var(--borderRadius, 0.25rem);
+  border-radius: 4px;
 background: var(--Colors-Background-bg-brand-solid, #1D6BCD);
 font-size: 14px !important;
 

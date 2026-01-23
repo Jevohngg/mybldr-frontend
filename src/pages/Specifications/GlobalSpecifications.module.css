@@ -1,18 +1,14 @@
 /* Page Layout */
 .page {
-  padding: 24px;
-  min-height: 100%;
+  width: 100%;
 }
 
 .pageHeader {
-  margin-bottom: 24px;
-}
-
-.pageTitle {
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--color-text-primary);
-  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
 /* Stats Row */
@@ -117,7 +113,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0 16px 0;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #FAFAFA;
+  border: 1px solid #EFF0F0;
+  border-radius: 8px;
+  margin-bottom: 16px;
 }
 
 .toolbarLeft {
@@ -137,10 +138,10 @@
   padding: 8px 12px;
   align-items: center;
   gap: 6px;
-  border-radius: 6px;
+  border-radius: 4px;
   border: none;
   background: transparent;
-  color: #6B7280;
+  color: #3E4041;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -148,7 +149,7 @@
 }
 
 .toolbarButton:hover {
-  background: #F3F4F6;
+  background: #ECEDEF;
 }
 
 .toolbarButton:active {
@@ -158,40 +159,178 @@
 .toolbarIcon {
   width: 16px;
   height: 16px;
-  color: #6B7280;
+  opacity: 0.7;
 }
 
 /* Table Container */
 .tableContainer {
-  min-height: 500px;
+  /* Global styles in globals.css handle the DataGrid styling */
 }
 
-/* Hide the built-in toolbar from SpecSheetTable since we have our own */
-.tableContainer :global(.MuiDataGrid-toolbarContainer) {
-  display: none;
+/* ==========================================
+   RESPONSIVE - TABLET
+   ========================================== */
+
+@media (max-width: 1023px) {
+  .pageHeader {
+    gap: 12px;
+  }
+
+  .statsRow {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .stat {
+    padding: 1rem;
+  }
+
+  .tableCard {
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .toolbar {
+    padding: 10px 14px;
+  }
 }
 
-/* Remove border/radius from inner table - card handles it */
-.tableContainer :global(.MuiPaper-root) {
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-.tableContainer :global(.MuiDataGrid-root) {
-  border: 1px solid #E5E7EB;
-  border-radius: 8px;
-}
-
-/* Responsive */
 @media (max-width: 900px) {
   .statsRow {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
+/* ==========================================
+   RESPONSIVE - MOBILE
+   ========================================== */
+
+@media (max-width: 767px) {
+  .pageHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .statsRow {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .stat {
+    padding: 0.875rem;
+  }
+
+  .statIconWrap {
+    padding: 0.5rem;
+  }
+
+  .statIcon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .statLabel {
+    font-size: 0.8125rem;
+    line-height: 1.15rem;
+  }
+
+  .statValue {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .tableCard {
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .toolbarLeft,
+  .toolbarRight {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .toolbarButton {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+}
+
 @media (max-width: 620px) {
   .statsRow {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - SMALL MOBILE
+   ========================================== */
+
+@media (max-width: 479px) {
+  .pageHeader {
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .statsRow {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .stat {
+    padding: 0.75rem;
+  }
+
+  .statInner {
+    gap: 10px;
+  }
+
+  .statIconWrap {
+    padding: 0.375rem;
+  }
+
+  .statIcon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .statLabel {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .statValue {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  .tableCard {
+    padding: 10px;
+  }
+
+  .toolbar {
+    padding: 8px 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+
+  .toolbarButton {
+    padding: 6px 8px;
+    font-size: 12px;
+    gap: 4px;
+  }
+
+  .toolbarIcon {
+    width: 14px;
+    height: 14px;
   }
 }

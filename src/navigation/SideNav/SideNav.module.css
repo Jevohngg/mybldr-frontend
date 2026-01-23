@@ -311,3 +311,131 @@
     transition: none !important;
   }
 }
+
+/* ----------------------------
+   RESPONSIVE - TABLET
+----------------------------- */
+
+@media (max-width: 1023px) {
+  .side {
+    background: #FFFFFF;
+    padding: 16px 12px;
+    padding-top: 20px;
+  }
+
+  .row,
+  .rowActive {
+    padding: 12px 14px;
+    font-size: 0.9375rem;
+    min-height: 44px;
+  }
+
+  .childRow,
+  .childRowActive {
+    padding: 12px 12px 12px 44px;
+    min-height: 44px;
+  }
+
+  .sectionTitleLink {
+    height: auto;
+    min-height: 44px;
+    padding: 12px 14px;
+  }
+
+  .sectionPillActive {
+    padding: 12px 14px;
+  }
+}
+
+/* ----------------------------
+   RESPONSIVE - MOBILE
+----------------------------- */
+
+@media (max-width: 767px) {
+  .side {
+    padding: 12px 8px;
+    padding-top: 16px;
+  }
+
+  .row,
+  .rowActive {
+    padding: 14px 12px;
+    font-size: 0.9375rem;
+    min-height: 48px;
+    border-radius: 8px;
+  }
+
+  .childRow,
+  .childRowActive {
+    padding: 14px 12px 14px 48px;
+    min-height: 48px;
+    font-size: 0.875rem;
+    border-radius: 8px;
+  }
+
+  .sectionTitleLink {
+    min-height: 48px;
+    padding: 14px 12px;
+    margin-top: 12px;
+  }
+
+  .sectionPillActive {
+    padding: 14px 12px;
+    margin-top: 12px;
+  }
+
+  .icon {
+    width: 1.375rem;
+    height: 1.375rem;
+  }
+
+  .navIconImg {
+    width: 1.375rem;
+    height: 1.375rem;
+  }
+
+  /* Slightly larger connector for touch */
+  .childGroup {
+    --connector-left: 22px;
+  }
+
+  .childRow::before,
+  .childRowActive::before {
+    left: var(--connector-left);
+  }
+}
+
+/* ----------------------------
+   RESPONSIVE - SMALL MOBILE
+----------------------------- */
+
+@media (max-width: 479px) {
+  .side {
+    padding: 10px 6px;
+    padding-top: 12px;
+  }
+
+  .row,
+  .rowActive {
+    padding: 12px 10px;
+    font-size: 0.875rem;
+  }
+
+  .childRow,
+  .childRowActive {
+    padding: 12px 10px 12px 44px;
+    font-size: 0.8125rem;
+  }
+
+  .sectionTitleLink {
+    font-size: 0.6875rem;
+    padding: 12px 10px;
+    margin-top: 10px;
+  }
+
+  .sectionPillActive {
+    font-size: 0.625rem;
+    padding: 12px 10px;
+    margin-top: 10px;
+  }
+}

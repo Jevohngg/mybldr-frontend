@@ -35,7 +35,7 @@
   justify-content: center;
   align-items: center;
   gap: var(--3, 0.375rem);
-  border-radius: var(--borderRadius, 0.25rem);
+  border-radius: 4px;
   border: 1px solid var(--Colors-Border-border-primary, #D8D9DA);
   background: var(--Colors-Background-bg-primary, #FFF);
 }
@@ -95,7 +95,7 @@
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
 .showingDropdown:focus-visible {
@@ -124,7 +124,7 @@
   align-items: center;
   gap: var(--3, 0.375rem);
 
-  border-radius: var(--borderRadius, 0.25rem);
+  border-radius: 4px;
   border: 1px solid var(--Colors-Border-border-primary, #D8D9DA);
   background: var(--Colors-Background-bg-primary, #FFF);
 
@@ -190,7 +190,7 @@
   padding: var(--2, 0.25rem);
   align-items: flex-start;
   gap: var(--spacing-none, 0);
-  border-radius: 0.375rem;
+  border-radius: 4px;
   border: 1px solid var(--Colors-Border-border-secondary, #EFF0F0);
   background: var(--Colors-Background-bg-primary, #FFF);
 
@@ -506,7 +506,7 @@
 .emptyPrimaryBtn {
   height: 40px;
   padding: 0 14px !important;
-  border-radius: 6px !important;
+  border-radius: 4px !important;
 }
 
 .emptyBtnContent {
@@ -581,5 +581,332 @@
 
   .plansRow {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - TABLET (768px - 1023px)
+   ========================================== */
+
+@media (max-width: 1023px) {
+  .headerRow {
+    gap: 12px;
+  }
+
+  .headerRight {
+    gap: 0.5rem;
+  }
+
+  .subheaderRow {
+    margin-bottom: 24px;
+  }
+
+  .controlsRow {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .statsRow {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .statsRowTop {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .stat {
+    padding: 1rem;
+  }
+
+  .plansRow {
+    gap: 16px;
+  }
+
+  .plansRow > * {
+    width: 240px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - MOBILE (< 768px)
+   ========================================== */
+
+@media (max-width: 767px) {
+  .headerRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .headerRight {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .salesKioskButton {
+    font-size: 14px !important;
+  }
+
+  .iconButton {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    padding: 0.5rem;
+  }
+
+  .subheaderRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .controlsRow {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .controlButton {
+    padding: 0.5rem 0.625rem;
+    font-size: 0.8125rem;
+  }
+
+  .viewToggleGroup {
+    height: 36px;
+  }
+
+  .viewToggleIcon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .statsRow,
+  .statsRowTop {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .stat {
+    padding: 0.875rem;
+  }
+
+  .statIconWrap {
+    padding: 0.5rem;
+  }
+
+  .statIcon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .statTop {
+    font-size: 0.8125rem;
+    line-height: 1.15rem;
+  }
+
+  .statValue {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .sectionRow,
+  .sectionRow2 {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .sectionTitle {
+    font-size: 11px;
+  }
+
+  .plansRow {
+    gap: 14px;
+    flex-direction: column;
+  }
+
+  .plansRow > * {
+    width: 100%;
+  }
+
+  .viewAllRow {
+    margin: 12px 0 14px;
+    gap: 10px;
+  }
+
+  .viewAllButton {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  .empty {
+    padding: 24px 12px;
+    min-height: 280px;
+  }
+
+  .emptyTitle {
+    font-size: 18px;
+  }
+
+  .emptySub {
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+
+  .emptyArt {
+    width: 220px;
+    height: 150px;
+  }
+
+  .artImg {
+    width: 120px;
+    height: 96px;
+  }
+
+  .artCard {
+    width: 120px;
+    height: 140px;
+  }
+
+  .artCardInner {
+    width: 100px;
+    height: 120px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - SMALL MOBILE (< 480px)
+   ========================================== */
+
+@media (max-width: 479px) {
+  .headerRow {
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .iconButton {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    padding: 6px;
+  }
+
+  .iconButtonIcon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .controlsRow {
+    gap: 6px;
+  }
+
+  .controlButton {
+    padding: 0.4375rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .controlIcon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .viewToggleGroup {
+    height: 32px;
+  }
+
+  .viewToggleButton,
+  .viewToggleActive {
+    padding: 0.125rem;
+  }
+
+  .viewToggleIcon {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  .stat {
+    padding: 0.75rem;
+  }
+
+  .statInner {
+    gap: 10px;
+  }
+
+  .statIconWrap {
+    padding: 0.375rem;
+  }
+
+  .statIcon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .statTop {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .statValue {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  .sectionTitle {
+    font-size: 10px;
+    letter-spacing: 0.05em;
+  }
+
+  .empty {
+    padding: 20px 10px;
+    min-height: 240px;
+    border-radius: 10px;
+  }
+
+  .emptyTitle {
+    font-size: 16px;
+  }
+
+  .emptySub {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .emptyArt {
+    width: 200px;
+    height: 140px;
+    margin: 4px auto 14px;
+  }
+
+  .artImg {
+    width: 100px;
+    height: 80px;
+    top: 20px;
+  }
+
+  .artCard {
+    width: 110px;
+    height: 130px;
+  }
+
+  .artCardInner {
+    width: 90px;
+    height: 110px;
+  }
+
+  .artIconWrap {
+    width: 32px;
+    height: 32px;
+  }
+
+  .artLine {
+    width: 70px;
+    height: 8px;
+    margin-top: 40px;
   }
 }

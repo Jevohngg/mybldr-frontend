@@ -31,7 +31,7 @@ export default function GlobalSpecifications() {
     >
       {/* Page Header */}
       <div className={styles.pageHeader}>
-        <h1 className={styles.pageTitle}>Specifications</h1>
+        <div className="h1">Specifications</div>
       </div>
 
       {/* Stat Cards Row */}

@@ -698,13 +698,66 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
             <div className={styles.plansTableHeaderCell}>AUR</div>
             <div className={styles.plansTableHeaderCell}>Features</div>
           </div>
-          <div className={styles.plansEmptyState}>
-            <div className={styles.plansEmptyIconWrapper}>
-              <img src="/assets/icons/plans-list.svg" alt="" className={styles.plansEmptyIcon} />
+          <div className={styles.plansTableBody}>
+            <div className={styles.plansTableRow}>
+              <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                <span className={styles.plansTableName}>Serena</span>
+                <span className={styles.plansTableCommunity}>Silver Lake</span>
+              </div>
+              <div className={styles.plansTableCell}>3-4</div>
+              <div className={styles.plansTableCell}>1-2</div>
+              <div className={styles.plansTableCell}>2,211 ft²</div>
+              <div className={styles.plansTableCell}>
+                <span className={styles.featureChip}>Fireplace</span>
+              </div>
             </div>
-            <div className={styles.plansEmptyTitle}>No plans have been created from this model</div>
-            <div className={styles.plansEmptyDescription}>
-              Plans that share this model will appear here
+            <div className={styles.plansTableRow}>
+              <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                <span className={styles.plansTableName}>Serena</span>
+                <span className={styles.plansTableCommunity}>Silver Lake</span>
+              </div>
+              <div className={styles.plansTableCell}>3-4</div>
+              <div className={styles.plansTableCell}>1-2</div>
+              <div className={styles.plansTableCell}>2,211 ft²</div>
+              <div className={styles.plansTableCell}>
+                <span className={styles.featureChip}>Fireplace</span>
+              </div>
+            </div>
+            <div className={styles.plansTableRow}>
+              <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                <span className={styles.plansTableName}>Serena</span>
+                <span className={styles.plansTableCommunity}>Silver Lake</span>
+              </div>
+              <div className={styles.plansTableCell}>3-4</div>
+              <div className={styles.plansTableCell}>1-2</div>
+              <div className={styles.plansTableCell}>2,211 ft²</div>
+              <div className={styles.plansTableCell}>
+                <span className={styles.featureChip}>Fireplace</span>
+              </div>
+            </div>
+            <div className={styles.plansTableRow}>
+              <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                <span className={styles.plansTableName}>Serena</span>
+                <span className={styles.plansTableCommunity}>Silver Lake</span>
+              </div>
+              <div className={styles.plansTableCell}>3-4</div>
+              <div className={styles.plansTableCell}>1-2</div>
+              <div className={styles.plansTableCell}>2,211 ft²</div>
+              <div className={styles.plansTableCell}>
+                <span className={styles.featureChip}>Fireplace</span>
+              </div>
+            </div>
+            <div className={styles.plansTableRow}>
+              <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                <span className={styles.plansTableName}>Serena</span>
+                <span className={styles.plansTableCommunity}>Silver Lake</span>
+              </div>
+              <div className={styles.plansTableCell}>3-4</div>
+              <div className={styles.plansTableCell}>1-2</div>
+              <div className={styles.plansTableCell}>2,211 ft²</div>
+              <div className={styles.plansTableCell}>
+                <span className={styles.featureChip}>Fireplace</span>
+              </div>
             </div>
           </div>
         </div>

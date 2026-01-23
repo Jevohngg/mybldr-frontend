@@ -11,6 +11,12 @@
   grid-template-columns: var(--sidenav-w) 1fr;
   height: calc(100vh - var(--topnav-h));
   overflow: hidden;
+  position: relative;
+}
+
+/* SideNav wrapper - normal state */
+.sidenavWrapper {
+  display: contents;
 }
 
 .main {
@@ -35,4 +41,103 @@
   box-shadow: 0 0 4px 0 rgba(37, 38, 40, 0.08);
 }
 
+/* ==========================================
+   MOBILE OVERLAY
+   ========================================== */
 
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  top: var(--topnav-h);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobileOverlayActive {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ==========================================
+   RESPONSIVE - TABLET (768px - 1023px)
+   ========================================== */
+
+@media (max-width: 1023px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .sidenavWrapper.sidenavMobile {
+    display: block;
+    position: fixed;
+    top: var(--topnav-h);
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+  }
+
+  .sidenavWrapper.sidenavMobile.sidenavOpen {
+    transform: translateX(0);
+  }
+
+  .container {
+    border-radius: 16px 16px 0 0;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - MOBILE (< 768px)
+   ========================================== */
+
+@media (max-width: 767px) {
+  .sidenavWrapper.sidenavMobile {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .container {
+    border-radius: 12px 12px 0 0;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .main {
+    padding: 2px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - SMALL MOBILE (< 480px)
+   ========================================== */
+
+@media (max-width: 479px) {
+  .container {
+    padding: 0.875rem;
+    gap: 0.875rem;
+    border-radius: 8px 8px 0 0;
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileOverlay,
+  .sidenavWrapper.sidenavMobile {
+    transition: none;
+  }
+}
