@@ -37,7 +37,7 @@ function formatArea(value: unknown) {
 export default function PlanCard({ plan, onClick }: { plan: Plan; onClick?: () => void }) {
   const typedPlan = plan as PlanWithOptionalImage
 
-  // Try to match the design line that shows the community name (e.g. "Silver Lake")
+  // Try to match the design line that shows the community name (e.g. "Whispering Hills")
   // Priority:
   // 1) plan.communityName (if you have it)
   // 2) current community from route param (community overview page)

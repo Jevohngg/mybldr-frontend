@@ -12,7 +12,7 @@ interface SelectPlanModalProps {
     name: string
     beds: string
     baths: string
-    aru: string
+    sqft: string
     image: string
     price?: string
     description?: string
@@ -82,7 +82,7 @@ export default function SelectPlanModal({ open, onClose, onSelect, plan }: Selec
                 <div className={styles.statLabel}>baths</div>
               </div>
               <div className={styles.stat}>
-                <div className={styles.statValue}>{plan.aru.replace(' ft²', ',')}</div>
+                <div className={styles.statValue}>{plan.sqft.replace(' ft²', ',')}</div>
                 <div className={styles.statLabel}>ft²</div>
               </div>
             </div>
@@ -103,7 +103,7 @@ export default function SelectPlanModal({ open, onClose, onSelect, plan }: Selec
               <div className={styles.featureDetails}>
                 <div className={styles.featureDetailRow}>
                   <span className={styles.featureDetailLabel}>Name</span>
-                  <span className={styles.featureDetailValue}>Aberdeen</span>
+                  <span className={styles.featureDetailValue}>The Aspen</span>
                 </div>
                 <div className={styles.featureDetailRow}>
                   <span className={styles.featureDetailLabel}>Max Full Bathroom #</span>

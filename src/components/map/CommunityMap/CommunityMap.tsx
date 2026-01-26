@@ -10,7 +10,7 @@ interface Plan {
   name: string
   beds: string
   baths: string
-  aru: string
+  sqft: string
   image: string
 }
 

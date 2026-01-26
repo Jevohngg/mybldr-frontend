@@ -1,0 +1,4 @@
+Name,Model ID,Master Model ID,Collection,Series,Structure Type,Specification Level,Division,Base Bedrooms,Base Bathrooms,Half Baths,Garage Spaces,Total Finished Square Footage,Width,Depth,Elevations,Foundation Type,Floors
+The Aspen,MODEL-2024-001,MASTER-2022-001,Patio Collection,30' Series,Single Family,Signature,DFW,3,2,1,2,2500,30,50,4,Slab on Grade,1
+The Woodford,MODEL-2025-002,MODEL-2022-003,,40' Series,Single Family,Premium,DFW,3,2,1,2,2600,40,50,4,Basement,2
+The Serena,MODEL-2023-001,MODEL-2023-006,,50' Series,Single Family,Luxury,DFW,4,3,1,3,3200,50,60,5,Basement,2

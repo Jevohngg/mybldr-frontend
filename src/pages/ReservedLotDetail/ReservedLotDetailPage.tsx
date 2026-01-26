@@ -30,7 +30,7 @@ const reservedLotsData: Record<string, ReservedLotData> = {
   '85': {
     lotNumber: '85',
     communityName: 'Kohler Ridge',
-    model: 'Aberdeen',
+    model: 'The Aspen',
     description: 'A spacious, elegant design built for modern living. Explore its 3D model, customize elevations, and see how it fits your lifestyle.',
     projectName: 'Lot 85',
     location: 'Street address or job description',
@@ -48,7 +48,7 @@ const reservedLotsData: Record<string, ReservedLotData> = {
   '823': {
     lotNumber: '823',
     communityName: 'Kohler Ridge',
-    model: 'Mountainview',
+    model: 'The Serena',
     description: 'A spacious, elegant design built for modern living. Explore its 3D model, customize elevations, and see how it fits your lifestyle.',
     projectName: 'Lot 823',
     location: 'Street address or job description',

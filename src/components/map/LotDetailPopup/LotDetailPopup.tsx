@@ -15,7 +15,7 @@ interface Plan {
   name: string
   beds: string
   baths: string
-  aru: string
+  sqft: string
   image: string
 }
 
@@ -150,7 +150,7 @@ export default function LotDetailPopup({ lot, position, onClose, onPlanClick }: 
                         <path d="M2 2L6 6M14 2L10 6M14 14L10 10M2 14L6 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                         <path d="M2 2H14V14H2V2Z" stroke="currentColor" strokeWidth="1.5"/>
                       </svg>
-                      {plan.aru}
+                      {plan.sqft}
                     </span>
                   </div>
                 </div>

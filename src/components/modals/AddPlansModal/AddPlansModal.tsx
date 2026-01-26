@@ -77,7 +77,7 @@ export default function AddPlansModal({
               </div>
               <div>{p.beds}</div>
               <div>{p.baths}</div>
-              <div>{p.aru}</div>
+              <div>{p.sqft}</div>
             </div>
           )
         })}

@@ -701,60 +701,60 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
           <div className={styles.plansTableBody}>
             <div className={styles.plansTableRow}>
               <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                <span className={styles.plansTableName}>Serena</span>
-                <span className={styles.plansTableCommunity}>Silver Lake</span>
+                <span className={styles.plansTableName}>The Aspen</span>
+                <span className={styles.plansTableCommunity}>Whispering Hills</span>
               </div>
-              <div className={styles.plansTableCell}>3-4</div>
-              <div className={styles.plansTableCell}>1-2</div>
-              <div className={styles.plansTableCell}>2,211 ft²</div>
+              <div className={styles.plansTableCell}>3</div>
+              <div className={styles.plansTableCell}>2.5</div>
+              <div className={styles.plansTableCell}>2,500 ft²</div>
               <div className={styles.plansTableCell}>
                 <span className={styles.featureChip}>Fireplace</span>
               </div>
             </div>
             <div className={styles.plansTableRow}>
               <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                <span className={styles.plansTableName}>Serena</span>
-                <span className={styles.plansTableCommunity}>Silver Lake</span>
+                <span className={styles.plansTableName}>The Woodford</span>
+                <span className={styles.plansTableCommunity}>Whispering Hills</span>
               </div>
-              <div className={styles.plansTableCell}>3-4</div>
-              <div className={styles.plansTableCell}>1-2</div>
-              <div className={styles.plansTableCell}>2,211 ft²</div>
+              <div className={styles.plansTableCell}>3</div>
+              <div className={styles.plansTableCell}>2.5</div>
+              <div className={styles.plansTableCell}>2,600 ft²</div>
               <div className={styles.plansTableCell}>
                 <span className={styles.featureChip}>Fireplace</span>
               </div>
             </div>
             <div className={styles.plansTableRow}>
               <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                <span className={styles.plansTableName}>Serena</span>
-                <span className={styles.plansTableCommunity}>Silver Lake</span>
+                <span className={styles.plansTableName}>The Serena</span>
+                <span className={styles.plansTableCommunity}>Whispering Hills</span>
               </div>
-              <div className={styles.plansTableCell}>3-4</div>
-              <div className={styles.plansTableCell}>1-2</div>
-              <div className={styles.plansTableCell}>2,211 ft²</div>
+              <div className={styles.plansTableCell}>4</div>
+              <div className={styles.plansTableCell}>3.5</div>
+              <div className={styles.plansTableCell}>3,200 ft²</div>
               <div className={styles.plansTableCell}>
                 <span className={styles.featureChip}>Fireplace</span>
               </div>
             </div>
             <div className={styles.plansTableRow}>
               <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                <span className={styles.plansTableName}>Serena</span>
-                <span className={styles.plansTableCommunity}>Silver Lake</span>
+                <span className={styles.plansTableName}>The Aspen</span>
+                <span className={styles.plansTableCommunity}>Riverside Estates</span>
               </div>
-              <div className={styles.plansTableCell}>3-4</div>
-              <div className={styles.plansTableCell}>1-2</div>
-              <div className={styles.plansTableCell}>2,211 ft²</div>
+              <div className={styles.plansTableCell}>3</div>
+              <div className={styles.plansTableCell}>2.5</div>
+              <div className={styles.plansTableCell}>2,500 ft²</div>
               <div className={styles.plansTableCell}>
                 <span className={styles.featureChip}>Fireplace</span>
               </div>
             </div>
             <div className={styles.plansTableRow}>
               <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                <span className={styles.plansTableName}>Serena</span>
-                <span className={styles.plansTableCommunity}>Silver Lake</span>
+                <span className={styles.plansTableName}>The Woodford</span>
+                <span className={styles.plansTableCommunity}>The Pines</span>
               </div>
-              <div className={styles.plansTableCell}>3-4</div>
-              <div className={styles.plansTableCell}>1-2</div>
-              <div className={styles.plansTableCell}>2,211 ft²</div>
+              <div className={styles.plansTableCell}>3</div>
+              <div className={styles.plansTableCell}>2.5</div>
+              <div className={styles.plansTableCell}>2,600 ft²</div>
               <div className={styles.plansTableCell}>
                 <span className={styles.featureChip}>Fireplace</span>
               </div>

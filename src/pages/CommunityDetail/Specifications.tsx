@@ -123,7 +123,7 @@ export default function Specifications() {
       >
         {/* Page Header */}
         <div className={styles.pageHeader}>
-          <div className="h1">{community.name} Specifications</div>
+          <div className="h1">Specifications</div>
         </div>
 
         {/* Community Section */}

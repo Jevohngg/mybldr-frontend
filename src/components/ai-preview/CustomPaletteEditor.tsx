@@ -71,7 +71,7 @@ const categories = [
 ]
 
 export default function CustomPaletteEditor({ open, onClose }: CustomPaletteEditorProps) {
-  const [paletteName, setPaletteName] = React.useState('Aberdeen')
+  const [paletteName, setPaletteName] = React.useState('The Aspen')
   const [activeCategory, setActiveCategory] = React.useState('Main Siding')
   const [selections, setSelections] = React.useState<Record<string, string>>({
     'Main Siding': 'aluminum',
@@ -107,7 +107,7 @@ export default function CustomPaletteEditor({ open, onClose }: CustomPaletteEdit
         setTimeout(() => {
           setUploadProgress(null)
           setUploadedFile({
-            name: 'aberdeen_standards.pdf',
+            name: 'aspen_standards.pdf',
             size: '100kb'
           })
           setIsRefreshing(true)
