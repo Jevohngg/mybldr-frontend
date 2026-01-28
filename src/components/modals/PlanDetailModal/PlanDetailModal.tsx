@@ -16,9 +16,10 @@ interface PlanDetailModalProps {
   planId: string
   planName: string
   communityCount: number
+  isNewPlan?: boolean
 }
 
-export default function PlanDetailModal({ open, onClose, planId, planName, communityCount }: PlanDetailModalProps) {
+export default function PlanDetailModal({ open, onClose, planId, planName, communityCount, isNewPlan = false }: PlanDetailModalProps) {
   const [activeTab, setActiveTab] = React.useState<TabType>('overview')
   const [aiPreviewOpen, setAiPreviewOpen] = React.useState(false)
   const [formData, setFormData] = React.useState({
@@ -55,32 +56,60 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
 
   React.useEffect(() => {
     if (open) {
-      setFormData({
-        name: planName,
-        modelId: '',
-        masterModelId: '',
-        collection: ['River Collection'],
-        series: ["30' Series", "50' Series"],
-        structureType: ['Single Family', 'Villa'],
-        specificationLevel: ['Live.M'],
-        division: ['DFW', 'Houston'],
-        description: '',
-        bedrooms: 0,
-        bathrooms: 0,
-        halfBaths: 0,
-        garageSpaces: 0,
-        totalFinishedSqft: 0,
-        totalUnfinishedSqft: 0,
-        width: "0'",
-        depth: "0'",
-        numberOfElevations: 0,
-        foundationTypes: ['Slab on Grade', 'Piles'],
-        costPerSquareFoot: 0,
-        floors: 0,
-      })
+      if (isNewPlan) {
+        // Initialize with completely blank/empty data for new plans
+        setFormData({
+          name: '',
+          modelId: '',
+          masterModelId: '',
+          collection: [],
+          series: [],
+          structureType: [],
+          specificationLevel: [],
+          division: [],
+          description: '',
+          bedrooms: 0,
+          bathrooms: 0,
+          halfBaths: 0,
+          garageSpaces: 0,
+          totalFinishedSqft: 0,
+          totalUnfinishedSqft: 0,
+          width: '',
+          depth: '',
+          numberOfElevations: 0,
+          foundationTypes: [],
+          costPerSquareFoot: 0,
+          floors: 0,
+        })
+      } else {
+        // Initialize with existing plan data (mock data for now)
+        setFormData({
+          name: planName,
+          modelId: '',
+          masterModelId: '',
+          collection: ['River Collection'],
+          series: ["30' Series", "50' Series"],
+          structureType: ['Single Family', 'Villa'],
+          specificationLevel: ['Live.M'],
+          division: ['DFW', 'Houston'],
+          description: '',
+          bedrooms: 0,
+          bathrooms: 0,
+          halfBaths: 0,
+          garageSpaces: 0,
+          totalFinishedSqft: 0,
+          totalUnfinishedSqft: 0,
+          width: "0'",
+          depth: "0'",
+          numberOfElevations: 0,
+          foundationTypes: ['Slab on Grade', 'Piles'],
+          costPerSquareFoot: 0,
+          floors: 0,
+        })
+      }
       setActiveTab('overview')
     }
-  }, [open, planName])
+  }, [open, planName, isNewPlan])
 
   return (
     <>
@@ -119,7 +148,7 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
                 <div className={styles.scrollableWrapper}>
                   <div className={styles.centerContent}>
                     {activeTab === 'overview' && (
-                      <OverviewTab formData={formData} setFormData={setFormData} onOpenAIPreview={() => setAiPreviewOpen(true)} />
+                      <OverviewTab formData={formData} setFormData={setFormData} onOpenAIPreview={() => setAiPreviewOpen(true)} isNewPlan={isNewPlan} />
                     )}
                     {activeTab === 'plans' && (
                       <PlansTab />
@@ -129,7 +158,7 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
                   {activeTab === 'overview' && (
                     <div className={styles.rightSidebar}>
                       <TitleBlockInfo />
-                      <HomeBuyerContent />
+                      <HomeBuyerContent isNewPlan={isNewPlan} />
                       <PlanFeatures />
                       <RecordInfo />
                     </div>
@@ -145,7 +174,7 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
   )
 }
 
-function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
+function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false }: {
   formData: {
     name: string
     modelId: string
@@ -193,6 +222,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
     floors: number
   }>>
   onOpenAIPreview: () => void
+  isNewPlan?: boolean
 }) {
   const [isPreparing, setIsPreparing] = React.useState(false)
   const [isUploading, setIsUploading] = React.useState(false)
@@ -431,87 +461,135 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
         </div>
 
         <div className={styles.masterPlanSection}>
-          <h2 className={styles.sectionTitle}>Master Plan Set</h2>
+          <h2 className={styles.sectionTitle}>{isNewPlan ? 'Master Plan Set' : 'Plan Set'}</h2>
           <div className={styles.masterPlanContainer} ref={containerRef}>
-            {!isPreparing && !isUploading && !isCompleted ? (
-              <div className={styles.emptyState}>
-                <img src="/assets/empty-states/master-plan-set.svg" alt="" className={styles.emptyIcon} />
-                <div className={styles.emptyTitle}>Master plan set not selected</div>
-                <div className={styles.emptyDescription}>
-                  Speed up takeoffs, get bids faster, and preview a render of your plan set.
-                </div>
-                <button className={styles.uploadBtn} onClick={handleUpload}>
-                  <img src="/assets/icons/plus.svg" alt="" width="16" height="16" style={{ marginRight: 6 }} />
-                  Upload File
-                </button>
-              </div>
-            ) : isPreparing ? (
-              <div className={styles.preparingState}>
-                <div className={styles.spinner}>
-                  <svg className={styles.spinnerSvg} viewBox="0 0 50 50">
-                    <circle className={styles.spinnerCircle} cx="25" cy="25" r="20" fill="none" strokeWidth="4"></circle>
-                  </svg>
-                </div>
-                <div className={styles.preparingText}>Preparing upload...</div>
-              </div>
-            ) : isUploading ? (
-              <div className={styles.loadingState}>
-                <div className={styles.imageSection}>
-                  <img src="/assets/plans/placeholder.png" alt="" className={styles.backgroundImage} />
-                </div>
-                <div className={styles.loadingSection}>
-                  <h3 className={styles.loadingTitle}>Loading Visualizer</h3>
-                  <div className={styles.loadingText}>Analyzing project...</div>
-                  <div className={styles.progressBar}>
-                    <div className={styles.progressFill} style={{ width: `${progress}%` }} />
-                  </div>
-                </div>
-                <div className={styles.fileInfo}>
-                  <div className={styles.fileDetails}>
-                    <img src="/assets/pdf.png" alt="" className={styles.pdfIcon} />
-                    <div className={styles.fileText}>
-                      <div className={styles.fileName}>master_plan_name.pdf</div>
-                      <div className={styles.fileSize}>100kb</div>
+            {isNewPlan ? (
+              // New plan: show upload flow
+              <>
+                {!isPreparing && !isUploading && !isCompleted ? (
+                  <div className={styles.emptyState}>
+                    <img src="/assets/empty-states/master-plan-set.svg" alt="" className={styles.emptyIcon} />
+                    <div className={styles.emptyTitle}>Master plan set not selected</div>
+                    <div className={styles.emptyDescription}>
+                      Speed up takeoffs, get bids faster, and preview a render of your plan set.
                     </div>
+                    <button className={styles.uploadBtn} onClick={handleUpload}>
+                      <img src="/assets/icons/plus.svg" alt="" width="16" height="16" style={{ marginRight: 6 }} />
+                      Upload File
+                    </button>
                   </div>
-                  <div className={styles.fileActions}>
-                    <button className={styles.updateBtn}>Update</button>
-                    <button className={styles.cancelBtn} onClick={handleCancel}>✕</button>
+                ) : isPreparing ? (
+                  <div className={styles.preparingState}>
+                    <div className={styles.spinner}>
+                      <svg className={styles.spinnerSvg} viewBox="0 0 50 50">
+                        <circle className={styles.spinnerCircle} cx="25" cy="25" r="20" fill="none" strokeWidth="4"></circle>
+                      </svg>
+                    </div>
+                    <div className={styles.preparingText}>Preparing upload...</div>
                   </div>
-                </div>
-              </div>
-            ) : (
-              <div className={styles.completedState}>
-                <div className={styles.visualizerSection}>
-                  <div className={styles.visualizerImage}>
-                    <img src="/assets/plans/placeholder.png" alt="" />
-                  </div>
-                  <div className={styles.visualizerInfo}>
-                    <h3 className={styles.visualizerTitle}>Visualizer</h3>
-                    <p className={styles.visualizerDescription}>Step inside your AI-rendered home.</p>
-                    <button className={styles.viewNowBtn} onClick={onOpenAIPreview}>View Now</button>
-                  </div>
-                </div>
-                <div className={styles.completedContent}>
-                  <div className={styles.completedCard}>
-                    <div className={styles.pdfHeader}>
-                      <img src="/assets/pdf.png" alt="" className={styles.pdfIconLarge} />
-                      <div className={styles.pdfInfo}>
-                        <h4 className={styles.pdfTitle}>Master plan set selected</h4>
-                        <div className={styles.pdfFilename}>master_plan_name.pdf</div>
+                ) : isUploading ? (
+                  <div className={styles.loadingState}>
+                    <div className={styles.imageSection}>
+                      <img src="/assets/plans/placeholder.png" alt="" className={styles.backgroundImage} />
+                    </div>
+                    <div className={styles.loadingSection}>
+                      <h3 className={styles.loadingTitle}>Loading Visualizer</h3>
+                      <div className={styles.loadingText}>Analyzing project...</div>
+                      <div className={styles.progressBar}>
+                        <div className={styles.progressFill} style={{ width: `${progress}%` }} />
                       </div>
                     </div>
-                    <div className={styles.pdfActions}>
-                      <button className={styles.updateBtnLarge}>Update</button>
-                      <button className={styles.clearBtn} onClick={handleClear}>Clear</button>
+                    <div className={styles.fileInfo}>
+                      <div className={styles.fileDetails}>
+                        <img src="/assets/pdf.png" alt="" className={styles.pdfIcon} />
+                        <div className={styles.fileText}>
+                          <div className={styles.fileName}>master_plan_name.pdf</div>
+                          <div className={styles.fileSize}>100kb</div>
+                        </div>
+                      </div>
+                      <div className={styles.fileActions}>
+                        <button className={styles.updateBtn}>Update</button>
+                        <button className={styles.cancelBtn} onClick={handleCancel}>✕</button>
+                      </div>
                     </div>
                   </div>
-                  <div className={styles.completedCard}>
-                    <h4 className={styles.paletteTitle}>View with your palettes</h4>
-                    <p className={styles.paletteDescription}>Preview your design by uploading your look book.</p>
-                    <button className={styles.uploadPaletteBtn}>
-                      <img src="/assets/icons/upload.svg" alt="" width="16" height="16" style={{ marginRight: 6 }} />
-                      Upload
+                ) : (
+                  <div className={styles.completedState}>
+                    <div className={styles.visualizerSection}>
+                      <div className={styles.visualizerImage}>
+                        <img src="/assets/plans/placeholder.png" alt="" />
+                      </div>
+                      <div className={styles.visualizerInfo}>
+                        <h3 className={styles.visualizerTitle}>Visualizer</h3>
+                        <p className={styles.visualizerDescription}>Step inside your AI-rendered home.</p>
+                        <button className={styles.viewNowBtn} onClick={onOpenAIPreview}>View Now</button>
+                      </div>
+                    </div>
+                    <div className={styles.completedContent}>
+                      <div className={styles.completedCard}>
+                        <div className={styles.pdfHeader}>
+                          <img src="/assets/pdf.png" alt="" className={styles.pdfIconLarge} />
+                          <div className={styles.pdfInfo}>
+                            <h4 className={styles.pdfTitle}>Master plan set selected</h4>
+                            <div className={styles.pdfFilename}>master_plan_name.pdf</div>
+                          </div>
+                        </div>
+                        <div className={styles.pdfActions}>
+                          <button className={styles.updateBtnLarge}>Update</button>
+                          <button className={styles.clearBtn} onClick={handleClear}>Clear</button>
+                        </div>
+                      </div>
+                      <div className={styles.completedCard}>
+                        <h4 className={styles.paletteTitle}>View with your palettes</h4>
+                        <p className={styles.paletteDescription}>Preview your design by uploading your look book.</p>
+                        <button className={styles.uploadPaletteBtn}>
+                          <img src="/assets/icons/upload.svg" alt="" width="16" height="16" style={{ marginRight: 6 }} />
+                          Upload
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              // Existing plan: show Plan Set with Inspire card
+              <div className={styles.existingPlanSet}>
+                <div className={styles.inspireCard}>
+                  <div className={styles.inspireImageArea}>
+                    <img src="/assets/plans/placeholder.png" alt="" className={styles.inspireImage} />
+                  </div>
+                  <div className={styles.inspireContent}>
+                    <div className={styles.inspireTextSection}>
+                      <h3 className={styles.inspireTitle}>Inspire</h3>
+                      <p className={styles.inspireDescription}>Visualize your build in 3D and explore different styles and options.</p>
+                    </div>
+                    <div className={styles.inspireButtons}>
+                      <button className={styles.viewNowBtnOutlined} onClick={onOpenAIPreview}>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <path d="M12 8.66667V12.6667C12 13.0203 11.8595 13.3594 11.6095 13.6095C11.3594 13.8595 11.0203 14 10.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39052 13.6095C2.14048 13.3594 2 13.0203 2 12.6667V5.33333C2 4.97971 2.14048 4.64057 2.39052 4.39052C2.64057 4.14048 2.97971 4 3.33333 4H7.33333" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M10 2H14V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M6.66666 9.33333L14 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        View now
+                      </button>
+                      <button className={styles.shareBtnOutlined}>Share</button>
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.planSetFileRow}>
+                  <div className={styles.planSetFileInfo}>
+                    <img src="/assets/pdf.png" alt="" className={styles.planSetPdfIcon} />
+                    <div className={styles.planSetFileText}>
+                      <div className={styles.planSetFileName}>plan_name.pdf</div>
+                      <div className={styles.planSetFileSize}>100kb</div>
+                    </div>
+                  </div>
+                  <div className={styles.planSetButtonGroup}>
+                    <button className={styles.planSetUpdateBtn}>Update</button>
+                    <button className={styles.planSetCloseBtn} aria-label="Remove file">
+                      <svg viewBox="0 0 16 16" fill="none">
+                        <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                     </button>
                   </div>
                 </div>
@@ -699,79 +777,89 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview }: {
             <div className={styles.plansTableHeaderCell}>Features</div>
           </div>
           <div className={styles.plansTableBody}>
-            <div className={styles.plansTableRow}>
-              <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                <span className={styles.plansTableName}>The Aspen</span>
-                <span className={styles.plansTableCommunity}>Whispering Hills</span>
+            {isNewPlan ? (
+              <div className={styles.plansTableEmptyRow}>
+                <span className={styles.plansTableEmptyText}>No plans created yet</span>
               </div>
-              <div className={styles.plansTableCell}>3</div>
-              <div className={styles.plansTableCell}>2.5</div>
-              <div className={styles.plansTableCell}>2,500 ft²</div>
-              <div className={styles.plansTableCell}>
-                <span className={styles.featureChip}>Fireplace</span>
-              </div>
-            </div>
-            <div className={styles.plansTableRow}>
-              <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                <span className={styles.plansTableName}>The Woodford</span>
-                <span className={styles.plansTableCommunity}>Whispering Hills</span>
-              </div>
-              <div className={styles.plansTableCell}>3</div>
-              <div className={styles.plansTableCell}>2.5</div>
-              <div className={styles.plansTableCell}>2,600 ft²</div>
-              <div className={styles.plansTableCell}>
-                <span className={styles.featureChip}>Fireplace</span>
-              </div>
-            </div>
-            <div className={styles.plansTableRow}>
-              <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                <span className={styles.plansTableName}>The Serena</span>
-                <span className={styles.plansTableCommunity}>Whispering Hills</span>
-              </div>
-              <div className={styles.plansTableCell}>4</div>
-              <div className={styles.plansTableCell}>3.5</div>
-              <div className={styles.plansTableCell}>3,200 ft²</div>
-              <div className={styles.plansTableCell}>
-                <span className={styles.featureChip}>Fireplace</span>
-              </div>
-            </div>
-            <div className={styles.plansTableRow}>
-              <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                <span className={styles.plansTableName}>The Aspen</span>
-                <span className={styles.plansTableCommunity}>Riverside Estates</span>
-              </div>
-              <div className={styles.plansTableCell}>3</div>
-              <div className={styles.plansTableCell}>2.5</div>
-              <div className={styles.plansTableCell}>2,500 ft²</div>
-              <div className={styles.plansTableCell}>
-                <span className={styles.featureChip}>Fireplace</span>
-              </div>
-            </div>
-            <div className={styles.plansTableRow}>
-              <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                <span className={styles.plansTableName}>The Woodford</span>
-                <span className={styles.plansTableCommunity}>The Pines</span>
-              </div>
-              <div className={styles.plansTableCell}>3</div>
-              <div className={styles.plansTableCell}>2.5</div>
-              <div className={styles.plansTableCell}>2,600 ft²</div>
-              <div className={styles.plansTableCell}>
-                <span className={styles.featureChip}>Fireplace</span>
-              </div>
-            </div>
+            ) : (
+              <>
+                <div className={styles.plansTableRow}>
+                  <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                    <span className={styles.plansTableName}>The Aspen</span>
+                    <span className={styles.plansTableCommunity}>Whispering Hills</span>
+                  </div>
+                  <div className={styles.plansTableCell}>3</div>
+                  <div className={styles.plansTableCell}>2.5</div>
+                  <div className={styles.plansTableCell}>2,500 ft²</div>
+                  <div className={styles.plansTableCell}>
+                    <span className={styles.featureChip}>Fireplace</span>
+                  </div>
+                </div>
+                <div className={styles.plansTableRow}>
+                  <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                    <span className={styles.plansTableName}>The Woodford</span>
+                    <span className={styles.plansTableCommunity}>Whispering Hills</span>
+                  </div>
+                  <div className={styles.plansTableCell}>3</div>
+                  <div className={styles.plansTableCell}>2.5</div>
+                  <div className={styles.plansTableCell}>2,600 ft²</div>
+                  <div className={styles.plansTableCell}>
+                    <span className={styles.featureChip}>Fireplace</span>
+                  </div>
+                </div>
+                <div className={styles.plansTableRow}>
+                  <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                    <span className={styles.plansTableName}>The Serena</span>
+                    <span className={styles.plansTableCommunity}>Whispering Hills</span>
+                  </div>
+                  <div className={styles.plansTableCell}>4</div>
+                  <div className={styles.plansTableCell}>3.5</div>
+                  <div className={styles.plansTableCell}>3,200 ft²</div>
+                  <div className={styles.plansTableCell}>
+                    <span className={styles.featureChip}>Fireplace</span>
+                  </div>
+                </div>
+                <div className={styles.plansTableRow}>
+                  <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                    <span className={styles.plansTableName}>The Aspen</span>
+                    <span className={styles.plansTableCommunity}>Riverside Estates</span>
+                  </div>
+                  <div className={styles.plansTableCell}>3</div>
+                  <div className={styles.plansTableCell}>2.5</div>
+                  <div className={styles.plansTableCell}>2,500 ft²</div>
+                  <div className={styles.plansTableCell}>
+                    <span className={styles.featureChip}>Fireplace</span>
+                  </div>
+                </div>
+                <div className={styles.plansTableRow}>
+                  <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                    <span className={styles.plansTableName}>The Woodford</span>
+                    <span className={styles.plansTableCommunity}>The Pines</span>
+                  </div>
+                  <div className={styles.plansTableCell}>3</div>
+                  <div className={styles.plansTableCell}>2.5</div>
+                  <div className={styles.plansTableCell}>2,600 ft²</div>
+                  <div className={styles.plansTableCell}>
+                    <span className={styles.featureChip}>Fireplace</span>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
-        <div className={styles.plansPagination}>
-          <div className={styles.plansPaginationLeft}>
-            <span className={styles.plansPaginationText}>Rows per page: 10</span>
-            <img src="/assets/icons/chevron-down.svg" alt="" className={styles.paginationDropdownIcon} />
+        {!isNewPlan && (
+          <div className={styles.plansPagination}>
+            <div className={styles.plansPaginationLeft}>
+              <span className={styles.plansPaginationText}>Rows per page: 10</span>
+              <img src="/assets/icons/chevron-down.svg" alt="" className={styles.paginationDropdownIcon} />
+            </div>
+            <span className={styles.plansPaginationText}>1-5 of 13</span>
+            <div className={styles.plansPaginationButtons}>
+              <button className={styles.plansPaginationBtn} disabled>‹</button>
+              <button className={styles.plansPaginationBtn} disabled>›</button>
+            </div>
           </div>
-          <span className={styles.plansPaginationText}>1-5 of 13</span>
-          <div className={styles.plansPaginationButtons}>
-            <button className={styles.plansPaginationBtn} disabled>‹</button>
-            <button className={styles.plansPaginationBtn} disabled>›</button>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   )

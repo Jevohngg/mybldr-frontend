@@ -350,8 +350,8 @@ line-height: 1.5rem; /* 150% */
 }
 
 .masterPlanContainer {
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
+  border: 1px solid #EFF0F0;
+  border-radius: 12px;
   overflow: hidden;
 }
 
@@ -592,6 +592,20 @@ line-height: 1.5rem; /* 150% */
 /* Table body and rows */
 .plansTableBody {
   background: white;
+}
+
+.plansTableEmptyRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 24px;
+  background: white;
+}
+
+.plansTableEmptyText {
+  font-size: 14px;
+  color: #9ca3af;
+  font-style: italic;
 }
 
 .plansTableRow {
@@ -886,16 +900,14 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   justify-content: center;
   font-size: 18px;
   color: #6b7280;
-  background: white;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
+  background: transparent;
+  border: none;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
+  transition: color 0.15s;
 }
 
 .cancelBtn:hover {
-  background: #f9fafb;
-
+  color: #374151;
 }
 
 .completedState {
@@ -1049,6 +1061,221 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   display: inline-flex;
   align-items: center;
   align-self: flex-start;
+}
+
+/* ==========================================
+   EXISTING PLAN - PLAN SET SECTION
+   ========================================== */
+
+.existingPlanSet {
+  display: flex;
+  flex-direction: column;
+  background: #FAFAFA;
+}
+
+.inspireCard {
+  position: relative;
+  height: 330px;
+}
+
+.inspireImageArea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.inspireImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.inspireContent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: #FFFFFF;
+}
+
+.inspireTextSection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inspireTitle {
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0B0C0D;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.inspireDescription {
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #3E4041;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.inspireButtons {
+  display: flex;
+  gap: 12px;
+}
+
+.viewNowBtnOutlined {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #3E4041;
+  background: #FFFFFF;
+  border: 1px solid #D8D9DA;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.viewNowBtnOutlined:hover {
+  background: #F5F5F5;
+  border-color: #C0C1C2;
+}
+
+.viewNowBtnOutlined svg {
+  margin-right: 6px;
+}
+
+.shareBtnOutlined {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #3E4041;
+  background: #FFFFFF;
+  border: 1px solid #D8D9DA;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.shareBtnOutlined:hover {
+  background: #F5F5F5;
+  border-color: #C0C1C2;
+}
+
+.planSetFileRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #FAFAFA;
+}
+
+.planSetFileInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.planSetPdfIcon {
+  width: 32px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.planSetFileText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.planSetFileName {
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #0B0C0D;
+  line-height: 1.5;
+}
+
+.planSetFileSize {
+  font-family: Roboto, Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #636769;
+  line-height: 1.43;
+}
+
+.planSetButtonGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.planSetUpdateBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #3E4041;
+  background: #FFFFFF;
+  border: 1px solid #D8D9DA;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.planSetUpdateBtn:hover {
+  background: #F5F5F5;
+  border-color: #C0C1C2;
+}
+
+.planSetCloseBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 6px;
+  color: #6b7280;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.planSetCloseBtn:hover {
+  color: #374151;
+}
+
+.planSetCloseBtn svg {
+  width: 16px;
+  height: 16px;
 }
 
 /* ==========================================

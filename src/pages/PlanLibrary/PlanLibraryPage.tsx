@@ -8,12 +8,13 @@ import styles from './PlanLibraryPage.module.css'
 export default function PlanLibraryPage() {
   const { plans } = useData()
   const [selectedPlan, setSelectedPlan] = React.useState<{ id: string; name: string; communityCount: number } | null>(null)
+  const [isNewPlanModalOpen, setIsNewPlanModalOpen] = React.useState(false)
 
   return (
     <div className={styles.page}>
       <div className="pageTitleRow">
         <div className="h1">Plan Library</div>
-        <Button variant="primary">
+        <Button variant="primary" onClick={() => setIsNewPlanModalOpen(true)}>
           <span className={styles.buttonContent}>
             <img
               src="/assets/icons/plus.svg"
@@ -70,6 +71,15 @@ export default function PlanLibraryPage() {
         planId={selectedPlan?.id || ''}
         planName={selectedPlan?.name || ''}
         communityCount={selectedPlan?.communityCount || 0}
+      />
+
+      <PlanDetailModal
+        open={isNewPlanModalOpen}
+        onClose={() => setIsNewPlanModalOpen(false)}
+        planId=""
+        planName="New Plan"
+        communityCount={0}
+        isNewPlan
       />
     </div>
   )
