@@ -10,18 +10,18 @@ export default function CommunityCard({ community }: { community: Community }) {
 
   /**
    * MAP IMAGE SETUP (you will add these files):
-   * Folder: public/assets/maps/
+   * Folder: public/assets/community/
    *
    * Naming rules:
-   * - If `community.thumbnail` exists, we load: /assets/maps/{community.thumbnail}
-   * - Otherwise we load: /assets/maps/{community.id}.png
+   * - If `community.thumbnail` exists, we load: /assets/community/{community.thumbnail}
+   * - Otherwise we load: /assets/community/{community.id}.png
    *
    * Fallback if missing:
-   * - /assets/maps/placeholder.png
+   * - /assets/community/placeholder.png
    */
   const preferredSrc = c.thumbnail
-    ? `/assets/maps/${c.thumbnail}`
-    : `/assets/maps/${community.id}.png`
+    ? `/assets/community/${c.thumbnail}`
+    : `/assets/community/${community.id}.png`
 
   const [src, setSrc] = React.useState(preferredSrc)
 
@@ -30,7 +30,7 @@ export default function CommunityCard({ community }: { community: Community }) {
   }, [preferredSrc])
 
   const onImgError: React.ReactEventHandler<HTMLImageElement> = () => {
-    setSrc((prev) => (prev === '/assets/maps/placeholder.png' ? prev : '/assets/maps/placeholder.png'))
+    setSrc((prev) => (prev === '/assets/community/placeholder.png' ? prev : '/assets/community/placeholder.png'))
   }
 
   const onMenuClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
