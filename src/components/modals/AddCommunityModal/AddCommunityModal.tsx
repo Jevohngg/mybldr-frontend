@@ -17,7 +17,7 @@ export default function AddCommunityModal({
     name: string
     division: string
     plans: number
-    specs: number
+    specs: string
     lots: number
   }) => void
 }) {
@@ -98,7 +98,7 @@ export default function AddCommunityModal({
       name,
       division,
       plans: 0,
-      specs: 0,
+      specs: '',
       lots: parseInt(numberOfLots) || 0,
     })
   }

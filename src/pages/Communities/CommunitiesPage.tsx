@@ -9,7 +9,7 @@ export default function CommunitiesPage() {
   const { communities, addCommunity } = useData()
   const [open, setOpen] = React.useState(false)
 
-  const handleSave = (payload: { name: string; division: string; plans: number; specs: number; lots: number }) => {
+  const handleSave = (payload: { name: string; division: string; plans: number; specs: string; lots: number }) => {
     addCommunity(payload)
     setOpen(false)
   }
