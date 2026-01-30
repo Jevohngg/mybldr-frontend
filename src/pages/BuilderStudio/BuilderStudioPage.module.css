@@ -1,0 +1,706 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: calc(100vh - var(--topnav-h));
+  overflow: hidden;
+  background: #F7F7F7;
+}
+
+/* Page Header - Blue bar */
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 45px;
+  padding: 0 16px;
+  background: #2A457A;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #FFFFFF;
+  padding: 0;
+}
+
+.backButton:hover {
+  opacity: 0.9;
+}
+
+.pageTitle {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1;
+  color: #FFFFFF;
+}
+
+.saveButton {
+  background: #FFFFFF !important;
+  color: #2A457A !important;
+  border: none !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  padding: 4px 10px !important;
+  border-radius: 2px !important;
+}
+
+.saveButton:hover {
+  background: #F5F5F5 !important;
+}
+
+/* Main Content */
+.mainContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Tab Bar */
+.tabBar {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  max-width: 1170px;
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(32, 40, 52, 0.06);
+  border-radius: 4px;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+/* Text variant tabs (Options, Setup) */
+.tabText {
+  padding: 6px 8px;
+  color: rgba(33, 40, 51, 0.7);
+}
+
+/* Outlined variant tabs (Options Exclusion Rules, Products) */
+.tabOutlined {
+  padding: 6px 16px;
+  color: #60656D;
+}
+
+.tab:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Active state - only applies to the currently selected tab */
+.tabActive.tabText {
+  background: #EFF4FB;
+  color: #3672D9;
+  border: 1px solid #8BABD8;
+  border-radius: 4px;
+  margin: -1px;
+}
+
+.tabActive.tabOutlined {
+  background: #EFF4FB;
+  color: #3672D9;
+  border: 1px solid #8BABD8;
+  border-radius: 4px;
+  margin: -1px;
+}
+
+.tabIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.tabIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Search Bar */
+.searchWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1170px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(33, 40, 51, 0.25);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 8px 8px 8px 32px !important;
+  font-size: 14px;
+  border: 0.7px solid rgba(33, 40, 51, 0.25) !important;
+  border-radius: 2px !important;
+  background: #FFFFFF;
+}
+
+.searchInput::placeholder {
+  color: rgba(33, 40, 51, 0.2);
+}
+
+.searchInput:focus {
+  border-color: var(--color-brand) !important;
+  outline: none;
+}
+
+/* Category Grid */
+.categoryGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  width: 100%;
+  max-width: 1170px;
+}
+
+.categoryCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 230px;
+  height: 70px;
+  padding: 0 24px;
+  background: #FFFFFF;
+  border: 1px solid #EAECF0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0px 0px 15px 0px rgba(234, 236, 240, 0.5);
+}
+
+.categoryCard:hover {
+  border-color: #D1D5DB;
+}
+
+.categoryCardSelected {
+  background: rgba(53, 114, 201, 0.05);
+  border: 1px solid #3572C9;
+}
+
+.categoryIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: #202834;
+  flex-shrink: 0;
+}
+
+.categoryIcon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.categoryName {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.1;
+  color: #202834;
+}
+
+/* Show More Button */
+.showMoreButton {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  width: 100%;
+  padding: 0 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #3572C9;
+  transition: opacity 0.15s ease;
+}
+
+.showMoreButton:hover {
+  opacity: 0.8;
+}
+
+.showMoreButton svg {
+  color: #3572C9;
+}
+
+/* ============================================
+   EXPANDED SECTION - Products when category selected
+   ============================================ */
+
+.expandedSection {
+  width: 100%;
+  max-width: 1170px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+/* ============================================
+   LEFT SIDEBAR - Filters
+   ============================================ */
+
+.filterSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 250px;
+  flex-shrink: 0;
+}
+
+.filterCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  background: #FFFFFF;
+  border: 1px solid #EAECF0;
+  border-radius: 4px;
+}
+
+.filterCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filterCardTitle {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #202834;
+}
+
+.filterCardContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.bfsLogoWrapper {
+  width: 110px;
+  height: 31px;
+  display: flex;
+  align-items: center;
+}
+
+.bfsLogo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.bfsLogoText {
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #202834;
+  line-height: 1.2;
+}
+
+.filterCardOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filterCheckboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #202834;
+}
+
+.filterCheckboxCustom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background: #FFFFFF;
+  border: 1px solid #C5C8CF;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.checkbox:checked + .filterCheckboxCustom {
+  background: #3572C9;
+  border-color: #3572C9;
+}
+
+.checkbox:checked + .filterCheckboxCustom::after {
+  content: '';
+  width: 4px;
+  height: 7px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin-bottom: 1px;
+}
+
+/* Toggle Switch */
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.toggleTrack {
+  position: relative;
+  width: 47px;
+  height: 26px;
+  background: #9CA3AF;
+  border-radius: 13px;
+  transition: background 0.2s ease;
+}
+
+.toggleOn .toggleTrack {
+  background: #3572C9;
+}
+
+.toggleThumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.toggleOn .toggleThumb {
+  transform: translateX(21px);
+}
+
+.toggleText {
+  font-family: 'Roboto', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.67%;
+  color: #FFFFFF;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.toggleOn .toggleText {
+  right: auto;
+  left: 8px;
+}
+
+.toggleLabel {
+  font-family: 'Roboto', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.15px;
+  color: #FFFFFF;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 7px;
+  text-transform: uppercase;
+}
+
+.toggleOn .toggleLabel {
+  right: auto;
+  left: 7px;
+}
+
+.seeMoreLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #202834;
+  padding: 0;
+  margin-top: 4px;
+}
+
+.seeMoreLink:hover {
+  text-decoration: underline;
+}
+
+.seeMoreLink svg {
+  color: #202834;
+}
+
+/* ============================================
+   RIGHT PANEL - Products
+   ============================================ */
+
+.productsPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.productsHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.productsSearchWrapper {
+  position: relative;
+  flex: 1;
+}
+
+.productsSearchIcon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(33, 40, 51, 0.25);
+  pointer-events: none;
+}
+
+.productsSearchInput {
+  width: 100%;
+  height: 36px;
+  padding: 8px 8px 8px 32px !important;
+  font-size: 14px;
+  border: 0.7px solid rgba(33, 40, 51, 0.25) !important;
+  border-radius: 2px !important;
+  background: #FFFFFF;
+}
+
+.sortButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 202px;
+  height: 36px;
+  padding: 8px 10px;
+  background: #FFFFFF;
+  border: 0.7px solid rgba(33, 40, 51, 0.25);
+  border-radius: 2px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(33, 40, 51, 0.7);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sortButton:hover {
+  background: #F5F5F5;
+}
+
+.sortButton svg {
+  color: rgba(33, 40, 51, 0.7);
+  flex-shrink: 0;
+}
+
+/* Select All Row */
+.selectAllRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 4px 0;
+}
+
+.selectAllButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 6px 8px;
+  background: rgba(208, 213, 221, 0.3);
+  border: none;
+  border-radius: 130px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #585E67;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.selectAllButton:hover {
+  background: rgba(208, 213, 221, 0.5);
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Products Grid */
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 214px);
+  gap: 16px;
+}
+
+/* Product Card */
+.productCard {
+  display: flex;
+  flex-direction: column;
+  width: 214px;
+  background: #FFFFFF;
+  border: 1px solid #EAECF0;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.05);
+}
+
+.productImageWrapper {
+  width: 214px;
+  height: 214px;
+  background: #F5F5F5;
+  overflow: hidden;
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.productInfo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 128px;
+  padding: 8px 12px 12px;
+  border-top: 1px solid #EAECF0;
+}
+
+.productDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.productManufacturer {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1.25%;
+  color: #585E67;
+}
+
+.productName {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1.07%;
+  color: #202834;
+  line-height: 1;
+}
+
+.associatedProductsLink {
+  position: absolute;
+  top: 58px;
+  left: 13px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.25%;
+  color: #3572C9;
+  cursor: pointer;
+  text-align: left;
+}
+
+.associatedProductsLink:hover {
+  text-decoration: underline;
+}
+
+.productStatus {
+  position: absolute;
+  top: 82px;
+  left: 12px;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 4px;
+  border-radius: 2px;
+  border: 0.6px solid #EAECF0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 1.67%;
+}
+
+.statusExcluded {
+  background: rgba(250, 230, 232, 0.65);
+  color: #A50722;
+}
+
+.statusIncluded {
+  background: rgba(230, 250, 232, 0.65);
+  color: #16A34A;
+}
+
+.statusDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}

@@ -15,6 +15,7 @@ import Documents from '../pages/CommunityDetail/Documents'
 import Specifications from '../pages/CommunityDetail/Specifications'
 import ReservedLotDetailPage from '../pages/ReservedLotDetail/ReservedLotDetailPage'
 import SelectionsPage from '../pages/Selections/SelectionsPage'
+import BuilderStudioPage from '../pages/BuilderStudio/BuilderStudioPage'
 
 function Page({ children }: { children: React.ReactNode }) {
   return (
@@ -70,13 +71,14 @@ function FullScreenLayout({ children }: { children: React.ReactNode }) {
   )
 }
 
-function SelectionsRoutes() {
+function FullScreenRoutes() {
   const location = useLocation()
 
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/selections" element={<Page><SelectionsPage /></Page>} />
+        <Route path="/builder-studio" element={<Page><BuilderStudioPage /></Page>} />
       </Routes>
     </AnimatePresence>
   )
@@ -84,14 +86,14 @@ function SelectionsRoutes() {
 
 export default function App() {
   const location = useLocation()
-  const isSelectionsPage = location.pathname === '/selections'
+  const isFullScreenPage = location.pathname === '/selections' || location.pathname === '/builder-studio'
 
   return (
     <DataProvider>
       <MobileNavProvider>
-        {isSelectionsPage ? (
+        {isFullScreenPage ? (
           <FullScreenLayout>
-            <SelectionsRoutes />
+            <FullScreenRoutes />
           </FullScreenLayout>
         ) : (
           <AppLayout>

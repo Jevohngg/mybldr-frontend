@@ -7,13 +7,14 @@ interface FlooringOption {
   name: string
   subtitle: string
   image: string
+  cardImage: string
 }
 
 const flooringOptions: FlooringOption[] = [
-  { id: 'albright-oak', name: 'Albright Oak', subtitle: '3.25-in, Red Oak, Kona Lg, Low Gloss', image: '/assets/viz-images/albright-oak.png' },
-  { id: 'pillar-oak', name: 'Pillar Oak', subtitle: '(White Oak), Quartz', image: '/assets/viz-images/pillar-oak.png' },
-  { id: 'villa', name: 'Villa', subtitle: 'European Oak, Natural', image: '/assets/viz-images/villa.png' },
-  { id: 'winfield-hickory', name: 'Winfield Hickory', subtitle: '5-in, Hickory, Provincial', image: '/assets/viz-images/winfield-hickory.png' },
+  { id: 'albright-oak', name: 'Albright Oak', subtitle: '3.25-in, Red Oak, Kona Lg, Low Gloss', image: '/assets/viz-images/albright-oak.png', cardImage: '/assets/viz-images/albright-oak-2.jpg' },
+  { id: 'pillar-oak', name: 'Pillar Oak', subtitle: '(White Oak), Quartz', image: '/assets/viz-images/pillar-oak.png', cardImage: '/assets/viz-images/pillar-oak-2.jpg' },
+  { id: 'villa', name: 'Villa', subtitle: 'European Oak, Natural', image: '/assets/viz-images/villa.png', cardImage: '/assets/viz-images/villa-2.jpg' },
+  { id: 'winfield-hickory', name: 'Winfield Hickory', subtitle: '5-in, Hickory, Provincial', image: '/assets/viz-images/winfield-hickory.png', cardImage: '/assets/viz-images/winfield-hickory-2.jpg' },
 ]
 
 export default function SelectionsPage() {
@@ -119,7 +120,7 @@ export default function SelectionsPage() {
                       >
                         <div className={styles.optionImageWrapper}>
                           <img
-                            src={option.image}
+                            src={option.cardImage}
                             alt={option.name}
                             className={styles.optionImage}
                           />
