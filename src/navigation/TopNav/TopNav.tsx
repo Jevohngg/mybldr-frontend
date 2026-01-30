@@ -13,6 +13,7 @@ import { communities } from "../../mock-data/communities";
 import { plans } from "../../mock-data/plans";
 import { constructionSpecs } from "../../components/SpecSheetTable/mockData";
 import PlanDetailModal from "../../components/modals/PlanDetailModal/PlanDetailModal";
+import Button from "../../components/ui/Button";
 import styles from "./TopNav.module.css";
 
 // Types for search results
@@ -280,6 +281,9 @@ export default function TopNav() {
     setIsSearchActive(false);
     setSearchValue("");
 
+    // Dispatch custom event to close all open modals before opening new content
+    window.dispatchEvent(new CustomEvent('closeAllModals'));
+
     if (item.type === "plan" && item.planId) {
       // Open plan detail modal directly
       const plan = plans.find(p => p.id === item.planId);
@@ -338,7 +342,9 @@ export default function TopNav() {
       <header className={styles.topNav} role="banner">
         {/* Hamburger Menu - Mobile/Tablet only */}
         {showHamburger && (
-          <button
+          <Button
+            variant="ghost"
+            iconOnly
             className={`${styles.hamburger} ${isMobileNavOpen ? styles.hamburgerActive : ''}`}
             onClick={toggleMobileNav}
             aria-label={isMobileNavOpen ? "Close menu" : "Open menu"}
@@ -347,11 +353,11 @@ export default function TopNav() {
             <span className={styles.hamburgerLine} />
             <span className={styles.hamburgerLine} />
             <span className={styles.hamburgerLine} />
-          </button>
+          </Button>
         )}
 
         {/* Logo */}
-        <div className={styles.logo}>
+        <div className={styles.logo} onClick={() => navigate('/communities')} style={{ cursor: 'pointer' }}>
           <img
             src="/assets/mybldr-logo-white.svg"
             alt="myBLDR"
@@ -421,7 +427,10 @@ export default function TopNav() {
                 {/* Always reserve space for clear button to prevent layout shift */}
                 <div className={styles.clearButtonWrapper}>
                   {searchValue && (
-                    <button
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      iconOnly
                       className={styles.clearButton}
                       onClick={handleClearSearch}
                       aria-label="Clear search"
@@ -429,7 +438,7 @@ export default function TopNav() {
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                    </button>
+                    </Button>
                   )}
                 </div>
               </div>

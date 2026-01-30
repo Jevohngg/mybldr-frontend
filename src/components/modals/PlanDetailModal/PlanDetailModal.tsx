@@ -7,6 +7,7 @@ import TitleBlockInfo from './TitleBlockInfo'
 import RecordInfo from './RecordInfo'
 import PlanFeatures from './PlanFeatures'
 import HomeBuyerContent from './HomeBuyerContent'
+import Button from '../../ui/Button'
 
 type TabType = 'overview' | 'plans'
 
@@ -131,7 +132,7 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
             exit={{ y: '100%' }}
             transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
           >
-            <button className={styles.closeBtn} onClick={onClose} aria-label="Close">✕</button>
+            <Button variant="ghost" size="sm" iconOnly className={styles.closeBtn} onClick={onClose} aria-label="Close">✕</Button>
             <div className={styles.container}>
               <PlanDetailSideNav
                 planName={planName}
@@ -340,13 +341,16 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                 {formData.collection.map(item => (
                   <span key={item} className={styles.tag}>
                     {item}
-                    <button
+                    <Button
                       type="button"
+                      variant="ghost"
+                      size="xs"
+                      iconOnly
                       className={styles.tagRemove}
                       onClick={() => handleRemoveTag('collection', item)}
                     >
                       ✕
-                    </button>
+                    </Button>
                   </span>
                 ))}
               </div>
@@ -362,13 +366,16 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                 {formData.series.map(item => (
                   <span key={item} className={styles.tag}>
                     {item}
-                    <button
+                    <Button
                       type="button"
+                      variant="ghost"
+                      size="xs"
+                      iconOnly
                       className={styles.tagRemove}
                       onClick={() => handleRemoveTag('series', item)}
                     >
                       ✕
-                    </button>
+                    </Button>
                   </span>
                 ))}
               </div>
@@ -387,13 +394,16 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                 {formData.structureType.map(item => (
                   <span key={item} className={styles.tag}>
                     {item}
-                    <button
+                    <Button
                       type="button"
+                      variant="ghost"
+                      size="xs"
+                      iconOnly
                       className={styles.tagRemove}
                       onClick={() => handleRemoveTag('structureType', item)}
                     >
                       ✕
-                    </button>
+                    </Button>
                   </span>
                 ))}
               </div>
@@ -409,13 +419,16 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                 {formData.specificationLevel.map(item => (
                   <span key={item} className={styles.tag}>
                     {item}
-                    <button
+                    <Button
                       type="button"
+                      variant="ghost"
+                      size="xs"
+                      iconOnly
                       className={styles.tagRemove}
                       onClick={() => handleRemoveTag('specificationLevel', item)}
                     >
                       ✕
-                    </button>
+                    </Button>
                   </span>
                 ))}
               </div>
@@ -433,13 +446,16 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
               {formData.division.map(item => (
                 <span key={item} className={styles.tag}>
                   {item}
-                  <button
+                  <Button
                     type="button"
+                    variant="ghost"
+                    size="xs"
+                    iconOnly
                     className={styles.tagRemove}
                     onClick={() => handleRemoveTag('division', item)}
                   >
                     ✕
-                  </button>
+                  </Button>
                 </span>
               ))}
             </div>
@@ -473,10 +489,10 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                     <div className={styles.emptyDescription}>
                       Speed up takeoffs, get bids faster, and preview a render of your plan set.
                     </div>
-                    <button className={styles.uploadBtn} onClick={handleUpload}>
-                      <img src="/assets/icons/plus.svg" alt="" width="16" height="16" style={{ marginRight: 6 }} />
+                    <Button variant="primary" size="small" className={styles.uploadBtn} onClick={handleUpload}>
+                      <img src="/assets/icons/plus.svg" alt="" width="16" height="16" />
                       Upload File
-                    </button>
+                    </Button>
                   </div>
                 ) : isPreparing ? (
                   <div className={styles.preparingState}>
@@ -508,8 +524,8 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                         </div>
                       </div>
                       <div className={styles.fileActions}>
-                        <button className={styles.updateBtn}>Update</button>
-                        <button className={styles.cancelBtn} onClick={handleCancel}>✕</button>
+                        <Button variant="secondary" size="small">Update</Button>
+                        <Button variant="ghost" size="sm" iconOnly onClick={handleCancel} aria-label="Cancel">✕</Button>
                       </div>
                     </div>
                   </div>
@@ -522,7 +538,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                       <div className={styles.visualizerInfo}>
                         <h3 className={styles.visualizerTitle}>Visualizer</h3>
                         <p className={styles.visualizerDescription}>Step inside your AI-rendered home.</p>
-                        <button className={styles.viewNowBtn} onClick={onOpenAIPreview}>View Now</button>
+                        <Button variant="secondary" size="small" className={styles.viewNowBtn} onClick={onOpenAIPreview}>View Now</Button>
                       </div>
                     </div>
                     <div className={styles.completedContent}>
@@ -535,17 +551,17 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                           </div>
                         </div>
                         <div className={styles.pdfActions}>
-                          <button className={styles.updateBtnLarge}>Update</button>
-                          <button className={styles.clearBtn} onClick={handleClear}>Clear</button>
+                          <Button variant="secondary" size="small">Update</Button>
+                          <Button variant="link" onClick={handleClear}>Clear</Button>
                         </div>
                       </div>
                       <div className={styles.completedCard}>
                         <h4 className={styles.paletteTitle}>View with your palettes</h4>
                         <p className={styles.paletteDescription}>Preview your design by uploading your look book.</p>
-                        <button className={styles.uploadPaletteBtn}>
-                          <img src="/assets/icons/upload.svg" alt="" width="16" height="16" style={{ marginRight: 6 }} />
+                        <Button variant="secondary" size="small">
+                          <img src="/assets/icons/upload.svg" alt="" width="16" height="16" />
                           Upload
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -564,15 +580,15 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                       <p className={styles.inspireDescription}>Visualize your build in 3D and explore different styles and options.</p>
                     </div>
                     <div className={styles.inspireButtons}>
-                      <button className={styles.viewNowBtnOutlined} onClick={onOpenAIPreview}>
+                      <Button variant="secondary" onClick={() => window.open('/selections', '_blank')}>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                           <path d="M12 8.66667V12.6667C12 13.0203 11.8595 13.3594 11.6095 13.6095C11.3594 13.8595 11.0203 14 10.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39052 13.6095C2.14048 13.3594 2 13.0203 2 12.6667V5.33333C2 4.97971 2.14048 4.64057 2.39052 4.39052C2.64057 4.14048 2.97971 4 3.33333 4H7.33333" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                           <path d="M10 2H14V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                           <path d="M6.66666 9.33333L14 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                         View now
-                      </button>
-                      <button className={styles.shareBtnOutlined}>Share</button>
+                      </Button>
+                      <Button variant="secondary">Share</Button>
                     </div>
                   </div>
                 </div>
@@ -585,12 +601,12 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                     </div>
                   </div>
                   <div className={styles.planSetButtonGroup}>
-                    <button className={styles.planSetUpdateBtn}>Update</button>
-                    <button className={styles.planSetCloseBtn} aria-label="Remove file">
-                      <svg viewBox="0 0 16 16" fill="none">
+                    <Button variant="secondary">Update</Button>
+                    <Button variant="ghost" size="sm" iconOnly aria-label="Remove file">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -709,13 +725,16 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                 {formData.foundationTypes.map(item => (
                   <span key={item} className={styles.tag}>
                     {item}
-                    <button
+                    <Button
                       type="button"
+                      variant="ghost"
+                      size="xs"
+                      iconOnly
                       className={styles.tagRemove}
                       onClick={() => handleRemoveTag('foundationTypes', item)}
                     >
                       ✕
-                    </button>
+                    </Button>
                   </span>
                 ))}
               </div>
@@ -748,7 +767,8 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
         </div>
 
         <div className={styles.allDetailsSection}>
-          <button
+          <Button
+            variant="link"
             className={styles.allDetailsToggle}
             onClick={() => setAllDetailsExpanded(!allDetailsExpanded)}
           >
@@ -762,12 +782,12 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
             >
               <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-          </button>
+          </Button>
         </div>
       </div>
 
       <div className={styles.sectionCard}>
-        <h2 className={styles.plansCreatedTitle}>Plans created from this model</h2>
+        <h2 className={styles.plansCreatedTitle}>Lot Specific Projects using this Plan</h2>
         <div className={styles.plansTable}>
           <div className={styles.plansTableHeader}>
             <div className={styles.plansTableHeaderCell}>Name</div>
@@ -785,7 +805,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
               <>
                 <div className={styles.plansTableRow}>
                   <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                    <span className={styles.plansTableName}>The Aspen</span>
+                    <span className={styles.plansTableName}>Lot 52</span>
                     <span className={styles.plansTableCommunity}>Whispering Hills</span>
                   </div>
                   <div className={styles.plansTableCell}>3</div>
@@ -797,7 +817,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                 </div>
                 <div className={styles.plansTableRow}>
                   <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                    <span className={styles.plansTableName}>The Woodford</span>
+                    <span className={styles.plansTableName}>Lot 82</span>
                     <span className={styles.plansTableCommunity}>Whispering Hills</span>
                   </div>
                   <div className={styles.plansTableCell}>3</div>
@@ -809,7 +829,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                 </div>
                 <div className={styles.plansTableRow}>
                   <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                    <span className={styles.plansTableName}>The Serena</span>
+                    <span className={styles.plansTableName}>Lot 89</span>
                     <span className={styles.plansTableCommunity}>Whispering Hills</span>
                   </div>
                   <div className={styles.plansTableCell}>4</div>
@@ -821,7 +841,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                 </div>
                 <div className={styles.plansTableRow}>
                   <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                    <span className={styles.plansTableName}>The Aspen</span>
+                    <span className={styles.plansTableName}>Lot 104</span>
                     <span className={styles.plansTableCommunity}>Riverside Estates</span>
                   </div>
                   <div className={styles.plansTableCell}>3</div>
@@ -833,7 +853,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                 </div>
                 <div className={styles.plansTableRow}>
                   <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                    <span className={styles.plansTableName}>The Woodford</span>
+                    <span className={styles.plansTableName}>Lot 117</span>
                     <span className={styles.plansTableCommunity}>The Pines</span>
                   </div>
                   <div className={styles.plansTableCell}>3</div>
@@ -855,8 +875,8 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
             </div>
             <span className={styles.plansPaginationText}>1-5 of 13</span>
             <div className={styles.plansPaginationButtons}>
-              <button className={styles.plansPaginationBtn} disabled>‹</button>
-              <button className={styles.plansPaginationBtn} disabled>›</button>
+              <Button variant="secondary" iconOnly disabled aria-label="Previous page">‹</Button>
+              <Button variant="secondary" iconOnly disabled aria-label="Next page">›</Button>
             </div>
           </div>
         )}

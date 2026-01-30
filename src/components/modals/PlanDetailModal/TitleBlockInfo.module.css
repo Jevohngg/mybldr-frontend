@@ -75,24 +75,9 @@ line-height: 1.5rem; /* 150% */
   color: #374151;
 }
 
+/* Tag remove button - minimal overrides, Button component handles styling */
 .tagRemove {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  border: none;
-  background: transparent;
-  color: #6b7280;
-  cursor: pointer;
   font-size: 16px;
-  line-height: 1;
-  padding: 0;
-  transition: color 0.15s;
-}
-
-.tagRemove:hover {
-  color: #111827;
 }
 
 .dropdownBtn {
@@ -364,8 +349,6 @@ line-height: 1.5rem; /* 150% */
   }
 
   .tagRemove {
-    width: 20px;
-    height: 20px;
     font-size: 18px;
   }
 

@@ -23,29 +23,13 @@
   }
 }
 
+/* Close button - positioning only, Button component handles styling */
 .closeButton {
   position: absolute;
   top: 8px;
   right: 8px;
-  background: transparent;
-  border: none;
   font-size: 16px;
-  color: #9ca3af;
-  cursor: pointer;
-  padding: 2px;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  transition: all 0.2s;
   z-index: 10;
-}
-
-.closeButton:hover {
-  background: #f3f4f6;
-  color: #6b7280;
 }
 
 .content {

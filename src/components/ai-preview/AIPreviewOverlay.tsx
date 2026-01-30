@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Button from '../ui/Button'
 import styles from './AIPreviewOverlay.module.css'
 import PaletteSelector, { palettes } from './PaletteSelector'
 import CustomPaletteEditor from './CustomPaletteEditor'
@@ -25,74 +26,76 @@ export default function AIPreviewOverlay({ open, onClose }: AIPreviewOverlayProp
   const selectedPalette = palettes.find(p => p.id === selectedPaletteId) || palettes[0]
 
   return (
-    <AnimatePresence mode="wait">
-      {open && (
-        <motion.div
-          className={styles.overlay}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          <div className={styles.container}>
-            <header className={styles.header}>
-              <div className={styles.headerLeft}>
-<img
-  src="/assets/icons/plan-detail-header2.svg"
-  width={24}
-  height={24}
-  className={styles.icon}
-  alt=""
-/>
-
-                <h1 className={styles.title}>AI Generated Preview</h1>
-              </div>
-              <div className={styles.headerRight}>
-                <button className={styles.shareBtn}>Share</button>
-                <button className={styles.closeBtn} onClick={onClose} aria-label="Close">✕</button>
-              </div>
-            </header>
-
-            <main className={styles.main}>
-              <PaletteSelector
-                open={showPaletteSelector}
-                onClose={() => setShowPaletteSelector(false)}
-                selectedPaletteId={selectedPaletteId}
-                onSelectPalette={setSelectedPaletteId}
-                onCreateCustom={() => setShowCustomPaletteEditor(true)}
-              />
-
-              <CustomPaletteEditor
-                open={showCustomPaletteEditor}
-                onClose={() => setShowCustomPaletteEditor(false)}
-              />
-
-              <div className={styles.previewArea}>
-                <div className={styles.previewContainer}>
+    <>
+      <AnimatePresence mode="wait">
+        {open && (
+          <motion.div
+            className={styles.overlay}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className={styles.container}>
+              <header className={styles.header}>
+                <div className={styles.headerLeft}>
                   <img
-                    src={selectedPalette.previewImage}
-                    alt="AI Generated House Preview"
-                    className={styles.previewImage}
+                    src="/assets/icons/plan-detail-header2.svg"
+                    width={24}
+                    height={24}
+                    className={styles.icon}
+                    alt=""
                   />
-                  <button className={styles.imageControlBtn} aria-label="Image controls">
-                    <img src="/assets/icons/enviroment.svg" alt="" width="20" height="20" />
-                  </button>
+                  <h1 className={styles.title}>AI Generated Preview</h1>
                 </div>
+                <div className={styles.headerRight}>
+                  <button className={styles.shareBtn}>Share</button>
+                  <Button variant="ghost" size="sm" iconOnly className={styles.closeBtn} onClick={onClose} aria-label="Close">✕</Button>
+                </div>
+              </header>
 
-                <div className={styles.footer}>
-                  <div className={styles.footerText}>
-                    <h2 className={styles.footerTitle}>Perfection takes time</h2>
-                    <p className={styles.footerDescription}>
-                      Get a custom model of your plan built by our expert team.
-                    </p>
+              <main className={styles.main}>
+                <PaletteSelector
+                  open={showPaletteSelector}
+                  onClose={() => setShowPaletteSelector(false)}
+                  selectedPaletteId={selectedPaletteId}
+                  onSelectPalette={setSelectedPaletteId}
+                  onCreateCustom={() => setShowCustomPaletteEditor(true)}
+                />
+
+                <div className={styles.previewArea}>
+                  <div className={styles.previewContainer}>
+                    <img
+                      src={selectedPalette.previewImage}
+                      alt="AI Generated House Preview"
+                      className={styles.previewImage}
+                    />
+                    <button className={styles.imageControlBtn} aria-label="Image controls">
+                      <img src="/assets/icons/enviroment.svg" alt="" width="20" height="20" />
+                    </button>
                   </div>
-                  <button className={styles.contactBtn}>Contact Sales</button>
+
+                  <div className={styles.footer}>
+                    <div className={styles.footerText}>
+                      <h2 className={styles.footerTitle}>Perfection takes time</h2>
+                      <p className={styles.footerDescription}>
+                        Get a custom model of your plan built by our expert team.
+                      </p>
+                    </div>
+                    <button className={styles.contactBtn}>Contact Sales</button>
+                  </div>
                 </div>
-              </div>
-            </main>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+              </main>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* CustomPaletteEditor rendered outside motion.div to escape stacking context */}
+      <CustomPaletteEditor
+        open={showCustomPaletteEditor}
+        onClose={() => setShowCustomPaletteEditor(false)}
+      />
+    </>
   )
 }

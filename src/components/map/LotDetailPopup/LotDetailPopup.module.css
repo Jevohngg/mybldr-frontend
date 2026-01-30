@@ -55,31 +55,12 @@
   color: var(--color-text-secondary);
 }
 
+/* Close button - positioning only, Button component handles styling */
 .closeButton {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: white;
-  border:none !important;
   font-size: 20px;
-  line-height: 1;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  padding: 0;
-  width: 26px;
-  height: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-
-}
-
-.closeButton:hover {
-  background: var(--color-surface-2);
-  color: var(--color-text);
-  transform: scale(1.05);
 }
 
 .statusBadge {

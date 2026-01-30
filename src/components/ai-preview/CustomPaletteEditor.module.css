@@ -1,11 +1,11 @@
 .overlay {
-  position: absolute;
-  top: 64px;
+  position: fixed;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.4);
-  z-index: 100;
+  z-index: 10003; /* Above everything including TopNav and BaseModal */
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -67,24 +67,9 @@
   color: #111827;
 }
 
+/* Close button - minimal overrides, Button component handles styling */
 .closeBtn {
-  background: none;
-  border: none;
   font-size: 24px;
-  color: #9ca3af;
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-
-.closeBtn:hover {
-  background: #f3f4f6;
-  color: #111827;
 }
 
 .uploadSection {
@@ -241,24 +226,9 @@ text-transform: capitalize;
   background: #f9fafb;
 }
 
+/* Remove button - minimal overrides, Button component handles styling */
 .removeBtn {
-  background: none;
-  border: none;
   font-size: 18px;
-  color: #9ca3af;
-  cursor: pointer;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-
-.removeBtn:hover {
-  background: #f3f4f6;
-  color: #111827;
 }
 
 .loadingContent {

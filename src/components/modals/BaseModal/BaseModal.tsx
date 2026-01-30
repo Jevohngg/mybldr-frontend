@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import styles from './BaseModal.module.css'
 import React from 'react'
+import Button from '../../ui/Button'
 
 export default function BaseModal({
   open,
@@ -46,7 +47,7 @@ export default function BaseModal({
             {(title || !hideCloseButton) && (
               <div className={styles.header}>
                 <div className={styles.title}>{title}</div>
-                {!hideCloseButton && <button className={styles.close} onClick={onClose} aria-label="Close">✕</button>}
+                {!hideCloseButton && <Button variant="ghost" size="sm" iconOnly className={styles.close} onClick={onClose} aria-label="Close">✕</Button>}
               </div>
             )}
 

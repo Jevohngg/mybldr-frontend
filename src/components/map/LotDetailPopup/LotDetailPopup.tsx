@@ -1,6 +1,7 @@
 import React from 'react'
 import { Lot } from '../types'
 import { plans } from '../../../mock-data/plans'
+import Button from '../../ui/Button'
 import styles from './LotDetailPopup.module.css'
 
 interface LotDetailPopupProps {
@@ -76,13 +77,16 @@ export default function LotDetailPopup({ lot, position, onClose, onPlanClick }: 
       onWheel={handlePopupInteraction}
       onMouseDown={handlePopupInteraction}
     >
-      <button
+      <Button
+        variant="ghost"
+        size="sm"
+        iconOnly
         className={styles.closeButton}
         onClick={onClose}
         aria-label="Close"
       >
         ×
-      </button>
+      </Button>
 
       <div className={styles.mainInfo}>
         <div className={styles.lotHeader}>

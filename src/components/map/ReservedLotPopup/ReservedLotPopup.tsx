@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Lot } from '../types'
 import { routes } from '../../../app/routes'
+import Button from '../../ui/Button'
 import styles from './ReservedLotPopup.module.css'
 
 interface ReservedLotPopupProps {
@@ -201,13 +202,16 @@ export default function ReservedLotPopup({ lot, position, onClose }: ReservedLot
       onWheel={handlePopupInteraction}
       onMouseDown={handlePopupInteraction}
     >
-      <button
+      <Button
+        variant="ghost"
+        size="sm"
+        iconOnly
         className={styles.closeButton}
         onClick={onClose}
         aria-label="Close"
       >
         ×
-      </button>
+      </Button>
 
       <div className={styles.content} onClick={handleNavigate} style={{ cursor: 'pointer' }}>
         <div className={styles.imageSection}>

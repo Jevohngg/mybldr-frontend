@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../../ui/Button'
 import styles from './TitleBlockInfo.module.css'
 
 export default function TitleBlockInfo() {
@@ -28,13 +29,16 @@ export default function TitleBlockInfo() {
           {buildingCodes.map((code) => (
             <div key={code} className={styles.tag}>
               <span>{code}</span>
-              <button
+              <Button
+                variant="ghost"
+                size="xs"
+                iconOnly
                 className={styles.tagRemove}
                 onClick={() => removeCode(code)}
                 aria-label={`Remove ${code}`}
               >
                 ×
-              </button>
+              </Button>
             </div>
           ))}
           <button className={styles.dropdownBtn}>

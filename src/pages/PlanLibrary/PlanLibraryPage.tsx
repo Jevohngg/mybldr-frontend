@@ -10,6 +10,16 @@ export default function PlanLibraryPage() {
   const [selectedPlan, setSelectedPlan] = React.useState<{ id: string; name: string; communityCount: number } | null>(null)
   const [isNewPlanModalOpen, setIsNewPlanModalOpen] = React.useState(false)
 
+  // Listen for closeAllModals event (dispatched when navigating from search)
+  React.useEffect(() => {
+    const handleCloseModals = () => {
+      setSelectedPlan(null)
+      setIsNewPlanModalOpen(false)
+    }
+    window.addEventListener('closeAllModals', handleCloseModals)
+    return () => window.removeEventListener('closeAllModals', handleCloseModals)
+  }, [])
+
   return (
     <div className={styles.page}>
       <div className="pageTitleRow">

@@ -1,0 +1,284 @@
+.page {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - var(--topnav-h));
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 380px;
+  min-width: 380px;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Controls Section (dropdown + search) */
+.controlsSection {
+  padding: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+/* Room Dropdown */
+.roomSelect {
+  position: relative;
+}
+
+.dropdown {
+  width: 100%;
+  padding: 10px 36px 10px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-8);
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.dropdown:hover {
+  border-color: var(--color-border-2);
+}
+
+.dropdown:focus {
+  outline: none;
+  border-color: var(--color-brand);
+}
+
+.dropdownIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-secondary);
+  pointer-events: none;
+}
+
+/* Search */
+.searchWrapper {
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 10px 36px 10px 12px;
+  border-radius: var(--radius-8);
+}
+
+.searchInput:focus {
+  border-color: var(--color-brand);
+  box-shadow: none;
+}
+
+/* Divider - edge-to-edge */
+.divider {
+  height: 1px;
+  background: var(--color-border);
+  flex-shrink: 0;
+}
+
+/* Section Header */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-12) var(--space-16);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.sectionHeader:hover {
+  background: var(--color-surface-2);
+}
+
+.chevron {
+  color: var(--color-text-secondary);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.chevron.expanded {
+  transform: rotate(180deg);
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* Subsection Header */
+.subsectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-12) var(--space-16);
+  background: rgba(0, 0, 0, 0.02);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.subsectionHeader:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.subsectionHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.subsectionTitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: #f0f0f0;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+/* Options Grid */
+.optionsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: var(--space-16);
+}
+
+.optionCard {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid #e0e0e0;
+  border-radius: var(--radius-8);
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.optionCard:hover {
+  border-color: #c0c0c0;
+}
+
+.optionCard.selected {
+  border: 2px solid var(--color-brand);
+  padding: calc(var(--space-6) - 1px);
+  box-shadow: 0 2px 8px rgba(29, 107, 205, 0.25);
+}
+
+.optionImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-4);
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.optionImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Info icon */
+.infoIcon {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: var(--radius-4);
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.15s ease;
+  z-index: 2;
+}
+
+.infoIcon:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Checkmark overlay */
+.checkmarkOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* Option text */
+.optionText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding-top: var(--space-6);
+}
+
+.optionName {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.optionSubtitle {
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* Main Content */
+.mainContent {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.imageContainer {
+  position: absolute;
+  inset: 0;
+}
+
+.visualizationImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

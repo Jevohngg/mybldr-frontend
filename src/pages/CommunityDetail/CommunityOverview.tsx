@@ -31,6 +31,16 @@ export default function CommunityOverview() {
     setSelectedPlans([...community.planIds])
   }, [community.id])
 
+  // Listen for closeAllModals event (dispatched when navigating from search)
+  React.useEffect(() => {
+    const handleCloseModals = () => {
+      setSelectedPlan(null)
+      setAddPlansOpen(false)
+    }
+    window.addEventListener('closeAllModals', handleCloseModals)
+    return () => window.removeEventListener('closeAllModals', handleCloseModals)
+  }, [])
+
   const planObjs = plans.filter((p) => selectedPlans.includes(p.id))
 
   const statsTopRow = [
@@ -278,12 +288,6 @@ export default function CommunityOverview() {
                 })}
               />
             ))}
-          </div>
-
-          <div className={styles.viewAllRow}>
-            <button type="button" className={styles.viewAllButton}>
-              View All
-            </button>
           </div>
         </>
       )}

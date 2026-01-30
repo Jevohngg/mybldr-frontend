@@ -123,29 +123,9 @@ background: var(--Colors-Background-bg-primary, #FFF);
   line-height: var(--Line-height-text-xs, 1.125rem); /* 200% */
 }
 
-/* Kebab menu button */
+/* Kebab menu button - visual styles from Button component */
 .menuBtn {
-  width: 16px;
-  height: 16px;
-  border-radius: 2px;
-
-  border: none;
-  background: transparent;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-}
-
-.menuBtn:hover {
-  background: rgba(15, 23, 42, 0.06);
-}
-
-.menuBtn:focus-visible {
-  outline: 2px solid rgba(29, 107, 205, 0.45);
-  outline-offset: 2px;
+  /* No additional styles needed - Button handles everything */
 }
 
 .menuIcon {
@@ -265,11 +245,8 @@ background: var(--Colors-Background-bg-primary, #FFF);
     font-size: 0.5rem;
   }
 
+  /* Menu button mobile sizing - margin adjustment only for touch targets */
   .menuBtn {
-    width: 20px;
-    height: 20px;
-    min-width: 44px;
-    min-height: 44px;
     margin: -14px -6px -14px 0;
   }
 

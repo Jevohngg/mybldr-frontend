@@ -1,20 +1,36 @@
 import React from 'react'
 
 type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: 'primary' | 'secondary' | 'ghost'
-  size?: 'default' | 'small'
+  variant?: 'primary' | 'secondary' | 'ghost' | 'link' | 'danger'
+  size?: 'default' | 'small' | 'sm' | 'xs'
   iconOnly?: boolean
   loading?: boolean
   fixedWidth?: number
 }
 
+const variantClassMap: Record<NonNullable<Props['variant']>, string> = {
+  primary: 'btnPrimary',
+  secondary: 'btnSecondary',
+  ghost: 'btnGhost',
+  link: 'btnLink',
+  danger: 'btnDanger',
+}
+
+const sizeClassMap: Record<NonNullable<Props['size']>, string> = {
+  default: '',
+  small: 'btnSmall',
+  sm: 'btnSm',
+  xs: 'btnXs',
+}
+
 const Button = React.forwardRef<HTMLButtonElement, Props>(
   ({ variant = 'secondary', size = 'default', iconOnly, loading, fixedWidth, className = '', children, style, ...rest }, ref) => {
-    const sizeClass = size === 'small' ? 'btnSmall' : '';
-    const cls =
-      iconOnly
-        ? `btn btnIcon ${className}`
-        : `btn ${variant === 'primary' ? 'btnPrimary' : variant === 'ghost' ? 'btnGhost' : 'btnSecondary'} ${sizeClass} ${className}`.trim()
+    const variantClass = variantClassMap[variant]
+    const sizeClass = sizeClassMap[size]
+
+    const cls = iconOnly
+      ? `btn btnIcon ${variantClass} ${sizeClass} ${className}`.trim()
+      : `btn ${variantClass} ${sizeClass} ${className}`.trim()
 
     const buttonStyle = fixedWidth ? { ...style, width: `${fixedWidth}px` } : style
 

@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { DataProvider } from './providers'
 import { MobileNavProvider } from '../contexts/MobileNavContext'
 import AppLayout from '../layouts/AppLayout/AppLayout'
+import TopNav from '../navigation/TopNav/TopNav'
 import CommunitiesPage from '../pages/Communities/CommunitiesPage'
 import PlanLibraryPage from '../pages/PlanLibrary/PlanLibraryPage'
 import GlobalSpecifications from '../pages/Specifications/GlobalSpecifications'
@@ -13,6 +14,7 @@ import HOARequirements from '../pages/CommunityDetail/HOARequirements'
 import Documents from '../pages/CommunityDetail/Documents'
 import Specifications from '../pages/CommunityDetail/Specifications'
 import ReservedLotDetailPage from '../pages/ReservedLotDetail/ReservedLotDetailPage'
+import SelectionsPage from '../pages/Selections/SelectionsPage'
 
 function Page({ children }: { children: React.ReactNode }) {
   return (
@@ -58,13 +60,44 @@ function AppRoutes() {
   )
 }
 
+// Full-screen layout with only TopNav (no SideNav)
+function FullScreenLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <TopNav />
+      {children}
+    </div>
+  )
+}
+
+function SelectionsRoutes() {
+  const location = useLocation()
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/selections" element={<Page><SelectionsPage /></Page>} />
+      </Routes>
+    </AnimatePresence>
+  )
+}
+
 export default function App() {
+  const location = useLocation()
+  const isSelectionsPage = location.pathname === '/selections'
+
   return (
     <DataProvider>
       <MobileNavProvider>
-        <AppLayout>
-          <AppRoutes />
-        </AppLayout>
+        {isSelectionsPage ? (
+          <FullScreenLayout>
+            <SelectionsRoutes />
+          </FullScreenLayout>
+        ) : (
+          <AppLayout>
+            <AppRoutes />
+          </AppLayout>
+        )}
       </MobileNavProvider>
     </DataProvider>
   )

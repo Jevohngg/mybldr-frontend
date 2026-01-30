@@ -1,7 +1,7 @@
 .overlay {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 10002; /* Higher than TopNav (10001) to appear in front of header */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,14 +30,10 @@
   flex-shrink: 0;
 }
 .title { font-size: 22px; font-weight: 700; }
+/* Close button - visual styles from Button component */
 .close {
-  width: 34px; height: 34px;
-  border-radius: 4px;
-  background: white;
-  cursor: pointer;
-  border: none;
+  font-size: 18px;
 }
-.close:hover { background: var(--color-surface-2); }
 .body {
   padding: 18px 20px 20px;
   overflow-y: auto;
@@ -122,9 +118,8 @@
     font-size: 18px;
   }
 
+  /* Close button mobile sizing - margin adjustment only */
   .close {
-    width: 44px;
-    height: 44px;
     margin: -10px -6px -10px 0;
   }
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../ui/Button'
 import styles from './CustomPaletteEditor.module.css'
 
 interface CustomPaletteEditorProps {
@@ -147,9 +148,9 @@ export default function CustomPaletteEditor({ open, onClose }: CustomPaletteEdit
               </svg>
             </button>
           </div>
-          <button className={styles.closeBtn} onClick={onClose} aria-label="Close">
+          <Button variant="ghost" size="sm" iconOnly className={styles.closeBtn} onClick={onClose} aria-label="Close">
             ✕
-          </button>
+          </Button>
         </header>
 
         {uploadedFile && <div className={styles.uploadedHeader}>BASED ON FILE</div>}
@@ -165,9 +166,9 @@ export default function CustomPaletteEditor({ open, onClose }: CustomPaletteEdit
               </div>
               <div className={styles.fileActions}>
                 <button className={styles.updateBtn}>Update</button>
-                <button className={styles.removeBtn} onClick={handleRemoveFile} aria-label="Remove file">
+                <Button variant="ghost" size="sm" iconOnly className={styles.removeBtn} onClick={handleRemoveFile} aria-label="Remove file">
                   ✕
-                </button>
+                </Button>
               </div>
             </div>
           ) : uploadProgress !== null ? (

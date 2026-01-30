@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styles from './CommunityCard.module.css'
 import type { Community } from '../../../app/providers'
+import Button from '../../ui/Button'
 
 type CommunityWithOptionalThumb = Community & { thumbnail?: string }
 
@@ -67,8 +68,11 @@ export default function CommunityCard({ community }: { community: Community }) {
               <span className={styles.statusText}>Active</span>
             </div>
 
-            <button
+            <Button
               type="button"
+              variant="ghost"
+              size="xs"
+              iconOnly
               className={styles.menuBtn}
               aria-label="More options"
               onClick={onMenuClick}
@@ -79,7 +83,7 @@ export default function CommunityCard({ community }: { community: Community }) {
                 className={styles.menuIcon}
                 draggable={false}
               />
-            </button>
+            </Button>
           </div>
         </div>
 

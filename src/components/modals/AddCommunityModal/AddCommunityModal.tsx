@@ -134,7 +134,7 @@ export default function AddCommunityModal({
               </div>
             </div>
           </div>
-          <button className={styles.manual} onClick={() => { setHasUploadedFile(false); setStep('details'); }}>Enter details manually</button>
+          <Button variant="link" className={styles.manual} onClick={() => { setHasUploadedFile(false); setStep('details'); }}>Enter details manually</Button>
         </div>
       )}
 
@@ -167,7 +167,7 @@ export default function AddCommunityModal({
           </div>
 
           <div className={styles.continueRow}>
-            <button className={styles.manualLink} onClick={() => setStep('details')}>Enter details manually</button>
+            <Button variant="link" className={styles.manualLink} onClick={() => setStep('details')}>Enter details manually</Button>
           </div>
         </div>
       )}

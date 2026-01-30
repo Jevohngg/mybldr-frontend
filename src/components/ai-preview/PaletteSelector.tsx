@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../ui/Button'
 import styles from './PaletteSelector.module.css'
 
 interface PaletteSelectorProps {
@@ -45,9 +46,9 @@ export default function PaletteSelector({ open, onClose, selectedPaletteId, onSe
     <div className={styles.container}>
       <div className={styles.header}>
         <h3 className={styles.title}>Select a Palette</h3>
-        <button className={styles.closeBtn} onClick={onClose} aria-label="Close">
+        <Button variant="ghost" size="sm" iconOnly className={styles.closeBtn} onClick={onClose} aria-label="Close">
           ✕
-        </button>
+        </Button>
       </div>
 
       <div className={styles.palettesGrid}>

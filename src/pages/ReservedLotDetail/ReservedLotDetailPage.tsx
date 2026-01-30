@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useData } from '../../app/providers'
 import ReservedLotSideNav from '../../navigation/ReservedLotSideNav/ReservedLotSideNav'
+import Button from '../../components/ui/Button'
 import styles from './ReservedLotDetailPage.module.css'
 
 type TabType = 'overview' | 'quotes' | 'documents'
@@ -41,7 +42,7 @@ const reservedLotsData: Record<string, ReservedLotData> = {
     selectionProgress: 38,
     selectionsMade: 95,
     totalSelections: 250,
-    selectionUrl: 'https://www.google.com',
+    selectionUrl: 'https://mybldr-demo.dev/selections',
     pdfFilename: 'lot_85_kohler_ridge.pdf',
     pdfSize: '100kb'
   },
@@ -59,7 +60,7 @@ const reservedLotsData: Record<string, ReservedLotData> = {
     selectionProgress: 85,
     selectionsMade: 213,
     totalSelections: 250,
-    selectionUrl: 'https://www.google.com',
+    selectionUrl: 'https://mybldr-demo.dev/selections',
     pdfFilename: 'lot_823_kohler_ridge.pdf',
     pdfSize: '100kb'
   }
@@ -86,6 +87,15 @@ export default function ReservedLotDetailPage() {
     navigate(`/communities/${communityId}`)
   }
 
+  // Listen for closeAllModals event (dispatched when navigating from search)
+  React.useEffect(() => {
+    const handleCloseModals = () => {
+      navigate(`/communities/${communityId}`)
+    }
+    window.addEventListener('closeAllModals', handleCloseModals)
+    return () => window.removeEventListener('closeAllModals', handleCloseModals)
+  }, [communityId, navigate])
+
   return (
     <motion.div
       className={styles.page}
@@ -94,7 +104,7 @@ export default function ReservedLotDetailPage() {
       exit={{ y: '100%' }}
       transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
     >
-      <button className={styles.closeBtn} onClick={handleClose} aria-label="Close">✕</button>
+      <Button variant="ghost" size="sm" iconOnly className={styles.closeBtn} onClick={handleClose} aria-label="Close">✕</Button>
       <div className={styles.container}>
         <ReservedLotSideNav
           lotNumber={lotNumber || ''}
@@ -135,8 +145,13 @@ function OverviewTab({ lotData }: { lotData: ReservedLotData }) {
     zip: lotData.zip,
   })
 
+  const [copied, setCopied] = React.useState(false)
+
   const handleCopy = () => {
-    navigator.clipboard.writeText(lotData.selectionUrl)
+    navigator.clipboard.writeText(lotData.selectionUrl).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
   }
 
   return (
@@ -243,11 +258,14 @@ function OverviewTab({ lotData }: { lotData: ReservedLotData }) {
                 <span className={styles.progressText}>{lotData.selectionsMade}/{lotData.totalSelections} Selections Made</span>
               </div>
               <div className={styles.urlSection}>
-                <div className={styles.urlInput}>
-                  <span className={styles.urlText}>https://<strong>{lotData.selectionUrl.replace('https://', '')}</strong></span>
-                  <button className={styles.copyBtn} onClick={handleCopy}>Copy</button>
+                <div className={styles.urlInput} onClick={handleCopy} style={{ cursor: 'pointer' }} title="Click to copy link">
+                  <span className={styles.urlText}>{lotData.selectionUrl}</span>
+                  <button type="button" className={styles.copyBtn} onClick={(e) => { e.stopPropagation(); handleCopy(); }}>{copied ? 'Copied!' : 'Copy'}</button>
                 </div>
-                <button className={styles.makeSelectionsBtn}>
+                <button
+                  className={styles.makeSelectionsBtn}
+                  onClick={() => window.open('/selections', '_blank')}
+                >
                   <img src="/assets/icons/arrow-right.svg" alt="" width="16" height="16" />
                   Make Selections
                 </button>
@@ -264,7 +282,7 @@ function OverviewTab({ lotData }: { lotData: ReservedLotData }) {
               </div>
               <div className={styles.pdfActions}>
                 <button className={styles.updateBtn}>Update</button>
-                <button className={styles.removeBtn}>✕</button>
+                <Button variant="ghost" size="sm" iconOnly className={styles.removeBtn} aria-label="Remove attachment">✕</Button>
               </div>
             </div>
           </div>
