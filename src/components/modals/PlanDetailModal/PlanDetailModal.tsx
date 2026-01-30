@@ -787,13 +787,13 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
       </div>
 
       <div className={styles.sectionCard}>
-        <h2 className={styles.plansCreatedTitle}>Lot Specific Projects using this Plan</h2>
+        <h2 className={styles.plansCreatedTitle}>Lot specific projects using this plan</h2>
         <div className={styles.plansTable}>
           <div className={styles.plansTableHeader}>
-            <div className={styles.plansTableHeaderCell}>Name</div>
+            <div className={styles.plansTableHeaderCell}>Project name</div>
             <div className={styles.plansTableHeaderCell}>Beds</div>
             <div className={styles.plansTableHeaderCell}>Baths</div>
-            <div className={styles.plansTableHeaderCell}>AUR</div>
+            <div className={styles.plansTableHeaderCell}>Finished sq/ft</div>
             <div className={styles.plansTableHeaderCell}>Features</div>
           </div>
           <div className={styles.plansTableBody}>
@@ -837,6 +837,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                   <div className={styles.plansTableCell}>3,200 ft²</div>
                   <div className={styles.plansTableCell}>
                     <span className={styles.featureChip}>Fireplace</span>
+                    <span className={styles.featureChip}>Finished LL</span>
                   </div>
                 </div>
                 <div className={styles.plansTableRow}>

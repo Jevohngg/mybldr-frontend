@@ -164,7 +164,10 @@
 
 /* Table Container */
 .tableContainer {
-  /* Global styles in globals.css handle the DataGrid styling */
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* ==========================================

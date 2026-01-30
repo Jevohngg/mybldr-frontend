@@ -106,7 +106,7 @@ export default function CommunityCard({ community }: { community: Community }) {
               className={styles.metaIcon}
               draggable={false}
             />
-            <span className={styles.metaText}>{community.specs} Specs</span>
+            <span className={styles.metaText}>{community.specs}</span>
           </div>
 
           <div className={styles.metaItem}>

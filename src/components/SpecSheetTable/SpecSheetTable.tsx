@@ -216,7 +216,7 @@ export function SpecSheetTable({ data, title, variant = 'default' }: SpecSheetTa
   }, [rows]);
 
   return (
-    <div style={{ width: '100%' }}>
+    <div className="spec-sheet-table-container">
       {title && (
         <Box sx={{ p: 2, mb: 2 }}>
           <Typography variant="h6" sx={{ fontWeight: 600 }}>

@@ -2,6 +2,19 @@
 
 .spec-sheet-table-container {
   width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Set minimum width so grid doesn't compress */
+.MuiDataGrid-root {
+  min-width: 1200px;
+}
+
+/* Allow horizontal scroll in virtual scroller */
+.MuiDataGrid-virtualScroller {
+  overflow-x: auto !important;
 }
 
 /* Ensure proper tree data display */
@@ -13,15 +26,30 @@
 /* Cell text overflow with ellipsis */
 .MuiDataGrid-cell {
   overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  min-width: 0 !important;
 }
 
 .MuiDataGrid-cell > * {
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
 }
 
 .MuiDataGrid-cellContent {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  display: block !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* Ensure column headers also have ellipsis */
+.MuiDataGrid-columnHeaderTitle {
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;

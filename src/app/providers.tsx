@@ -9,7 +9,7 @@ export type Community = {
   name: string
   division: string
   plans: number
-  specs: number
+  specs: string
   lots: number
   thumbnail: string
   planIds: string[]
