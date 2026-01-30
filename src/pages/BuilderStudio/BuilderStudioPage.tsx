@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import styles from './BuilderStudioPage.module.css'
 import Input from '../../components/ui/Input'
 import Button from '../../components/ui/Button'
@@ -77,6 +77,8 @@ const manufacturers = [...new Set(sidingProducts.map(p => p.manufacturer))].sort
 
 export default function BuilderStudioPage() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const communityName = searchParams.get('community') || 'New Product Filter'
   const [activeTab, setActiveTab] = useState<TabId>('options')
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
@@ -145,7 +147,7 @@ export default function BuilderStudioPage() {
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          <span className={styles.pageTitle}>New Product Filter</span>
+          <span className={styles.pageTitle}>{communityName}</span>
         </button>
         <Button variant="primary" size="small" className={styles.saveButton}>
           Save Changes

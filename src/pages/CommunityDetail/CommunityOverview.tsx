@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useData } from '../../app/providers'
 import Button from '../../components/ui/Button'
 import PlanCard from '../../components/cards/PlanCard/PlanCard'
@@ -13,6 +13,7 @@ type ViewMode = 'cards' | 'list' | 'grid'
 
 export default function CommunityOverview() {
   const { communityId } = useParams()
+  const navigate = useNavigate()
   const { communities, plans } = useData()
 
   const community = communities.find((c) => c.id === communityId) || communities[0]
@@ -68,6 +69,22 @@ export default function CommunityOverview() {
               draggable={false}
             />
           </Button>
+
+<Button
+  variant="secondary"
+  className={styles.salesKioskButton}
+  onClick={() => navigate(`/builder-studio?community=${encodeURIComponent(community.name)}`)}
+>
+  <span className={styles.buttonContent}>
+    <span>Builder Studio</span>
+    <img
+      src="/assets/icons/arrow-right.svg"
+      alt=""
+      className={styles.buttonIcon}
+      draggable={false}
+    />
+  </span>
+</Button>
 
 <Button
   variant="secondary"
