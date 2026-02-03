@@ -1,0 +1,185 @@
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 304px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 12px 16px -4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+  transform-origin: top center;
+}
+
+.dropdownOpen {
+  animation: dropdownFadeIn 0.2s ease-out forwards;
+}
+
+.dropdownClosing {
+  animation: dropdownFadeOut 0.2s ease-in forwards;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dropdownFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 12px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionHeading {
+  padding: 4px 0px 8px 16px;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.333;
+  color: #0B0C0D;
+  letter-spacing: 0.01em;
+}
+
+.inputRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 0px 16px 20px;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.inputLabel {
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #3E4041;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px 6px 12px;
+  background: #FFFFFF;
+  border: 1px solid #D8D9DA;
+  border-radius: 4px;
+  transition: border-color 0.15s ease;
+  height: 36px;
+  box-sizing: border-box;
+}
+
+.inputContainer:focus-within {
+  border-color: #1D6BCD;
+}
+
+.input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.429;
+  color: #0B0C0D;
+  background: transparent;
+}
+
+.input::placeholder {
+  color: #636769;
+}
+
+.separator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 7px;
+  height: 36px;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.429;
+  color: #636769;
+  flex-shrink: 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 16px;
+  gap: 4px;
+}
+
+.applyButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #1D6BCD;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.333;
+  color: #FFFFFF;
+  transition: background-color 0.15s ease;
+}
+
+.applyButton:hover {
+  background: #1859ab;
+}
+
+/* Responsive adjustments */
+@media (max-width: 479px) {
+  .dropdown {
+    width: 280px;
+  }
+
+  .inputRow {
+    padding: 0px 12px 16px;
+  }
+
+  .sectionHeading {
+    padding-left: 12px;
+    font-size: 11px;
+  }
+
+  .inputLabel {
+    font-size: 13px;
+  }
+
+  .input {
+    font-size: 13px;
+  }
+}

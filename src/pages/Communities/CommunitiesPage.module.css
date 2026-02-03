@@ -1,3 +1,44 @@
+/* Stats Row - Connected metric group */
+.statsRow {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #EFF0F0;
+  border-radius: 16px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 20px;
+  flex: 1;
+}
+
+.statDivider {
+  width: 1px;
+  height: 64px;
+  background: #EFF0F0;
+  flex-shrink: 0;
+}
+
+.statLabel {
+  color: #535862;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.429;
+}
+
+.statValue {
+  color: #181D27;
+  font-family: Inter, sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.333;
+}
+
 .filtersRow {
   display: flex;
   align-items: center;
@@ -42,6 +83,22 @@ align-self: stretch;
     gap: 1.5rem;
   }
 
+  .stat {
+    padding: 14px 16px;
+  }
+
+  .statDivider {
+    height: 56px;
+  }
+
+  .statLabel {
+    font-size: 13px;
+  }
+
+  .statValue {
+    font-size: 22px;
+  }
+
   .filtersRow {
     flex-wrap: wrap;
     gap: 10px;
@@ -66,6 +123,28 @@ align-self: stretch;
 @media (max-width: 767px) {
   .page {
     gap: 1.25rem;
+  }
+
+  .statsRow {
+    flex-wrap: wrap;
+    border-radius: 12px;
+  }
+
+  .stat {
+    padding: 12px 14px;
+    min-width: 80px;
+  }
+
+  .statDivider {
+    height: 48px;
+  }
+
+  .statLabel {
+    font-size: 12px;
+  }
+
+  .statValue {
+    font-size: 20px;
   }
 
   .filtersRow {
@@ -98,6 +177,26 @@ align-self: stretch;
 @media (max-width: 479px) {
   .page {
     gap: 1rem;
+  }
+
+  .statsRow {
+    border-radius: 10px;
+  }
+
+  .stat {
+    padding: 10px 12px;
+  }
+
+  .statDivider {
+    height: 40px;
+  }
+
+  .statLabel {
+    font-size: 11px;
+  }
+
+  .statValue {
+    font-size: 18px;
   }
 
   .filtersRow {

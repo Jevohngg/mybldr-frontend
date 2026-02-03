@@ -14,6 +14,7 @@ import HOARequirements from '../pages/CommunityDetail/HOARequirements'
 import Documents from '../pages/CommunityDetail/Documents'
 import Specifications from '../pages/CommunityDetail/Specifications'
 import ReservedLotDetailPage from '../pages/ReservedLotDetail/ReservedLotDetailPage'
+import LotConfigurationPage from '../pages/LotConfiguration/LotConfigurationPage'
 import SelectionsPage from '../pages/Selections/SelectionsPage'
 import BuilderStudioPage from '../pages/BuilderStudio/BuilderStudioPage'
 
@@ -36,7 +37,7 @@ function AppRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Navigate to="/communities" replace />} />
+            <Route path="/" element={<Navigate to="/plan-library" replace />} />
 
             <Route path="/plan-library" element={<Page><PlanLibraryPage /></Page>} />
 
@@ -54,6 +55,7 @@ function AppRoutes() {
             </Route>
 
             <Route path="/communities/:communityId/lots/:lotNumber" element={<ReservedLotDetailPage />} />
+            <Route path="/communities/:communityId/lots/:lotNumber/configure" element={<LotConfigurationPage />} />
 
             <Route path="*" element={<Navigate to="/communities" replace />} />
           </Routes>

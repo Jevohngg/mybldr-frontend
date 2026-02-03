@@ -1,18 +1,18 @@
 .card {
   display: flex;
-  width: 15.625rem;
-  padding: 0.5rem;
   flex-direction: column;
-  align-items: flex-start;
   gap: 16px;
-  border-radius: 0.25rem;
-background: #FFF;
-transition: transform 160ms ease, box-shadow 160ms ease;
+  border-radius: 12px;
+  background: #FFFFFF;
+  border: 1px solid #EFF0F0;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.06), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
 .card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.08), 0px 4px 8px 0px rgba(0, 0, 0, 0.12);
 }
 
 .card:focus-visible {
@@ -22,29 +22,59 @@ transition: transform 160ms ease, box-shadow 160ms ease;
 
 /* MAP IMAGE */
 .thumb {
+  position: relative;
   display: flex;
-  height: 5.9375rem;
   justify-content: center;
   align-items: center;
-  flex: 1 0 0;
-  height: 95px;
+  height: 116px;
   width: 100%;
+  background: #F8F8F8;
 }
 
 .thumbImg {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: contain; /* maps should not crop */
+  object-fit: contain;
   object-position: center;
-  background: #f8f9fb;
+}
+
+/* STATUS CHIP - Positioned over image */
+.statusChip {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 4px;
+  background: #FFFFFF;
+  border: 1px solid #D8D9DA;
+  border-radius: 4px;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  background: #198402;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.statusText {
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.333;
+  color: #3E4041;
 }
 
 /* BODY */
 .body {
-  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
   width: 100%;
-  padding-bottom: 0px !important;
 }
 
 .topRow {
@@ -52,85 +82,47 @@ transition: transform 160ms ease, box-shadow 160ms ease;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
+  padding: 12px 12px 0px 16px;
 }
 
 .titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
   min-width: 0;
 }
 
 .name {
-  color: var(--Colors-Text-text-primary, #0B0C0D);
-  font-feature-settings: 'liga' off, 'clig' off;
-  
-  /* Typography/caption/Bold */
-  font-family: Inter;
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 1rem; /* 133.333% */
+  color: #0B0C0D;
+  font-family: Roboto, Inter, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.556;
 }
 
 .division {
-  color: var(--Colors-Text-text-brand-primary, #1D6BCD);
-  font-feature-settings: 'liga' off, 'clig' off;
-  font-family: Inter;
-  font-size: 0.625rem;
-  font-style: normal;
+  color: #1D6BCD;
+  font-family: Roboto, Inter, sans-serif;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1rem; /* 160% */
+  line-height: 1.5;
 }
 
-/* RIGHT ACTIONS */
+/* RIGHT ACTIONS - Menu button only */
 .actions {
   display: flex;
-  width: 5.71875rem;
   justify-content: flex-end;
   align-items: center;
-  gap: 0.5rem;
-  height: 18px;
 }
 
-/* Active pill */
-.statusPill {
-  display: flex;
-  padding: 0 0.375rem 0 0.25rem;
-  justify-content: center;
-  align-items: center;
-  gap: 0.1875rem;
-
-  border-radius: 0.25rem;
-border: 1px solid var(--Colors-Border-border-primary, #D5D7DA);
-background: var(--Colors-Background-bg-primary, #FFF);
-}
-
-.statusDot {
-  width: 0.3125rem;
-  height: 0.3125rem;
-  aspect-ratio: 1/1;
-  color: #17B26A;
-  background: #17B26A;
-  border-radius: 999px;
-
-}
-
-.statusText {
-  color: var(--colors-text-text-secondary-700, #414651);
-  text-align: center;
-  font-family: var(--Font-family-font-family-body, Inter);
-  font-size: 0.5625rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: var(--Line-height-text-xs, 1.125rem); /* 200% */
-}
-
-/* Kebab menu button - visual styles from Button component */
+/* Kebab menu button */
 .menuBtn {
-  /* No additional styles needed - Button handles everything */
+  padding: 6px;
 }
 
 .menuIcon {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   display: block;
   opacity: 0.7;
 }
@@ -139,28 +131,27 @@ background: var(--Colors-Background-bg-primary, #FFF);
 .meta {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
+  padding: 0px 16px 12px;
 }
 
 .metaItem {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 4px;
 }
 
 .metaIcon {
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 16px;
+  height: 16px;
 }
 
 .metaText {
-  color: var(--Colors-Text-text-secondary, #3E4041);
-
-  font-family: Inter;
-  font-size: 0.625rem;
-  font-style: normal;
+  color: #3E4041;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.5rem; /* 240% */
+  line-height: 1.429;
 }
 
 /* ==========================================
@@ -169,20 +160,32 @@ background: var(--Colors-Background-bg-primary, #FFF);
 
 @media (max-width: 1023px) {
   .card {
-    width: 14rem;
     gap: 12px;
   }
 
   .thumb {
-    height: 80px;
-  }
-
-  .body {
-    padding: 6px;
+    height: 100px;
   }
 
   .topRow {
+    padding: 10px 10px 0px 12px;
     gap: 12px;
+  }
+
+  .name {
+    font-size: 16px;
+  }
+
+  .division {
+    font-size: 14px;
+  }
+
+  .meta {
+    padding: 0px 12px 10px;
+  }
+
+  .metaText {
+    font-size: 13px;
   }
 }
 
@@ -205,13 +208,27 @@ background: var(--Colors-Background-bg-primary, #FFF);
     min-width: 100px;
     height: 80px;
     flex: 0 0 100px;
-    border-radius: 4px;
+    border-radius: 6px;
     overflow: hidden;
+  }
+
+  .statusChip {
+    top: 4px;
+    left: 4px;
+    padding: 1px 3px;
+  }
+
+  .statusDot {
+    width: 5px;
+    height: 5px;
+  }
+
+  .statusText {
+    font-size: 10px;
   }
 
   .body {
     flex: 1;
-    padding: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -219,50 +236,43 @@ background: var(--Colors-Background-bg-primary, #FFF);
   }
 
   .topRow {
+    padding: 0;
     gap: 8px;
     flex-wrap: wrap;
   }
 
   .name {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: 15px;
+    line-height: 1.4;
   }
 
   .division {
-    font-size: 0.6875rem;
+    font-size: 13px;
   }
 
-  .actions {
-    width: auto;
-    gap: 0.375rem;
-  }
-
-  .statusPill {
-    padding: 0 0.25rem;
-  }
-
-  .statusText {
-    font-size: 0.5rem;
-  }
-
-  /* Menu button mobile sizing - margin adjustment only for touch targets */
   .menuBtn {
-    margin: -14px -6px -14px 0;
+    padding: 4px;
+  }
+
+  .menuIcon {
+    width: 18px;
+    height: 18px;
   }
 
   .meta {
-    gap: 0.375rem;
+    padding: 8px 0 0 0;
+    gap: 6px;
     flex-wrap: wrap;
   }
 
   .metaText {
-    font-size: 0.6875rem;
-    line-height: 1.25rem;
+    font-size: 12px;
+    line-height: 1.333;
   }
 
   .metaIcon {
-    width: 0.875rem;
-    height: 0.875rem;
+    width: 14px;
+    height: 14px;
   }
 }
 
@@ -283,42 +293,44 @@ background: var(--Colors-Background-bg-primary, #FFF);
     flex: 0 0 80px;
   }
 
-  .name {
-    font-size: 0.8125rem;
-    line-height: 1.125rem;
-  }
-
-  .division {
-    font-size: 0.625rem;
-    line-height: 0.875rem;
-  }
-
-  .actions {
-    gap: 0.25rem;
-  }
-
-  .statusPill {
-    padding: 0 0.1875rem;
-    gap: 0.125rem;
+  .statusChip {
+    top: 3px;
+    left: 3px;
+    padding: 1px 2px;
+    gap: 2px;
   }
 
   .statusDot {
-    width: 0.25rem;
-    height: 0.25rem;
+    width: 4px;
+    height: 4px;
   }
 
   .statusText {
-    font-size: 0.4375rem;
-    line-height: 1rem;
+    font-size: 9px;
+  }
+
+  .name {
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  .division {
+    font-size: 12px;
+    line-height: 1.25;
+  }
+
+  .meta {
+    gap: 4px;
+    padding-top: 6px;
   }
 
   .metaText {
-    font-size: 0.625rem;
-    line-height: 1rem;
+    font-size: 11px;
+    line-height: 1.25;
   }
 
   .metaIcon {
-    width: 0.75rem;
-    height: 0.75rem;
+    width: 12px;
+    height: 12px;
   }
 }

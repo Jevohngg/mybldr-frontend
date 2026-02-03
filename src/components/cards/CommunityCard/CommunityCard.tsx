@@ -42,7 +42,7 @@ export default function CommunityCard({ community }: { community: Community }) {
 
   return (
     <Link to={`/communities/${community.id}/overview`} className={styles.card} aria-label={community.name}>
-      {/* Map image */}
+      {/* Map image with status chip overlay */}
       <div className={styles.thumb} aria-hidden="true">
         <img
           src={src}
@@ -52,6 +52,10 @@ export default function CommunityCard({ community }: { community: Community }) {
           loading="lazy"
           onError={onImgError}
         />
+        <div className={styles.statusChip} aria-label="Status: Active sales">
+          <span className={styles.statusDot} />
+          <span className={styles.statusText}>Active sales</span>
+        </div>
       </div>
 
       {/* Body */}
@@ -63,11 +67,6 @@ export default function CommunityCard({ community }: { community: Community }) {
           </div>
 
           <div className={styles.actions}>
-            <div className={styles.statusPill} aria-label="Status: Active">
-              <span className={styles.statusDot} />
-              <span className={styles.statusText}>Active</span>
-            </div>
-
             <Button
               type="button"
               variant="ghost"

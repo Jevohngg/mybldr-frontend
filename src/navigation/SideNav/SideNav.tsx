@@ -176,6 +176,7 @@ export default function SideNav() {
           <div className={styles.group}>
             <NavLink
               to="/specifications"
+              end
               onClick={onSpecsClick}
               aria-expanded={specsOpen}
               className={({ isActive }) => (isActive ? styles.rowActive : styles.row)}
@@ -206,7 +207,7 @@ export default function SideNav() {
                       cx(styles.childRow, isActive && styles.childRowActive)
                     }
                   >
-                    Templates
+                    Analytics
                   </NavLink>
                 </div>
               </div>
@@ -256,31 +257,41 @@ export default function SideNav() {
         </div>
 
         {/* Communities */}
-        <NavLink
-          to="/communities"
-          end
-          className={({ isActive }) =>
-            isActive ? styles.sectionPillActive : styles.sectionTitleLink
-          }
-        >
-          COMMUNITIES
-        </NavLink>
+        <div className={styles.communitiesSection}>
+          <NavLink
+            to="/communities"
+            end
+            className={({ isActive }) =>
+              isActive ? styles.rowActive : styles.row
+            }
+          >
+            <span className={styles.icon} aria-hidden="true">
+              <NavIcon src={ICONS.community} />
+            </span>
+            <span>Communities</span>
+          </NavLink>
 
-        <div className={styles.communityList} aria-label="Communities">
-          {communities.map((c: any) => {
-            const isActiveCommunity = activeCommunityId === c.id
+          <div className={styles.communityList} aria-label="Communities">
+            {communities.map((c: any) => {
+              const isActiveCommunity = activeCommunityId === c.id
 
-            return (
-              <div key={c.id} className={styles.communityBlock}>
-                <NavLink
-                  to={`/communities/${c.id}/overview`}
-                  className={isActiveCommunity ? styles.rowActive : styles.row}
-                >
-                  <span className={styles.icon} aria-hidden="true">
-                    <NavIcon src={ICONS.community} />
-                  </span>
-                  <span className={styles.communityName}>{c.name}</span>
-                </NavLink>
+              return (
+                <div key={c.id} className={styles.communityBlock}>
+                  <NavLink
+                    to={`/communities/${c.id}/overview`}
+                    end
+                    className={({ isActive }) => (isActive ? styles.communityRowActive : styles.communityRow)}
+                  >
+                    <span className={styles.communityThumb} aria-hidden="true">
+                      <img
+                        src={c.thumbnail ? `/assets/community/${c.thumbnail}` : `/assets/community/${c.id}.png`}
+                        alt=""
+                        className={styles.communityThumbImg}
+                        draggable={false}
+                      />
+                    </span>
+                    <span className={styles.communityName}>{c.name}</span>
+                  </NavLink>
 
                 {/* Always render the group so we can animate open/close smoothly */}
                 <div
@@ -331,7 +342,8 @@ export default function SideNav() {
             )
           })}
 
-          {communities.length === 0 && <div className={styles.emptyNote}>No communities yet</div>}
+            {communities.length === 0 && <div className={styles.emptyNote}>No communities yet</div>}
+          </div>
         </div>
       </nav>
     </aside>

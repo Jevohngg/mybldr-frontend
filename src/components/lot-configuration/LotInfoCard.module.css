@@ -1,0 +1,87 @@
+.container {
+  width: 320px;
+  background: white;
+  border-radius: 20px;
+  border: 1px solid #EFF0F0;
+  padding: 24px;
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0B0C0D;
+  margin: 0 0 20px 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #EFF0F0;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-size: 14px;
+  color: #636769;
+}
+
+.value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0B0C0D;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  background: #ECFDF5;
+  color: #059669;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .container {
+    width: 280px;
+    padding: 20px;
+    border-radius: 16px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .container {
+    width: 100%;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 479px) {
+  .container {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .title {
+    font-size: 0.9375rem;
+    margin-bottom: 16px;
+  }
+
+  .row {
+    padding: 10px 0;
+  }
+
+  .label,
+  .value {
+    font-size: 13px;
+  }
+}

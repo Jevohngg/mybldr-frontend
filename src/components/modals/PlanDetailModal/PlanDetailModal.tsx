@@ -3,7 +3,6 @@ import React from 'react'
 import styles from './PlanDetailModal.module.css'
 import PlanDetailSideNav from '../../../navigation/PlanDetailSideNav/PlanDetailSideNav'
 import AIPreviewOverlay from '../../ai-preview/AIPreviewOverlay'
-import TitleBlockInfo from './TitleBlockInfo'
 import RecordInfo from './RecordInfo'
 import PlanFeatures from './PlanFeatures'
 import HomeBuyerContent from './HomeBuyerContent'
@@ -158,7 +157,6 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
 
                   {activeTab === 'overview' && (
                     <div className={styles.rightSidebar}>
-                      <TitleBlockInfo />
                       <HomeBuyerContent isNewPlan={isNewPlan} />
                       <PlanFeatures />
                       <RecordInfo />
@@ -784,6 +782,104 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
             </svg>
           </Button>
         </div>
+      </div>
+
+      {/* Plans created from this model */}
+      <div className={styles.sectionCard}>
+        <h2 className={styles.plansCreatedTitle}>Plans created from this model</h2>
+        <div className={styles.plansTable}>
+          <div className={styles.plansTableHeader}>
+            <div className={styles.plansTableHeaderCell}>Name</div>
+            <div className={styles.plansTableHeaderCell}>Beds</div>
+            <div className={styles.plansTableHeaderCell}>Baths</div>
+            <div className={styles.plansTableHeaderCell}>AUR</div>
+            <div className={styles.plansTableHeaderCell}>Features</div>
+          </div>
+          <div className={styles.plansTableBody}>
+            {isNewPlan ? (
+              <div className={styles.plansTableEmptyRow}>
+                <span className={styles.plansTableEmptyText}>No plans created yet</span>
+              </div>
+            ) : (
+              <>
+                <div className={styles.plansTableRow}>
+                  <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                    <span className={styles.plansTableName}>Serena</span>
+                    <span className={styles.plansTableCommunity}>Silver Lake</span>
+                  </div>
+                  <div className={styles.plansTableCell}>3</div>
+                  <div className={styles.plansTableCell}>2.5</div>
+                  <div className={styles.plansTableCell}>12</div>
+                  <div className={styles.plansTableCell}>
+                    <span className={styles.featureChip}>Fireplace</span>
+                  </div>
+                </div>
+                <div className={styles.plansTableRow}>
+                  <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                    <span className={styles.plansTableName}>Serena B</span>
+                    <span className={styles.plansTableCommunity}>Whispering Hills</span>
+                  </div>
+                  <div className={styles.plansTableCell}>4</div>
+                  <div className={styles.plansTableCell}>3</div>
+                  <div className={styles.plansTableCell}>8</div>
+                  <div className={styles.plansTableCell}>
+                    <span className={styles.featureChip}>Finished LL</span>
+                  </div>
+                </div>
+                <div className={styles.plansTableRow}>
+                  <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                    <span className={styles.plansTableName}>Serena C</span>
+                    <span className={styles.plansTableCommunity}>Riverside Estates</span>
+                  </div>
+                  <div className={styles.plansTableCell}>3</div>
+                  <div className={styles.plansTableCell}>2</div>
+                  <div className={styles.plansTableCell}>15</div>
+                  <div className={styles.plansTableCell}>
+                    <span className={styles.featureChip}>Deck</span>
+                  </div>
+                </div>
+                <div className={styles.plansTableRow}>
+                  <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                    <span className={styles.plansTableName}>Serena XL</span>
+                    <span className={styles.plansTableCommunity}>The Pines</span>
+                  </div>
+                  <div className={styles.plansTableCell}>5</div>
+                  <div className={styles.plansTableCell}>4</div>
+                  <div className={styles.plansTableCell}>6</div>
+                  <div className={styles.plansTableCell}>
+                    <span className={styles.featureChip}>Fireplace</span>
+                    <span className={styles.featureChip}>Deck</span>
+                  </div>
+                </div>
+                <div className={styles.plansTableRow}>
+                  <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                    <span className={styles.plansTableName}>Serena Plus</span>
+                    <span className={styles.plansTableCommunity}>Silver Lake</span>
+                  </div>
+                  <div className={styles.plansTableCell}>4</div>
+                  <div className={styles.plansTableCell}>3.5</div>
+                  <div className={styles.plansTableCell}>10</div>
+                  <div className={styles.plansTableCell}>
+                    <span className={styles.featureChip}>Finished LL</span>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+        {!isNewPlan && (
+          <div className={styles.plansPagination}>
+            <div className={styles.plansPaginationLeft}>
+              <span className={styles.plansPaginationText}>Rows per page: 5</span>
+              <img src="/assets/icons/chevron-down.svg" alt="" className={styles.paginationDropdownIcon} />
+            </div>
+            <span className={styles.plansPaginationText}>1-5 of 13</span>
+            <div className={styles.plansPaginationButtons}>
+              <Button variant="secondary" iconOnly disabled aria-label="Previous page">‹</Button>
+              <Button variant="secondary" iconOnly disabled aria-label="Next page">›</Button>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className={styles.sectionCard}>

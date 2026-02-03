@@ -4,7 +4,9 @@ export const routes = {
   communityTab: (id: string, tab: string) => `/communities/${id}/${tab}`,
   reservedLot: (communityId: string, lotNumber: string) => `/communities/${communityId}/lots/${lotNumber}`,
   reservedLotTab: (communityId: string, lotNumber: string, tab: string) => `/communities/${communityId}/lots/${lotNumber}/${tab}`,
+  lotConfiguration: (communityId: string, lotNumber: string) => `/communities/${communityId}/lots/${lotNumber}/configure`,
 } as const
 
 export type CommunityTab = 'overview' | 'hoa' | 'documents' | 'specifications'
 export type ReservedLotTab = 'overview' | 'quotes' | 'documents'
+export type LotConfigurationTab = 'overview'

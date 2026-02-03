@@ -211,94 +211,56 @@
   align-items: center;
 }
 
-/* Stats cards */
+/* Stats cards - Connected metric group */
 .statsRow {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #EFF0F0;
+  border-radius: 16px;
   margin-bottom: 32px;
 }
 
 .statsRowTop {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 14px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #EFF0F0;
+  border-radius: 16px;
   margin-bottom: 32px;
 }
 
 .stat {
   display: flex;
-  padding: var(--spacing-2xl, 1.25rem);
-  align-items: flex-start;
-  gap: var(--spacing-xl, 1rem);
-  flex: 1 0 0;
-
-  border-radius: 0.5rem;
-  border: 1px solid var(--Colors-Border-border-secondary, #E9EAEB);
-  background: var(--Colors-Background-bg-primary, #FFF);
-
-  /* Shadows/shadow-xs */
-  box-shadow: 0 1px 2px 0 var(--Colors-Effects-Shadows-shadow-xs, rgba(10, 13, 18, 0.05));
-}
-
-.statActive {
-  border-color: rgba(29, 107, 205, 0.75);
-  box-shadow: 0 0 0 1px rgba(29, 107, 205, 0.1), var(--shadow-sm);
-}
-
-.statInner {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.statIconWrap {
-  display: flex;
-  padding: 0.625rem;
-  justify-content: center;
-  align-items: center;
-  aspect-ratio: 1/1;
-
-  border-radius: 0.375rem;
-  border: 1px solid var(--Colors-Border-border-primary, #D5D7DA);
-  background: var(--Colors-Background-bg-primary, #FFF);
-
-  /* Shadows/shadow-xs-skeuomorphic */
-  box-shadow: 0 0 0 1px rgba(10, 13, 18, 0.05) inset, 0 -1px 0 0 rgba(10, 13, 18, 0.01) inset,
-    0 1px 1px 0 rgba(10, 13, 18, 0.02);
-}
-
-.statIcon {
-  width: 18px;
-  height: 18px;
-  display: block;
-  opacity: 0.8;
-}
-
-.statText {
-  display: flex;
   flex-direction: column;
-  gap: 2px;
-  min-width: 0;
+  gap: 4px;
+  padding: 16px 20px;
+  flex: 1;
+}
+
+.statDivider {
+  width: 1px;
+  height: 64px;
+  background: #EFF0F0;
+  flex-shrink: 0;
 }
 
 .statTop {
   color: #535862;
-  font-family: Inter;
-  font-size: 0.875rem;
-  font-style: normal;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 1.25rem;
-  align-self: stretch;
+  line-height: 1.429;
 }
 
 .statValue {
   color: #181D27;
-  font-family: Inter;
-  font-size: 1.875rem;
-  font-style: normal;
+  font-family: Inter, sans-serif;
+  font-size: 24px;
   font-weight: 600;
-  line-height: 2.375rem;
+  line-height: 1.333;
 }
 
 /* Section headers */
@@ -534,12 +496,20 @@
 }
 
 @media (max-width: 1100px) {
-  .statsRow {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .stat {
+    padding: 14px 16px;
   }
 
-  .statsRowTop {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .statDivider {
+    height: 56px;
+  }
+
+  .statTop {
+    font-size: 13px;
+  }
+
+  .statValue {
+    font-size: 22px;
   }
 }
 
@@ -606,18 +576,17 @@
     gap: 0.5rem;
   }
 
-  .statsRow {
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-
+  .statsRow,
   .statsRowTop {
-    gap: 12px;
     margin-bottom: 24px;
   }
 
   .stat {
-    padding: 1rem;
+    padding: 12px 14px;
+  }
+
+  .statDivider {
+    height: 52px;
   }
 
   .plansRow {
@@ -687,32 +656,28 @@
 
   .statsRow,
   .statsRowTop {
-    gap: 10px;
+    flex-wrap: wrap;
+    border-radius: 12px;
     margin-bottom: 20px;
   }
 
   .stat {
-    padding: 0.875rem;
+    padding: 12px 14px;
+    min-width: 80px;
   }
 
-  .statIconWrap {
-    padding: 0.5rem;
-  }
-
-  .statIcon {
-    width: 16px;
-    height: 16px;
+  .statDivider {
+    height: 48px;
   }
 
   .statTop {
-    font-size: 0.8125rem;
-    line-height: 1.15rem;
+    font-size: 12px;
   }
 
   .statValue {
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 20px;
   }
+
 
   .sectionRow,
   .sectionRow2 {
@@ -830,32 +795,27 @@
     height: 1.125rem;
   }
 
+  .statsRow,
+  .statsRowTop {
+    border-radius: 10px;
+  }
+
   .stat {
-    padding: 0.75rem;
+    padding: 10px 12px;
   }
 
-  .statInner {
-    gap: 10px;
-  }
-
-  .statIconWrap {
-    padding: 0.375rem;
-  }
-
-  .statIcon {
-    width: 14px;
-    height: 14px;
+  .statDivider {
+    height: 40px;
   }
 
   .statTop {
-    font-size: 0.75rem;
-    line-height: 1rem;
+    font-size: 11px;
   }
 
   .statValue {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
+    font-size: 18px;
   }
+
 
   .sectionTitle {
     font-size: 10px;

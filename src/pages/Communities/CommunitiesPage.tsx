@@ -14,6 +14,14 @@ export default function CommunitiesPage() {
     setOpen(false)
   }
 
+  // Stats matching Figma design
+  const stats = [
+    { label: 'Active Sales', value: 120 },
+    { label: 'Presale', value: 240 },
+    { label: 'Under Development', value: 20 },
+    { label: 'Total Lots', value: 220 },
+  ]
+
   return (
     <div className={styles.page}>
       <div className="pageTitleRow">
@@ -32,14 +40,21 @@ export default function CommunitiesPage() {
 
       </div>
 
+      {/* Stats Row - Connected metric group */}
+      <div className={styles.statsRow}>
+        {stats.map((stat, index) => (
+          <React.Fragment key={stat.label}>
+            {index > 0 && <div className={styles.statDivider} />}
+            <div className={styles.stat}>
+              <div className={styles.statLabel}>{stat.label}</div>
+              <div className={styles.statValue}>{stat.value}</div>
+            </div>
+          </React.Fragment>
+        ))}
+      </div>
+
       <div className={styles.filtersRow}>
         <div className={`pill ${styles.pill} ${styles.pillLeft}`}>
-          <img
-            src="/assets/icons/sort.svg"
-            alt=""
-            className={styles.pillIcon}
-            draggable={false}
-          />
           <span>Date Created</span>
           <img
             src="/assets/icons/chevron-down.svg"

@@ -1,9 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styles from './CommunityMap.module.css'
 import LotDetailPopup from '../LotDetailPopup/LotDetailPopup'
 import ReservedLotPopup from '../ReservedLotPopup/ReservedLotPopup'
 import SelectPlanModal from '../../modals/SelectPlanModal/SelectPlanModal'
 import { CommunityMapData, Lot, LotStatus } from '../types'
+import { routes } from '../../../app/routes'
 
 interface Plan {
   id: string
@@ -53,6 +55,7 @@ function formatLotNumber(iframeLotNumber: string): string {
 
 export default function CommunityMap({ data }: CommunityMapProps) {
   const { communityId } = data
+  const navigate = useNavigate()
   const canvasRef = React.useRef<HTMLDivElement>(null)
 
   const [selectedLot, setSelectedLot] = React.useState<Lot | null>(null)
@@ -105,7 +108,12 @@ export default function CommunityMap({ data }: CommunityMapProps) {
 
   const handleSelectPlan = () => {
     if (selectedPlan && selectedLot) {
-      console.log(`Assigning plan ${selectedPlan.name} to lot ${selectedLot.lot_number}`)
+      navigate(routes.lotConfiguration(communityId, selectedLot.lot_number), {
+        state: {
+          lot: selectedLot,
+          plan: selectedPlan
+        }
+      })
       setSelectedPlan(null)
       setSelectedLot(null)
     }

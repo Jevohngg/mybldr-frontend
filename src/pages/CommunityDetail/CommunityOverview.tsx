@@ -45,11 +45,10 @@ export default function CommunityOverview() {
   const planObjs = plans.filter((p) => selectedPlans.includes(p.id))
 
   const statsTopRow = [
-    { label: 'Sold', value: '120', icon: '/assets/icons/sold-icon.svg', active: true },
-    { label: 'Released', value: '240', icon: '/assets/icons/released-icon.svg', active: false },
-    { label: 'Started', value: '20', icon: '/assets/icons/started-icon.svg', active: false },
-    { label: 'Not Started', value: '220', icon: '/assets/icons/not-started-icon.svg', active: false },
-    { label: 'Spec Homes', value: '2', icon: '/assets/icons/spec-homes-icon.svg', active: false },
+    { label: 'Sold', value: '120' },
+    { label: 'Released', value: '240' },
+    { label: 'Started', value: '20' },
+    { label: 'Not Started', value: '220' },
   ] as const
 
   return (
@@ -108,27 +107,6 @@ export default function CommunityOverview() {
 </Button>
 
 
-          <Button
-            variant="primary"
-            className={styles.addNewButton}
-            onClick={() => setAddPlansOpen(true)}
-          >
-            <span className={styles.buttonContent}>
-              <img
-                src="/assets/icons/plus.svg"
-                alt=""
-                className={styles.buttonIcon}
-                draggable={false}
-              />
-              <span>Add New</span>
-              <img
-                src="/assets/icons/chevron-down-white.svg"
-                alt=""
-                className={styles.buttonIcon}
-                draggable={false}
-              />
-            </span>
-          </Button>
         </div>
       </div>
 
@@ -229,32 +207,53 @@ export default function CommunityOverview() {
         </div>
       </div>
 
-      {/* Stats */}
+      {/* Stats - Connected metric group */}
       {planObjs.length > 0 && (
         <div className={styles.statsRowTop}>
-          {statsTopRow.map((s) => (
-            <div key={s.label} className={`${styles.stat} ${s.active ? styles.statActive : ''}`}>
-              <div className={styles.statInner}>
-                <div className={styles.statIconWrap}>
-                  <img src={s.icon} alt="" className={styles.statIcon} draggable={false} />
-                </div>
-
-                <div className={styles.statText}>
-                  <div className={styles.statTop}>{s.label}</div>
-                  <div className={styles.statValue}>{s.value}</div>
-                </div>
+          {statsTopRow.map((s, index) => (
+            <React.Fragment key={s.label}>
+              {index > 0 && <div className={styles.statDivider} />}
+              <div className={styles.stat}>
+                <div className={styles.statTop}>{s.label}</div>
+                <div className={styles.statValue}>{s.value}</div>
               </div>
-            </div>
+            </React.Fragment>
           ))}
         </div>
       )}
 
-      {/* Master plans */}
+      {/* Community map - Now first */}
       <div className={styles.sectionRow}>
+        <div className={styles.sectionTitle}>
+          COMMUNITY MAP <span className={styles.dot}>•</span>{' '}
+          <span className={styles.small}>{community.mapProjects || 0} ACTIVE PROJECTS</span>
+        </div>
+      </div>
+
+      <div className={styles.mapWrap}>
+        <CommunityMap data={mapData} />
+      </div>
+
+      {/* Master plans - Now second */}
+      <div className={styles.sectionRow2}>
         <div className={styles.sectionTitle}>
           MASTER PLANS <span className={styles.dot}>•</span>{' '}
           <span className={styles.small}>{planObjs.length} PLANS</span>
         </div>
+        <Button
+          variant="primary"
+          onClick={() => setAddPlansOpen(true)}
+        >
+          <span className={styles.buttonContent}>
+            <img
+              src="/assets/icons/plus.svg"
+              alt=""
+              className={styles.buttonIcon}
+              draggable={false}
+            />
+            <span>Add Plans</span>
+          </span>
+        </Button>
       </div>
 
       {planObjs.length === 0 ? (
@@ -308,18 +307,6 @@ export default function CommunityOverview() {
           </div>
         </>
       )}
-
-      {/* Community map */}
-      <div className={styles.sectionRow2}>
-        <div className={styles.sectionTitle}>
-          COMMUNITY MAP <span className={styles.dot}>•</span>{' '}
-          <span className={styles.small}>{community.mapProjects || 0} ACTIVE PROJECTS</span>
-        </div>
-      </div>
-
-      <div className={styles.mapWrap}>
-        <CommunityMap data={mapData} />
-      </div>
 
       <AddPlansModal
         open={addPlansOpen}

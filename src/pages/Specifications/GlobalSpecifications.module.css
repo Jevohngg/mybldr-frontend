@@ -11,6 +11,14 @@
   margin-bottom: 20px;
 }
 
+.sectionHeader {
+  font-family: Inter, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #181D27;
+  margin-bottom: 16px;
+}
+
 /* Stats Row */
 .statsRow {
   display: grid;

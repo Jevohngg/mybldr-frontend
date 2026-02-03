@@ -1,15 +1,194 @@
+/* Alert Banner */
+.alertWrapper {
+  display: grid;
+  grid-template-rows: 1fr;
+  width: 100%;
+  transition: grid-template-rows 0.3s ease-out, margin-bottom 0.3s ease-out;
+}
+
+.alertWrapperClosing {
+  grid-template-rows: 0fr;
+  margin-bottom: -2rem; /* Absorb the page's flex gap */
+}
+
+.alertBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 24px;
+  background: #EDF5EB;
+  border: 1px solid #D1E6CC;
+  border-radius: 8px;
+  opacity: 1;
+  overflow: hidden;
+  min-height: 0;
+  transition: opacity 0.2s ease-out, padding 0.3s ease-out, margin 0.3s ease-out, border-width 0.3s ease-out;
+}
+
+.alertClosing {
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-top-width: 0;
+  border-bottom-width: 0;
+}
+
+.alertContent {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.alertText {
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.429;
+  color: #177802;
+}
+
+.alertText strong {
+  font-weight: 600;
+}
+
+.alertCloseButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #177802;
+  transition: background-color 0.15s ease;
+}
+
+.alertCloseButton:hover {
+  background: rgba(23, 120, 2, 0.1);
+}
+
 .filtersRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding-bottom: 18px;
   width: 100%;
 }
+
+.leftFilters {
+  display: flex;
+  align-items: center;
+}
+
 .rightFilters {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
+}
+
+.filterButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #FFFFFF;
+  border: 1px solid #D8D9DA;
+  border-radius: 4px;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.333;
+  color: #3E4041;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.filterButton:hover {
+  background: #F4F5F5;
+  border-color: #C8C9CA;
+}
+
+.filterButtonActive {
+  background: #EBF3FB;
+  border-color: #1D6BCD;
+  color: #1D6BCD;
+}
+
+.filterButtonActive .filterChevron {
+  opacity: 1;
+  transform: rotate(180deg);
+}
+
+.filterButtonWrapper {
+  position: relative;
+}
+
+.clearFiltersButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.333;
+  color: #3E4041;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+
+.clearFiltersButton:hover {
+  background: #F4F5F5;
+}
+
+.filterCountBadge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 5px;
+  background: #1D6BCD;
+  border-radius: 24px;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.333;
+  letter-spacing: 0.012em;
+  color: #FFFFFF;
+}
+
+.filterBadge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5px;
+  background: #F4F5F5;
+  border-radius: 24px;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.333;
+  letter-spacing: 0.012em;
+  color: #636769;
+}
+
+.filterChevron {
+  width: 12px;
+  height: 16px;
+  opacity: 0.6;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 .grid {
   display: flex;
@@ -32,26 +211,6 @@
   gap: 6px;
 }
 
-.pill {
-  cursor: pointer;
-  user-select: none;
-}
-
-.pillLeft {
-  margin-right: auto;
-}
-
-.pillIcon {
-  width: 16px;
-  height: 16px;
-}
-
-.pillChevron {
-  width: 16px;
-  height: 16px;
-  opacity: 0.6;
-}
-
 /* ==========================================
    RESPONSIVE - TABLET
    ========================================== */
@@ -64,7 +223,6 @@
   .filtersRow {
     flex-wrap: wrap;
     gap: 10px;
-    padding-bottom: 14px;
   }
 
   .rightFilters {
@@ -87,11 +245,31 @@
     gap: 1.25rem;
   }
 
+  .alertWrapper {
+    margin-bottom: 20px;
+  }
+
+  .alertBanner {
+    padding: 10px 16px;
+  }
+
+  .alertText {
+    font-size: 13px;
+  }
+
   .filtersRow {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
-    padding-bottom: 12px;
+  }
+
+  .leftFilters {
+    width: 100%;
+  }
+
+  .leftFilters .filterButton {
+    width: 100%;
+    justify-content: center;
   }
 
   .rightFilters {
@@ -109,9 +287,8 @@
     width: 100%;
   }
 
-  .pill {
+  .filterButton {
     padding: 10px 12px;
-    font-size: 0.875rem;
   }
 }
 
@@ -124,9 +301,30 @@
     gap: 1rem;
   }
 
+  .alertWrapper {
+    margin-bottom: 16px;
+  }
+
+  .alertBanner {
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+
+  .alertText {
+    font-size: 12px;
+  }
+
+  .alertCloseButton {
+    padding: 2px;
+  }
+
+  .alertCloseButton svg {
+    width: 16px;
+    height: 16px;
+  }
+
   .filtersRow {
     gap: 10px;
-    padding-bottom: 10px;
   }
 
   .rightFilters {
@@ -138,13 +336,30 @@
     font-size: 0.875rem;
   }
 
-  .pillIcon {
-    width: 14px;
+  .filterButton {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .filterChevron {
+    width: 10px;
     height: 14px;
   }
 
-  .pillChevron {
-    width: 14px;
+  .filterBadge {
+    font-size: 11px;
+    padding: 0 4px;
+  }
+
+  .filterCountBadge {
+    font-size: 11px;
+    min-width: 14px;
     height: 14px;
+    padding: 0 4px;
+  }
+
+  .clearFiltersButton {
+    padding: 8px 10px;
+    font-size: 11px;
   }
 }
