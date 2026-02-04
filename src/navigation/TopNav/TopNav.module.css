@@ -50,24 +50,36 @@
   justify-content: center;
 }
 
-/* Collapsed Search field - Figma: layout_6W2DEJ */
+/* Collapsed Search field - Figma: layout_OEAZFS */
 .searchField {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 4px;
-  padding: 0 40px;
+  padding: 8px 40px;
   width: 465px;
   height: 40px;
   min-height: 40px;
   max-height: 40px;
   background: #3E4041;
-  border: 1px solid #D8D9DA;
+  border: 1px solid transparent;
   border-radius: 8px;
   box-sizing: border-box;
   cursor: pointer;
-  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out, border-color 0.15s ease;
+}
+
+.searchField:hover {
+  border-color: #D8D9DA;
+}
+
+.searchField:hover .searchIcon {
+  color: #FFFFFF;
+}
+
+.searchField:hover .searchPlaceholder {
+  color: #FFFFFF;
 }
 
 .searchFieldHidden {
@@ -78,9 +90,10 @@
 
 .searchIcon {
   flex-shrink: 0;
-  color: #FFFFFF;
+  color: #D8D9DA;
   width: 20px;
   height: 20px;
+  transition: color 0.15s ease;
 }
 
 .searchPlaceholder {
@@ -88,7 +101,8 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5em;
-  color: #FFFFFF;
+  color: #D8D9DA;
+  transition: color 0.15s ease;
 }
 
 /* ==========================================
@@ -137,16 +151,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* Match the collapsed search bar dimensions: 465px wide, fixed height */
-  width: 465px;
-  height: 40px;
-  min-height: 40px;
-  max-height: 40px;
-  margin: 0 auto;
-  padding: 0 12px;
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
+  padding: 6px 8px 6px 12px;
   background: #FFFFFF;
   border: 1px solid #1D6BCD;
-  border-radius: 8px;
+  border-radius: 4px;
   box-shadow: 0px 0px 0px 4px rgba(47, 108, 222, 0.24), 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
 }
@@ -161,14 +172,13 @@
 
 .searchDropdownInput {
   flex: 1;
-  height: 24px;
   background: transparent;
   border: none;
   outline: none;
   font-family: 'Inter', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 24px;
+  line-height: 20px;
   color: #0B0C0D;
   caret-color: #0B0C0D;
 }
@@ -258,7 +268,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 500;
-  line-height: 1.43em;
+  line-height: 20px;
   color: #636769;
 }
 
@@ -368,6 +378,7 @@
   border: 1px solid #EFF0F0;
   border-radius: 4px;
   padding: 0 4px;
+  box-sizing: border-box;
 }
 
 .dateMonth {
@@ -581,10 +592,6 @@
   .searchDropdown {
     width: 400px;
   }
-
-  .searchInputWrapper {
-    width: 350px;
-  }
 }
 
 @media (max-width: 1023px) {
@@ -630,10 +637,6 @@
 
   .searchDropdownVisible {
     transform: translateY(0);
-  }
-
-  .searchInputWrapper {
-    width: 100%;
   }
 
   .quickFilters {

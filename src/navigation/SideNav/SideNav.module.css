@@ -136,7 +136,7 @@
 .communityList {
   display: grid;
   gap: 2px;
-  padding-left: 12px;
+  padding-left: 28px;
 }
 
 .communityBlock {
@@ -196,6 +196,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid var(--Colors-Border-border-primary, #D8D9DA);
+  box-sizing: border-box;
 }
 
 .communityThumbImg {
@@ -358,7 +360,7 @@
   }
 
   .communityList {
-    padding-left: 10px;
+    padding-left: 28px;
   }
 }
 
@@ -412,7 +414,7 @@
   }
 
   .communityList {
-    padding-left: 8px;
+    padding-left: 30px;
   }
 
   /* Slightly larger connector for touch */
@@ -460,6 +462,6 @@
   }
 
   .communityList {
-    padding-left: 6px;
+    padding-left: 30px;
   }
 }
