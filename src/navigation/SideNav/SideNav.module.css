@@ -1,6 +1,6 @@
 .side {
   background: #F4F5F5;
-  padding: 14px 10px;
+  padding: 16px 12px;
   height: 100%;
   overflow: auto;
 }
@@ -55,12 +55,12 @@
 .row,
 .rowActive {
   display: flex;
-  padding: var(--3, 0.375rem) var(--5, 0.75rem);
+  padding: 7px 12px;
   flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   align-self: stretch;
-  border-radius: 0.5rem;
+  border-radius: 8px;
 
   overflow: hidden;
   color: var(--Colors-Text-text-secondary, #3E4041);
@@ -92,9 +92,11 @@
 }
 
 .rowActive {
-  border-radius: 0.5rem;
+  border-radius: 8px;
   border-color: var(--Colors-Border-border-secondary, #EFF0F0);
   background: var(--Colors-Background-bg-primary, #FFF);
+  font-weight: 600;
+  color: #252628;
 }
 
 .icon {
@@ -136,7 +138,7 @@
 .communityList {
   display: grid;
   gap: 2px;
-  padding-left: 28px;
+  padding-left: 0; /* Removed - indentation now on individual row elements for full-width hitbox */
 }
 
 .communityBlock {
@@ -148,12 +150,12 @@
 .communityRow,
 .communityRowActive {
   display: flex;
-  padding: var(--3, 0.375rem) var(--5, 0.75rem);
+  padding: 7px 12px 7px 40px; /* Left padding includes 28px indent for visual hierarchy */
   flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   align-self: stretch;
-  border-radius: 0.5rem;
+  border-radius: 8px;
 
   overflow: hidden;
   color: var(--Colors-Text-text-secondary, #3E4041);
@@ -161,10 +163,10 @@
   text-overflow: ellipsis;
 
   font-family: Inter;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 500;
-  line-height: 1.25rem;
+  line-height: 1.5rem;
 
   box-sizing: border-box;
   border: 1px solid transparent;
@@ -182,14 +184,16 @@
 }
 
 .communityRowActive {
-  border-radius: 0.5rem;
+  border-radius: 8px;
   border-color: var(--Colors-Border-border-secondary, #EFF0F0);
   background: var(--Colors-Background-bg-primary, #FFF);
+  font-weight: 600;
+  color: #252628;
 }
 
 .communityThumb {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
   border-radius: 4px;
   overflow: hidden;
@@ -207,7 +211,7 @@
 }
 
 .communityName {
-  font-weight: 600;
+  min-width: 0;
 }
 
 .emptyNote {
@@ -229,7 +233,7 @@
   margin-bottom: 4px;
 
   /* Connector variables (set from JS when there is an active child) */
-  --connector-left: 19px;
+  --connector-left: 22px;
   --active-elbow-top: 0px; /* px */
   --connector-opacity: 0; /* 0|1 */
   --connector-color: #bec1c6c8;
@@ -237,7 +241,7 @@
 
 /* Adjust connector for indented community items */
 .communityBlock .childGroup {
-  --connector-left: 19px;
+  --connector-left: 50px; /* Positioned to align with indented content */
 }
 
 /* Vertical trunk: from parent down to ONLY the active child's elbow */
@@ -264,24 +268,29 @@
   position: relative;
   display: flex;
   align-items: center;
-  padding: 10px 10px 10px 44px;
-  border-radius: 10px;
+  padding: 10px 10px 10px 72px; /* Deep indent for nested child items */
+  border-radius: 8px;
   font-size: 14px;
-  color: var(--color-text-secondary);
+  font-weight: 500;
+  color: var(--Colors-Text-text-secondary, #3E4041);
   text-decoration: none;
 
-  transition: background-color 180ms ease, color 180ms ease;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
 }
 
 .childRow:hover {
-
-  color: var(--color-text-primary);
+  background: rgba(37, 37, 37, 0.04);
+  color: var(--Colors-Text-text-secondary, #3E4041);
 }
 
-.childRowActive {
-  color: var(--color-text-primary);
+.childRowActive,
+.childRowActive:hover {
+  color: #252628;
   font-weight: 600;
-  border: 1px solid var(--Colors-Border-border-secondary, #EFF0F0);
+  border-color: var(--Colors-Border-border-secondary, #EFF0F0);
   background: var(--Colors-Background-bg-primary, #FFF);
 }
 
@@ -348,19 +357,23 @@
 
   .communityRow,
   .communityRowActive {
-    padding: 12px 14px;
+    padding: 12px 14px 12px 42px; /* Left padding includes indent for visual hierarchy */
     font-size: 0.875rem;
     min-height: 44px;
   }
 
   .childRow,
   .childRowActive {
-    padding: 12px 12px 12px 44px;
+    padding: 12px 12px 12px 72px;
     min-height: 44px;
   }
 
   .communityList {
-    padding-left: 28px;
+    padding-left: 0;
+  }
+
+  .communityBlock .childGroup {
+    --connector-left: 50px;
   }
 }
 
@@ -384,7 +397,7 @@
 
   .communityRow,
   .communityRowActive {
-    padding: 14px 12px;
+    padding: 14px 12px 14px 42px; /* Left padding includes indent for visual hierarchy */
     font-size: 0.875rem;
     min-height: 48px;
     border-radius: 8px;
@@ -392,7 +405,7 @@
 
   .childRow,
   .childRowActive {
-    padding: 14px 12px 14px 48px;
+    padding: 14px 12px 14px 78px;
     min-height: 48px;
     font-size: 0.875rem;
     border-radius: 8px;
@@ -409,17 +422,21 @@
   }
 
   .communityThumb {
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 24px;
+    height: 24px;
   }
 
   .communityList {
-    padding-left: 30px;
+    padding-left: 0;
   }
 
   /* Slightly larger connector for touch */
   .childGroup {
     --connector-left: 22px;
+  }
+
+  .communityBlock .childGroup {
+    --connector-left: 52px;
   }
 
   .childRow::before,
@@ -446,22 +463,26 @@
 
   .communityRow,
   .communityRowActive {
-    padding: 12px 10px;
+    padding: 12px 10px 12px 40px; /* Left padding includes indent for visual hierarchy */
     font-size: 0.8125rem;
   }
 
   .childRow,
   .childRowActive {
-    padding: 12px 10px 12px 44px;
+    padding: 12px 10px 12px 74px;
     font-size: 0.8125rem;
   }
 
   .communityThumb {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 20px;
+    height: 20px;
   }
 
   .communityList {
-    padding-left: 30px;
+    padding-left: 0;
+  }
+
+  .communityBlock .childGroup {
+    --connector-left: 52px;
   }
 }

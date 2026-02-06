@@ -47,6 +47,78 @@
 }
 
 /* ==========================================
+   LOADING STATE
+   ========================================== */
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input.inputLoading {
+  color: transparent;
+  background-color: #f9fafb;
+  pointer-events: none;
+}
+
+.input.inputPopulated {
+  animation: fadeInValue 0.4s ease-out forwards;
+}
+
+.fieldSpinner {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.fieldSpinnerSvg {
+  width: 100%;
+  height: 100%;
+  animation: rotate 1s linear infinite;
+}
+
+.fieldSpinnerCircle {
+  stroke: #9ca3af;
+  stroke-linecap: round;
+  animation: dashSmall 1s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dashSmall {
+  0% {
+    stroke-dasharray: 1, 100;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 45, 100;
+    stroke-dashoffset: -15;
+  }
+  100% {
+    stroke-dasharray: 45, 100;
+    stroke-dashoffset: -60;
+  }
+}
+
+@keyframes fadeInValue {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* ==========================================
    RESPONSIVE - TABLET
    ========================================== */
 

@@ -69,6 +69,11 @@
   color: #3E4041;
 }
 
+/* Under Development variant */
+.statusChipDevelopment .statusDot {
+  background: #D97706;
+}
+
 /* BODY */
 .body {
   display: flex;

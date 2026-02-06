@@ -260,6 +260,165 @@
   padding: 0 4px 8px;
 }
 
+/* ==========================================
+   AI SEMANTIC SEARCH SUMMARY
+   ========================================== */
+
+.aiSummaryContainer {
+  padding: 12px 16px;
+  margin: 0 8px 12px;
+  background: #F0F7FF;
+  border: 1px solid #BDDEFF;
+  border-radius: 8px;
+}
+
+.aiSummaryHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.aiSparkle {
+  font-size: 16px;
+  line-height: 1.5em;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.aiSummaryText {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.54em;
+  color: #3E4041;
+  margin: 0;
+  flex: 1;
+}
+
+.aiSuggestions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.suggestionChip {
+  padding: 4px 10px;
+  background: #FFFFFF;
+  border: 1px solid #BDDEFF;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.33em;
+  color: #1D6BCD;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.suggestionChip:hover {
+  background: #E6F2FF;
+  border-color: #1D6BCD;
+}
+
+.suggestionChip:active {
+  background: #D1E7FF;
+}
+
+/* AI Loading State */
+.aiLoadingState {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.aiLoadingPulse {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: aiPulse 2s ease-in-out infinite;
+}
+
+.aiLoadingText {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #636769;
+}
+
+@keyframes aiPulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Skeleton Loading Rows */
+.aiSkeletonRows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.aiSkeletonRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+}
+
+.aiSkeletonIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #E6F2FF 0%, #D1E7FF 50%, #E6F2FF 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.aiSkeletonContent {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.aiSkeletonLine {
+  height: 12px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #E6F2FF 0%, #D1E7FF 50%, #E6F2FF 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* AI Result Type Badge */
+.aiResultTypeBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 6px;
+  background: #E6F2FF;
+  border-radius: 2px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.6em;
+  letter-spacing: 0.02em;
+  color: #1D6BCD;
+}
+
 .recentHeader {
   padding: 8px 12px 4px;
 }
@@ -697,6 +856,33 @@
   .recentItemSubtitle {
     font-size: 11px;
   }
+
+  .aiSummaryContainer {
+    padding: 10px 12px;
+    margin: 0 8px 10px;
+  }
+
+  .aiSummaryText {
+    font-size: 12px;
+  }
+
+  .suggestionChip {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  .aiLoadingText {
+    font-size: 12px;
+  }
+
+  .aiSkeletonIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .aiSkeletonLine {
+    height: 10px;
+  }
 }
 
 /* ==========================================
@@ -706,7 +892,15 @@
 @media (prefers-reduced-motion: reduce) {
   .hamburger,
   .hamburgerLine,
-  .searchDropdown {
+  .searchDropdown,
+  .aiLoadingPulse,
+  .aiSkeletonIcon,
+  .aiSkeletonLine {
+    animation: none;
     transition: none;
+  }
+
+  .aiLoadingPulse {
+    opacity: 1;
   }
 }

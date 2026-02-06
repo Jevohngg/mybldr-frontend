@@ -129,6 +129,7 @@ export default function LotDetailPopup({ lot, position, onClose, onPlanClick }: 
                   src={plan.image}
                   alt={plan.name}
                   className={styles.planImage}
+                  onError={(e) => { (e.target as HTMLImageElement).src = '/assets/plans/placeholder.jpg' }}
                 />
                 <div className={styles.planDetails}>
                   <h5 className={styles.planName}>{plan.name}</h5>

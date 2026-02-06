@@ -25,7 +25,6 @@ import styles from './Templates.module.css';
 import { breadcrumbStyles } from '@/components/Breadcrumb';
 
 type ViewType = 'list' | 'detail';
-type TabType = 'base' | 'good' | 'better';
 
 interface Package {
   id: string;
@@ -116,7 +115,6 @@ const defaultVisibleColumns = {
 export default function GlobalSpecifications() {
   const [currentView, setCurrentView] = useState<ViewType>('list');
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
-  const [activeTab, setActiveTab] = useState<TabType>('base');
 
   // MUI DataGrid state
   const apiRef = useGridApiRef();
@@ -421,64 +419,8 @@ export default function GlobalSpecifications() {
         </div>
       </div>
 
-      {/* Tabs - Outside the card */}
-      <div className={styles.tabsContainer}>
-        <div className={styles.tabs}>
-          <button
-            type="button"
-            className={`${styles.tab} ${activeTab === 'base' ? styles.tabActive : ''}`}
-            onClick={() => setActiveTab('base')}
-          >
-            Base Specs
-          </button>
-          <button
-            type="button"
-            className={`${styles.tab} ${activeTab === 'good' ? styles.tabActive : ''}`}
-            onClick={() => setActiveTab('good')}
-          >
-            Good Package
-          </button>
-          <button
-            type="button"
-            className={`${styles.tab} ${activeTab === 'better' ? styles.tabActive : ''}`}
-            onClick={() => setActiveTab('better')}
-          >
-            Better Package
-          </button>
-          <button type="button" className={styles.tabAdd}>
-            <img src="/assets/icons/plus-rounded.svg" alt="Add package" className={styles.tabAddIcon} draggable={false} />
-          </button>
-        </div>
-      </div>
-
-      {/* Table Card - Separate from tabs */}
-      <div className={styles.card}>
-        {/* Toolbar */}
-        <div className={styles.toolbar}>
-          <div className={styles.toolbarLeft}>
-            <button type="button" className={styles.toolbarButton}>
-              <img src="/assets/icons/search.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-              <span>Search</span>
-            </button>
-            <button type="button" className={styles.toolbarButton}>
-              <img src="/assets/icons/filter.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-              <span>Filter</span>
-            </button>
-            <button type="button" className={styles.toolbarButton}>
-              <img src="/assets/icons/sort.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-              <span>Sort</span>
-            </button>
-          </div>
-          <div className={styles.toolbarRight}>
-            <button type="button" className={styles.toolbarButton}>
-              <img src="/assets/icons/columns.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-              <span>Edit Columns</span>
-            </button>
-          </div>
-        </div>
-
-        {/* MUI DataGrid Table */}
-        <DataGridPremium
+      {/* MUI DataGrid Table */}
+      <DataGridPremium
           autoHeight
           apiRef={apiRef}
           rows={rows}
@@ -501,8 +443,7 @@ export default function GlobalSpecifications() {
           getRowClassName={getRowClassName}
           rowHeight={50}
           hideFooter
-        />
-      </div>
+      />
     </motion.div>
   );
 }

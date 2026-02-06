@@ -7,6 +7,7 @@ import RecordInfo from './RecordInfo'
 import PlanFeatures from './PlanFeatures'
 import HomeBuyerContent from './HomeBuyerContent'
 import Button from '../../ui/Button'
+import { getPlanById } from '../../../mock-data/plans'
 
 type TabType = 'overview' | 'plans'
 
@@ -22,6 +23,9 @@ interface PlanDetailModalProps {
 export default function PlanDetailModal({ open, onClose, planId, planName, communityCount, isNewPlan = false }: PlanDetailModalProps) {
   const [activeTab, setActiveTab] = React.useState<TabType>('overview')
   const [aiPreviewOpen, setAiPreviewOpen] = React.useState(false)
+  // Lifted extraction state for sidebar components
+  const [isExtractingData, setIsExtractingData] = React.useState(false)
+  const [dataPopulated, setDataPopulated] = React.useState(false)
   const [formData, setFormData] = React.useState({
     name: planName,
     modelId: '',
@@ -44,6 +48,12 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
     foundationTypes: [] as string[],
     costPerSquareFoot: 0,
     floors: 0,
+    // Team info
+    architectOfRecord: '',
+    engineerOfRecord: '',
+    copyrightOwner: '',
+    // Plan features
+    planFeatures: [] as string[],
   })
 
   React.useEffect(() => {
@@ -80,36 +90,76 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
           foundationTypes: [],
           costPerSquareFoot: 0,
           floors: 0,
+          architectOfRecord: '',
+          engineerOfRecord: '',
+          copyrightOwner: '',
+          planFeatures: [],
         })
       } else {
-        // Initialize with existing plan data (mock data for now)
-        setFormData({
-          name: planName,
-          modelId: '',
-          masterModelId: '',
-          collection: ['River Collection'],
-          series: ["30' Series", "50' Series"],
-          structureType: ['Single Family', 'Villa'],
-          specificationLevel: ['Live.M'],
-          division: ['DFW', 'Houston'],
-          description: '',
-          bedrooms: 0,
-          bathrooms: 0,
-          halfBaths: 0,
-          garageSpaces: 0,
-          totalFinishedSqft: 0,
-          totalUnfinishedSqft: 0,
-          width: "0'",
-          depth: "0'",
-          numberOfElevations: 0,
-          foundationTypes: ['Slab on Grade', 'Piles'],
-          costPerSquareFoot: 0,
-          floors: 0,
-        })
+        // Load plan data from mock data
+        const planData = getPlanById(planId)
+        if (planData) {
+          setFormData({
+            name: planData.name,
+            modelId: planData.modelId,
+            masterModelId: planData.masterModelId,
+            collection: planData.collection,
+            series: planData.seriesList,
+            structureType: planData.structureType,
+            specificationLevel: planData.specificationLevel,
+            division: planData.division,
+            description: planData.description,
+            bedrooms: planData.bedrooms,
+            bathrooms: planData.bathrooms,
+            halfBaths: planData.halfBaths,
+            garageSpaces: planData.garageSpaces,
+            totalFinishedSqft: planData.totalFinishedSqft,
+            totalUnfinishedSqft: planData.totalUnfinishedSqft,
+            width: planData.width,
+            depth: planData.depth,
+            numberOfElevations: planData.numberOfElevations,
+            foundationTypes: planData.foundationTypes,
+            costPerSquareFoot: planData.costPerSquareFoot,
+            floors: planData.floors,
+            architectOfRecord: planData.architectOfRecord,
+            engineerOfRecord: planData.engineerOfRecord,
+            copyrightOwner: planData.copyrightOwner,
+            planFeatures: planData.planFeatures,
+          })
+        } else {
+          // Fallback for plans not in mock data
+          setFormData({
+            name: planName,
+            modelId: '',
+            masterModelId: '',
+            collection: ['River Collection'],
+            series: ["30' Series", "50' Series"],
+            structureType: ['Single Family', 'Villa'],
+            specificationLevel: ['Live.M'],
+            division: ['DFW', 'Houston'],
+            description: '',
+            bedrooms: 0,
+            bathrooms: 0,
+            halfBaths: 0,
+            garageSpaces: 0,
+            totalFinishedSqft: 0,
+            totalUnfinishedSqft: 0,
+            width: "0'",
+            depth: "0'",
+            numberOfElevations: 0,
+            foundationTypes: ['Slab on Grade', 'Piles'],
+            costPerSquareFoot: 0,
+            floors: 0,
+            architectOfRecord: '',
+            engineerOfRecord: '',
+            copyrightOwner: '',
+            planFeatures: [],
+          })
+        }
       }
       setActiveTab('overview')
     }
-  }, [open, planName, isNewPlan])
+  }, [open, planId, planName, isNewPlan])
 
   return (
     <>
@@ -134,7 +184,7 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
             <Button variant="ghost" size="sm" iconOnly className={styles.closeBtn} onClick={onClose} aria-label="Close">✕</Button>
             <div className={styles.container}>
               <PlanDetailSideNav
-                planName={planName}
+                planName={formData.name || planName}
                 communityCount={communityCount}
                 activeTab={activeTab}
                 onTabChange={setActiveTab}
@@ -148,7 +198,16 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
                 <div className={styles.scrollableWrapper}>
                   <div className={styles.centerContent}>
                     {activeTab === 'overview' && (
-                      <OverviewTab formData={formData} setFormData={setFormData} onOpenAIPreview={() => setAiPreviewOpen(true)} isNewPlan={isNewPlan} />
+                      <OverviewTab
+                        formData={formData}
+                        setFormData={setFormData}
+                        onOpenAIPreview={() => setAiPreviewOpen(true)}
+                        isNewPlan={isNewPlan}
+                        isExtractingData={isExtractingData}
+                        setIsExtractingData={setIsExtractingData}
+                        dataPopulated={dataPopulated}
+                        setDataPopulated={setDataPopulated}
+                      />
                     )}
                     {activeTab === 'plans' && (
                       <PlansTab />
@@ -158,8 +217,21 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
                   {activeTab === 'overview' && (
                     <div className={styles.rightSidebar}>
                       <HomeBuyerContent isNewPlan={isNewPlan} />
-                      <PlanFeatures />
-                      <RecordInfo />
+                      <PlanFeatures
+                        features={formData.planFeatures}
+                        isLoading={isExtractingData}
+                        isPopulated={dataPopulated}
+                      />
+                      <RecordInfo
+                        architectOfRecord={formData.architectOfRecord}
+                        engineerOfRecord={formData.engineerOfRecord}
+                        copyrightOwner={formData.copyrightOwner}
+                        onArchitectChange={(value) => setFormData(prev => ({ ...prev, architectOfRecord: value }))}
+                        onEngineerChange={(value) => setFormData(prev => ({ ...prev, engineerOfRecord: value }))}
+                        onCopyrightChange={(value) => setFormData(prev => ({ ...prev, copyrightOwner: value }))}
+                        isLoading={isExtractingData}
+                        isPopulated={dataPopulated}
+                      />
                     </div>
                   )}
                 </div>
@@ -173,7 +245,36 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
   )
 }
 
-function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false }: {
+// The Smith Plan data for auto-population
+const SMITH_PLAN_DATA = {
+  name: 'The Smith',
+  modelId: 'SM-2024-031',
+  masterModelId: 'SM-MASTER-003',
+  collection: ['Accessibility Collection'],
+  series: ["50' Series"],
+  structureType: ['Single Family'],
+  specificationLevel: ['Standard'],
+  division: ['DFW'],
+  description: 'Single-level home with wide halls and zero-step entry. Designed for accessibility with an open floor plan, 3 bedrooms, and 2 full bathrooms. Energy-efficient construction with LEED Gold certification.',
+  bedrooms: 3,
+  bathrooms: 2,
+  halfBaths: 1,
+  garageSpaces: 2,
+  totalFinishedSqft: 2850,
+  totalUnfinishedSqft: 850,
+  width: "50'",
+  depth: "60'",
+  numberOfElevations: 4,
+  foundationTypes: ['Slab'],
+  costPerSquareFoot: 175,
+  floors: 1,
+  architectOfRecord: 'Smith Architecture',
+  engineerOfRecord: 'Johnson Engineering',
+  copyrightOwner: 'Smith Architecture',
+  planFeatures: ['Office/Flex Space', 'Kitchen island', 'Fireplace'],
+}
+
+function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false, isExtractingData, setIsExtractingData, dataPopulated, setDataPopulated }: {
   formData: {
     name: string
     modelId: string
@@ -196,6 +297,10 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
     foundationTypes: string[]
     costPerSquareFoot: number
     floors: number
+    architectOfRecord: string
+    engineerOfRecord: string
+    copyrightOwner: string
+    planFeatures: string[]
   }
   setFormData: React.Dispatch<React.SetStateAction<{
     name: string
@@ -219,9 +324,17 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
     foundationTypes: string[]
     costPerSquareFoot: number
     floors: number
+    architectOfRecord: string
+    engineerOfRecord: string
+    copyrightOwner: string
+    planFeatures: string[]
   }>>
   onOpenAIPreview: () => void
   isNewPlan?: boolean
+  isExtractingData: boolean
+  setIsExtractingData: React.Dispatch<React.SetStateAction<boolean>>
+  dataPopulated: boolean
+  setDataPopulated: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const [isPreparing, setIsPreparing] = React.useState(false)
   const [isUploading, setIsUploading] = React.useState(false)
@@ -234,6 +347,12 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
     setIsPreparing(true)
     setIsCompleted(false)
     setProgress(0)
+
+    // Start extraction when upload starts (for new plans only)
+    if (isNewPlan) {
+      setIsExtractingData(true)
+      setDataPopulated(false)
+    }
 
     setTimeout(() => {
       if (containerRef.current) {
@@ -266,6 +385,17 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
           setTimeout(() => {
             setIsUploading(false)
             setIsCompleted(true)
+
+            // Keep spinners for 1 more second after completion, then populate data
+            if (isNewPlan) {
+              setTimeout(() => {
+                setIsExtractingData(false)
+                setFormData(SMITH_PLAN_DATA)
+                setDataPopulated(true)
+                // Reset populated animation state after animation completes
+                setTimeout(() => setDataPopulated(false), 500)
+              }, 1000)
+            }
           }, 300)
         } else {
           setProgress(currentProgress)
@@ -295,46 +425,76 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
     }
   }
 
+  // Helper component for field spinner
+  const FieldSpinner = ({ isTextarea = false }: { isTextarea?: boolean }) => (
+    <div className={`${styles.fieldSpinner} ${isTextarea ? styles.fieldSpinnerTextarea : ''}`}>
+      <svg className={styles.fieldSpinnerSvg} viewBox="0 0 50 50">
+        <circle className={styles.fieldSpinnerCircle} cx="25" cy="25" r="20" fill="none" strokeWidth="5"></circle>
+      </svg>
+    </div>
+  )
+
+  // Helper to get input class names
+  const getInputClassName = (baseClass: string = styles.input) => {
+    const classes = [baseClass]
+    if (isExtractingData) classes.push(styles.inputLoading)
+    if (dataPopulated) classes.push(styles.inputPopulated)
+    return classes.join(' ')
+  }
+
   return (
     <div className={styles.overviewTab}>
       <div className={styles.sectionCard}>
         <div className={styles.formSection}>
           <label className={styles.label}>Name</label>
-          <input
-            type="text"
-            className={styles.input}
-            value={formData.name}
-            onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-          />
+          <div className={styles.inputWrapper}>
+            {isExtractingData && <FieldSpinner />}
+            <input
+              type="text"
+              className={getInputClassName()}
+              value={formData.name}
+              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+              disabled={isExtractingData}
+            />
+          </div>
         </div>
 
         <div className={styles.formRow}>
           <div className={styles.formColumn}>
             <label className={styles.label}>Model ID</label>
-            <input
-              type="text"
-              className={styles.input}
-              placeholder="Enter model id number"
-              value={formData.modelId}
-              onChange={(e) => setFormData(prev => ({ ...prev, modelId: e.target.value }))}
-            />
+            <div className={styles.inputWrapper}>
+              {isExtractingData && <FieldSpinner />}
+              <input
+                type="text"
+                className={getInputClassName()}
+                placeholder="Enter model id number"
+                value={formData.modelId}
+                onChange={(e) => setFormData(prev => ({ ...prev, modelId: e.target.value }))}
+                disabled={isExtractingData}
+              />
+            </div>
           </div>
           <div className={styles.formColumn}>
             <label className={styles.label}>Master model ID</label>
-            <input
-              type="text"
-              className={styles.input}
-              placeholder="Enter master model ID"
-              value={formData.masterModelId}
-              onChange={(e) => setFormData(prev => ({ ...prev, masterModelId: e.target.value }))}
-            />
+            <div className={styles.inputWrapper}>
+              {isExtractingData && <FieldSpinner />}
+              <input
+                type="text"
+                className={getInputClassName()}
+                placeholder="Enter master model ID"
+                value={formData.masterModelId}
+                onChange={(e) => setFormData(prev => ({ ...prev, masterModelId: e.target.value }))}
+                disabled={isExtractingData}
+              />
+            </div>
           </div>
         </div>
 
         <div className={styles.formRow}>
           <div className={styles.formColumn}>
             <label className={styles.label}>Collection</label>
-            <div className={styles.multiSelect}>
+            <div className={`${styles.multiSelect} ${isExtractingData ? styles.inputLoading : ''} ${dataPopulated ? styles.inputPopulated : ''}`}>
+              {isExtractingData && <FieldSpinner />}
               <div className={styles.multiSelectContent}>
                 {formData.collection.map(item => (
                   <span key={item} className={styles.tag}>
@@ -346,6 +506,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                       iconOnly
                       className={styles.tagRemove}
                       onClick={() => handleRemoveTag('collection', item)}
+                      disabled={isExtractingData}
                     >
                       ✕
                     </Button>
@@ -359,7 +520,8 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
           </div>
           <div className={styles.formColumn}>
             <label className={styles.label}>Series</label>
-            <div className={styles.multiSelect}>
+            <div className={`${styles.multiSelect} ${isExtractingData ? styles.inputLoading : ''} ${dataPopulated ? styles.inputPopulated : ''}`}>
+              {isExtractingData && <FieldSpinner />}
               <div className={styles.multiSelectContent}>
                 {formData.series.map(item => (
                   <span key={item} className={styles.tag}>
@@ -371,6 +533,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                       iconOnly
                       className={styles.tagRemove}
                       onClick={() => handleRemoveTag('series', item)}
+                      disabled={isExtractingData}
                     >
                       ✕
                     </Button>
@@ -387,7 +550,8 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
         <div className={styles.formRow}>
           <div className={styles.formColumn}>
             <label className={styles.label}>Structure Type</label>
-            <div className={styles.multiSelect}>
+            <div className={`${styles.multiSelect} ${isExtractingData ? styles.inputLoading : ''} ${dataPopulated ? styles.inputPopulated : ''}`}>
+              {isExtractingData && <FieldSpinner />}
               <div className={styles.multiSelectContent}>
                 {formData.structureType.map(item => (
                   <span key={item} className={styles.tag}>
@@ -399,6 +563,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                       iconOnly
                       className={styles.tagRemove}
                       onClick={() => handleRemoveTag('structureType', item)}
+                      disabled={isExtractingData}
                     >
                       ✕
                     </Button>
@@ -412,7 +577,8 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
           </div>
           <div className={styles.formColumn}>
             <label className={styles.label}>Specification Level</label>
-            <div className={styles.multiSelect}>
+            <div className={`${styles.multiSelect} ${isExtractingData ? styles.inputLoading : ''} ${dataPopulated ? styles.inputPopulated : ''}`}>
+              {isExtractingData && <FieldSpinner />}
               <div className={styles.multiSelectContent}>
                 {formData.specificationLevel.map(item => (
                   <span key={item} className={styles.tag}>
@@ -424,6 +590,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                       iconOnly
                       className={styles.tagRemove}
                       onClick={() => handleRemoveTag('specificationLevel', item)}
+                      disabled={isExtractingData}
                     >
                       ✕
                     </Button>
@@ -439,7 +606,8 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
 
         <div className={styles.formSection}>
           <label className={styles.label}>Division</label>
-          <div className={styles.multiSelect}>
+          <div className={`${styles.multiSelect} ${isExtractingData ? styles.inputLoading : ''} ${dataPopulated ? styles.inputPopulated : ''}`}>
+            {isExtractingData && <FieldSpinner />}
             <div className={styles.multiSelectContent}>
               {formData.division.map(item => (
                 <span key={item} className={styles.tag}>
@@ -451,6 +619,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                     iconOnly
                     className={styles.tagRemove}
                     onClick={() => handleRemoveTag('division', item)}
+                    disabled={isExtractingData}
                   >
                     ✕
                   </Button>
@@ -465,13 +634,17 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
 
         <div className={styles.formSection}>
           <label className={styles.label}>Description</label>
-          <textarea
-            className={styles.textarea}
-            placeholder="Enter plan description"
-            value={formData.description}
-            onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-            rows={5}
-          />
+          <div className={styles.inputWrapper}>
+            {isExtractingData && <FieldSpinner isTextarea />}
+            <textarea
+              className={getInputClassName(styles.textarea)}
+              placeholder="Enter plan description"
+              value={formData.description}
+              onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+              rows={5}
+              disabled={isExtractingData}
+            />
+          </div>
         </div>
 
         <div className={styles.masterPlanSection}>
@@ -619,42 +792,58 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
         <div className={styles.formRow}>
           <div className={styles.formColumn}>
             <label className={styles.label}>Bedrooms</label>
-            <input
-              type="number"
-              className={styles.input}
-              value={formData.bedrooms}
-              onChange={(e) => setFormData(prev => ({ ...prev, bedrooms: Number(e.target.value) }))}
-            />
+            <div className={styles.inputWrapper}>
+              {isExtractingData && <FieldSpinner />}
+              <input
+                type="number"
+                className={getInputClassName()}
+                value={formData.bedrooms || ''}
+                onChange={(e) => setFormData(prev => ({ ...prev, bedrooms: Number(e.target.value) }))}
+                disabled={isExtractingData}
+              />
+            </div>
           </div>
           <div className={styles.formColumn}>
             <label className={styles.label}>Bathrooms</label>
-            <input
-              type="number"
-              className={styles.input}
-              value={formData.bathrooms}
-              onChange={(e) => setFormData(prev => ({ ...prev, bathrooms: Number(e.target.value) }))}
-            />
+            <div className={styles.inputWrapper}>
+              {isExtractingData && <FieldSpinner />}
+              <input
+                type="number"
+                className={getInputClassName()}
+                value={formData.bathrooms || ''}
+                onChange={(e) => setFormData(prev => ({ ...prev, bathrooms: Number(e.target.value) }))}
+                disabled={isExtractingData}
+              />
+            </div>
           </div>
         </div>
 
         <div className={styles.formRow}>
           <div className={styles.formColumn}>
             <label className={styles.label}>Half baths</label>
-            <input
-              type="number"
-              className={styles.input}
-              value={formData.halfBaths}
-              onChange={(e) => setFormData(prev => ({ ...prev, halfBaths: Number(e.target.value) }))}
-            />
+            <div className={styles.inputWrapper}>
+              {isExtractingData && <FieldSpinner />}
+              <input
+                type="number"
+                className={getInputClassName()}
+                value={formData.halfBaths || ''}
+                onChange={(e) => setFormData(prev => ({ ...prev, halfBaths: Number(e.target.value) }))}
+                disabled={isExtractingData}
+              />
+            </div>
           </div>
           <div className={styles.formColumn}>
             <label className={styles.label}>Garage spaces</label>
-            <input
-              type="number"
-              className={styles.input}
-              value={formData.garageSpaces}
-              onChange={(e) => setFormData(prev => ({ ...prev, garageSpaces: Number(e.target.value) }))}
-            />
+            <div className={styles.inputWrapper}>
+              {isExtractingData && <FieldSpinner />}
+              <input
+                type="number"
+                className={getInputClassName()}
+                value={formData.garageSpaces || ''}
+                onChange={(e) => setFormData(prev => ({ ...prev, garageSpaces: Number(e.target.value) }))}
+                disabled={isExtractingData}
+              />
+            </div>
           </div>
         </div>
 
@@ -662,24 +851,32 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
           <div className={styles.formColumn}>
             <label className={styles.label}>Total finished square footage</label>
             <div className={styles.inputWithSuffix}>
-              <input
-                type="number"
-                className={styles.input}
-                value={formData.totalFinishedSqft}
-                onChange={(e) => setFormData(prev => ({ ...prev, totalFinishedSqft: Number(e.target.value) }))}
-              />
+              <div className={styles.inputWrapper}>
+                {isExtractingData && <FieldSpinner />}
+                <input
+                  type="number"
+                  className={getInputClassName()}
+                  value={formData.totalFinishedSqft || ''}
+                  onChange={(e) => setFormData(prev => ({ ...prev, totalFinishedSqft: Number(e.target.value) }))}
+                  disabled={isExtractingData}
+                />
+              </div>
               <span className={styles.inputSuffix}>Sqft</span>
             </div>
           </div>
           <div className={styles.formColumn}>
             <label className={styles.label}>Total unfinished square footage</label>
             <div className={styles.inputWithSuffix}>
-              <input
-                type="number"
-                className={styles.input}
-                value={formData.totalUnfinishedSqft}
-                onChange={(e) => setFormData(prev => ({ ...prev, totalUnfinishedSqft: Number(e.target.value) }))}
-              />
+              <div className={styles.inputWrapper}>
+                {isExtractingData && <FieldSpinner />}
+                <input
+                  type="number"
+                  className={getInputClassName()}
+                  value={formData.totalUnfinishedSqft || ''}
+                  onChange={(e) => setFormData(prev => ({ ...prev, totalUnfinishedSqft: Number(e.target.value) }))}
+                  disabled={isExtractingData}
+                />
+              </div>
               <span className={styles.inputSuffix}>Sqft</span>
             </div>
           </div>
@@ -688,37 +885,50 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
         <div className={styles.formRow}>
           <div className={styles.formColumn}>
             <label className={styles.label}>Width</label>
-            <input
-              type="text"
-              className={styles.input}
-              value={formData.width}
-              onChange={(e) => setFormData(prev => ({ ...prev, width: e.target.value }))}
-            />
+            <div className={styles.inputWrapper}>
+              {isExtractingData && <FieldSpinner />}
+              <input
+                type="text"
+                className={getInputClassName()}
+                value={formData.width}
+                onChange={(e) => setFormData(prev => ({ ...prev, width: e.target.value }))}
+                disabled={isExtractingData}
+              />
+            </div>
           </div>
           <div className={styles.formColumn}>
             <label className={styles.label}>Depth</label>
-            <input
-              type="text"
-              className={styles.input}
-              value={formData.depth}
-              onChange={(e) => setFormData(prev => ({ ...prev, depth: e.target.value }))}
-            />
+            <div className={styles.inputWrapper}>
+              {isExtractingData && <FieldSpinner />}
+              <input
+                type="text"
+                className={getInputClassName()}
+                value={formData.depth}
+                onChange={(e) => setFormData(prev => ({ ...prev, depth: e.target.value }))}
+                disabled={isExtractingData}
+              />
+            </div>
           </div>
         </div>
 
         <div className={styles.formRow}>
           <div className={styles.formColumn}>
             <label className={styles.label}># of elevations</label>
-            <input
-              type="number"
-              className={styles.input}
-              value={formData.numberOfElevations}
-              onChange={(e) => setFormData(prev => ({ ...prev, numberOfElevations: Number(e.target.value) }))}
-            />
+            <div className={styles.inputWrapper}>
+              {isExtractingData && <FieldSpinner />}
+              <input
+                type="number"
+                className={getInputClassName()}
+                value={formData.numberOfElevations || ''}
+                onChange={(e) => setFormData(prev => ({ ...prev, numberOfElevations: Number(e.target.value) }))}
+                disabled={isExtractingData}
+              />
+            </div>
           </div>
           <div className={styles.formColumn}>
             <label className={styles.label}>Foundation types</label>
-            <div className={styles.multiSelect}>
+            <div className={`${styles.multiSelect} ${isExtractingData ? styles.inputLoading : ''} ${dataPopulated ? styles.inputPopulated : ''}`}>
+              {isExtractingData && <FieldSpinner />}
               <div className={styles.multiSelectContent}>
                 {formData.foundationTypes.map(item => (
                   <span key={item} className={styles.tag}>
@@ -730,6 +940,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                       iconOnly
                       className={styles.tagRemove}
                       onClick={() => handleRemoveTag('foundationTypes', item)}
+                      disabled={isExtractingData}
                     >
                       ✕
                     </Button>
@@ -746,21 +957,29 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
         <div className={styles.formRow}>
           <div className={styles.formColumn}>
             <label className={styles.label}>Cost per square foot</label>
-            <input
-              type="number"
-              className={styles.input}
-              value={formData.costPerSquareFoot}
-              onChange={(e) => setFormData(prev => ({ ...prev, costPerSquareFoot: Number(e.target.value) }))}
-            />
+            <div className={styles.inputWrapper}>
+              {isExtractingData && <FieldSpinner />}
+              <input
+                type="number"
+                className={getInputClassName()}
+                value={formData.costPerSquareFoot || ''}
+                onChange={(e) => setFormData(prev => ({ ...prev, costPerSquareFoot: Number(e.target.value) }))}
+                disabled={isExtractingData}
+              />
+            </div>
           </div>
           <div className={styles.formColumn}>
             <label className={styles.label}>Floors</label>
-            <input
-              type="number"
-              className={styles.input}
-              value={formData.floors}
-              onChange={(e) => setFormData(prev => ({ ...prev, floors: Number(e.target.value) }))}
-            />
+            <div className={styles.inputWrapper}>
+              {isExtractingData && <FieldSpinner />}
+              <input
+                type="number"
+                className={getInputClassName()}
+                value={formData.floors || ''}
+                onChange={(e) => setFormData(prev => ({ ...prev, floors: Number(e.target.value) }))}
+                disabled={isExtractingData}
+              />
+            </div>
           </div>
         </div>
 
@@ -784,9 +1003,9 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
         </div>
       </div>
 
-      {/* Plans created from this model */}
+      {/* Community masters using this plan */}
       <div className={styles.sectionCard}>
-        <h2 className={styles.plansCreatedTitle}>Plans created from this model</h2>
+        <h2 className={styles.plansCreatedTitle}>Community masters using {formData.name || 'this plan'}</h2>
         <div className={styles.plansTable}>
           <div className={styles.plansTableHeader}>
             <div className={styles.plansTableHeaderCell}>Name</div>
@@ -883,7 +1102,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
       </div>
 
       <div className={styles.sectionCard}>
-        <h2 className={styles.plansCreatedTitle}>Lot specific projects using this plan</h2>
+        <h2 className={styles.plansCreatedTitle}>Lot specific projects using {formData.name || 'this plan'}</h2>
         <div className={styles.plansTable}>
           <div className={styles.plansTableHeader}>
             <div className={styles.plansTableHeaderCell}>Project name</div>

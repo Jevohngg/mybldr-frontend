@@ -43,7 +43,6 @@ const standardSpecs = [
 ];
 
 type ViewType = 'community' | 'package';
-type TabType = 'base' | 'level2' | 'level3';
 
 interface CommunitySpec {
   id: string;
@@ -58,7 +57,6 @@ export default function Specifications() {
 
   const [currentView, setCurrentView] = useState<ViewType>('community');
   const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<TabType>('base');
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
 
   // Editable Community specs state
@@ -137,24 +135,6 @@ export default function Specifications() {
                 <span>Add Community Specification</span>
               </span>
             </Button>
-          </div>
-
-          {/* Toolbar - sits under section header, separate from table */}
-          <div className={styles.toolbar}>
-            <div className={styles.toolbarLeft}>
-              <button type="button" className={styles.toolbarButton}>
-                <img src="/assets/icons/search.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                <span>Search</span>
-              </button>
-              <button type="button" className={styles.toolbarButton}>
-                <img src="/assets/icons/filter.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                <span>Filter</span>
-              </button>
-              <button type="button" className={styles.toolbarButton}>
-                <img src="/assets/icons/sort.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                <span>Sort</span>
-              </button>
-            </div>
           </div>
 
           {/* Inner Table Container - table + pagination with border */}
@@ -376,71 +356,10 @@ export default function Specifications() {
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className={styles.tabsContainer}>
-        <div className={styles.tabs}>
-          <button
-            type="button"
-            className={`${styles.tab} ${activeTab === 'base' ? styles.tabActive : ''}`}
-            onClick={() => setActiveTab('base')}
-          >
-            Base Specs
-          </button>
-          <button
-            type="button"
-            className={`${styles.tab} ${activeTab === 'level2' ? styles.tabActive : ''}`}
-            onClick={() => setActiveTab('level2')}
-          >
-            Level 2
-          </button>
-          <button
-            type="button"
-            className={`${styles.tab} ${activeTab === 'level3' ? styles.tabActive : ''}`}
-            onClick={() => setActiveTab('level3')}
-          >
-            Level 3
-          </button>
-          <button type="button" className={styles.tabAdd}>
-            <img src="/assets/icons/plus-rounded.svg" alt="Add level" className={styles.tabAddIcon} draggable={false} />
-          </button>
-        </div>
-      </div>
-
       {/* Main Content Area - Two Columns */}
       <div className={styles.contentLayout}>
         {/* Left: SpecSheetTable */}
-        <div className={styles.mainPanel}>
-          {/* Unified Table Card - contains toolbar and table */}
-          <div className={styles.specTableCard}>
-            {/* Toolbar */}
-            <div className={styles.specToolbar}>
-              <div className={styles.toolbarLeft}>
-                <button type="button" className={styles.toolbarButton}>
-                  <img src="/assets/icons/search.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                  <span>Search</span>
-                </button>
-                <button type="button" className={styles.toolbarButton}>
-                  <img src="/assets/icons/filter.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                  <span>Filter</span>
-                </button>
-                <button type="button" className={styles.toolbarButton}>
-                  <img src="/assets/icons/sort.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                  <span>Sort</span>
-                </button>
-              </div>
-              <div className={styles.toolbarRight}>
-                <button type="button" className={styles.toolbarButton}>
-                  <img src="/assets/icons/columns.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                  <span>Edit Columns</span>
-                </button>
-              </div>
-            </div>
-            {/* Table */}
-            <div className={styles.specTableInner}>
-              <SpecSheetTable data={constructionSpecs} />
-            </div>
-          </div>
-        </div>
+        <SpecSheetTable data={constructionSpecs} />
 
         {/* Right: Library Sidebar */}
         <div className={styles.sidebarPanel}>

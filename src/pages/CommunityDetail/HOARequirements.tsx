@@ -94,30 +94,6 @@ export default function HOARequirements() {
             <h2 className={styles.sectionTitle}>{category}</h2>
           </div>
 
-          {/* Toolbar */}
-          <div className={styles.toolbar}>
-            <div className={styles.toolbarLeft}>
-              <button type="button" className={styles.toolbarButton}>
-                <img src="/assets/icons/search.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                <span>Search</span>
-              </button>
-              <button type="button" className={styles.toolbarButton}>
-                <img src="/assets/icons/filter.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                <span>Filter</span>
-              </button>
-              <button type="button" className={styles.toolbarButton}>
-                <img src="/assets/icons/sort.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                <span>Sort</span>
-              </button>
-            </div>
-            <div className={styles.toolbarRight}>
-              <button type="button" className={styles.toolbarButton}>
-                <img src="/assets/icons/columns.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                <span>Edit Columns</span>
-              </button>
-            </div>
-          </div>
-
           {/* Inner Table Container */}
           <div className={styles.innerTableContainer}>
             {/* Table */}

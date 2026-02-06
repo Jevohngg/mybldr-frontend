@@ -20,7 +20,7 @@
 
 :root {
   /* Layout dimensions */
-  --sidenav-w: 260px;
+  --sidenav-w: 282px;
   --sidenav-collapsed-w: 0px;
   --topnav-h: 56px;
   --mobile-nav-h: 60px;

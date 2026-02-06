@@ -14,12 +14,17 @@ export default function CommunitiesPage() {
     setOpen(false)
   }
 
-  // Stats matching Figma design
+  // Calculate stats dynamically based on community statuses
+  const activeSalesCount = communities.filter(c => c.status === 'active-sales').length
+  const presaleCount = communities.filter(c => c.status === 'presale').length
+  const underDevelopmentCount = communities.filter(c => c.status === 'under-development').length
+  const totalLots = communities.reduce((sum, c) => sum + c.lots, 0)
+
   const stats = [
-    { label: 'Active Sales', value: 120 },
-    { label: 'Presale', value: 240 },
-    { label: 'Under Development', value: 20 },
-    { label: 'Total Lots', value: 220 },
+    { label: 'Active Sales', value: activeSalesCount },
+    { label: 'Presale', value: presaleCount },
+    { label: 'Under Development', value: underDevelopmentCount },
+    { label: 'Total Lots', value: totalLots },
   ]
 
   return (

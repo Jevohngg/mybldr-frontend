@@ -6,21 +6,20 @@ import PlanCard from '../../components/cards/PlanCard/PlanCard'
 import CommunityMap from '../../components/map/CommunityMap/CommunityMap'
 import AddPlansModal from '../../components/modals/AddPlansModal/AddPlansModal'
 import PlanDetailModal from '../../components/modals/PlanDetailModal/PlanDetailModal'
+import EditCommunityModal from '../../components/modals/EditCommunityModal/EditCommunityModal'
 import { useCommunityMapData } from '../../components/map'
 import styles from './CommunityOverview.module.css'
-
-type ViewMode = 'cards' | 'list' | 'grid'
 
 export default function CommunityOverview() {
   const { communityId } = useParams()
   const navigate = useNavigate()
-  const { communities, plans } = useData()
+  const { communities, plans, updateCommunity } = useData()
 
   const community = communities.find((c) => c.id === communityId) || communities[0]
 
   const [addPlansOpen, setAddPlansOpen] = React.useState(false)
+  const [editCommunityOpen, setEditCommunityOpen] = React.useState(false)
   const [selectedPlans, setSelectedPlans] = React.useState<string[]>([...community.planIds])
-  const [viewMode, setViewMode] = React.useState<ViewMode>('cards')
   const [selectedPlan, setSelectedPlan] = React.useState<{ id: string; name: string; communityCount: number } | null>(null)
 
   const { mapData } = useCommunityMapData({
@@ -37,6 +36,7 @@ export default function CommunityOverview() {
     const handleCloseModals = () => {
       setSelectedPlan(null)
       setAddPlansOpen(false)
+      setEditCommunityOpen(false)
     }
     window.addEventListener('closeAllModals', handleCloseModals)
     return () => window.removeEventListener('closeAllModals', handleCloseModals)
@@ -45,10 +45,10 @@ export default function CommunityOverview() {
   const planObjs = plans.filter((p) => selectedPlans.includes(p.id))
 
   const statsTopRow = [
-    { label: 'Sold', value: '120' },
-    { label: 'Released', value: '240' },
-    { label: 'Started', value: '20' },
-    { label: 'Not Started', value: '220' },
+    { label: 'Sold', value: '7' },
+    { label: 'Released', value: '57' },
+    { label: 'Started', value: '2' },
+    { label: 'Not Started', value: '55' },
   ] as const
 
   return (
@@ -60,9 +60,9 @@ export default function CommunityOverview() {
         </div>
 
         <div className={styles.headerRight}>
-          <Button iconOnly aria-label="Community settings" className={styles.iconButton}>
+          <Button iconOnly aria-label="Community settings" className={styles.iconButton} onClick={() => setEditCommunityOpen(true)}>
             <img
-              src="/assets/icons/sliders.svg"
+              src="/assets/icons/cog.svg"
               alt=""
               className={styles.iconButtonIcon}
               draggable={false}
@@ -74,15 +74,7 @@ export default function CommunityOverview() {
   className={styles.salesKioskButton}
   onClick={() => navigate(`/builder-studio?community=${encodeURIComponent(community.name)}`)}
 >
-  <span className={styles.buttonContent}>
-    <span>Builder Studio</span>
-    <img
-      src="/assets/icons/arrow-right.svg"
-      alt=""
-      className={styles.buttonIcon}
-      draggable={false}
-    />
-  </span>
+  Builder Studio
 </Button>
 
 <Button
@@ -110,7 +102,7 @@ export default function CommunityOverview() {
         </div>
       </div>
 
-      {/* Sub header row (showing + filters/sort/view toggles) */}
+      {/* Sub header row (showing) */}
       <div className={styles.subheaderRow}>
         <div className={styles.subtitle}>
           <span className={styles.subtitleLabel}>Showing:</span>
@@ -128,82 +120,6 @@ export default function CommunityOverview() {
               draggable={false}
             />
           </button>
-        </div>
-
-        <div className={styles.controlsRow}>
-          <button type="button" className={styles.controlButton}>
-            <span className={styles.controlButtonContent}>
-              <img
-                src="/assets/icons/filter.svg"
-                alt=""
-                className={styles.controlIcon}
-                draggable={false}
-              />
-              <span>Filter</span>
-            </span>
-          </button>
-
-          <button type="button" className={styles.controlButton}>
-            <span className={styles.controlButtonContent}>
-              <img
-                src="/assets/icons/sort.svg"
-                alt=""
-                className={styles.controlIcon}
-                draggable={false}
-              />
-              <span>Sort</span>
-            </span>
-          </button>
-
-          <div className={styles.viewToggleGroup} role="group" aria-label="View mode">
-            <button
-              type="button"
-              className={`${styles.viewToggleButton} ${
-                viewMode === 'cards' ? styles.viewToggleActive : ''
-              }`}
-              aria-label="Card view"
-              onClick={() => setViewMode('cards')}
-            >
-              <img
-                src="/assets/icons/view-image.svg"
-                alt=""
-                className={styles.viewToggleIcon}
-                draggable={false}
-              />
-            </button>
-
-            <button
-              type="button"
-              className={`${styles.viewToggleButton} ${
-                viewMode === 'list' ? styles.viewToggleActive : ''
-              }`}
-              aria-label="List view"
-              onClick={() => setViewMode('list')}
-            >
-              <img
-                src="/assets/icons/view-list.svg"
-                alt=""
-                className={styles.viewToggleIcon}
-                draggable={false}
-              />
-            </button>
-
-            <button
-              type="button"
-              className={`${styles.viewToggleButton} ${
-                viewMode === 'grid' ? styles.viewToggleActive : ''
-              }`}
-              aria-label="Grid view"
-              onClick={() => setViewMode('grid')}
-            >
-              <img
-                src="/assets/icons/view-grid.svg"
-                alt=""
-                className={styles.viewToggleIcon}
-                draggable={false}
-              />
-            </button>
-          </div>
         </div>
       </div>
 
@@ -324,6 +240,16 @@ export default function CommunityOverview() {
         planId={selectedPlan?.id || ''}
         planName={selectedPlan?.name || ''}
         communityCount={selectedPlan?.communityCount || 0}
+      />
+
+      <EditCommunityModal
+        open={editCommunityOpen}
+        onClose={() => setEditCommunityOpen(false)}
+        onSave={(updates) => {
+          updateCommunity(community.id, updates)
+          setEditCommunityOpen(false)
+        }}
+        community={community}
       />
     </div>
   )

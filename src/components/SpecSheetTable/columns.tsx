@@ -71,39 +71,41 @@ export const defaultVisibleColumns = {
 };
 
 // Global specifications columns (for top-level /specifications page)
+// Uses fixed widths instead of flex so the table can scroll horizontally
+// when the total column width exceeds the container.
 export const getGlobalColumns = (): GridColDef[] => [
   {
     field: 'subCategory',
     headerName: 'Category / Sub Category',
-    flex: 1,
+    width: 200,
     minWidth: 200,
     editable: true,
   },
   {
     field: 'description',
     headerName: 'Description',
-    flex: 1.5,
+    width: 300,
     minWidth: 250,
     editable: true,
   },
   {
     field: 'region',
     headerName: 'Region',
-    flex: 1,
+    width: 200,
     minWidth: 180,
     editable: true,
   },
   {
     field: 'division',
     headerName: 'Division',
-    flex: 1,
+    width: 180,
     minWidth: 150,
     editable: true,
   },
   {
     field: 'community',
     headerName: 'Community',
-    flex: 1,
+    width: 200,
     minWidth: 180,
     editable: true,
   },

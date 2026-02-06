@@ -4,6 +4,8 @@ import PlanCard from '../../components/cards/PlanCard/PlanCard'
 import PlanDetailModal from '../../components/modals/PlanDetailModal/PlanDetailModal'
 import BedsAndBathsDropdown, { BedsAndBathsFilters } from '../../components/filters/BedsAndBathsDropdown/BedsAndBathsDropdown'
 import WidthAndDepthDropdown, { WidthAndDepthFilters } from '../../components/filters/WidthAndDepthDropdown/WidthAndDepthDropdown'
+import SquareFootageDropdown, { SquareFootageFilters } from '../../components/filters/SquareFootageDropdown/SquareFootageDropdown'
+import CategoriesDropdown, { CategoriesFilters } from '../../components/filters/CategoriesDropdown/CategoriesDropdown'
 import { useData } from '../../app/providers'
 import styles from './PlanLibraryPage.module.css'
 
@@ -13,6 +15,8 @@ export default function PlanLibraryPage() {
   const [isNewPlanModalOpen, setIsNewPlanModalOpen] = React.useState(false)
   const [isBedsAndBathsOpen, setIsBedsAndBathsOpen] = React.useState(false)
   const [isWidthAndDepthOpen, setIsWidthAndDepthOpen] = React.useState(false)
+  const [isSquareFootageOpen, setIsSquareFootageOpen] = React.useState(false)
+  const [isCategoriesOpen, setIsCategoriesOpen] = React.useState(false)
   const [isAlertClosing, setIsAlertClosing] = React.useState(false)
   const [bedsAndBathsFilters, setBedsAndBathsFilters] = React.useState<BedsAndBathsFilters>({
     bedrooms: 'Any',
@@ -25,6 +29,13 @@ export default function PlanLibraryPage() {
     depthMin: '',
     depthMax: ''
   })
+  const [squareFootageFilters, setSquareFootageFilters] = React.useState<SquareFootageFilters>({
+    min: '',
+    max: ''
+  })
+  const [categoriesFilters, setCategoriesFilters] = React.useState<CategoriesFilters>({
+    selectedCategories: []
+  })
 
   // Listen for closeAllModals event (dispatched when navigating from search)
   React.useEffect(() => {
@@ -33,6 +44,8 @@ export default function PlanLibraryPage() {
       setIsNewPlanModalOpen(false)
       setIsBedsAndBathsOpen(false)
       setIsWidthAndDepthOpen(false)
+      setIsSquareFootageOpen(false)
+      setIsCategoriesOpen(false)
     }
     window.addEventListener('closeAllModals', handleCloseModals)
     return () => window.removeEventListener('closeAllModals', handleCloseModals)
@@ -56,8 +69,17 @@ export default function PlanLibraryPage() {
     widthAndDepthFilters.depthMax !== ''
   ].filter(Boolean).length
 
+  // Count active square footage filters
+  const squareFootageFilterCount = [
+    squareFootageFilters.min !== '',
+    squareFootageFilters.max !== ''
+  ].filter(Boolean).length
+
+  // Count active categories filters
+  const categoriesFilterCount = categoriesFilters.selectedCategories.length
+
   // Check if any filter is applied
-  const hasAnyFilter = bedsAndBathsFilterCount > 0 || widthAndDepthFilterCount > 0
+  const hasAnyFilter = bedsAndBathsFilterCount > 0 || widthAndDepthFilterCount > 0 || squareFootageFilterCount > 0 || categoriesFilterCount > 0
 
   const handleBedsAndBathsApply = (filters: BedsAndBathsFilters) => {
     setBedsAndBathsFilters(filters)
@@ -65,6 +87,14 @@ export default function PlanLibraryPage() {
 
   const handleWidthAndDepthApply = (filters: WidthAndDepthFilters) => {
     setWidthAndDepthFilters(filters)
+  }
+
+  const handleSquareFootageApply = (filters: SquareFootageFilters) => {
+    setSquareFootageFilters(filters)
+  }
+
+  const handleCategoriesApply = (filters: CategoriesFilters) => {
+    setCategoriesFilters(filters)
   }
 
   const handleClearAllFilters = () => {
@@ -79,6 +109,13 @@ export default function PlanLibraryPage() {
       depthMin: '',
       depthMax: ''
     })
+    setSquareFootageFilters({
+      min: '',
+      max: ''
+    })
+    setCategoriesFilters({
+      selectedCategories: []
+    })
   }
 
   const handleCloseAlert = () => {
@@ -92,7 +129,7 @@ export default function PlanLibraryPage() {
         <div className={`${styles.alertBanner} ${isAlertClosing ? styles.alertClosing : ''}`}>
           <div className={styles.alertContent}>
             <span className={styles.alertText}>
-              <strong>7 plans created.</strong> We scanned your history and documents, identified 50 projects, and grouped them into plans.
+              Welcome to your Product Library. We've grouped all the plans you've submitted to BFS under a single Plan Name, so you can find what you need fast without digging through folders.
             </span>
           </div>
           <button
@@ -108,7 +145,7 @@ export default function PlanLibraryPage() {
       </div>
 
       <div className="pageTitleRow">
-        <div className="h1">Plan Library</div>
+        <div className="h1">Product Library</div>
         <Button variant="primary" onClick={() => setIsNewPlanModalOpen(true)}>
           <span className={styles.buttonContent}>
             <img
@@ -191,24 +228,52 @@ export default function PlanLibraryPage() {
               initialFilters={widthAndDepthFilters}
             />
           </div>
-          <button className={styles.filterButton}>
-            <span>Square Footage</span>
-            <img
-              src="/assets/icons/chevron-down.svg"
-              alt=""
-              className={styles.filterChevron}
-              draggable={false}
+          <div className={styles.filterButtonWrapper}>
+            <button
+              className={`${styles.filterButton} ${isSquareFootageOpen ? styles.filterButtonActive : ''}`}
+              onClick={() => setIsSquareFootageOpen(!isSquareFootageOpen)}
+            >
+              {squareFootageFilterCount > 0 && (
+                <span className={styles.filterCountBadge}>{squareFootageFilterCount}</span>
+              )}
+              <span>Square Footage</span>
+              <img
+                src="/assets/icons/chevron-down.svg"
+                alt=""
+                className={styles.filterChevron}
+                draggable={false}
+              />
+            </button>
+            <SquareFootageDropdown
+              isOpen={isSquareFootageOpen}
+              onClose={() => setIsSquareFootageOpen(false)}
+              onApply={handleSquareFootageApply}
+              initialFilters={squareFootageFilters}
             />
-          </button>
-          <button className={styles.filterButton}>
-            <span>Categories</span>
-            <img
-              src="/assets/icons/chevron-down.svg"
-              alt=""
-              className={styles.filterChevron}
-              draggable={false}
+          </div>
+          <div className={styles.filterButtonWrapper}>
+            <button
+              className={`${styles.filterButton} ${isCategoriesOpen ? styles.filterButtonActive : ''}`}
+              onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
+            >
+              {categoriesFilterCount > 0 && (
+                <span className={styles.filterCountBadge}>{categoriesFilterCount}</span>
+              )}
+              <span>Categories</span>
+              <img
+                src="/assets/icons/chevron-down.svg"
+                alt=""
+                className={styles.filterChevron}
+                draggable={false}
+              />
+            </button>
+            <CategoriesDropdown
+              isOpen={isCategoriesOpen}
+              onClose={() => setIsCategoriesOpen(false)}
+              onApply={handleCategoriesApply}
+              initialFilters={categoriesFilters}
             />
-          </button>
+          </div>
         </div>
       </div>
 

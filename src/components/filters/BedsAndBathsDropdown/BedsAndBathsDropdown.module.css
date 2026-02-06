@@ -1,7 +1,7 @@
 .dropdown {
   position: absolute;
   top: calc(100% + 4px);
-  left: 0;
+  right: 0;
   width: 304px;
   background: #FFFFFF;
   border-radius: 8px;

@@ -7,15 +7,9 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* Set minimum width so grid doesn't compress */
-.MuiDataGrid-root {
-  min-width: 1200px;
-}
-
-/* Allow horizontal scroll in virtual scroller */
-.MuiDataGrid-virtualScroller {
-  overflow-x: auto !important;
-}
+/* Note: min-width for horizontal scroll is applied via the sx prop
+   in SpecSheetTable.tsx for the global variant only.
+   The virtual scroller overflow is managed by globals.css. */
 
 /* Ensure proper tree data display */
 .MuiDataGrid-treeDataGroupingCell {

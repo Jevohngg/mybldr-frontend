@@ -121,26 +121,11 @@ export default function SideNav() {
   const isSpecsRoute = !!matchPath({ path: '/specifications/*' }, location.pathname)
   const isTeamRoute = !!matchPath({ path: '/team/*' }, location.pathname)
 
-  const [specsOpen, setSpecsOpen] = React.useState(false)
   const [teamOpen, setTeamOpen] = React.useState(false)
-
-  // Auto-expand groups when deep-linked into them.
-  React.useEffect(() => {
-    if (isSpecsRoute) setSpecsOpen(true)
-  }, [isSpecsRoute])
 
   React.useEffect(() => {
     if (isTeamRoute) setTeamOpen(true)
   }, [isTeamRoute])
-
-  const onSpecsClick = React.useCallback(() => {
-    setSpecsOpen((prev) => {
-      if (!prev) return true
-      // Only allow collapsing when you are already in the section.
-      if (isSpecsRoute) return false
-      return prev
-    })
-  }, [isSpecsRoute])
 
   const onTeamClick = React.useCallback(() => {
     setTeamOpen((prev) => {
@@ -151,7 +136,7 @@ export default function SideNav() {
   }, [isTeamRoute])
 
   // Connector measurement hooks (only need one for each expandable group)
-  const specsConnector = useActiveChildConnector(specsOpen, location.pathname)
+  const specsConnector = useActiveChildConnector(isSpecsRoute, location.pathname)
   const teamConnector = useActiveChildConnector(teamOpen, location.pathname)
   const communityConnector = useActiveChildConnector(
     !!activeCommunityId,
@@ -170,15 +155,14 @@ export default function SideNav() {
             <span className={styles.icon} aria-hidden="true">
               <NavIcon src={ICONS.planLibrary} />
             </span>
-            <span>Plan Library</span>
+            <span>Product Library</span>
           </NavLink>
 
           <div className={styles.group}>
             <NavLink
               to="/specifications"
               end
-              onClick={onSpecsClick}
-              aria-expanded={specsOpen}
+              aria-expanded={isSpecsRoute}
               className={({ isActive }) => (isActive ? styles.rowActive : styles.row)}
             >
               <span className={styles.icon} aria-hidden="true">
@@ -189,8 +173,8 @@ export default function SideNav() {
 
             {/* Smooth expand/collapse wrapper */}
             <div
-              className={cx(styles.collapse, specsOpen && styles.collapseOpen)}
-              aria-hidden={!specsOpen}
+              className={cx(styles.collapse, isSpecsRoute && styles.collapseOpen)}
+              aria-hidden={!isSpecsRoute}
             >
               <div className={styles.collapseInner}>
                 <div
@@ -202,12 +186,12 @@ export default function SideNav() {
                 >
                   <NavLink
                     to="/specifications/templates"
-                    tabIndex={specsOpen ? undefined : -1}
+                    tabIndex={isSpecsRoute ? undefined : -1}
                     className={({ isActive }) =>
                       cx(styles.childRow, isActive && styles.childRowActive)
                     }
                   >
-                    Analytics
+                    Summary
                   </NavLink>
                 </div>
               </div>

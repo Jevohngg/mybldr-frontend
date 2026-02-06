@@ -168,15 +168,17 @@ export function SpecSheetTable({ data, title, variant = 'default' }: SpecSheetTa
   }, []);
 
   // Get grouping column definition
+  // Global variant uses fixed width for horizontal scrolling;
+  // default variant uses flex to fill available space.
   const groupingColDef = useMemo(() => ({
     headerName: 'Category / Sub Category',
+    ...(isGlobal ? { width: 280 } : { flex: 1.5 }),
     minWidth: 280,
-    flex: 1.5,
     editable: true,
     leafField: 'subCategory',
     renderCell: CustomGroupingCell,
     renderEditCell: CustomGroupingEditCell,
-  }), [CustomGroupingCell, CustomGroupingEditCell]);
+  }), [isGlobal, CustomGroupingCell, CustomGroupingEditCell]);
 
   // Only allow editing on leaf rows (actual data), not group headers
   const isCellEditable = useCallback((params: { rowNode: { type: string }; field: string }) => {
@@ -226,6 +228,7 @@ export function SpecSheetTable({ data, title, variant = 'default' }: SpecSheetTa
       )}
       <DataGridPremium
         autoHeight
+        {...(isGlobal && { sx: { minWidth: 'max-content' } })}
         apiRef={apiRef}
         rows={rows}
         columns={columns}

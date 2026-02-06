@@ -2,7 +2,10 @@
 .alertWrapper {
   display: grid;
   grid-template-rows: 1fr;
-  width: 100%;
+  width: calc(100% + 4rem);
+  margin-left: -2rem;
+  margin-right: -2rem;
+  margin-top: -2rem;
   transition: grid-template-rows 0.3s ease-out, margin-bottom 0.3s ease-out;
 }
 
@@ -17,9 +20,10 @@
   justify-content: space-between;
   width: 100%;
   padding: 12px 24px;
-  background: #EDF5EB;
-  border: 1px solid #D1E6CC;
-  border-radius: 8px;
+  background: #E9F5FB;
+  border: none;
+  border-bottom: 1px solid #D3EBF7;
+  border-radius: 0;
   opacity: 1;
   overflow: hidden;
   min-height: 0;
@@ -31,7 +35,6 @@
   padding-top: 0;
   padding-bottom: 0;
   margin-bottom: 0;
-  border-top-width: 0;
   border-bottom-width: 0;
 }
 
@@ -44,13 +47,9 @@
 .alertText {
   font-family: Inter, sans-serif;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.429;
-  color: #177802;
-}
-
-.alertText strong {
-  font-weight: 600;
+  color: #1273B8;
 }
 
 .alertCloseButton {
@@ -62,12 +61,12 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  color: #177802;
+  color: #1273B8;
   transition: background-color 0.15s ease;
 }
 
 .alertCloseButton:hover {
-  background: rgba(23, 120, 2, 0.1);
+  background: rgba(18, 115, 184, 0.1);
 }
 
 .filtersRow {
@@ -191,9 +190,10 @@
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 .grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 16px;
-  flex-wrap: wrap;
+  width: 100%;
 }
 
 .page{
@@ -220,6 +220,13 @@
     gap: 1.5rem;
   }
 
+  .alertWrapper {
+    width: calc(100% + 3rem);
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    margin-top: -1.5rem;
+  }
+
   .filtersRow {
     flex-wrap: wrap;
     gap: 10px;
@@ -231,8 +238,8 @@
   }
 
   .grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 14px;
-    justify-content: center;
   }
 }
 
@@ -246,7 +253,10 @@
   }
 
   .alertWrapper {
-    margin-bottom: 20px;
+    width: calc(100% + 2rem);
+    margin-left: -1rem;
+    margin-right: -1rem;
+    margin-top: -1rem;
   }
 
   .alertBanner {
@@ -279,12 +289,8 @@
   }
 
   .grid {
+    grid-template-columns: 1fr;
     gap: 12px;
-    flex-direction: column;
-  }
-
-  .grid > * {
-    width: 100%;
   }
 
   .filterButton {
@@ -302,12 +308,14 @@
   }
 
   .alertWrapper {
-    margin-bottom: 16px;
+    width: calc(100% + 1.75rem);
+    margin-left: -0.875rem;
+    margin-right: -0.875rem;
+    margin-top: -0.875rem;
   }
 
   .alertBanner {
     padding: 8px 12px;
-    border-radius: 6px;
   }
 
   .alertText {

@@ -127,6 +127,12 @@ export default function ReservedLotDetailPage() {
               {activeTab === 'quotes' && <QuotesTab />}
               {activeTab === 'documents' && <DocumentsTab />}
             </div>
+
+            {activeTab === 'overview' && (
+              <div className={styles.rightSidebar}>
+                <TitleBlockInfo />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -360,6 +366,157 @@ function DocumentsTab() {
         <div className={styles.emptyState}>
           <div className={styles.emptyTitle}>No documents available</div>
           <div className={styles.emptyDescription}>Documents will appear here when uploaded</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function TitleBlockInfo() {
+  const [formData, setFormData] = React.useState({
+    version: '',
+    buildingCodes: '',
+    permitNumber: '',
+    issued: '',
+    expires: '',
+    governingBody: '',
+    state: 'TX',
+    adaCompliant: 'no'
+  })
+
+  return (
+    <div className={styles.titleBlockCard}>
+      <h3 className={styles.titleBlockTitle}>Title Block Info</h3>
+
+      <div className={styles.titleBlockFields}>
+        <div className={styles.titleBlockField}>
+          <label className={styles.titleBlockLabel}>Version</label>
+          <input
+            type="text"
+            className={styles.titleBlockInput}
+            placeholder="Enter version"
+            value={formData.version}
+            onChange={(e) => setFormData(prev => ({ ...prev, version: e.target.value }))}
+          />
+        </div>
+
+        <div className={styles.titleBlockField}>
+          <label className={styles.titleBlockLabel}>Building codes</label>
+          <input
+            type="text"
+            className={styles.titleBlockInput}
+            placeholder="Enter building codes"
+            value={formData.buildingCodes}
+            onChange={(e) => setFormData(prev => ({ ...prev, buildingCodes: e.target.value }))}
+          />
+        </div>
+
+        <div className={styles.titleBlockField}>
+          <label className={styles.titleBlockLabel}>Permit number</label>
+          <input
+            type="text"
+            className={styles.titleBlockInput}
+            placeholder="Enter permit number"
+            value={formData.permitNumber}
+            onChange={(e) => setFormData(prev => ({ ...prev, permitNumber: e.target.value }))}
+          />
+        </div>
+
+        <div className={styles.titleBlockRow}>
+          <div className={styles.titleBlockField}>
+            <label className={styles.titleBlockLabel}>Issued</label>
+            <div className={styles.dateInputWrapper}>
+              <svg className={styles.calendarIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M12.6667 2.66667H3.33333C2.59695 2.66667 2 3.26362 2 4V13.3333C2 14.0697 2.59695 14.6667 3.33333 14.6667H12.6667C13.403 14.6667 14 14.0697 14 13.3333V4C14 3.26362 13.403 2.66667 12.6667 2.66667Z" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M10.6667 1.33333V4" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M5.33333 1.33333V4" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 6.66667H14" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <input
+                type="text"
+                className={styles.dateInput}
+                placeholder="11/22/2025"
+                value={formData.issued}
+                onChange={(e) => setFormData(prev => ({ ...prev, issued: e.target.value }))}
+              />
+            </div>
+          </div>
+          <div className={styles.titleBlockField}>
+            <label className={styles.titleBlockLabel}>Expires</label>
+            <div className={styles.dateInputWrapper}>
+              <svg className={styles.calendarIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M12.6667 2.66667H3.33333C2.59695 2.66667 2 3.26362 2 4V13.3333C2 14.0697 2.59695 14.6667 3.33333 14.6667H12.6667C13.403 14.6667 14 14.0697 14 13.3333V4C14 3.26362 13.403 2.66667 12.6667 2.66667Z" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M10.6667 1.33333V4" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M5.33333 1.33333V4" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 6.66667H14" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <input
+                type="text"
+                className={styles.dateInput}
+                placeholder="11/22/2025"
+                value={formData.expires}
+                onChange={(e) => setFormData(prev => ({ ...prev, expires: e.target.value }))}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.titleBlockField}>
+          <label className={styles.titleBlockLabel}>Governing Body</label>
+          <input
+            type="text"
+            className={styles.titleBlockInput}
+            placeholder="Enter governing body"
+            value={formData.governingBody}
+            onChange={(e) => setFormData(prev => ({ ...prev, governingBody: e.target.value }))}
+          />
+        </div>
+
+        <div className={styles.titleBlockField}>
+          <label className={styles.titleBlockLabel}>State</label>
+          <div className={styles.selectWrapper}>
+            <select
+              className={styles.select}
+              value={formData.state}
+              onChange={(e) => setFormData(prev => ({ ...prev, state: e.target.value }))}
+            >
+              <option value="TX">TX</option>
+              <option value="CA">CA</option>
+              <option value="FL">FL</option>
+              <option value="NY">NY</option>
+            </select>
+            <svg className={styles.selectIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div className={styles.titleBlockField}>
+          <label className={styles.titleBlockLabel}>ADA Compliant</label>
+          <div className={styles.radioGroup}>
+            <label className={styles.radioLabel}>
+              <input
+                type="radio"
+                name="adaCompliant"
+                value="yes"
+                checked={formData.adaCompliant === 'yes'}
+                onChange={(e) => setFormData(prev => ({ ...prev, adaCompliant: e.target.value }))}
+                className={styles.radioInput}
+              />
+              <span className={styles.radioText}>Yes</span>
+            </label>
+            <label className={styles.radioLabel}>
+              <input
+                type="radio"
+                name="adaCompliant"
+                value="no"
+                checked={formData.adaCompliant === 'no'}
+                onChange={(e) => setFormData(prev => ({ ...prev, adaCompliant: e.target.value }))}
+                className={styles.radioInput}
+              />
+              <span className={styles.radioText}>No</span>
+            </label>
+          </div>
         </div>
       </div>
     </div>

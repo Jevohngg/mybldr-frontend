@@ -1,13 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styles from './CommunityCard.module.css'
-import type { Community } from '../../../app/providers'
+import type { Community, CommunityStatus } from '../../../app/providers'
 import Button from '../../ui/Button'
 
 type CommunityWithOptionalThumb = Community & { thumbnail?: string }
 
+const statusLabels: Record<CommunityStatus, string> = {
+  'active-sales': 'Active sales',
+  'presale': 'Presale',
+  'under-development': 'Under development',
+}
+
 export default function CommunityCard({ community }: { community: Community }) {
   const c = community as CommunityWithOptionalThumb
+  const statusLabel = statusLabels[community.status] || 'Active sales'
 
   /**
    * MAP IMAGE SETUP (you will add these files):
@@ -52,9 +59,9 @@ export default function CommunityCard({ community }: { community: Community }) {
           loading="lazy"
           onError={onImgError}
         />
-        <div className={styles.statusChip} aria-label="Status: Active sales">
+        <div className={`${styles.statusChip} ${community.status === 'under-development' ? styles.statusChipDevelopment : ''}`} aria-label={`Status: ${statusLabel}`}>
           <span className={styles.statusDot} />
-          <span className={styles.statusText}>Active sales</span>
+          <span className={styles.statusText}>{statusLabel}</span>
         </div>
       </div>
 

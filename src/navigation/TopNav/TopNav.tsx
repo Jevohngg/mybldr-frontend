@@ -14,6 +14,7 @@ import { plans } from "../../mock-data/plans";
 import { constructionSpecs } from "../../components/SpecSheetTable/mockData";
 import PlanDetailModal from "../../components/modals/PlanDetailModal/PlanDetailModal";
 import Button from "../../components/ui/Button";
+import { semanticSearch, type SemanticSearchResponse } from "../../services/semanticSearch";
 import styles from "./TopNav.module.css";
 
 // Types for search results
@@ -177,6 +178,11 @@ export default function TopNav() {
   const { toggleMobileNav, isMobileNavOpen, isMobile, isTablet } = useMobileNav();
   const showHamburger = isMobile || isTablet;
 
+  // Semantic search state
+  const [isSemanticSearch, setIsSemanticSearch] = useState(false);
+  const [semanticResponse, setSemanticResponse] = useState<SemanticSearchResponse | null>(null);
+  const [isAILoading, setIsAILoading] = useState(false);
+
   // Convert real data to SearchResult format
   const communityResults: SearchResult[] = useMemo(() =>
     communities.map(c => ({
@@ -309,6 +315,49 @@ export default function TopNav() {
   const handleFilterClick = (filter: string) => {
     setActiveFilter(prev => prev === filter ? "All" : filter);
   };
+
+  // Check if query should trigger semantic search (3+ words)
+  const isSemanticQuery = (query: string): boolean => {
+    const words = query.trim().split(/\s+/);
+    return words.length >= 3;
+  };
+
+  // Handle suggestion chip click
+  const handleSuggestionClick = (suggestion: string) => {
+    setSearchValue(suggestion);
+    // The useEffect will handle triggering the semantic search
+  };
+
+  // Semantic search effect with debouncing
+  useEffect(() => {
+    const query = searchValue.trim();
+
+    // Reset semantic state if query is empty or too short
+    if (!query || !isSemanticQuery(query)) {
+      setIsSemanticSearch(false);
+      setSemanticResponse(null);
+      setIsAILoading(false);
+      return;
+    }
+
+    // Debounce semantic search - loading state set AFTER debounce completes
+    const timeoutId = setTimeout(async () => {
+      setIsAILoading(true);
+      try {
+        const response = await semanticSearch(query);
+        setSemanticResponse(response);
+        setIsSemanticSearch(true);
+      } catch (error) {
+        console.error("Semantic search error:", error);
+        setIsSemanticSearch(false);
+        setSemanticResponse(null);
+      } finally {
+        setIsAILoading(false);
+      }
+    }, 600);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchValue]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -459,79 +508,231 @@ export default function TopNav() {
             <div className={styles.recentSection}>
               <div className={styles.recentHeader}>
                 <span className={styles.recentTitle}>
-                  {searchValue.trim() ? `Results${searchResults.length > 0 ? ` (${searchResults.length})` : ""}` : "Recents"}
+                  {searchValue.trim() ? (
+                    isSemanticSearch && semanticResponse
+                      ? `Results${semanticResponse.results.length > 0 ? ` (${semanticResponse.results.length})` : ""}`
+                      : isAILoading
+                      ? "Results"
+                      : `Results${searchResults.length > 0 ? ` (${searchResults.length})` : ""}`
+                  ) : (
+                    "Recents"
+                  )}
                 </span>
               </div>
-              <div className={styles.recentList}>
-                {searchValue.trim() ? (
-                  searchResults.length > 0 ? (
-                    searchResults.map((item) => (
-                      <div
-                        key={item.id}
-                        className={`${styles.recentItem} ${item.type === "page" ? styles.pageItem : ""}`}
-                        onClick={() => handleResultClick(item)}
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={(e) => e.key === "Enter" && handleResultClick(item)}
-                      >
-                        <div className={styles.recentItemIcon}>
-                          {item.type === "delivery" && item.date ? (
-                            <div className={styles.dateCard}>
-                              <span className={styles.dateMonth}>{item.date.month}</span>
-                              <span className={styles.dateDay}>{item.date.day}</span>
-                            </div>
-                          ) : (item.type === "community" || item.type === "plan") && item.thumbnail ? (
-                            <div className={styles.communityThumbnail}>
-                              <img
-                                src={item.thumbnail}
-                                alt=""
-                                className={styles.communityThumbnailImg}
-                                draggable={false}
-                              />
-                            </div>
-                          ) : (
-                            <div className={styles.iconWrapper}>
-                              <img
-                                src={`/assets/icons/icon-${getIconName(item.type, item.icon)}.svg`}
-                                alt=""
-                                className={styles.resultIcon}
-                              />
-                            </div>
-                          )}
+
+              {/* AI Summary Section - shows when AI is loading or semantic search is active */}
+              {(isAILoading || isSemanticSearch) && (
+                <div className={styles.aiSummaryContainer}>
+                  {isAILoading ? (
+                    <>
+                      <div className={styles.aiLoadingState}>
+                        <div className={styles.aiLoadingPulse}>
+                          <span className={styles.aiSparkle}>✨</span>
+                          <span className={styles.aiLoadingText}>Finding the best matches...</span>
                         </div>
-                        <div className={styles.recentItemContent}>
-                          <div className={styles.recentItemTitle}>
-                            <span>{item.title}</span>
-                            {item.type === "page" && (
-                              <span className={styles.pageChip}>Page</span>
-                            )}
-                            {item.status && (
-                              <span className={styles.statusChip}>{item.status}</span>
-                            )}
+                      </div>
+                      {/* Skeleton placeholder rows */}
+                      <div className={styles.aiSkeletonRows}>
+                        <div className={styles.aiSkeletonRow}>
+                          <div className={styles.aiSkeletonIcon}></div>
+                          <div className={styles.aiSkeletonContent}>
+                            <div className={styles.aiSkeletonLine} style={{ width: '70%' }}></div>
+                            <div className={styles.aiSkeletonLine} style={{ width: '90%' }}></div>
                           </div>
-                          <div className={styles.recentItemSubtitle}>
-                            <span>{item.subtitle}</span>
-                            {item.meta && (
-                              <>
-                                <span className={styles.dot}></span>
-                                <span>{item.meta}</span>
-                              </>
-                            )}
-                            {item.extra && (
-                              <>
-                                <span className={styles.dot}></span>
-                                <span>{item.extra}</span>
-                              </>
-                            )}
+                        </div>
+                        <div className={styles.aiSkeletonRow}>
+                          <div className={styles.aiSkeletonIcon}></div>
+                          <div className={styles.aiSkeletonContent}>
+                            <div className={styles.aiSkeletonLine} style={{ width: '65%' }}></div>
+                            <div className={styles.aiSkeletonLine} style={{ width: '85%' }}></div>
+                          </div>
+                        </div>
+                        <div className={styles.aiSkeletonRow}>
+                          <div className={styles.aiSkeletonIcon}></div>
+                          <div className={styles.aiSkeletonContent}>
+                            <div className={styles.aiSkeletonLine} style={{ width: '75%' }}></div>
+                            <div className={styles.aiSkeletonLine} style={{ width: '88%' }}></div>
                           </div>
                         </div>
                       </div>
-                    ))
-                  ) : (
+                    </>
+                  ) : semanticResponse && (
+                    <>
+                      <div className={styles.aiSummaryHeader}>
+                        <span className={styles.aiSparkle}>✨</span>
+                        <p className={styles.aiSummaryText}>{semanticResponse.summary}</p>
+                      </div>
+                      {semanticResponse.suggestions && semanticResponse.suggestions.length > 0 && (
+                        <div className={styles.aiSuggestions}>
+                          {semanticResponse.suggestions.map((suggestion, index) => (
+                            <button
+                              key={index}
+                              className={styles.suggestionChip}
+                              onClick={() => handleSuggestionClick(suggestion)}
+                            >
+                              {suggestion}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              )}
+
+              <div className={styles.recentList}>
+                {searchValue.trim() ? (
+                  // Show loading skeleton if AI is loading
+                  isAILoading ? null : (
+                  // Show semantic AI results if semantic search is active
+                  isSemanticSearch && semanticResponse && semanticResponse.results.length > 0 ? (
+                    semanticResponse.results.map((aiResult) => {
+                      // Match AI result to actual data to get full details
+                      const fullData = aiResult.type === "plan"
+                        ? plans.find(p => p.id === aiResult.id)
+                        : aiResult.type === "community"
+                        ? communities.find(c => c.id === aiResult.id)
+                        : null;
+
+                      // Build thumbnail URL
+                      const thumbnail = aiResult.type === "plan" && fullData
+                        ? (fullData as typeof plans[0]).image
+                        : aiResult.type === "community"
+                        ? `/assets/maps/placeholder.png`
+                        : null;
+
+                      // Construct a proper SearchResult object for handleResultClick
+                      const searchResultItem: SearchResult = {
+                        id: aiResult.id,
+                        type: aiResult.type,
+                        title: aiResult.name,
+                        subtitle: aiResult.matchReason,
+                        thumbnail: thumbnail || undefined,
+                        planId: aiResult.type === "plan" ? aiResult.id : undefined,
+                        navigationPath: aiResult.type === "community" ? `/communities/${aiResult.id}` : undefined,
+                      };
+
+                      return (
+                        <div
+                          key={aiResult.id}
+                          className={styles.recentItem}
+                          onClick={() => handleResultClick(searchResultItem)}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(e) => e.key === "Enter" && handleResultClick(searchResultItem)}
+                        >
+                          <div className={styles.recentItemIcon}>
+                            {thumbnail ? (
+                              <div className={styles.communityThumbnail}>
+                                <img
+                                  src={thumbnail}
+                                  alt=""
+                                  className={styles.communityThumbnailImg}
+                                  draggable={false}
+                                  onError={(e) => { (e.target as HTMLImageElement).src = '/assets/plans/placeholder.jpg' }}
+                                />
+                              </div>
+                            ) : (
+                              <div className={styles.iconWrapper}>
+                                <img
+                                  src={`/assets/icons/icon-${getIconName(aiResult.type)}.svg`}
+                                  alt=""
+                                  className={styles.resultIcon}
+                                />
+                              </div>
+                            )}
+                          </div>
+                          <div className={styles.recentItemContent}>
+                            <div className={styles.recentItemTitle}>
+                              <span>{aiResult.name}</span>
+                              <span className={styles.aiResultTypeBadge}>
+                                {aiResult.type === "plan" ? "Plan" : "Community"}
+                              </span>
+                            </div>
+                            <div className={styles.recentItemSubtitle}>
+                              <span>{aiResult.matchReason}</span>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                  ) : isSemanticSearch && semanticResponse && semanticResponse.results.length === 0 ? (
+                    // No AI results found
                     <div className={styles.noResults}>
                       <span>No results found for "{searchValue}"</span>
                     </div>
-                  )
+                  ) : (
+                    // Regular search results (non-semantic)
+                    searchResults.length > 0 ? (
+                      searchResults.map((item) => (
+                        <div
+                          key={item.id}
+                          className={`${styles.recentItem} ${item.type === "page" ? styles.pageItem : ""}`}
+                          onClick={() => handleResultClick(item)}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(e) => e.key === "Enter" && handleResultClick(item)}
+                        >
+                          <div className={styles.recentItemIcon}>
+                            {item.type === "delivery" && item.date ? (
+                              <div className={styles.dateCard}>
+                                <span className={styles.dateMonth}>{item.date.month}</span>
+                                <span className={styles.dateDay}>{item.date.day}</span>
+                              </div>
+                            ) : (item.type === "community" || item.type === "plan") && item.thumbnail ? (
+                              <div className={styles.communityThumbnail}>
+                                <img
+                                  src={item.thumbnail}
+                                  alt=""
+                                  className={styles.communityThumbnailImg}
+                                  draggable={false}
+                                  onError={(e) => { (e.target as HTMLImageElement).src = '/assets/plans/placeholder.jpg' }}
+                                />
+                              </div>
+                            ) : (
+                              <div className={styles.iconWrapper}>
+                                <img
+                                  src={`/assets/icons/icon-${getIconName(item.type, item.icon)}.svg`}
+                                  alt=""
+                                  className={styles.resultIcon}
+                                />
+                              </div>
+                            )}
+                          </div>
+                          <div className={styles.recentItemContent}>
+                            <div className={styles.recentItemTitle}>
+                              <span>{item.title}</span>
+                              {item.type === "page" && (
+                                <span className={styles.pageChip}>Page</span>
+                              )}
+                              {item.status && (
+                                <span className={styles.statusChip}>{item.status}</span>
+                              )}
+                            </div>
+                            <div className={styles.recentItemSubtitle}>
+                              <span>{item.subtitle}</span>
+                              {item.meta && (
+                                <>
+                                  <span className={styles.dot}></span>
+                                  <span>{item.meta}</span>
+                                </>
+                              )}
+                              {item.extra && (
+                                <>
+                                  <span className={styles.dot}></span>
+                                  <span>{item.extra}</span>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className={styles.noResults}>
+                        <span>No results found for "{searchValue}"</span>
+                      </div>
+                    )
+                  ))
                 ) : (
                   recentSearches.map((item) => (
                     <div
@@ -555,6 +756,7 @@ export default function TopNav() {
                               alt=""
                               className={styles.communityThumbnailImg}
                               draggable={false}
+                              onError={(e) => { (e.target as HTMLImageElement).src = '/assets/plans/placeholder.jpg' }}
                             />
                           </div>
                         ) : (

@@ -26,18 +26,19 @@
   overflow-y: auto;
   overflow-x: clip;
   flex: 1;
-  padding: 4px;
+  padding: 0;
 }
 
 .container {
   width: 100%;
+  min-width: 0;
   background: #FAFAFA;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
   flex: 1;
-  border-radius: 24px 0px 0px 0px;
+  border-radius: 0;
   box-shadow: 0 0 4px 0 rgba(37, 38, 40, 0.08);
 }
 
