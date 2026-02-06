@@ -14,7 +14,8 @@ export default function AIPreviewOverlay({ open, onClose }: AIPreviewOverlayProp
   const [showPaletteSelector, setShowPaletteSelector] = React.useState(true)
   const [selectedPaletteId, setSelectedPaletteId] = React.useState('1')
   const [showCustomPaletteEditor, setShowCustomPaletteEditor] = React.useState(false)
-  const [isImageLoading, setIsImageLoading] = React.useState(true)
+  const [isImageLoading, setIsImageLoading] = React.useState(false)
+  const loadingTimeoutRef = React.useRef<number | null>(null)
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -26,13 +27,38 @@ export default function AIPreviewOverlay({ open, onClose }: AIPreviewOverlayProp
 
   const selectedPalette = palettes.find(p => p.id === selectedPaletteId) || palettes[0]
 
-  // Set loading state when palette changes
+  // Set loading state when palette changes, but with a delay
+  // This prevents flashing for fast-loading (cached) images
   React.useEffect(() => {
-    setIsImageLoading(true)
+    // Clear any existing timeout
+    if (loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current)
+    }
+
+    // Hide loading initially
+    setIsImageLoading(false)
+
+    // Only show loading indicator after 300ms
+    // If image loads before this, the indicator never appears
+    loadingTimeoutRef.current = window.setTimeout(() => {
+      setIsImageLoading(true)
+    }, 300)
+
+    return () => {
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current)
+      }
+    }
   }, [selectedPaletteId])
 
   // Handle image load completion
   const handleImageLoad = () => {
+    // Clear the timeout if it hasn't fired yet
+    if (loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current)
+      loadingTimeoutRef.current = null
+    }
+    // Hide loading indicator
     setIsImageLoading(false)
   }
 
