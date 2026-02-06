@@ -160,6 +160,21 @@ function OverviewTab({ lotData }: { lotData: ReservedLotData }) {
     })
   }
 
+  const getStatusClass = (status: string) => {
+    switch (status) {
+      case 'Published':
+        return styles.statusPublished
+      case 'In Progress':
+        return styles.statusInProgress
+      case 'Quote Requested':
+        return styles.statusRequested
+      case 'Expired':
+        return styles.statusExpired
+      default:
+        return ''
+    }
+  }
+
   return (
     <div className={styles.overviewTab}>
       <div className={styles.sectionCard}>
@@ -290,6 +305,49 @@ function OverviewTab({ lotData }: { lotData: ReservedLotData }) {
                 <button className={styles.updateBtn}>Update</button>
                 <Button variant="ghost" size="sm" iconOnly className={styles.removeBtn} aria-label="Remove attachment">✕</Button>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Quotes Table */}
+      <div className={styles.sectionCard}>
+        <h2 className={styles.sectionTitle}>Quotes</h2>
+        <div className={styles.quotesTableWrapper}>
+          <div className={styles.quotesTable}>
+            <div className={styles.quotesTableHeader}>
+              <div className={styles.quotesTableHeaderCell}>Name</div>
+              <div className={styles.quotesTableHeaderCell}>Status</div>
+              <div className={styles.quotesTableHeaderCell}>Packs</div>
+              <div className={styles.quotesTableHeaderCell}>Total</div>
+            </div>
+            <div className={styles.quotesTableBody}>
+              {quotesData.map((quote, index) => (
+                <div key={index} className={styles.quotesTableRow}>
+                  <div className={styles.quotesTableCell}>{quote.name}</div>
+                  <div className={styles.quotesTableCell}>
+                    <span className={`${styles.statusBadge} ${getStatusClass(quote.status)}`}>
+                      {quote.status}
+                    </span>
+                  </div>
+                  <div className={styles.quotesTableCell}>{quote.packs}</div>
+                  <div className={styles.quotesTableCell}>{quote.total}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className={styles.pagination}>
+            <div className={styles.paginationLeft}>
+              <span className={styles.paginationText}>Rows per page:</span>
+              <span className={styles.paginationText}>5</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6L8 10L12 6" stroke="#636769" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <span className={styles.paginationText}>1-5 of 13</span>
+            <div className={styles.paginationButtons}>
+              <button className={styles.paginationBtn} disabled>‹</button>
+              <button className={styles.paginationBtn}>›</button>
             </div>
           </div>
         </div>

@@ -14,6 +14,7 @@ export default function AIPreviewOverlay({ open, onClose }: AIPreviewOverlayProp
   const [showPaletteSelector, setShowPaletteSelector] = React.useState(true)
   const [selectedPaletteId, setSelectedPaletteId] = React.useState('1')
   const [showCustomPaletteEditor, setShowCustomPaletteEditor] = React.useState(false)
+  const [isImageLoading, setIsImageLoading] = React.useState(true)
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -24,6 +25,16 @@ export default function AIPreviewOverlay({ open, onClose }: AIPreviewOverlayProp
   }, [open, onClose])
 
   const selectedPalette = palettes.find(p => p.id === selectedPaletteId) || palettes[0]
+
+  // Set loading state when palette changes
+  React.useEffect(() => {
+    setIsImageLoading(true)
+  }, [selectedPaletteId])
+
+  // Handle image load completion
+  const handleImageLoad = () => {
+    setIsImageLoading(false)
+  }
 
   return (
     <>
@@ -65,10 +76,18 @@ export default function AIPreviewOverlay({ open, onClose }: AIPreviewOverlayProp
 
                 <div className={styles.previewArea}>
                   <div className={styles.previewContainer}>
+                    {isImageLoading && (
+                      <div className={styles.imageLoadingOverlay}>
+                        <div className={styles.imageLoadingSpinner}></div>
+                        <p className={styles.imageLoadingText}>Generating preview...</p>
+                      </div>
+                    )}
                     <img
                       src={selectedPalette.previewImage}
                       alt="AI Generated House Preview"
                       className={styles.previewImage}
+                      onLoad={handleImageLoad}
+                      style={{ opacity: isImageLoading ? 0 : 1 }}
                     />
                     <button className={styles.imageControlBtn} aria-label="Image controls">
                       <img src="/assets/icons/enviroment.svg" alt="" width="20" height="20" />

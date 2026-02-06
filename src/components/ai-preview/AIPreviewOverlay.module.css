@@ -101,6 +101,42 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+.imageLoadingOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: linear-gradient(180deg, #A8C5E8 0%, #E8F1FA 100%);
+  z-index: 1;
+}
+
+.imageLoadingSpinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: imageSpinnerRotate 0.8s linear infinite;
+}
+
+@keyframes imageSpinnerRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.imageLoadingText {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .imageControlBtn {
@@ -164,4 +200,16 @@
 
 .contactBtn:hover {
   background: #F9FAFB;
+}
+
+/* Accessibility: Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .imageLoadingSpinner {
+    animation: none;
+    border: 4px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .previewImage {
+    transition: none;
+  }
 }
