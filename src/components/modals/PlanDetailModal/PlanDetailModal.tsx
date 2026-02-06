@@ -1021,67 +1021,75 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
               </div>
             ) : (
               <>
-                <div className={styles.plansTableRow}>
-                  <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                    <span className={styles.plansTableName}>Serena</span>
-                    <span className={styles.plansTableCommunity}>Silver Lake</span>
-                  </div>
-                  <div className={styles.plansTableCell}>3</div>
-                  <div className={styles.plansTableCell}>2.5</div>
-                  <div className={styles.plansTableCell}>12</div>
-                  <div className={styles.plansTableCell}>
-                    <span className={styles.featureChip}>Fireplace</span>
-                  </div>
-                </div>
-                <div className={styles.plansTableRow}>
-                  <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                    <span className={styles.plansTableName}>Serena B</span>
-                    <span className={styles.plansTableCommunity}>Whispering Hills</span>
-                  </div>
-                  <div className={styles.plansTableCell}>4</div>
-                  <div className={styles.plansTableCell}>3</div>
-                  <div className={styles.plansTableCell}>8</div>
-                  <div className={styles.plansTableCell}>
-                    <span className={styles.featureChip}>Finished LL</span>
-                  </div>
-                </div>
-                <div className={styles.plansTableRow}>
-                  <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                    <span className={styles.plansTableName}>Serena C</span>
-                    <span className={styles.plansTableCommunity}>Riverside Estates</span>
-                  </div>
-                  <div className={styles.plansTableCell}>3</div>
-                  <div className={styles.plansTableCell}>2</div>
-                  <div className={styles.plansTableCell}>15</div>
-                  <div className={styles.plansTableCell}>
-                    <span className={styles.featureChip}>Deck</span>
-                  </div>
-                </div>
-                <div className={styles.plansTableRow}>
-                  <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                    <span className={styles.plansTableName}>Serena XL</span>
-                    <span className={styles.plansTableCommunity}>The Pines</span>
-                  </div>
-                  <div className={styles.plansTableCell}>5</div>
-                  <div className={styles.plansTableCell}>4</div>
-                  <div className={styles.plansTableCell}>6</div>
-                  <div className={styles.plansTableCell}>
-                    <span className={styles.featureChip}>Fireplace</span>
-                    <span className={styles.featureChip}>Deck</span>
-                  </div>
-                </div>
-                <div className={styles.plansTableRow}>
-                  <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
-                    <span className={styles.plansTableName}>Serena Plus</span>
-                    <span className={styles.plansTableCommunity}>Silver Lake</span>
-                  </div>
-                  <div className={styles.plansTableCell}>4</div>
-                  <div className={styles.plansTableCell}>3.5</div>
-                  <div className={styles.plansTableCell}>10</div>
-                  <div className={styles.plansTableCell}>
-                    <span className={styles.featureChip}>Finished LL</span>
-                  </div>
-                </div>
+                {(() => {
+                  // Get base plan name (remove "The " prefix if present)
+                  const baseName = formData.name.replace(/^The\s+/i, '')
+                  return (
+                    <>
+                      <div className={styles.plansTableRow}>
+                        <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                          <span className={styles.plansTableName}>{baseName}</span>
+                          <span className={styles.plansTableCommunity}>Silver Lake</span>
+                        </div>
+                        <div className={styles.plansTableCell}>3</div>
+                        <div className={styles.plansTableCell}>2.5</div>
+                        <div className={styles.plansTableCell}>12</div>
+                        <div className={styles.plansTableCell}>
+                          <span className={styles.featureChip}>Fireplace</span>
+                        </div>
+                      </div>
+                      <div className={styles.plansTableRow}>
+                        <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                          <span className={styles.plansTableName}>{baseName} B</span>
+                          <span className={styles.plansTableCommunity}>Whispering Hills</span>
+                        </div>
+                        <div className={styles.plansTableCell}>4</div>
+                        <div className={styles.plansTableCell}>3</div>
+                        <div className={styles.plansTableCell}>8</div>
+                        <div className={styles.plansTableCell}>
+                          <span className={styles.featureChip}>Finished LL</span>
+                        </div>
+                      </div>
+                      <div className={styles.plansTableRow}>
+                        <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                          <span className={styles.plansTableName}>{baseName} C</span>
+                          <span className={styles.plansTableCommunity}>Riverside Estates</span>
+                        </div>
+                        <div className={styles.plansTableCell}>3</div>
+                        <div className={styles.plansTableCell}>2</div>
+                        <div className={styles.plansTableCell}>15</div>
+                        <div className={styles.plansTableCell}>
+                          <span className={styles.featureChip}>Deck</span>
+                        </div>
+                      </div>
+                      <div className={styles.plansTableRow}>
+                        <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                          <span className={styles.plansTableName}>{baseName} XL</span>
+                          <span className={styles.plansTableCommunity}>The Pines</span>
+                        </div>
+                        <div className={styles.plansTableCell}>5</div>
+                        <div className={styles.plansTableCell}>4</div>
+                        <div className={styles.plansTableCell}>6</div>
+                        <div className={styles.plansTableCell}>
+                          <span className={styles.featureChip}>Fireplace</span>
+                          <span className={styles.featureChip}>Deck</span>
+                        </div>
+                      </div>
+                      <div className={styles.plansTableRow}>
+                        <div className={`${styles.plansTableCell} ${styles.plansTableNameCell}`}>
+                          <span className={styles.plansTableName}>{baseName} Plus</span>
+                          <span className={styles.plansTableCommunity}>Silver Lake</span>
+                        </div>
+                        <div className={styles.plansTableCell}>4</div>
+                        <div className={styles.plansTableCell}>3.5</div>
+                        <div className={styles.plansTableCell}>10</div>
+                        <div className={styles.plansTableCell}>
+                          <span className={styles.featureChip}>Finished LL</span>
+                        </div>
+                      </div>
+                    </>
+                  )
+                })()}
               </>
             )}
           </div>
