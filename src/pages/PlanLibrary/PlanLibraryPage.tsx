@@ -51,9 +51,6 @@ export default function PlanLibraryPage() {
     return () => window.removeEventListener('closeAllModals', handleCloseModals)
   }, [])
 
-  // Calculate active plans count for badge
-  const activePlansCount = plans.filter(p => (p as any).status !== 'inactive' && (p as any).status !== 'archived').length || plans.length
-
   // Count active beds and baths filters
   const bedsAndBathsFilterCount = [
     bedsAndBathsFilters.bedrooms !== 'Any',
@@ -123,6 +120,101 @@ export default function PlanLibraryPage() {
     // Element stays collapsed at 0 height - no display:none to avoid jump
   }
 
+  // Helper to parse dimension string (e.g., "30'" or "30' 6\"") to number in feet
+  const parseDimension = (dim: string): number => {
+    if (!dim) return 0
+    // Remove quotes and parse - handles formats like "30'" or "30' 6\""
+    const match = dim.match(/(\d+)/)
+    return match ? parseInt(match[1], 10) : 0
+  }
+
+  // Filter plans based on all active filters
+  const filteredPlans = React.useMemo(() => {
+    return plans.filter(plan => {
+      // Beds filter
+      if (bedsAndBathsFilters.bedrooms !== 'Any') {
+        const filterBeds = bedsAndBathsFilters.bedrooms === '5+' ? 5 : parseInt(bedsAndBathsFilters.bedrooms, 10)
+        if (bedsAndBathsFilters.bedrooms === '5+') {
+          if (plan.bedrooms < 5) return false
+        } else {
+          if (plan.bedrooms !== filterBeds) return false
+        }
+      }
+
+      // Baths filter
+      if (bedsAndBathsFilters.bathrooms !== 'Any') {
+        const filterBaths = bedsAndBathsFilters.bathrooms === '4+' ? 4 : parseFloat(bedsAndBathsFilters.bathrooms)
+        if (bedsAndBathsFilters.bathrooms === '4+') {
+          if (plan.bathrooms < 4) return false
+        } else {
+          if (plan.bathrooms !== filterBaths) return false
+        }
+      }
+
+      // Half baths filter
+      if (bedsAndBathsFilters.halfBaths !== 'Any') {
+        const filterHalfBaths = bedsAndBathsFilters.halfBaths === '2+' ? 2 : parseInt(bedsAndBathsFilters.halfBaths, 10)
+        if (bedsAndBathsFilters.halfBaths === '2+') {
+          if (plan.halfBaths < 2) return false
+        } else {
+          if (plan.halfBaths !== filterHalfBaths) return false
+        }
+      }
+
+      // Width filter
+      const planWidth = parseDimension(plan.width)
+      if (widthAndDepthFilters.widthMin && planWidth < parseInt(widthAndDepthFilters.widthMin, 10)) {
+        return false
+      }
+      if (widthAndDepthFilters.widthMax && planWidth > parseInt(widthAndDepthFilters.widthMax, 10)) {
+        return false
+      }
+
+      // Depth filter
+      const planDepth = parseDimension(plan.depth)
+      if (widthAndDepthFilters.depthMin && planDepth < parseInt(widthAndDepthFilters.depthMin, 10)) {
+        return false
+      }
+      if (widthAndDepthFilters.depthMax && planDepth > parseInt(widthAndDepthFilters.depthMax, 10)) {
+        return false
+      }
+
+      // Square footage filter
+      if (squareFootageFilters.min && plan.totalFinishedSqft < parseInt(squareFootageFilters.min, 10)) {
+        return false
+      }
+      if (squareFootageFilters.max && plan.totalFinishedSqft > parseInt(squareFootageFilters.max, 10)) {
+        return false
+      }
+
+      // Categories filter (plan features)
+      if (categoriesFilters.selectedCategories.length > 0) {
+        // Map category names to plan feature keywords for matching
+        const categoryToFeatureMap: Record<string, string[]> = {
+          'Bonus room': ['Bonus room', 'bonus'],
+          'Covered porch or patio': ['Covered patio', 'porch', 'patio', 'Outdoor'],
+          'Family room': ['Family room', 'Game room'],
+          'Finished lower level': ['Finished LL', 'Finished lower', 'basement'],
+          'Fireplace': ['Fireplace'],
+          'Kitchen island': ['Kitchen island', 'island', "Chef's island"],
+          'Office or flex space': ['Office', 'Flex', 'flex room', 'Office/Flex'],
+          'Pocket door': ['Pocket door']
+        }
+
+        const hasAllSelectedCategories = categoriesFilters.selectedCategories.every(category => {
+          const keywords = categoryToFeatureMap[category] || [category]
+          return plan.planFeatures.some(feature =>
+            keywords.some(keyword => feature.toLowerCase().includes(keyword.toLowerCase()))
+          )
+        })
+
+        if (!hasAllSelectedCategories) return false
+      }
+
+      return true
+    })
+  }, [plans, bedsAndBathsFilters, widthAndDepthFilters, squareFootageFilters, categoriesFilters])
+
   return (
     <div className={styles.page}>
       <div className={`${styles.alertWrapper} ${isAlertClosing ? styles.alertWrapperClosing : ''}`}>
@@ -162,7 +254,7 @@ export default function PlanLibraryPage() {
       <div className={styles.filtersRow}>
         <div className={styles.leftFilters}>
           <button className={styles.filterButton}>
-            <span className={styles.filterBadge}>{activePlansCount}</span>
+            <span className={styles.filterBadge}>{filteredPlans.length}</span>
             <span>Active</span>
             <img
               src="/assets/icons/chevron-down.svg"
@@ -278,17 +370,26 @@ export default function PlanLibraryPage() {
       </div>
 
       <div className={styles.grid}>
-        {plans.map(p => (
-          <PlanCard
-            key={p.id}
-            plan={p}
-            onClick={() => setSelectedPlan({
-              id: (p as any).id,
-              name: p.name,
-              communityCount: (p as any).communityCount || 0
-            })}
-          />
-        ))}
+        {filteredPlans.length > 0 ? (
+          filteredPlans.map(p => (
+            <PlanCard
+              key={p.id}
+              plan={p}
+              onClick={() => setSelectedPlan({
+                id: (p as any).id,
+                name: p.name,
+                communityCount: (p as any).communityCount || 0
+              })}
+            />
+          ))
+        ) : (
+          <div className={styles.noResults}>
+            <p>No plans match your filters</p>
+            <button className={styles.clearFiltersLink} onClick={handleClearAllFilters}>
+              Clear all filters
+            </button>
+          </div>
+        )}
       </div>
 
       <PlanDetailModal
