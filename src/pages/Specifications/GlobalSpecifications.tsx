@@ -317,63 +317,36 @@ export default function GlobalSpecifications() {
           </button>
         </div>
 
-        {/* Packages Table Card */}
-        <div className={styles.card}>
-          {/* Toolbar */}
-          <div className={styles.toolbar}>
-            <div className={styles.toolbarLeft}>
-              <button type="button" className={styles.toolbarButton}>
-                <img src="/assets/icons/search.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                <span>Search</span>
-              </button>
-              <button type="button" className={styles.toolbarButton}>
-                <img src="/assets/icons/filter.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                <span>Filter</span>
-              </button>
-              <button type="button" className={styles.toolbarButton}>
-                <img src="/assets/icons/sort.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                <span>Sort</span>
-              </button>
-            </div>
-            <div className={styles.toolbarRight}>
-              <button type="button" className={styles.toolbarButton}>
-                <img src="/assets/icons/columns.svg" alt="" className={styles.toolbarIcon} draggable={false} />
-                <span>Edit Columns</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Packages Table */}
-          <div className={styles.tableWrapper}>
-            <table className={styles.table}>
-              <thead>
-                <tr className={styles.tableHeaderRow}>
-                  <th className={styles.thName}>Template</th>
-                  <th className={styles.thVariations}>Variations</th>
-                  <th className={styles.thUsedIn}>Used in</th>
-                  <th className={styles.thActions}></th>
+        {/* Packages Table */}
+        <div className={styles.tableWrapper}>
+          <table className={styles.table}>
+            <thead>
+              <tr className={styles.tableHeaderRow}>
+                <th className={styles.thName}>Template</th>
+                <th className={styles.thVariations}>Variations</th>
+                <th className={styles.thUsedIn}>Used in</th>
+                <th className={styles.thActions}></th>
+              </tr>
+            </thead>
+            <tbody>
+              {packagesData.map((pkg) => (
+                <tr
+                  key={pkg.id}
+                  className={styles.packageRow}
+                  onClick={() => handlePackageClick(pkg)}
+                >
+                  <td className={styles.tdName}>
+                    <span className={styles.packageName}>{pkg.name}</span>
+                  </td>
+                  <td className={styles.tdVariations}>{pkg.variations}</td>
+                  <td className={styles.tdUsedIn}>{pkg.usedIn}</td>
+                  <td className={styles.tdChevron}>
+                    <img src="/assets/icons/chevron-right.svg" alt="" className={styles.rowChevron} draggable={false} />
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {packagesData.map((pkg) => (
-                  <tr
-                    key={pkg.id}
-                    className={styles.packageRow}
-                    onClick={() => handlePackageClick(pkg)}
-                  >
-                    <td className={styles.tdName}>
-                      <span className={styles.packageName}>{pkg.name}</span>
-                    </td>
-                    <td className={styles.tdVariations}>{pkg.variations}</td>
-                    <td className={styles.tdUsedIn}>{pkg.usedIn}</td>
-                    <td className={styles.tdChevron}>
-                      <img src="/assets/icons/chevron-right.svg" alt="" className={styles.rowChevron} draggable={false} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
       </motion.div>
     );
