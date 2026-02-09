@@ -1,55 +1,18 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
-import { useData } from '../../../app/providers'
 import styles from './PlanCard.module.css'
 import type { Plan } from '../../../app/providers'
 
-type PlanWithOptionalImage = Plan & { image?: string; communityName?: string }
+type PlanWithOptionalImage = Plan & { image?: string }
 
-function formatBeds(value: unknown) {
-  if (value == null) return ''
-  const s = String(value).trim()
-  if (!s) return ''
-  return /\bbd\b/i.test(s) ? s : `${s} bd`
-}
-
-function formatBaths(value: unknown) {
-  if (value == null) return ''
-  const s = String(value).trim()
-  if (!s) return ''
-  return /\bba\b/i.test(s) ? s : `${s} ba`
-}
-
-function formatArea(value: unknown) {
-  if (value == null) return ''
-  if (typeof value === 'number' && Number.isFinite(value)) return `${value.toLocaleString()} sqft`
-
-  const s = String(value).trim()
-  if (!s) return ''
-
-  // If it already contains letters (e.g. "sqft", "sf"), keep as-is.
-  if (/[a-z]/i.test(s)) return s
-
-  // Otherwise assume it's a number-ish string
-  return `${s} sqft`
+function formatRange(base: number | undefined, max: number | undefined, suffix: string) {
+  if (base == null) return ''
+  if (max != null && max !== base) return `${base}-${max} ${suffix}`
+  return `${base} ${suffix}`
 }
 
 export default function PlanCard({ plan, onClick }: { plan: Plan; onClick?: () => void }) {
   const typedPlan = plan as PlanWithOptionalImage
-
-  // Try to match the design line that shows the community name (e.g. "Whispering Hills")
-  // Priority:
-  // 1) plan.communityName (if you have it)
-  // 2) current community from route param (community overview page)
-  const { communityId } = useParams()
-  const { communities } = useData()
-
-  const derivedCommunityName = React.useMemo(() => {
-    if (typedPlan.communityName) return typedPlan.communityName
-    if (!communityId) return ''
-    const c = communities.find((x) => x.id === communityId)
-    return c?.name ?? ''
-  }, [typedPlan.communityName, communityId, communities])
+  const p = typedPlan as any
 
   const plannedSrc = typedPlan.image
     ? (typedPlan.image.startsWith('/') ? typedPlan.image : `/assets/plans/${typedPlan.image}`)
@@ -65,7 +28,11 @@ export default function PlanCard({ plan, onClick }: { plan: Plan; onClick?: () =
     setImgSrc((prev) => (prev === '/assets/plans/placeholder.jpg' ? prev : '/assets/plans/placeholder.jpg'))
   }
 
-  const communityCount = (typedPlan as any).communityCount
+  const specs = [
+    formatRange(p.bedrooms, p.maxBedrooms, 'bd'),
+    formatRange(p.bathrooms, p.maxBathrooms, 'ba'),
+    p.totalFinishedSqft ? `${p.totalFinishedSqft.toLocaleString()} sqft` : '',
+  ].filter(Boolean)
 
   return (
     <div className={styles.card} onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
@@ -83,8 +50,15 @@ export default function PlanCard({ plan, onClick }: { plan: Plan; onClick?: () =
       <div className={styles.footer}>
         <div className={styles.name}>{typedPlan.name}</div>
 
-        {communityCount != null && (
-          <div className={styles.community}>{communityCount} Communities</div>
+        {specs.length > 0 && (
+          <div className={styles.meta}>
+            {specs.map((s, i) => (
+              <React.Fragment key={i}>
+                {i > 0 && <span className={styles.dot}>·</span>}
+                <span>{s}</span>
+              </React.Fragment>
+            ))}
+          </div>
         )}
       </div>
     </div>
