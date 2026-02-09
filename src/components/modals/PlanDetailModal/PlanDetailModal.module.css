@@ -25,49 +25,6 @@
   flex-direction: column;
 }
 
-.container {
-  display: flex;
-  height: 100%;
-  overflow: hidden;
-  padding: 24px;
-  gap: 24px;
-  max-width: 1800px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.mainContent {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: #f9fafb;
-  border-radius: 12px;
-  min-width: 0;
-  overflow: hidden;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  padding: 0px 0px 16px;
-  background: transparent;
-  border-radius: 12px 12px 0 0;
-  flex-shrink: 0;
-}
-
-.title {
-color: var(--Colors-Text-text-primary, #0B0C0D);
-font-feature-settings: 'liga' off, 'clig' off;
-
-/* Typography/subtitle1/Semibold */
-font-family: Inter;
-font-size: 1rem;
-font-style: normal;
-font-weight: 600;
-line-height: 1.5rem; /* 150% */
-  margin:0px;
-}
-
 /* Close button */
 .closeBtn {
   position: absolute;
@@ -86,58 +43,8 @@ line-height: 1.5rem; /* 150% */
   justify-content: center;
 }
 
-.scrollableWrapper {
-  flex: 1;
-  display: flex;
-  gap: 24px;
-  overflow-y: auto;
-
-}
-
-.centerContent {
-  flex: 1;
-  min-width: 0;
-}
-
-.rightSidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  flex-shrink: 0;
-}
-
-.overviewTab {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.sectionCard {
-  background: white;
-  border: 1px solid #EFF0F0;
-  border-radius: 20px;
-  padding: 28px;
-}
-
-.formSection {
-  margin-bottom: 20px;
-}
-
-.formSection:last-child {
-  margin-bottom: 0;
-}
-
 .formRow {
-  display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.formColumn {
-  display: flex;
-  flex-direction: column;
 }
 
 .multiSelect {
@@ -275,14 +182,6 @@ line-height: 1.5rem; /* 150% */
   border-top: 1px solid #e5e7eb;
 }
 
-.label {
-  display: block;
-  font-size: 13px;
-  font-weight: 500;
-  color: #374151;
-  margin-bottom: 6px;
-}
-
 .input {
   width: 100%;
   padding: 9px 12px;
@@ -317,13 +216,6 @@ line-height: 1.5rem; /* 150% */
   outline: none;
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.sectionTitle {
-  font-size: 16px;
-  font-weight: 600;
-  color: #111827;
-  margin: 0 0 20px 0;
 }
 
 .masterPlanContainer {
@@ -673,45 +565,6 @@ line-height: 1.5rem; /* 150% */
 
 /* plansPaginationBtn migrated to Button component */
 
-.loadingState {
-  background: white;
-  border-radius: 6px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.imageSection {
-  width: 100%;
-  height: 350px;
-  overflow: hidden;
-  background: #f3f4f6;
-}
-
-.backgroundImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.loadingSection {
-  padding: 32px 40px;
-  background: white;
-}
-
-.loadingTitle {
-  font-size: 20px;
-  font-weight: 600;
-  color: #111827;
-  margin: 0 0 8px 0;
-}
-
-.loadingText {
-  font-size: 14px;
-  color: #6b7280;
-  margin-bottom: 16px;
-}
-
 .progressBar {
   width: 100%;
   height: 8px;
@@ -728,44 +581,6 @@ line-height: 1.5rem; /* 150% */
   transition: width 0.3s ease;
 }
 
-.fileInfo {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24px 40px;
-  background: #f9fafb;
-  border-top: 1px solid #e5e7eb;
-}
-
-.fileDetails {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.pdfIcon {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-}
-
-.fileText {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.fileName {
-  font-size: 14px;
-  font-weight: 500;
-  color: #111827;
-}
-
-.fileSize {
-  font-size: 13px;
-  color: #6b7280;
-}
-
 .fileActions {
   display: flex;
   align-items: center;
@@ -777,59 +592,6 @@ line-height: 1.5rem; /* 150% */
 .completedState {
   display: flex;
   flex-direction: column;
-
-  background-color: #f9fafb;
-}
-
-.visualizerSection {
-  background: white;
-  border-bottom: 1px solid #EFF0F0;
-  border-radius: 4px;
-  overflow: hidden;
-  
-}
-
-.visualizerImage {
-  width: 100%;
-  height: 280px;
-  overflow: hidden;
-}
-
-.visualizerImage img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.visualizerInfo {
-padding: 16px;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.visualizerTitle {
-color: var(--Colors-Text-text-primary, #0B0C0D);
-font-feature-settings: 'liga' off, 'clig' off;
-font-family: Inter;
-font-size: 1rem;
-font-style: normal;
-font-weight: 600;
-line-height: 1.5rem; /* 150% */
-  margin: 0px;
-}
-
-.visualizerDescription {
-color: var(--Colors-Text-text-secondary, #3E4041);
-
-/* Typography/body1/Regular */
-font-family: Inter;
-font-size: 1rem;
-font-style: normal;
-font-weight: 400;
-line-height: 1.5rem; /* 150% */
-   margin: 0px;
 }
 
 /* View Now button - positioning only */
@@ -920,118 +682,12 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
    EXISTING PLAN - PLAN SET SECTION
    ========================================== */
 
-.existingPlanSet {
-  display: flex;
-  flex-direction: column;
-  background: #FAFAFA;
-}
-
-.inspireCard {
-  position: relative;
-  height: 330px;
-}
-
-.inspireImageArea {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.inspireImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.inspireContent {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 16px;
-  background: #FFFFFF;
-}
-
-.inspireTextSection {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.inspireTitle {
-  font-family: Inter, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  color: #0B0C0D;
-  margin: 0;
-  line-height: 1.5;
-}
-
-.inspireDescription {
-  font-family: Inter, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  color: #3E4041;
-  margin: 0;
-  line-height: 1.5;
-}
-
 .inspireButtons {
   display: flex;
   gap: 12px;
 }
 
 /* viewNowBtnOutlined and shareBtnOutlined migrated to Button component */
-
-.planSetFileRow {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px;
-  background: #FAFAFA;
-}
-
-.planSetFileInfo {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex: 1;
-}
-
-.planSetPdfIcon {
-  width: 32px;
-  height: 40px;
-  object-fit: contain;
-  flex-shrink: 0;
-}
-
-.planSetFileText {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.planSetFileName {
-  font-family: Inter, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  color: #0B0C0D;
-  line-height: 1.5;
-}
-
-.planSetFileSize {
-  font-family: Roboto, Inter, sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  color: #636769;
-  line-height: 1.43;
-}
 
 .planSetButtonGroup {
   display: flex;
@@ -1047,11 +703,6 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
    ========================================== */
 
 @media (max-width: 1023px) {
-  .container {
-    padding: 20px;
-    gap: 20px;
-  }
-
   .closeBtn {
     right: 24px;
     top: 14px;
@@ -1060,47 +711,9 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     font-size: 28px;
   }
 
-  .sectionCard {
-    padding: 24px;
-    border-radius: 16px;
-  }
-
-  .formRow {
-    gap: 14px;
-    margin-bottom: 16px;
-  }
-
-  .scrollableWrapper {
-    gap: 20px;
-  }
-
-  .rightSidebar {
-    gap: 20px;
-  }
-
-  .overviewTab {
-    gap: 20px;
-  }
-
-  .imageSection {
-    height: 300px;
-  }
-
-  .loadingSection {
-    padding: 28px 32px;
-  }
-
-  .fileInfo {
-    padding: 20px 32px;
-  }
-
   .completedContent {
     gap: 14px;
     padding: 14px;
-  }
-
-  .visualizerImage {
-    height: 240px;
   }
 
   .plansTableHeader {
@@ -1121,13 +734,6 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
    ========================================== */
 
 @media (max-width: 767px) {
-  .container {
-    padding: 16px;
-    gap: 16px;
-    flex-direction: column;
-    overflow-y: auto;
-  }
-
   .closeBtn {
     right: 16px;
     top: 12px;
@@ -1136,55 +742,9 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     font-size: 28px;
   }
 
-  .scrollableWrapper {
-    flex-direction: column;
-    gap: 16px;
-    overflow: visible;
-  }
-
-  .centerContent {
-    width: 100%;
-  }
-
-  .rightSidebar {
-    width: 100%;
-    flex-shrink: 1;
-    gap: 16px;
-  }
-
-  .sectionCard {
-    padding: 20px;
-    border-radius: 14px;
-  }
-
-  .formRow {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    margin-bottom: 14px;
-  }
-
-  .overviewTab {
-    gap: 16px;
-  }
-
-  .title {
-    font-size: 0.9375rem;
-    line-height: 1.375rem;
-  }
-
   .baseHouseTitle {
     font-size: 0.9375rem;
     line-height: 1.375rem;
-  }
-
-  .sectionTitle {
-    font-size: 15px;
-    margin-bottom: 16px;
-  }
-
-  .label {
-    font-size: 12px;
-    margin-bottom: 5px;
   }
 
   .input {
@@ -1215,25 +775,6 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     height: 20px;
   }
 
-  .imageSection {
-    height: 220px;
-  }
-
-  .loadingSection {
-    padding: 24px;
-  }
-
-  .loadingTitle {
-    font-size: 18px;
-  }
-
-  .fileInfo {
-    padding: 16px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
   .fileActions {
     width: 100%;
     justify-content: flex-start;
@@ -1248,24 +789,6 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   .completedCard {
     padding: 14px;
     gap: 14px;
-  }
-
-  .visualizerImage {
-    height: 200px;
-  }
-
-  .visualizerInfo {
-    padding: 14px;
-  }
-
-  .visualizerTitle {
-    font-size: 0.9375rem;
-    line-height: 1.375rem;
-  }
-
-  .visualizerDescription {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
   }
 
   .pdfHeader {
@@ -1430,11 +953,6 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
    ========================================== */
 
 @media (max-width: 479px) {
-  .container {
-    padding: 12px;
-    gap: 12px;
-  }
-
   .closeBtn {
     right: 12px;
     top: 10px;
@@ -1443,82 +961,9 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     font-size: 26px;
   }
 
-  .sectionCard {
-    padding: 16px;
-    border-radius: 12px;
-  }
-
-  .formRow {
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-
-  .overviewTab {
-    gap: 12px;
-  }
-
-  .scrollableWrapper {
-    gap: 12px;
-  }
-
-  .rightSidebar {
-    gap: 12px;
-  }
-
-  .title {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
-
   .baseHouseTitle {
     font-size: 0.875rem;
     line-height: 1.25rem;
-  }
-
-  .sectionTitle {
-    font-size: 14px;
-    margin-bottom: 14px;
-  }
-
-  .label {
-    font-size: 11px;
-  }
-
-  .imageSection {
-    height: 180px;
-  }
-
-  .loadingSection {
-    padding: 20px 16px;
-  }
-
-  .loadingTitle {
-    font-size: 16px;
-  }
-
-  .loadingText {
-    font-size: 13px;
-  }
-
-  .fileInfo {
-    padding: 12px;
-  }
-
-  .fileDetails {
-    gap: 10px;
-  }
-
-  .pdfIcon {
-    width: 32px;
-    height: 32px;
-  }
-
-  .fileName {
-    font-size: 13px;
-  }
-
-  .fileSize {
-    font-size: 12px;
   }
 
   .completedContent {
@@ -1529,24 +974,6 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   .completedCard {
     padding: 12px;
     gap: 12px;
-  }
-
-  .visualizerImage {
-    height: 160px;
-  }
-
-  .visualizerInfo {
-    padding: 12px;
-  }
-
-  .visualizerTitle {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
-
-  .visualizerDescription {
-    font-size: 0.8125rem;
-    line-height: 1.125rem;
   }
 
   .pdfHeader {
@@ -1802,4 +1229,142 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 
 .multiSelectLoading .fieldSpinner {
   left: 12px;
+}
+
+/* ==========================================
+   QUOTES TABLE
+   ========================================== */
+
+.quotesTableWrapper {
+  border: 1px solid #EFF0F0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.quotesTable {
+  width: 100%;
+  background: white;
+}
+
+.quotesTableHeader {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 0.8fr 1fr;
+  padding: 12px 16px;
+  background: #F9FAFB;
+  border-bottom: 1px solid #EFF0F0;
+}
+
+.quotesTableHeaderCell {
+  font-size: 12px;
+  font-weight: 500;
+  color: #636769;
+  text-transform: none;
+  line-height: 1.33;
+}
+
+.quotesTableBody {
+  background: white;
+}
+
+.quotesTableRow {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 0.8fr 1fr;
+  padding: 12px 16px;
+  border-bottom: 1px solid #EFF0F0;
+  align-items: center;
+}
+
+.quotesTableRow:last-child {
+  border-bottom: none;
+}
+
+.quotesTableRow:hover {
+  background-color: #FAFAFA;
+}
+
+.quotesTableCell {
+  font-size: 14px;
+  color: #3E4041;
+  line-height: 1.43;
+}
+
+/* Status Badges */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 4px;
+  line-height: 1.33;
+}
+
+.statusPublished {
+  background: #ECF3FC;
+  color: #3E4041;
+}
+
+.statusInProgress {
+  background: #F4F5F5;
+  color: #3E4041;
+}
+
+.statusRequested {
+  background: #F4F5F5;
+  color: #3E4041;
+}
+
+.statusExpired {
+  background: #FAE6E8;
+  color: #3E4041;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-top: 1px solid #EFF0F0;
+}
+
+.paginationLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+}
+
+.paginationText {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.paginationButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.paginationBtn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d1d5db;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #6b7280;
+  transition: background 0.15s;
+}
+
+.paginationBtn:hover:not(:disabled) {
+  background: #f9fafb;
+}
+
+.paginationBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }

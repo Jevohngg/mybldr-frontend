@@ -2,23 +2,25 @@ import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useData } from '../../app/providers'
+import { getPlanById } from '../../mock-data/plans'
 import ReservedLotSideNav from '../../navigation/ReservedLotSideNav/ReservedLotSideNav'
 import Button from '../../components/ui/Button'
+import layout from '../../components/shared/DetailPageLayout/DetailPageLayout.module.css'
 import styles from './ReservedLotDetailPage.module.css'
+import mediaCard from '../../components/shared/MediaCard/MediaCard.module.css'
 
 type TabType = 'overview' | 'quotes' | 'documents'
 
 interface ReservedLotData {
   lotNumber: string
   communityName: string
-  model: string
+  planId: string
   description: string
   projectName: string
   location: string
   city: string
   state: string
   zip: string
-  image: string
   selectionProgress: number
   selectionsMade: number
   totalSelections: number
@@ -30,14 +32,13 @@ const reservedLotsData: Record<string, ReservedLotData> = {
   '85': {
     lotNumber: '85',
     communityName: 'Kohler Ridge',
-    model: 'The Aspen',
+    planId: 'aspen',
     description: 'A spacious, elegant design built for modern living. Explore its 3D model, customize elevations, and see how it fits your lifestyle.',
     projectName: 'Lot 85',
     location: 'Street address or job description',
     city: 'Amarillo',
     state: 'TX',
     zip: '54162',
-    image: '/assets/plans/home-plan1.png',
     selectionProgress: 38,
     selectionsMade: 95,
     totalSelections: 250,
@@ -47,14 +48,13 @@ const reservedLotsData: Record<string, ReservedLotData> = {
   '823': {
     lotNumber: '823',
     communityName: 'Kohler Ridge',
-    model: 'The Serena',
+    planId: 'serena',
     description: 'A spacious, elegant design built for modern living. Explore its 3D model, customize elevations, and see how it fits your lifestyle.',
     projectName: 'Lot 823',
     location: 'Street address or job description',
     city: 'Amarillo',
     state: 'TX',
     zip: '54162',
-    image: '/assets/plans/home-plan2.png',
     selectionProgress: 85,
     selectionsMade: 213,
     totalSelections: 250,
@@ -101,8 +101,13 @@ export default function ReservedLotDetailPage() {
       exit={{ y: '100%' }}
       transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
     >
-      <Button variant="ghost" size="sm" iconOnly className={styles.closeBtn} onClick={handleClose} aria-label="Close">✕</Button>
-      <div className={styles.container}>
+      <div className={styles.topRightActions}>
+        <img src="/assets/avatar-group.png" alt="" className={styles.avatarGroup} />
+        <Button variant="ghost" size="sm" iconOnly className={styles.closeBtn} onClick={handleClose} aria-label="Close">
+          ✕
+        </Button>
+      </div>
+      <div className={layout.container}>
         <ReservedLotSideNav
           lotNumber={lotNumber || ''}
           communityName={community.name}
@@ -110,23 +115,22 @@ export default function ReservedLotDetailPage() {
           onTabChange={setActiveTab}
         />
 
-        <div className={styles.mainContent}>
-          <div className={styles.header}>
-            <h1 className={styles.title}>
+        <div className={layout.mainContent}>
+          <div className={layout.header}>
+            <h1 className={layout.title}>
               {activeTab === 'overview' ? 'Overview' : activeTab === 'quotes' ? 'Quotes' : 'Documents'}
             </h1>
-            <img src="/assets/avatar-group.png" alt="" className={styles.addButton} />
           </div>
 
-          <div className={styles.scrollableWrapper}>
-            <div className={styles.centerContent}>
+          <div className={layout.scrollableWrapper}>
+            <div className={layout.centerContent}>
               {activeTab === 'overview' && <OverviewTab lotData={lotData} />}
               {activeTab === 'quotes' && <QuotesTab />}
               {activeTab === 'documents' && <DocumentsTab />}
             </div>
 
             {activeTab === 'overview' && (
-              <div className={styles.rightSidebar}>
+              <div className={layout.rightSidebar}>
                 <TitleBlockInfo />
               </div>
             )}
@@ -138,8 +142,11 @@ export default function ReservedLotDetailPage() {
 }
 
 function OverviewTab({ lotData }: { lotData: ReservedLotData }) {
+  const plan = getPlanById(lotData.planId)
+  const planName = plan?.name || 'Assigned Plan'
+
   const [formData, setFormData] = React.useState({
-    model: lotData.model,
+    model: planName,
     description: lotData.description,
     projectName: lotData.projectName,
     location: lotData.location,
@@ -173,64 +180,64 @@ function OverviewTab({ lotData }: { lotData: ReservedLotData }) {
   }
 
   return (
-    <div className={styles.overviewTab}>
-      <div className={styles.sectionCard}>
-        <div className={styles.formSection}>
-          <label className={styles.label}>Model</label>
+    <div className={layout.overviewTab}>
+      <div className={layout.sectionCard}>
+        <div className={layout.formSection}>
+          <label className={layout.label}>Model</label>
           <input
             type="text"
-            className={styles.input}
+            className={layout.input}
             value={formData.model}
             onChange={(e) => setFormData(prev => ({ ...prev, model: e.target.value }))}
           />
         </div>
 
-        <div className={styles.formSection}>
-          <label className={styles.label}>Description</label>
+        <div className={layout.formSection}>
+          <label className={layout.label}>Description</label>
           <textarea
-            className={styles.textarea}
+            className={layout.textarea}
             value={formData.description}
             onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
             rows={3}
           />
         </div>
 
-        <div className={styles.formSection}>
-          <label className={styles.label}>Project Name</label>
+        <div className={layout.formSection}>
+          <label className={layout.label}>Project Name</label>
           <input
             type="text"
-            className={styles.input}
+            className={layout.input}
             value={formData.projectName}
             onChange={(e) => setFormData(prev => ({ ...prev, projectName: e.target.value }))}
           />
         </div>
 
-        <div className={styles.formSection}>
-          <label className={styles.label}>Location</label>
+        <div className={layout.formSection}>
+          <label className={layout.label}>Location</label>
           <input
             type="text"
-            className={styles.input}
+            className={layout.input}
             placeholder="Street address or job description"
             value={formData.location}
             onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
           />
         </div>
 
-        <div className={styles.formRow}>
-          <div className={styles.formColumn}>
-            <label className={styles.label}>City</label>
+        <div className={layout.formRow}>
+          <div className={layout.formColumn}>
+            <label className={layout.label}>City</label>
             <input
               type="text"
-              className={styles.input}
+              className={layout.input}
               value={formData.city}
               onChange={(e) => setFormData(prev => ({ ...prev, city: e.target.value }))}
             />
           </div>
-          <div className={styles.formColumn}>
-            <label className={styles.label}>State</label>
-            <div className={styles.selectWrapper}>
+          <div className={layout.formColumn}>
+            <label className={layout.label}>State</label>
+            <div className={layout.selectWrapper}>
               <select
-                className={styles.select}
+                className={layout.select}
                 value={formData.state}
                 onChange={(e) => setFormData(prev => ({ ...prev, state: e.target.value }))}
               >
@@ -239,16 +246,16 @@ function OverviewTab({ lotData }: { lotData: ReservedLotData }) {
                 <option value="FL">FL</option>
                 <option value="NY">NY</option>
               </select>
-              <svg className={styles.selectIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <svg className={layout.selectIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
           </div>
-          <div className={styles.formColumn}>
-            <label className={styles.label}>Zip</label>
+          <div className={layout.formColumn}>
+            <label className={layout.label}>Zip</label>
             <input
               type="text"
-              className={styles.input}
+              className={layout.input}
               value={formData.zip}
               onChange={(e) => setFormData(prev => ({ ...prev, zip: e.target.value }))}
             />
@@ -256,47 +263,46 @@ function OverviewTab({ lotData }: { lotData: ReservedLotData }) {
         </div>
 
         <div className={styles.planContainer}>
-          <div className={styles.planWithSelectionContainer}>
-            <div className={styles.planSection}>
-              <label className={styles.label}>Plan</label>
-              <div className={styles.planImage}>
-                <img src={lotData.image} alt={lotData.model} />
+          <label className={layout.label}>Plan</label>
+          <div className={mediaCard.mediaCard}>
+            <div className={mediaCard.mediaCardImage}>
+              <img src={plan?.image || '/assets/plans/placeholder.jpg'} alt={planName} />
+              <div className={mediaCard.mediaCardOverlay}>
+                <div className={mediaCard.mediaCardGradient} />
+                <div className={mediaCard.mediaCardInfo}>
+                  <div className={mediaCard.mediaCardText}>
+                    <h3 className={mediaCard.mediaCardTitle}>3D Selection</h3>
+                    <p className={mediaCard.mediaCardDescription}>
+                      See your home come to life as you choose your finishes and features in 3D.
+                    </p>
+                  </div>
+                  <div className={styles.progressInfo}>
+                    <div className={styles.progressBar}>
+                      <div className={styles.progressFill} style={{ width: `${lotData.selectionProgress}%` }} />
+                    </div>
+                    <span className={styles.progressText}>{lotData.selectionsMade}/{lotData.totalSelections} Selections Made</span>
+                  </div>
+                  <div className={styles.urlSection}>
+                    <div className={styles.urlInput} onClick={handleCopy} style={{ cursor: 'pointer' }} title="Click to copy link">
+                      <span className={styles.urlText}>{lotData.selectionUrl}</span>
+                      <button type="button" className={styles.copyBtn} onClick={(e) => { e.stopPropagation(); handleCopy(); }}>{copied ? 'Copied!' : 'Copy'}</button>
+                    </div>
+                    <button
+                      className={styles.makeSelectionsBtn}
+                      onClick={() => window.open('https://visualize.mybuild.wtsparadigm.com/?exlineId=ed90fcd9-1a16-4a32-9dc4-a62faf1696c8&exquoteId=2cc25f7b-1de0-4eac-bb9c-da6c7f0fba5d', '_blank')}
+                    >
+                      <img src="/assets/icons/arrow-right.svg" alt="" width="16" height="16" />
+                      Make Selections
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <div className={styles.selectionSection}>
-              <h3 className={styles.selectionTitle}>3D Selection</h3>
-              <p className={styles.selectionDescription}>
-                See your home come to life as you choose your finishes and features in 3D.
-              </p>
-              <div className={styles.progressInfo}>
-                <div className={styles.progressBar}>
-                  <div className={styles.progressFill} style={{ width: `${lotData.selectionProgress}%` }} />
-                </div>
-                <span className={styles.progressText}>{lotData.selectionsMade}/{lotData.totalSelections} Selections Made</span>
-              </div>
-              <div className={styles.urlSection}>
-                <div className={styles.urlInput} onClick={handleCopy} style={{ cursor: 'pointer' }} title="Click to copy link">
-                  <span className={styles.urlText}>{lotData.selectionUrl}</span>
-                  <button type="button" className={styles.copyBtn} onClick={(e) => { e.stopPropagation(); handleCopy(); }}>{copied ? 'Copied!' : 'Copy'}</button>
-                </div>
-                <button
-                  className={styles.makeSelectionsBtn}
-                  onClick={() => window.open('/selections', '_blank')}
-                >
-                  <img src="/assets/icons/arrow-right.svg" alt="" width="16" height="16" />
-                  Make Selections
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.attachmentSection}>
-            <div className={styles.pdfAttachment}>
-              <img src="/assets/pdf.png" alt="PDF" className={styles.pdfIcon} />
-              <div className={styles.pdfInfo}>
-                <div className={styles.pdfName}>{lotData.model.replace(/^The\s+/i, '').toLowerCase().replace(/\s+/g, '_')}.pdf</div>
-                <div className={styles.pdfSize}>{lotData.pdfSize}</div>
+            <div className={mediaCard.mediaCardFileRow}>
+              <img src="/assets/pdf.png" alt="PDF" className={mediaCard.mediaCardFileIcon} />
+              <div className={mediaCard.mediaCardFileInfo}>
+                <div className={mediaCard.mediaCardFileName}>{planName.replace(/^The\s+/i, '').toLowerCase().replace(/\s+/g, '_')}.pdf</div>
+                <div className={mediaCard.mediaCardFileSize}>{lotData.pdfSize}</div>
               </div>
               <div className={styles.pdfActions}>
                 <button className={styles.updateBtn}>Update</button>
@@ -308,8 +314,8 @@ function OverviewTab({ lotData }: { lotData: ReservedLotData }) {
       </div>
 
       {/* Quotes Table */}
-      <div className={styles.sectionCard}>
-        <h2 className={styles.sectionTitle}>Quotes</h2>
+      <div className={layout.sectionCard}>
+        <h2 className={layout.sectionTitle}>Quotes</h2>
         <div className={styles.quotesTableWrapper}>
           <div className={styles.quotesTable}>
             <div className={styles.quotesTableHeader}>
@@ -370,9 +376,9 @@ function QuotesTab() {
   }
 
   return (
-    <div className={styles.quotesTab}>
-      <div className={styles.sectionCard}>
-        <h2 className={styles.sectionTitle}>Quotes</h2>
+    <div className={layout.overviewTab}>
+      <div className={layout.sectionCard}>
+        <h2 className={layout.sectionTitle}>Quotes</h2>
         <div className={styles.quotesTable}>
           <div className={styles.quotesTableHeader}>
             <div className={styles.quotesTableHeaderCell}>Name</div>
@@ -415,9 +421,9 @@ function QuotesTab() {
 
 function DocumentsTab() {
   return (
-    <div className={styles.documentsTab}>
-      <div className={styles.sectionCard}>
-        <h2 className={styles.sectionTitle}>Documents</h2>
+    <div className={layout.overviewTab}>
+      <div className={layout.sectionCard}>
+        <h2 className={layout.sectionTitle}>Documents</h2>
         <div className={styles.emptyState}>
           <div className={styles.emptyTitle}>No documents available</div>
           <div className={styles.emptyDescription}>Documents will appear here when uploaded</div>
@@ -440,48 +446,48 @@ function TitleBlockInfo() {
   })
 
   return (
-    <div className={styles.titleBlockCard}>
-      <h3 className={styles.titleBlockTitle}>Title Block Info</h3>
+    <div className={layout.sidebarCard}>
+      <h3 className={layout.sidebarCardTitle}>Title Block Info</h3>
 
-      <div className={styles.titleBlockFields}>
-        <div className={styles.titleBlockField}>
-          <label className={styles.titleBlockLabel}>Version</label>
+      <div className={layout.sidebarCardFields}>
+        <div className={layout.sidebarCardField}>
+          <label className={layout.sidebarCardLabel}>Version</label>
           <input
             type="text"
-            className={styles.titleBlockInput}
+            className={layout.sidebarCardInput}
             placeholder="Enter version"
             value={formData.version}
             onChange={(e) => setFormData(prev => ({ ...prev, version: e.target.value }))}
           />
         </div>
 
-        <div className={styles.titleBlockField}>
-          <label className={styles.titleBlockLabel}>Building codes</label>
+        <div className={layout.sidebarCardField}>
+          <label className={layout.sidebarCardLabel}>Building codes</label>
           <input
             type="text"
-            className={styles.titleBlockInput}
+            className={layout.sidebarCardInput}
             placeholder="Enter building codes"
             value={formData.buildingCodes}
             onChange={(e) => setFormData(prev => ({ ...prev, buildingCodes: e.target.value }))}
           />
         </div>
 
-        <div className={styles.titleBlockField}>
-          <label className={styles.titleBlockLabel}>Permit number</label>
+        <div className={layout.sidebarCardField}>
+          <label className={layout.sidebarCardLabel}>Permit number</label>
           <input
             type="text"
-            className={styles.titleBlockInput}
+            className={layout.sidebarCardInput}
             placeholder="Enter permit number"
             value={formData.permitNumber}
             onChange={(e) => setFormData(prev => ({ ...prev, permitNumber: e.target.value }))}
           />
         </div>
 
-        <div className={styles.titleBlockRow}>
-          <div className={styles.titleBlockField}>
-            <label className={styles.titleBlockLabel}>Issued</label>
-            <div className={styles.dateInputWrapper}>
-              <svg className={styles.calendarIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <div className={layout.sidebarCardRow}>
+          <div className={layout.sidebarCardField}>
+            <label className={layout.sidebarCardLabel}>Issued</label>
+            <div className={layout.dateInputWrapper}>
+              <svg className={layout.calendarIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M12.6667 2.66667H3.33333C2.59695 2.66667 2 3.26362 2 4V13.3333C2 14.0697 2.59695 14.6667 3.33333 14.6667H12.6667C13.403 14.6667 14 14.0697 14 13.3333V4C14 3.26362 13.403 2.66667 12.6667 2.66667Z" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M10.6667 1.33333V4" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M5.33333 1.33333V4" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
@@ -489,17 +495,17 @@ function TitleBlockInfo() {
               </svg>
               <input
                 type="text"
-                className={styles.dateInput}
+                className={layout.dateInput}
                 placeholder="11/22/2025"
                 value={formData.issued}
                 onChange={(e) => setFormData(prev => ({ ...prev, issued: e.target.value }))}
               />
             </div>
           </div>
-          <div className={styles.titleBlockField}>
-            <label className={styles.titleBlockLabel}>Expires</label>
-            <div className={styles.dateInputWrapper}>
-              <svg className={styles.calendarIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <div className={layout.sidebarCardField}>
+            <label className={layout.sidebarCardLabel}>Expires</label>
+            <div className={layout.dateInputWrapper}>
+              <svg className={layout.calendarIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M12.6667 2.66667H3.33333C2.59695 2.66667 2 3.26362 2 4V13.3333C2 14.0697 2.59695 14.6667 3.33333 14.6667H12.6667C13.403 14.6667 14 14.0697 14 13.3333V4C14 3.26362 13.403 2.66667 12.6667 2.66667Z" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M10.6667 1.33333V4" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M5.33333 1.33333V4" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
@@ -507,7 +513,7 @@ function TitleBlockInfo() {
               </svg>
               <input
                 type="text"
-                className={styles.dateInput}
+                className={layout.dateInput}
                 placeholder="11/22/2025"
                 value={formData.expires}
                 onChange={(e) => setFormData(prev => ({ ...prev, expires: e.target.value }))}
@@ -516,22 +522,22 @@ function TitleBlockInfo() {
           </div>
         </div>
 
-        <div className={styles.titleBlockField}>
-          <label className={styles.titleBlockLabel}>Governing Body</label>
+        <div className={layout.sidebarCardField}>
+          <label className={layout.sidebarCardLabel}>Governing Body</label>
           <input
             type="text"
-            className={styles.titleBlockInput}
+            className={layout.sidebarCardInput}
             placeholder="Enter governing body"
             value={formData.governingBody}
             onChange={(e) => setFormData(prev => ({ ...prev, governingBody: e.target.value }))}
           />
         </div>
 
-        <div className={styles.titleBlockField}>
-          <label className={styles.titleBlockLabel}>State</label>
-          <div className={styles.selectWrapper}>
+        <div className={layout.sidebarCardField}>
+          <label className={layout.sidebarCardLabel}>State</label>
+          <div className={layout.selectWrapper}>
             <select
-              className={styles.select}
+              className={layout.select}
               value={formData.state}
               onChange={(e) => setFormData(prev => ({ ...prev, state: e.target.value }))}
             >
@@ -540,36 +546,36 @@ function TitleBlockInfo() {
               <option value="FL">FL</option>
               <option value="NY">NY</option>
             </select>
-            <svg className={styles.selectIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <svg className={layout.selectIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
         </div>
 
-        <div className={styles.titleBlockField}>
-          <label className={styles.titleBlockLabel}>ADA Compliant</label>
-          <div className={styles.radioGroup}>
-            <label className={styles.radioLabel}>
+        <div className={layout.sidebarCardField}>
+          <label className={layout.sidebarCardLabel}>ADA Compliant</label>
+          <div className={layout.radioGroup}>
+            <label className={layout.radioLabel}>
               <input
                 type="radio"
                 name="adaCompliant"
                 value="yes"
                 checked={formData.adaCompliant === 'yes'}
                 onChange={(e) => setFormData(prev => ({ ...prev, adaCompliant: e.target.value }))}
-                className={styles.radioInput}
+                className={layout.radioInput}
               />
-              <span className={styles.radioText}>Yes</span>
+              <span className={layout.radioText}>Yes</span>
             </label>
-            <label className={styles.radioLabel}>
+            <label className={layout.radioLabel}>
               <input
                 type="radio"
                 name="adaCompliant"
                 value="no"
                 checked={formData.adaCompliant === 'no'}
                 onChange={(e) => setFormData(prev => ({ ...prev, adaCompliant: e.target.value }))}
-                className={styles.radioInput}
+                className={layout.radioInput}
               />
-              <span className={styles.radioText}>No</span>
+              <span className={layout.radioText}>No</span>
             </label>
           </div>
         </div>

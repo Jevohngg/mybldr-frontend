@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Lot } from '../types'
 import { routes } from '../../../app/routes'
+import { getPlanById } from '../../../mock-data/plans'
 import Button from '../../ui/Button'
 import styles from './ReservedLotPopup.module.css'
 
@@ -11,177 +12,42 @@ interface ReservedLotPopupProps {
   onClose: () => void
 }
 
-interface PlanDetails {
-  name: string
+interface LotPlanMapping {
+  planId: string
   galtId: string
-  beds: number
-  baths: number
-  sqft: number
-  image: string
   selectionProgress: number
 }
 
-const reservedLotPlans: Record<string, PlanDetails> = {
-  '801': {
-    name: 'The Aspen',
-    galtId: '#155523',
-    beds: 3,
-    baths: 2,
-    sqft: 2500,
-    image: '/assets/plans/home-plan1.png',
-    selectionProgress: 40
-  },
-  '803': {
-    name: 'The Aspen',
-    galtId: '#155524',
-    beds: 3,
-    baths: 2,
-    sqft: 2500,
-    image: '/assets/plans/home-plan1.png',
-    selectionProgress: 65
-  },
-  '804': {
-    name: 'The Woodford',
-    galtId: '#155525',
-    beds: 3,
-    baths: 2,
-    sqft: 2600,
-    image: '/assets/plans/home-plan2.png',
-    selectionProgress: 25
-  },
-  '807': {
-    name: 'The Serena',
-    galtId: '#155526',
-    beds: 4,
-    baths: 3,
-    sqft: 3200,
-    image: '/assets/plans/home-plan3.png',
-    selectionProgress: 80
-  },
-  '808': {
-    name: 'The Serena',
-    galtId: '#155527',
-    beds: 4,
-    baths: 3,
-    sqft: 3200,
-    image: '/assets/plans/home-plan3.png',
-    selectionProgress: 50
-  },
-  '811': {
-    name: 'The Aspen',
-    galtId: '#155528',
-    beds: 3,
-    baths: 2,
-    sqft: 2500,
-    image: '/assets/plans/home-plan1.png',
-    selectionProgress: 35
-  },
-  '812': {
-    name: 'The Aspen',
-    galtId: '#155529',
-    beds: 3,
-    baths: 2,
-    sqft: 2500,
-    image: '/assets/plans/home-plan1.png',
-    selectionProgress: 70
-  },
-  '813': {
-    name: 'The Woodford',
-    galtId: '#155530',
-    beds: 3,
-    baths: 2,
-    sqft: 2600,
-    image: '/assets/plans/home-plan2.png',
-    selectionProgress: 45
-  },
-  '814': {
-    name: 'The Serena',
-    galtId: '#155531',
-    beds: 4,
-    baths: 3,
-    sqft: 3200,
-    image: '/assets/plans/home-plan3.png',
-    selectionProgress: 90
-  },
-  '816': {
-    name: 'The Serena',
-    galtId: '#155532',
-    beds: 4,
-    baths: 3,
-    sqft: 3200,
-    image: '/assets/plans/home-plan3.png',
-    selectionProgress: 60
-  },
-  '817': {
-    name: 'The Aspen',
-    galtId: '#155533',
-    beds: 3,
-    baths: 2,
-    sqft: 2500,
-    image: '/assets/plans/home-plan1.png',
-    selectionProgress: 30
-  },
-  '820': {
-    name: 'The Aspen',
-    galtId: '#155534',
-    beds: 3,
-    baths: 2,
-    sqft: 2500,
-    image: '/assets/plans/home-plan1.png',
-    selectionProgress: 55
-  },
-  '821': {
-    name: 'The Woodford',
-    galtId: '#155535',
-    beds: 3,
-    baths: 2,
-    sqft: 2600,
-    image: '/assets/plans/home-plan2.png',
-    selectionProgress: 75
-  },
-  '823': {
-    name: 'The Serena',
-    galtId: '#155536',
-    beds: 4,
-    baths: 3,
-    sqft: 3200,
-    image: '/assets/plans/home-plan3.png',
-    selectionProgress: 85
-  },
-  '824': {
-    name: 'The Serena',
-    galtId: '#155537',
-    beds: 4,
-    baths: 3,
-    sqft: 3200,
-    image: '/assets/plans/home-plan3.png',
-    selectionProgress: 40
-  },
-  '826': {
-    name: 'The Aspen',
-    galtId: '#155538',
-    beds: 3,
-    baths: 2,
-    sqft: 2500,
-    image: '/assets/plans/home-plan1.png',
-    selectionProgress: 95
-  }
+const reservedLotPlans: Record<string, LotPlanMapping> = {
+  '801': { planId: 'aspen', galtId: '#155523', selectionProgress: 40 },
+  '803': { planId: 'aspen', galtId: '#155524', selectionProgress: 65 },
+  '804': { planId: 'woodford', galtId: '#155525', selectionProgress: 25 },
+  '807': { planId: 'serena', galtId: '#155526', selectionProgress: 80 },
+  '808': { planId: 'serena', galtId: '#155527', selectionProgress: 50 },
+  '811': { planId: 'aspen', galtId: '#155528', selectionProgress: 35 },
+  '812': { planId: 'aspen', galtId: '#155529', selectionProgress: 70 },
+  '813': { planId: 'woodford', galtId: '#155530', selectionProgress: 45 },
+  '814': { planId: 'serena', galtId: '#155531', selectionProgress: 90 },
+  '816': { planId: 'serena', galtId: '#155532', selectionProgress: 60 },
+  '817': { planId: 'aspen', galtId: '#155533', selectionProgress: 30 },
+  '820': { planId: 'aspen', galtId: '#155534', selectionProgress: 55 },
+  '821': { planId: 'woodford', galtId: '#155535', selectionProgress: 75 },
+  '823': { planId: 'serena', galtId: '#155536', selectionProgress: 85 },
+  '824': { planId: 'serena', galtId: '#155537', selectionProgress: 40 },
+  '826': { planId: 'aspen', galtId: '#155538', selectionProgress: 95 },
 }
 
-const defaultPlanDetails: PlanDetails = {
-  name: 'Assigned Plan',
+const defaultLotMapping: LotPlanMapping = {
+  planId: 'aspen',
   galtId: '#000000',
-  beds: 3,
-  baths: 2,
-  sqft: 2200,
-  image: '/assets/plans/home-plan1.png',
-  selectionProgress: 35
+  selectionProgress: 35,
 }
 
 export default function ReservedLotPopup({ lot, position, onClose }: ReservedLotPopupProps) {
   const navigate = useNavigate()
   const { communityId } = useParams<{ communityId: string }>()
-  const planDetails = reservedLotPlans[lot.lot_number] || defaultPlanDetails
+  const lotMapping = reservedLotPlans[lot.lot_number] || defaultLotMapping
+  const plan = getPlanById(lotMapping.planId)
 
   const handlePopupInteraction = (e: React.MouseEvent | React.WheelEvent) => {
     e.stopPropagation()
@@ -216,15 +82,15 @@ export default function ReservedLotPopup({ lot, position, onClose }: ReservedLot
       <div className={styles.content} onClick={handleNavigate} style={{ cursor: 'pointer' }}>
         <div className={styles.imageSection}>
           <img
-            src={planDetails.image}
-            alt={planDetails.name}
+            src={plan?.image || '/assets/plans/placeholder.jpg'}
+            alt={plan?.name || 'Plan'}
             className={styles.planImage}
           />
         </div>
 
         <div className={styles.detailsSection}>
-          <h3 className={styles.planName}>{planDetails.name}</h3>
-          <p className={styles.galtId}>{planDetails.galtId}</p>
+          <h3 className={styles.planName}>{plan?.name || 'Assigned Plan'}</h3>
+          <p className={styles.galtId}>{lotMapping.galtId}</p>
 
           <div className={styles.features}>
             <div className={styles.feature}>
@@ -233,7 +99,7 @@ export default function ReservedLotPopup({ lot, position, onClose }: ReservedLot
                 <rect x="14" y="12" width="7" height="9" stroke="currentColor" strokeWidth="1.5"/>
                 <path d="M3 12L12 4L21 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span>{planDetails.beds}</span>
+              <span>{plan?.beds}</span>
             </div>
 
             <div className={styles.feature}>
@@ -241,7 +107,7 @@ export default function ReservedLotPopup({ lot, position, onClose }: ReservedLot
                 <rect x="4" y="6" width="16" height="12" rx="1" stroke="currentColor" strokeWidth="1.5"/>
                 <path d="M7 10H17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
-              <span>{planDetails.baths}</span>
+              <span>{plan?.baths}</span>
             </div>
 
             <div className={styles.feature}>
@@ -249,7 +115,7 @@ export default function ReservedLotPopup({ lot, position, onClose }: ReservedLot
                 <path d="M3 3L9 9M21 3L15 9M21 21L15 15M3 21L9 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                 <path d="M3 3H21V21H3V3Z" stroke="currentColor" strokeWidth="1.5"/>
               </svg>
-              <span>{planDetails.sqft.toLocaleString()}</span>
+              <span>{plan?.totalFinishedSqft?.toLocaleString()}</span>
             </div>
           </div>
         </div>
@@ -260,10 +126,10 @@ export default function ReservedLotPopup({ lot, position, onClose }: ReservedLot
         <div className={styles.progressBar}>
           <div
             className={styles.progressFill}
-            style={{ width: `${planDetails.selectionProgress}%` }}
+            style={{ width: `${lotMapping.selectionProgress}%` }}
           />
         </div>
-        <div className={styles.progressLabel}>{planDetails.selectionProgress}%</div>
+        <div className={styles.progressLabel}>{lotMapping.selectionProgress}%</div>
       </div>
     </div>
   )

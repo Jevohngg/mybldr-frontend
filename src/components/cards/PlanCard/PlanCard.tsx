@@ -51,14 +51,9 @@ export default function PlanCard({ plan, onClick }: { plan: Plan; onClick?: () =
     return c?.name ?? ''
   }, [typedPlan.communityName, communityId, communities])
 
-  // Image handling:
-  // - Put images in: public/assets/plans/
-  // - If plan.image exists, we use that (can be full path or filename).
-  // - Otherwise we try: <plan.id>.jpg
-  // - If missing, we fallback to: /assets/plans/placeholder.jpg
   const plannedSrc = typedPlan.image
     ? (typedPlan.image.startsWith('/') ? typedPlan.image : `/assets/plans/${typedPlan.image}`)
-    : `/assets/plans/${(typedPlan as any).id}.jpg`
+    : '/assets/plans/placeholder.jpg'
 
   const [imgSrc, setImgSrc] = React.useState(plannedSrc)
 

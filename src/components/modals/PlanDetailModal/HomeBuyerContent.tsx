@@ -33,7 +33,7 @@ export default function HomeBuyerContent({ isNewPlan = false }: HomeBuyerContent
             <span className={styles.placeholder}>Not added</span>
           ) : (
             <a
-              href="https://visualize.mybuild.wtsparadigm.com/?exlineId=ed90fcd9-1a16-4a32-9dc4-a62faf1696c8&exquoteId=2cc25f7b-1de0-4eac-bb9c-da6c7f0fba5d&signin=true"
+              href="https://visualize.mybuild.wtsparadigm.com/?exlineId=ed90fcd9-1a16-4a32-9dc4-a62faf1696c8&exquoteId=2cc25f7b-1de0-4eac-bb9c-da6c7f0fba5d"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.link}

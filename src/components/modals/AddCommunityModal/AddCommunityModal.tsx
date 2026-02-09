@@ -3,6 +3,7 @@ import BaseModal from '../BaseModal/BaseModal'
 import Button from '../../ui/Button'
 import Input from '../../ui/Input'
 import styles from './AddCommunityModal.module.css'
+import mediaCard from '../../shared/MediaCard/MediaCard.module.css'
 
 type Step = 'upload' | 'generating' | 'details'
 
@@ -167,13 +168,11 @@ export default function AddCommunityModal({
             </div>
           </div>
 
-          <div className={styles.fileRow}>
-            <div className={styles.fileLeft}>
-              <img src="/assets/pdf.png" alt="PDF" className={styles.pdf} />
-              <div>
-                <div className={styles.fileName}>community_map.pdf</div>
-                <div className={styles.fileSize}>100kb</div>
-              </div>
+          <div className={mediaCard.mediaCardFileRow}>
+            <img src="/assets/pdf.png" alt="PDF" className={mediaCard.mediaCardFileIcon} />
+            <div className={mediaCard.mediaCardFileInfo}>
+              <div className={mediaCard.mediaCardFileName}>community_map.pdf</div>
+              <div className={mediaCard.mediaCardFileSize}>100kb</div>
             </div>
             <Button>Update</Button>
           </div>
@@ -188,20 +187,20 @@ export default function AddCommunityModal({
         <div className={styles.details}>
           {hasUploadedFile ? (
             <div className={styles.mapSection}>
-              <div className={styles.mapCard}>
-                <img src="/assets/maps/placeholder2.png" alt="Community map preview" className={styles.mapPh} />
-                <div className={styles.mapCaption}>
-                  <div className={styles.mapCaptionTitle}>Community map</div>
-                  <div className={styles.mapCaptionSub}>This was generated based on the map you uploaded.</div>
+              <div className={mediaCard.mediaCardImage}>
+                <img src="/assets/maps/placeholder2.png" alt="Community map preview" />
+              </div>
+              <div className={mediaCard.mediaCardInfo}>
+                <div className={mediaCard.mediaCardText}>
+                  <div className={mediaCard.mediaCardTitle}>Community map</div>
+                  <div className={mediaCard.mediaCardDescription}>This was generated based on the map you uploaded.</div>
                 </div>
               </div>
-              <div className={styles.fileRow}>
-                <div className={styles.fileLeft}>
-                  <img src="/assets/pdf.png" alt="PDF" className={styles.pdf} />
-                  <div>
-                    <div className={styles.fileName}>community_map.pdf</div>
-                    <div className={styles.fileSize}>100kb</div>
-                  </div>
+              <div className={mediaCard.mediaCardFileRow}>
+                <img src="/assets/pdf.png" alt="PDF" className={mediaCard.mediaCardFileIcon} />
+                <div className={mediaCard.mediaCardFileInfo}>
+                  <div className={mediaCard.mediaCardFileName}>community_map.pdf</div>
+                  <div className={mediaCard.mediaCardFileSize}>100kb</div>
                 </div>
                 <Button>Update</Button>
               </div>

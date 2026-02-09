@@ -5,6 +5,8 @@ import { useData } from '../../app/providers'
 import LotConfigSideNav from '../../navigation/LotConfigSideNav/LotConfigSideNav'
 import Button from '../../components/ui/Button'
 import styles from './LotConfigurationPage.module.css'
+import layout from '../../components/shared/DetailPageLayout/DetailPageLayout.module.css'
+import mediaCard from '../../components/shared/MediaCard/MediaCard.module.css'
 
 type TabType = 'overview' | 'quotes' | 'documents'
 
@@ -78,7 +80,7 @@ export default function LotConfigurationPage() {
           ✕
         </Button>
       </div>
-      <div className={styles.container}>
+      <div className={layout.container}>
         <LotConfigSideNav
           lotNumber={lotNumber || ''}
           communityName={community.name}
@@ -86,17 +88,17 @@ export default function LotConfigurationPage() {
           onTabChange={setActiveTab}
         />
 
-        <div className={styles.mainContent}>
-          <div className={styles.header}>
-            <h1 className={styles.title}>Overview</h1>
+        <div className={layout.mainContent}>
+          <div className={layout.header}>
+            <h1 className={layout.title}>Overview</h1>
           </div>
 
-          <div className={styles.scrollableWrapper}>
-            <div className={styles.centerContent}>
+          <div className={layout.scrollableWrapper}>
+            <div className={layout.centerContent}>
               {activeTab === 'overview' && <OverviewTab lot={lot} plan={plan} />}
             </div>
 
-            <div className={styles.rightSidebar}>
+            <div className={layout.rightSidebar}>
               <TitleBlockInfo />
             </div>
           </div>
@@ -139,9 +141,9 @@ function OverviewTab({ lot, plan }: { lot: Lot; plan: Plan }) {
   }
 
   return (
-    <div className={styles.overviewTab}>
+    <div className={layout.overviewTab}>
       {/* Card 1: Model & Description (read-only) */}
-      <div className={styles.sectionCard}>
+      <div className={layout.sectionCard}>
         <div className={styles.infoSection}>
           <span className={styles.infoLabel}>Model</span>
           <span className={styles.infoValue}>{plan.name}</span>
@@ -156,43 +158,43 @@ function OverviewTab({ lot, plan }: { lot: Lot; plan: Plan }) {
       </div>
 
       {/* Card 2: Project Details Form */}
-      <div className={styles.sectionCard}>
-        <div className={styles.formSection}>
-          <label className={styles.label}>Project Name</label>
+      <div className={layout.sectionCard}>
+        <div className={layout.formSection}>
+          <label className={layout.label}>Project Name</label>
           <input
             type="text"
-            className={styles.input}
+            className={layout.input}
             value={formData.projectName}
             onChange={(e) => setFormData((prev) => ({ ...prev, projectName: e.target.value }))}
           />
         </div>
 
-        <div className={styles.formSection}>
-          <label className={styles.label}>Location</label>
+        <div className={layout.formSection}>
+          <label className={layout.label}>Location</label>
           <input
             type="text"
-            className={styles.input}
+            className={layout.input}
             placeholder="Street address or job description"
             value={formData.location}
             onChange={(e) => setFormData((prev) => ({ ...prev, location: e.target.value }))}
           />
         </div>
 
-        <div className={styles.formRow}>
-          <div className={styles.formColumn}>
-            <label className={styles.label}>City</label>
+        <div className={layout.formRow}>
+          <div className={layout.formColumn}>
+            <label className={layout.label}>City</label>
             <input
               type="text"
-              className={styles.input}
+              className={layout.input}
               value={formData.city}
               onChange={(e) => setFormData((prev) => ({ ...prev, city: e.target.value }))}
             />
           </div>
-          <div className={styles.formColumn}>
-            <label className={styles.label}>State</label>
-            <div className={styles.selectWrapper}>
+          <div className={layout.formColumn}>
+            <label className={layout.label}>State</label>
+            <div className={layout.selectWrapper}>
               <select
-                className={styles.select}
+                className={layout.select}
                 value={formData.state}
                 onChange={(e) => setFormData((prev) => ({ ...prev, state: e.target.value }))}
               >
@@ -201,7 +203,7 @@ function OverviewTab({ lot, plan }: { lot: Lot; plan: Plan }) {
                 <option value="FL">FL</option>
                 <option value="NY">NY</option>
               </select>
-              <svg className={styles.selectIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <svg className={layout.selectIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path
                   d="M4 6L8 10L12 6"
                   stroke="currentColor"
@@ -212,11 +214,11 @@ function OverviewTab({ lot, plan }: { lot: Lot; plan: Plan }) {
               </svg>
             </div>
           </div>
-          <div className={styles.formColumn}>
-            <label className={styles.label}>Zip</label>
+          <div className={layout.formColumn}>
+            <label className={layout.label}>Zip</label>
             <input
               type="text"
-              className={styles.input}
+              className={layout.input}
               value={formData.zip}
               onChange={(e) => setFormData((prev) => ({ ...prev, zip: e.target.value }))}
             />
@@ -224,16 +226,16 @@ function OverviewTab({ lot, plan }: { lot: Lot; plan: Plan }) {
         </div>
 
         <div className={styles.planContainer}>
-          <label className={styles.label}>Plan</label>
-          <div className={styles.planCardWrapper}>
-            <div className={styles.planImageCard}>
-              <img src={plan.image} alt={plan.name} className={styles.planCardImage} />
-              <div className={styles.planOverlay}>
-                <div className={styles.planOverlayGradient} />
-                <div className={styles.planOverlayContent}>
-                  <div className={styles.planOverlayText}>
-                    <h3 className={styles.planOverlayTitle}>3D Selection</h3>
-                    <p className={styles.planOverlayDescription}>
+          <label className={layout.label}>Plan</label>
+          <div className={mediaCard.mediaCard}>
+            <div className={mediaCard.mediaCardImage}>
+              <img src={plan.image} alt={plan.name} />
+              <div className={mediaCard.mediaCardOverlay}>
+                <div className={mediaCard.mediaCardGradient} />
+                <div className={mediaCard.mediaCardInfo}>
+                  <div className={mediaCard.mediaCardText}>
+                    <h3 className={mediaCard.mediaCardTitle}>3D Selection</h3>
+                    <p className={mediaCard.mediaCardDescription}>
                       See your home come to life as you choose your finishes and features in 3D.
                     </p>
                   </div>
@@ -251,7 +253,7 @@ function OverviewTab({ lot, plan }: { lot: Lot; plan: Plan }) {
                 </div>
               </div>
             </div>
-            <div className={styles.uploadItem}>
+            <div className={mediaCard.mediaCardFileRow}>
               <div className={styles.fileTypeIcon}>
                 <svg width="32" height="40" viewBox="0 0 32 40" fill="none">
                   <path d="M0 4C0 1.79086 1.79086 0 4 0H20L32 12V36C32 38.2091 30.2091 40 28 40H4C1.79086 40 0 38.2091 0 36V4Z" fill="white" stroke="#D5D7DA" strokeWidth="1.5"/>
@@ -259,9 +261,9 @@ function OverviewTab({ lot, plan }: { lot: Lot; plan: Plan }) {
                 </svg>
                 <div className={styles.fileTypeBadge}>PDF</div>
               </div>
-              <div className={styles.fileInfo}>
-                <span className={styles.fileName}>{plan.name.replace(/^The\s+/i, '').toLowerCase().replace(/\s+/g, '_')}.pdf</span>
-                <span className={styles.fileSize}>100kb</span>
+              <div className={mediaCard.mediaCardFileInfo}>
+                <span className={mediaCard.mediaCardFileName}>{plan.name.replace(/^The\s+/i, '').toLowerCase().replace(/\s+/g, '_')}.pdf</span>
+                <span className={mediaCard.mediaCardFileSize}>100kb</span>
               </div>
               <div className={styles.fileActions}>
                 <Button variant="secondary" size="sm">Update</Button>
@@ -278,8 +280,8 @@ function OverviewTab({ lot, plan }: { lot: Lot; plan: Plan }) {
       </div>
 
       {/* Card 3: Quotes Table */}
-      <div className={styles.sectionCard}>
-        <h2 className={styles.sectionTitle}>Quotes</h2>
+      <div className={layout.sectionCard}>
+        <h2 className={layout.sectionTitle}>Quotes</h2>
         <div className={styles.quotesTableWrapper}>
           <div className={styles.quotesTable}>
           <div className={styles.tableHeader}>
@@ -344,48 +346,48 @@ function TitleBlockInfo() {
   })
 
   return (
-    <div className={styles.titleBlockCard}>
-      <h3 className={styles.titleBlockTitle}>Title Block Info</h3>
+    <div className={layout.sidebarCard}>
+      <h3 className={layout.sidebarCardTitle}>Title Block Info</h3>
 
-      <div className={styles.titleBlockFields}>
-        <div className={styles.titleBlockField}>
-          <label className={styles.titleBlockLabel}>Version</label>
+      <div className={layout.sidebarCardFields}>
+        <div className={layout.sidebarCardField}>
+          <label className={layout.sidebarCardLabel}>Version</label>
           <input
             type="text"
-            className={styles.titleBlockInput}
+            className={layout.sidebarCardInput}
             placeholder="Enter version"
             value={formData.version}
             onChange={(e) => setFormData(prev => ({ ...prev, version: e.target.value }))}
           />
         </div>
 
-        <div className={styles.titleBlockField}>
-          <label className={styles.titleBlockLabel}>Building codes</label>
+        <div className={layout.sidebarCardField}>
+          <label className={layout.sidebarCardLabel}>Building codes</label>
           <input
             type="text"
-            className={styles.titleBlockInput}
+            className={layout.sidebarCardInput}
             placeholder="Enter building codes"
             value={formData.buildingCodes}
             onChange={(e) => setFormData(prev => ({ ...prev, buildingCodes: e.target.value }))}
           />
         </div>
 
-        <div className={styles.titleBlockField}>
-          <label className={styles.titleBlockLabel}>Permit number</label>
+        <div className={layout.sidebarCardField}>
+          <label className={layout.sidebarCardLabel}>Permit number</label>
           <input
             type="text"
-            className={styles.titleBlockInput}
+            className={layout.sidebarCardInput}
             placeholder="Enter permit number"
             value={formData.permitNumber}
             onChange={(e) => setFormData(prev => ({ ...prev, permitNumber: e.target.value }))}
           />
         </div>
 
-        <div className={styles.titleBlockRow}>
-          <div className={styles.titleBlockField}>
-            <label className={styles.titleBlockLabel}>Issued</label>
-            <div className={styles.dateInputWrapper}>
-              <svg className={styles.calendarIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <div className={layout.sidebarCardRow}>
+          <div className={layout.sidebarCardField}>
+            <label className={layout.sidebarCardLabel}>Issued</label>
+            <div className={layout.dateInputWrapper}>
+              <svg className={layout.calendarIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M12.6667 2.66667H3.33333C2.59695 2.66667 2 3.26362 2 4V13.3333C2 14.0697 2.59695 14.6667 3.33333 14.6667H12.6667C13.403 14.6667 14 14.0697 14 13.3333V4C14 3.26362 13.403 2.66667 12.6667 2.66667Z" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M10.6667 1.33333V4" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M5.33333 1.33333V4" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
@@ -393,17 +395,17 @@ function TitleBlockInfo() {
               </svg>
               <input
                 type="text"
-                className={styles.dateInput}
+                className={layout.dateInput}
                 placeholder="11/22/2025"
                 value={formData.issued}
                 onChange={(e) => setFormData(prev => ({ ...prev, issued: e.target.value }))}
               />
             </div>
           </div>
-          <div className={styles.titleBlockField}>
-            <label className={styles.titleBlockLabel}>Expires</label>
-            <div className={styles.dateInputWrapper}>
-              <svg className={styles.calendarIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <div className={layout.sidebarCardField}>
+            <label className={layout.sidebarCardLabel}>Expires</label>
+            <div className={layout.dateInputWrapper}>
+              <svg className={layout.calendarIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M12.6667 2.66667H3.33333C2.59695 2.66667 2 3.26362 2 4V13.3333C2 14.0697 2.59695 14.6667 3.33333 14.6667H12.6667C13.403 14.6667 14 14.0697 14 13.3333V4C14 3.26362 13.403 2.66667 12.6667 2.66667Z" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M10.6667 1.33333V4" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M5.33333 1.33333V4" stroke="#636769" strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round"/>
@@ -411,7 +413,7 @@ function TitleBlockInfo() {
               </svg>
               <input
                 type="text"
-                className={styles.dateInput}
+                className={layout.dateInput}
                 placeholder="11/22/2025"
                 value={formData.expires}
                 onChange={(e) => setFormData(prev => ({ ...prev, expires: e.target.value }))}
@@ -420,22 +422,22 @@ function TitleBlockInfo() {
           </div>
         </div>
 
-        <div className={styles.titleBlockField}>
-          <label className={styles.titleBlockLabel}>Governing Body</label>
+        <div className={layout.sidebarCardField}>
+          <label className={layout.sidebarCardLabel}>Governing Body</label>
           <input
             type="text"
-            className={styles.titleBlockInput}
+            className={layout.sidebarCardInput}
             placeholder="Enter governing body"
             value={formData.governingBody}
             onChange={(e) => setFormData(prev => ({ ...prev, governingBody: e.target.value }))}
           />
         </div>
 
-        <div className={styles.titleBlockField}>
-          <label className={styles.titleBlockLabel}>State</label>
-          <div className={styles.selectWrapper}>
+        <div className={layout.sidebarCardField}>
+          <label className={layout.sidebarCardLabel}>State</label>
+          <div className={layout.selectWrapper}>
             <select
-              className={styles.select}
+              className={layout.select}
               value={formData.state}
               onChange={(e) => setFormData(prev => ({ ...prev, state: e.target.value }))}
             >
@@ -444,36 +446,36 @@ function TitleBlockInfo() {
               <option value="FL">FL</option>
               <option value="NY">NY</option>
             </select>
-            <svg className={styles.selectIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <svg className={layout.selectIcon} width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
         </div>
 
-        <div className={styles.titleBlockField}>
-          <label className={styles.titleBlockLabel}>ADA Compliant</label>
-          <div className={styles.radioGroup}>
-            <label className={styles.radioLabel}>
+        <div className={layout.sidebarCardField}>
+          <label className={layout.sidebarCardLabel}>ADA Compliant</label>
+          <div className={layout.radioGroup}>
+            <label className={layout.radioLabel}>
               <input
                 type="radio"
                 name="adaCompliant"
                 value="yes"
                 checked={formData.adaCompliant === 'yes'}
                 onChange={(e) => setFormData(prev => ({ ...prev, adaCompliant: e.target.value }))}
-                className={styles.radioInput}
+                className={layout.radioInput}
               />
-              <span className={styles.radioText}>Yes</span>
+              <span className={layout.radioText}>Yes</span>
             </label>
-            <label className={styles.radioLabel}>
+            <label className={layout.radioLabel}>
               <input
                 type="radio"
                 name="adaCompliant"
                 value="no"
                 checked={formData.adaCompliant === 'no'}
                 onChange={(e) => setFormData(prev => ({ ...prev, adaCompliant: e.target.value }))}
-                className={styles.radioInput}
+                className={layout.radioInput}
               />
-              <span className={styles.radioText}>No</span>
+              <span className={layout.radioText}>No</span>
             </label>
           </div>
         </div>

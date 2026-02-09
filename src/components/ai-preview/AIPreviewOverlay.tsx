@@ -122,9 +122,9 @@ export default function AIPreviewOverlay({ open, onClose }: AIPreviewOverlayProp
 
                   <div className={styles.footer}>
                     <div className={styles.footerText}>
-                      <h2 className={styles.footerTitle}>Perfection takes time</h2>
+                      <h2 className={styles.footerTitle}>See your whole Plan Set in 3D</h2>
                       <p className={styles.footerDescription}>
-                        Get a custom model of your plan built by our expert team.
+                        Contact our team to create photo realistic models of your entire project.
                       </p>
                     </div>
                     <button className={styles.contactBtn}>Contact Sales</button>

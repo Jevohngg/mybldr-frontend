@@ -1,4 +1,4 @@
-import styles from './PlanDetailSideNav.module.css'
+import layout from '../../components/shared/DetailPageLayout/DetailPageLayout.module.css'
 
 type TabType = 'overview' | 'plans'
 
@@ -11,31 +11,31 @@ interface PlanDetailSideNavProps {
 
 export default function PlanDetailSideNav({ planName, communityCount, activeTab, onTabChange }: PlanDetailSideNavProps) {
   return (
-    <div className={styles.sidebar}>
-      <div className={styles.header}>
-        <div className={styles.icon}>
+    <div className={layout.sidebar}>
+      <div className={layout.sidebarHeader}>
+        <div className={layout.entityIcon}>
           <img src="/assets/icons/plan-detail-header.svg" alt="" width="20" height="20" />
         </div>
-        <div className={styles.headerInfo}>
-          <div className={styles.planName}>{planName}</div>
-          <div className={styles.communityCount}>{communityCount} Communities</div>
+        <div className={layout.headerInfo}>
+          <div className={layout.entityName}>{planName}</div>
+          <div className={layout.entitySubtitle}>{communityCount} Communities</div>
         </div>
       </div>
 
-      <nav className={styles.nav}>
+      <nav className={layout.navList}>
         <button
-          className={`${styles.navItem} ${activeTab === 'overview' ? styles.active : ''}`}
+          className={`${layout.navItem} ${activeTab === 'overview' ? layout.active : ''}`}
           onClick={() => onTabChange('overview')}
         >
-          <img src="/assets/icons/overview.svg" alt="" width="16" height="16" className={styles.navIcon} />
+          <img src="/assets/icons/overview.svg" alt="" width="16" height="16" className={layout.navIcon} />
           Overview
         </button>
 
         <button
-          className={`${styles.navItem} ${activeTab === 'plans' ? styles.active : ''}`}
+          className={`${layout.navItem} ${activeTab === 'plans' ? layout.active : ''}`}
           onClick={() => onTabChange('plans')}
         >
-          <img src="/assets/icons/document.svg" alt="" width="16" height="16" className={styles.navIcon} />
+          <img src="/assets/icons/document.svg" alt="" width="16" height="16" className={layout.navIcon} />
           Documents
         </button>
       </nav>
