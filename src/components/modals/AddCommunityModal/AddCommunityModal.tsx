@@ -202,7 +202,7 @@ export default function AddCommunityModal({
                   <div className={mediaCard.mediaCardFileName}>community_map.pdf</div>
                   <div className={mediaCard.mediaCardFileSize}>100kb</div>
                 </div>
-                <Button>Update</Button>
+                <Button onClick={() => setHasUploadedFile(false)}>Update</Button>
               </div>
             </div>
           ) : (
