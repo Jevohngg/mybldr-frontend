@@ -61,6 +61,7 @@ export default function CommunityMap({ data }: CommunityMapProps) {
   const [selectedLot, setSelectedLot] = React.useState<Lot | null>(null)
   const [popupPosition, setPopupPosition] = React.useState({ x: 0, y: 0 })
   const [selectedPlan, setSelectedPlan] = React.useState<Plan | null>(null)
+  const [mapLoaded, setMapLoaded] = React.useState(false)
 
   React.useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -124,11 +125,19 @@ export default function CommunityMap({ data }: CommunityMapProps) {
   return (
     <div className={styles.wrap}>
       <div ref={canvasRef} className={styles.canvas}>
+        {!mapLoaded && (
+          <div className={styles.loadingOverlay}>
+            <div className={styles.spinner} />
+            <div className={styles.loadingText}>Loading community map...</div>
+          </div>
+        )}
         <iframe
           src={IFRAME_URL}
           className={styles.mapIframe}
+          style={{ opacity: mapLoaded ? 1 : 0 }}
           title="Community Map"
           allow="fullscreen"
+          onLoad={() => setMapLoaded(true)}
         />
 
         {selectedLot && (
