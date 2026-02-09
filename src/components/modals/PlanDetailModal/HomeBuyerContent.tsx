@@ -17,7 +17,7 @@ export default function HomeBuyerContent({ isNewPlan = false }: HomeBuyerContent
             <span className={styles.placeholder}>Not added</span>
           ) : (
             <a
-              href="https://3dtour.wtsparadigm.com/LGIHomes/SpringbrookReserve-Birch/"
+              href="https://3dtour.wtsparadigm.com/render/virtualtour/"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.link}

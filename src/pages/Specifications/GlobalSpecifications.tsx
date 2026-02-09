@@ -1,30 +1,16 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import {
-  DataGridPremium,
-  GridRowParams,
-  useGridApiRef,
-  GridRowSelectionModel,
-  GRID_TREE_DATA_GROUPING_FIELD,
-  GridColumnVisibilityModel,
-  GridGroupNode,
-  GridRenderCellParams,
-  useGridApiContext,
-  GridRenderEditCellParams,
-  GridColDef,
-} from '@mui/x-data-grid-premium';
-import {
-  Box,
-  Typography,
-  IconButton,
-  TextField,
-} from '@mui/material';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import styles from './Templates.module.css';
 import { breadcrumbStyles } from '@/components/Breadcrumb';
+import { masterSpecifications } from '@/data/specifications';
+import { SpecSheetTable } from '@/components/SpecSheetTable';
+import BaseModal from '@/components/modals/BaseModal/BaseModal';
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
+import Toast from '@/components/ui/Toast';
 
 type ViewType = 'list' | 'detail';
+type ImportStep = 'upload' | 'uploading' | 'attached';
 
 interface Package {
   id: string;
@@ -33,41 +19,13 @@ interface Package {
   usedIn: string;
 }
 
-interface SpecItem {
-  id: string;
-  category: string;
-  subCategory: string;
-  location: string;
-  description: string;
-}
-
-interface TreeDataRow extends SpecItem {
-  hierarchy: string[];
-}
-
-// Dummy data for packages list
-const packagesData: Package[] = [
+// Initial packages data
+const initialPackagesData: Package[] = [
   { id: '1', name: 'Standard', variations: 3, usedIn: 'Silver Lake' },
   { id: '2', name: 'Move Up', variations: 2, usedIn: 'Silver Lake' },
   { id: '3', name: 'Luxury', variations: 5, usedIn: 'Real Forest' },
   { id: '4', name: 'Active Adult', variations: 1, usedIn: 'Real Forest' },
   { id: '5', name: 'Townhome', variations: 3, usedIn: 'Silver Lake' },
-];
-
-// Dummy data for template specifications (matches SpecItem structure)
-const templateSpecsData: SpecItem[] = [
-  // General Construction
-  { id: '1', category: 'General Construction', subCategory: 'Concrete Strength', location: 'Foundation', description: 'Concrete shall have a minimum compressive strength of 4,000 psi at 28 days.' },
-  { id: '2', category: 'General Construction', subCategory: 'Structural Steel Grade', location: 'Structural', description: 'All structural steel shall conform to ASTM A992, Grade 50.' },
-  { id: '3', category: 'General Construction', subCategory: 'Masonry Unit Standards', location: 'Walls', description: 'Concrete masonry units (CMU) shall meet ASTM C90 standards, with a minimum compressive strength of 1,900 psi.' },
-  // Building Exterior
-  { id: '4', category: 'Building Exterior', subCategory: 'Exterior Wall Cladding', location: 'Exterior Walls', description: 'Install fiber cement siding with a 30-year warranty, painted with two coats of acrylic latex.' },
-  { id: '5', category: 'Building Exterior', subCategory: 'Brick Masonry', location: 'Exterior', description: 'Face brick shall comply with ASTM C216, Grade SW, with Type S mortar joints.' },
-  { id: '6', category: 'Building Exterior', subCategory: 'Exterior Paint', location: 'Exterior', description: 'Apply two coats of acrylic latex paint with a minimum dry film thickness of 2 mils per coat.' },
-  { id: '7', category: 'Building Exterior', subCategory: 'Roofing Membrane', location: 'Roof', description: 'Install 60-mil TPO roofing membrane, fully adhered, with 20-year warranty.' },
-  // Interior Finishes
-  { id: '8', category: 'Interior Finishes', subCategory: 'Ceramic Tile Flooring', location: 'Bathrooms, Kitchen', description: 'Install 12"x12" porcelain ceramic tiles, meeting ANSI A137.1, with a slip resistance rating of 0.6 or higher.' },
-  { id: '9', category: 'Interior Finishes', subCategory: 'Carpet Flooring', location: 'Bedrooms, Living Areas', description: 'Use nylon broadloom carpet, minimum 28 oz/yd², with a 10-year wear warranty.' },
 ];
 
 // Animation variants
@@ -81,342 +39,359 @@ const pageTransition = {
   duration: 0.18,
 };
 
-// Column definitions for the MUI DataGrid
-const getColumns = (): GridColDef[] => [
-  {
-    field: 'subCategory',
-    headerName: 'Category / Sub Category',
-    flex: 1,
-    minWidth: 200,
-    editable: true,
-  },
-  {
-    field: 'location',
-    headerName: 'Location / Area',
-    flex: 1,
-    minWidth: 180,
-    editable: true,
-  },
-  {
-    field: 'description',
-    headerName: 'Description',
-    flex: 2,
-    minWidth: 300,
-    editable: true,
-  },
-];
-
-const defaultVisibleColumns = {
-  subCategory: true,
-  location: true,
-  description: true,
-};
-
 export default function GlobalSpecifications() {
   const [currentView, setCurrentView] = useState<ViewType>('list');
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
+  const [packages, setPackages] = useState<Package[]>(initialPackagesData);
 
-  // MUI DataGrid state
-  const apiRef = useGridApiRef();
-  const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>({ type: 'include', ids: new Set() });
-  const [columnVisibilityModel, setColumnVisibilityModel] = useState<GridColumnVisibilityModel>(defaultVisibleColumns);
-  const [rows, setRows] = useState<TreeDataRow[]>([]);
+  // New template flow state
+  const [isNewTemplate, setIsNewTemplate] = useState(false);
+  const [templateLoaded, setTemplateLoaded] = useState(false);
+  const [isLoadingSpecs, setIsLoadingSpecs] = useState(false);
 
-  // Transform flat data into tree structure
-  useMemo(() => {
-    const transformedRows = templateSpecsData.map((item) => ({
-      ...item,
-      hierarchy: [item.category, item.id],
-    }));
-    setRows(transformedRows);
-  }, []);
+  // Create Template modal state
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [newTemplateName, setNewTemplateName] = useState('');
 
-  // Custom grouping cell component with expand/collapse toggle
-  const CustomGroupingCell = useCallback((params: GridRenderCellParams) => {
-    const apiContext = useGridApiContext();
-    const isGroup = params.rowNode.type === 'group';
+  // Import modal state
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [importStep, setImportStep] = useState<ImportStep>('upload');
+  const [importProgress, setImportProgress] = useState(0);
 
-    if (isGroup) {
-      const groupNode = params.rowNode as GridGroupNode;
-      const isExpanded = groupNode.childrenExpanded;
+  // Success toast state
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
 
-      const handleToggle = (event: React.MouseEvent) => {
-        event.stopPropagation();
-        apiContext.current.setRowChildrenExpansion(params.id, !isExpanded);
-      };
+  // Handle import progress animation
+  useEffect(() => {
+    if (importStep !== 'uploading') return;
 
-      return (
-        <Box sx={{
-          display: 'flex',
-          alignItems: 'center',
-          width: '100%',
-          height: '100%',
-        }}>
-          <IconButton
-            size="small"
-            onClick={handleToggle}
-            sx={{ mr: 1 }}
-          >
-            {isExpanded ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
-          </IconButton>
-          <Typography
-            sx={{
-              fontWeight: 600,
-              color: '#333',
-            }}
-          >
-            {groupNode.groupingKey}
-          </Typography>
-        </Box>
-      );
+    setImportProgress(0);
+    const duration = 2500;
+    const interval = 50;
+    const increment = 100 / (duration / interval);
+
+    const timer = setInterval(() => {
+      setImportProgress(prev => {
+        const next = prev + increment;
+        if (next >= 100) {
+          clearInterval(timer);
+          return 100;
+        }
+        return next;
+      });
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, [importStep]);
+
+  // Transition from uploading to attached when progress completes
+  useEffect(() => {
+    if (importProgress >= 100 && importStep === 'uploading') {
+      const timer = setTimeout(() => {
+        setImportStep('attached');
+      }, 400);
+      return () => clearTimeout(timer);
     }
-
-    // Handle double-click to enter edit mode for leaf rows
-    const handleDoubleClick = () => {
-      apiContext.current.startCellEditMode({ id: params.id, field: params.field });
-    };
-
-    return (
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          height: '100%',
-          width: '100%',
-          pl: 5,
-          cursor: 'text',
-        }}
-        onDoubleClick={handleDoubleClick}
-      >
-        <Typography sx={{ color: '#555' }}>
-          {params.row.subCategory}
-        </Typography>
-      </Box>
-    );
-  }, []);
-
-  // Custom edit cell for the grouping column
-  const CustomGroupingEditCell = useCallback((params: GridRenderEditCellParams) => {
-    const { id, field, row } = params;
-    const apiContext = useGridApiContext();
-    const currentValue = params.value ?? row?.subCategory ?? '';
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = event.target.value;
-      apiContext.current.setEditCellValue({ id, field, value: newValue });
-    };
-
-    const handleKeyDown = (event: React.KeyboardEvent) => {
-      if (event.key === 'Enter') {
-        apiContext.current.stopCellEditMode({ id, field });
-      } else if (event.key === 'Escape') {
-        apiContext.current.stopCellEditMode({ id, field, ignoreModifications: true });
-      }
-    };
-
-    return (
-      <Box sx={{
-        display: 'flex',
-        alignItems: 'center',
-        height: '100%',
-        width: '100%',
-        pl: 5,
-      }}>
-        <TextField
-          value={currentValue}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          autoFocus
-          fullWidth
-          size="small"
-          variant="standard"
-          sx={{
-            '& .MuiInputBase-input': {
-              padding: '4px 0',
-            },
-          }}
-        />
-      </Box>
-    );
-  }, []);
-
-  // Get grouping column definition
-  const groupingColDef = useMemo(() => ({
-    headerName: 'Category / Sub Category',
-    minWidth: 280,
-    flex: 1.5,
-    editable: true,
-    leafField: 'subCategory',
-    renderCell: CustomGroupingCell,
-    renderEditCell: CustomGroupingEditCell,
-  }), [CustomGroupingCell, CustomGroupingEditCell]);
-
-  // Only allow editing on leaf rows (actual data), not group headers
-  const isCellEditable = useCallback((params: { rowNode: { type: string }; field: string }) => {
-    if (params.rowNode.type === 'group') {
-      return false;
-    }
-    return true;
-  }, []);
-
-  // Handle row updates when editing
-  const processRowUpdate = useCallback((newRow: TreeDataRow) => {
-    setRows((prevRows) =>
-      prevRows.map((row) => (row.id === newRow.id ? newRow : row))
-    );
-    return newRow;
-  }, []);
-
-  const columns = useMemo(() => {
-    // Remove subCategory from regular columns since it's shown in grouping column
-    return getColumns().filter(col => col.field !== 'subCategory');
-  }, []);
-
-  const getTreeDataPath = useCallback((row: TreeDataRow) => row.hierarchy, []);
-
-  const handleRowSelectionChange = useCallback((newSelection: GridRowSelectionModel) => {
-    setRowSelectionModel(newSelection);
-  }, []);
-
-  const getRowClassName = useCallback((params: GridRowParams) => {
-    if (params.row.hierarchy?.length === 1) {
-      return 'category-row';
-    }
-    const index = rows.findIndex(r => r.id === params.row.id);
-    return index % 2 === 0 ? 'even-row' : 'odd-row';
-  }, [rows]);
+  }, [importProgress, importStep]);
 
   const handlePackageClick = (pkg: Package) => {
     setSelectedPackage(pkg);
+    setIsNewTemplate(false);
+    setTemplateLoaded(false);
     setCurrentView('detail');
   };
 
   const handleBackClick = () => {
     setCurrentView('list');
     setSelectedPackage(null);
+    setIsNewTemplate(false);
+    setTemplateLoaded(false);
+    setIsLoadingSpecs(false);
   };
+
+  const handleCreateTemplate = () => {
+    if (!newTemplateName.trim()) return;
+
+    const newPkg: Package = {
+      id: String(Date.now()),
+      name: newTemplateName.trim(),
+      variations: 0,
+      usedIn: '—',
+    };
+
+    setPackages(prev => [...prev, newPkg]);
+    setSelectedPackage(newPkg);
+    setIsNewTemplate(true);
+    setTemplateLoaded(false);
+    setShowCreateModal(false);
+    setNewTemplateName('');
+    setCurrentView('detail');
+  };
+
+  const handleOpenImportModal = () => {
+    setImportStep('upload');
+    setImportProgress(0);
+    setShowImportModal(true);
+  };
+
+  const handleImportUpload = () => {
+    setImportStep('uploading');
+  };
+
+  const handleImportConfirm = () => {
+    setShowImportModal(false);
+    setIsLoadingSpecs(true);
+
+    setTimeout(() => {
+      setIsLoadingSpecs(false);
+      setTemplateLoaded(true);
+      setIsNewTemplate(false);
+      setShowSuccessToast(true);
+    }, 2500);
+  };
+
+  // Show specs table when: existing template OR new template that has been loaded
+  const showSpecTable = !isNewTemplate || templateLoaded;
 
   // Package List View
   if (currentView === 'list') {
     return (
+      <>
+        <motion.div
+          className={styles.page}
+          key="list"
+          variants={pageVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={pageTransition}
+        >
+          {/* Page Header */}
+          <div className={styles.pageHeader}>
+            <div className="h1">Specifications</div>
+            <button
+              type="button"
+              className={styles.addButton}
+              onClick={() => setShowCreateModal(true)}
+            >
+              <img src="/assets/icons/plus.svg" alt="" className={styles.addButtonIcon} draggable={false} />
+              <span>Add New</span>
+            </button>
+          </div>
+
+          {/* Packages Table */}
+          <div className={styles.tableWrapper}>
+            <table className={styles.table}>
+              <thead>
+                <tr className={styles.tableHeaderRow}>
+                  <th className={styles.thName}>Template</th>
+                  <th className={styles.thVariations}>Variations</th>
+                  <th className={styles.thUsedIn}>Used in</th>
+                  <th className={styles.thActions}></th>
+                </tr>
+              </thead>
+              <tbody>
+                {packages.map((pkg) => (
+                  <tr
+                    key={pkg.id}
+                    className={styles.packageRow}
+                    onClick={() => handlePackageClick(pkg)}
+                  >
+                    <td className={styles.tdName}>
+                      <span className={styles.packageName}>{pkg.name}</span>
+                    </td>
+                    <td className={styles.tdVariations}>{pkg.variations}</td>
+                    <td className={styles.tdUsedIn}>{pkg.usedIn}</td>
+                    <td className={styles.tdChevron}>
+                      <img src="/assets/icons/chevron-right.svg" alt="" className={styles.rowChevron} draggable={false} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
+
+        {/* Create Template Modal */}
+        <BaseModal
+          open={showCreateModal}
+          title="Create Template"
+          onClose={() => { setShowCreateModal(false); setNewTemplateName(''); }}
+          width={480}
+          footer={
+            <div className={styles.footerRow}>
+              <Button size="small" onClick={() => { setShowCreateModal(false); setNewTemplateName(''); }}>Cancel</Button>
+              <Button
+                variant="primary"
+                size="small"
+                onClick={handleCreateTemplate}
+                disabled={!newTemplateName.trim()}
+              >
+                Create
+              </Button>
+            </div>
+          }
+        >
+          <div className={styles.modalField}>
+            <div className="label">Template Name</div>
+            <Input
+              value={newTemplateName}
+              onChange={(e) => setNewTemplateName(e.target.value)}
+              placeholder="Enter template name"
+              onKeyDown={(e) => { if (e.key === 'Enter' && newTemplateName.trim()) handleCreateTemplate(); }}
+            />
+          </div>
+        </BaseModal>
+      </>
+    );
+  }
+
+  // Package Detail View
+  return (
+    <>
       <motion.div
         className={styles.page}
-        key="list"
+        key="detail"
         variants={pageVariants}
         initial="initial"
         animate="animate"
         exit="exit"
         transition={pageTransition}
       >
-        {/* Page Header */}
-        <div className={styles.pageHeader}>
-          <div className="h1">Specifications</div>
-          <button type="button" className={styles.addButton}>
-            <img src="/assets/icons/plus.svg" alt="" className={styles.addButtonIcon} draggable={false} />
-            <span>Add New</span>
-          </button>
-        </div>
-
-        {/* Packages Table */}
-        <div className={styles.tableWrapper}>
-          <table className={styles.table}>
-            <thead>
-              <tr className={styles.tableHeaderRow}>
-                <th className={styles.thName}>Template</th>
-                <th className={styles.thVariations}>Variations</th>
-                <th className={styles.thUsedIn}>Used in</th>
-                <th className={styles.thActions}></th>
-              </tr>
-            </thead>
-            <tbody>
-              {packagesData.map((pkg) => (
-                <tr
-                  key={pkg.id}
-                  className={styles.packageRow}
-                  onClick={() => handlePackageClick(pkg)}
-                >
-                  <td className={styles.tdName}>
-                    <span className={styles.packageName}>{pkg.name}</span>
-                  </td>
-                  <td className={styles.tdVariations}>{pkg.variations}</td>
-                  <td className={styles.tdUsedIn}>{pkg.usedIn}</td>
-                  <td className={styles.tdChevron}>
-                    <img src="/assets/icons/chevron-right.svg" alt="" className={styles.rowChevron} draggable={false} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </motion.div>
-    );
-  }
-
-  // Package Detail View
-  return (
-    <motion.div
-      className={styles.page}
-      key="detail"
-      variants={pageVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      transition={pageTransition}
-    >
-      {/* Detail Header with Breadcrumb */}
-      <div className={styles.detailHeader}>
-        <div className={styles.detailHeaderLeft}>
-          <div className={breadcrumbStyles.breadcrumb}>
+        {/* Detail Header with Breadcrumb */}
+        <div className={styles.detailHeader}>
+          <div className={styles.detailHeaderLeft}>
+            <div className={breadcrumbStyles.breadcrumb}>
+              <button
+                type="button"
+                className={breadcrumbStyles.breadcrumbIconButton}
+                onClick={handleBackClick}
+                data-tooltip="Specifications"
+              >
+                <img src="/assets/icons/specifications.svg" alt="" className={breadcrumbStyles.breadcrumbIcon} draggable={false} />
+              </button>
+              <span className={breadcrumbStyles.breadcrumbSeparator}>/</span>
+              <span className={breadcrumbStyles.breadcrumbCurrent}>{selectedPackage?.name}</span>
+            </div>
+          </div>
+          <div className={styles.detailHeaderRight}>
             <button
               type="button"
-              className={breadcrumbStyles.breadcrumbIconButton}
-              onClick={handleBackClick}
-              data-tooltip="Specifications"
+              className={isNewTemplate && !templateLoaded ? styles.secondaryButtonDisabled : styles.secondaryButton}
+              disabled={isNewTemplate && !templateLoaded}
             >
-              <img src="/assets/icons/specifications.svg" alt="" className={breadcrumbStyles.breadcrumbIcon} draggable={false} />
+              <img src="/assets/icons/download.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
+              <span>Export</span>
             </button>
-            <span className={breadcrumbStyles.breadcrumbSeparator}>/</span>
-            <span className={breadcrumbStyles.breadcrumbCurrent}>{selectedPackage?.name}</span>
+            <button
+              type="button"
+              className={styles.primaryButton}
+              onClick={handleOpenImportModal}
+            >
+              <img src="/assets/icons/plus.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
+              <span>Import</span>
+            </button>
           </div>
         </div>
-        <div className={styles.detailHeaderRight}>
-          <button type="button" className={styles.secondaryButton}>
-            <img src="/assets/icons/download.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
-            <span>Export</span>
-          </button>
-          <button type="button" className={styles.primaryButton}>
-            <img src="/assets/icons/plus.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
-            <span>Import</span>
-            <img src="/assets/icons/chevron-down-white.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
-          </button>
-        </div>
-      </div>
 
-      {/* MUI DataGrid Table */}
-      <DataGridPremium
-          autoHeight
-          apiRef={apiRef}
-          rows={rows}
-          columns={columns}
-          treeData
-          getTreeDataPath={getTreeDataPath}
-          groupingColDef={groupingColDef}
-          defaultGroupingExpansionDepth={-1}
-          checkboxSelection
-          disableRowSelectionOnClick
-          rowSelectionModel={rowSelectionModel}
-          onRowSelectionModelChange={handleRowSelectionChange}
-          columnVisibilityModel={{
-            ...columnVisibilityModel,
-            [GRID_TREE_DATA_GROUPING_FIELD]: true,
-          }}
-          onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModel(newModel)}
-          isCellEditable={isCellEditable}
-          processRowUpdate={processRowUpdate}
-          getRowClassName={getRowClassName}
-          rowHeight={50}
-          hideFooter
+        {/* Content Area */}
+        {isLoadingSpecs ? (
+          <div className={styles.loadingState}>
+            <div className={styles.loadingSpinner}>
+              <svg className={styles.loadingSpinnerSvg} viewBox="0 0 50 50">
+                <circle className={styles.loadingSpinnerCircle} cx="25" cy="25" r="20" fill="none" strokeWidth="4" />
+              </svg>
+            </div>
+            <div className={styles.loadingText}>Importing specifications...</div>
+            <div className={styles.loadingSubtext}>Analyzing and organizing your spec sheet</div>
+          </div>
+        ) : showSpecTable ? (
+          <SpecSheetTable data={masterSpecifications} />
+        ) : (
+          <div className={styles.emptyState}>
+            <img src="/assets/icons/specifications.svg" alt="" className={styles.emptyStateIcon} draggable={false} />
+            <div className={styles.emptyStateTitle}>No specifications yet</div>
+            <div className={styles.emptyStateDescription}>Import a spec sheet to get started.</div>
+            <Button variant="primary" size="small" onClick={handleOpenImportModal} style={{ marginTop: 20 }}>
+              <img src="/assets/icons/plus.svg" alt="" style={{ width: 14, height: 14, filter: 'brightness(0) invert(1)' }} />
+              Import
+            </Button>
+          </div>
+        )}
+      </motion.div>
+
+      {/* Success Toast */}
+      <Toast
+        open={showSuccessToast}
+        message="Specifications imported successfully"
+        onClose={() => setShowSuccessToast(false)}
       />
-    </motion.div>
+
+      {/* Import Specs Modal */}
+      <BaseModal
+        open={showImportModal}
+        title="Import Specifications"
+        onClose={() => setShowImportModal(false)}
+        width={560}
+        footer={
+          importStep === 'attached' ? (
+            <div className={styles.footerRow}>
+              <Button onClick={() => setShowImportModal(false)}>Cancel</Button>
+              <Button variant="primary" onClick={handleImportConfirm}>Import</Button>
+            </div>
+          ) : undefined
+        }
+      >
+        {importStep === 'upload' && (
+          <div className={styles.uploadArea}>
+            <div className={styles.uploadAreaInner}>
+              <img src="/assets/upload-hero.png" alt="" className={styles.uploadHeroIcon} />
+              <div className={styles.uploadTitle}>Upload your spec sheet</div>
+              <div className={styles.uploadDescription}>
+                Upload a PDF or spreadsheet and we'll extract your specifications automatically.
+              </div>
+              <Button variant="primary" onClick={handleImportUpload}>Upload</Button>
+            </div>
+          </div>
+        )}
+
+        {importStep === 'uploading' && (
+          <div className={styles.uploadingState}>
+            <div className={styles.uploadingTitle}>Processing spec sheet</div>
+            <div className={styles.uploadingSubtext}>Analyzing your document...</div>
+            <div className={styles.progressWrapper}>
+              <div className={styles.progressBar}>
+                <div className={styles.progressFill} style={{ width: `${importProgress}%` }} />
+              </div>
+              <div className={styles.progressLabel}>{Math.round(importProgress)}%</div>
+            </div>
+            <div className={styles.fileRow}>
+              <div className={styles.fileLeft}>
+                <img src="/assets/pdf.png" alt="PDF" className={styles.pdfIcon} />
+                <div>
+                  <div className={styles.fileName}>specifications.pdf</div>
+                  <div className={styles.fileSize}>100kb</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {importStep === 'attached' && (
+          <div>
+            <div className={styles.fileRow}>
+              <div className={styles.fileLeft}>
+                <img src="/assets/pdf.png" alt="PDF" className={styles.pdfIcon} />
+                <div>
+                  <div className={styles.fileName}>specifications.pdf</div>
+                  <div className={styles.fileSize}>100kb</div>
+                </div>
+              </div>
+              <Button onClick={() => { setImportStep('upload'); setImportProgress(0); }}>Update</Button>
+            </div>
+          </div>
+        )}
+      </BaseModal>
+    </>
   );
 }

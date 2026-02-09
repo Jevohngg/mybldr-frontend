@@ -23,7 +23,6 @@ interface ReservedLotData {
   selectionsMade: number
   totalSelections: number
   selectionUrl: string
-  pdfFilename: string
   pdfSize: string
 }
 
@@ -43,7 +42,6 @@ const reservedLotsData: Record<string, ReservedLotData> = {
     selectionsMade: 95,
     totalSelections: 250,
     selectionUrl: 'https://mybldr-demo.dev/selections',
-    pdfFilename: 'lot_85_kohler_ridge.pdf',
     pdfSize: '100kb'
   },
   '823': {
@@ -61,7 +59,6 @@ const reservedLotsData: Record<string, ReservedLotData> = {
     selectionsMade: 213,
     totalSelections: 250,
     selectionUrl: 'https://mybldr-demo.dev/selections',
-    pdfFilename: 'lot_823_kohler_ridge.pdf',
     pdfSize: '100kb'
   }
 }
@@ -298,7 +295,7 @@ function OverviewTab({ lotData }: { lotData: ReservedLotData }) {
             <div className={styles.pdfAttachment}>
               <img src="/assets/pdf.png" alt="PDF" className={styles.pdfIcon} />
               <div className={styles.pdfInfo}>
-                <div className={styles.pdfName}>{lotData.pdfFilename}</div>
+                <div className={styles.pdfName}>{lotData.model.replace(/^The\s+/i, '').toLowerCase().replace(/\s+/g, '_')}.pdf</div>
                 <div className={styles.pdfSize}>{lotData.pdfSize}</div>
               </div>
               <div className={styles.pdfActions}>

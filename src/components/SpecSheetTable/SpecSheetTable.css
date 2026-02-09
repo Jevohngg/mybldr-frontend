@@ -7,48 +7,6 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* Note: min-width for horizontal scroll is applied via the sx prop
-   in SpecSheetTable.tsx for the global variant only.
-   The virtual scroller overflow is managed by globals.css. */
-
-/* Ensure proper tree data display */
-.MuiDataGrid-treeDataGroupingCell {
-  display: flex;
-  align-items: center;
-}
-
-/* Cell text overflow with ellipsis */
-.MuiDataGrid-cell {
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  white-space: nowrap !important;
-  min-width: 0 !important;
-}
-
-.MuiDataGrid-cell > * {
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  white-space: nowrap !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-}
-
-.MuiDataGrid-cellContent {
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  white-space: nowrap !important;
-  display: block !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-}
-
-/* Ensure column headers also have ellipsis */
-.MuiDataGrid-columnHeaderTitle {
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  white-space: nowrap !important;
-}
-
 /* Category row styling */
 .category-row {
   background-color: #FAFAFA;
@@ -66,11 +24,6 @@
 
 .odd-row {
   background-color: #FCFDFD;
-}
-
-/* Expand/collapse icon styling */
-.MuiDataGrid-treeDataGroupingCellToggle {
-  margin-right: 8px;
 }
 
 /* Cell editing styles */
@@ -96,19 +49,6 @@
   .spec-sheet-table-container {
     font-size: 13px;
   }
-
-  .MuiDataGrid-columnHeaderTitle {
-    font-size: 12px;
-  }
-
-  .MuiDataGrid-cell {
-    font-size: 13px;
-    padding: 8px 12px;
-  }
-
-  .MuiDataGrid-footerContainer {
-    min-height: 48px;
-  }
 }
 
 /* ==========================================
@@ -120,73 +60,5 @@
     font-size: 12px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-  }
-
-  .MuiDataGrid-root {
-    min-width: 600px;
-  }
-
-  .MuiDataGrid-columnHeaderTitle {
-    font-size: 11px;
-  }
-
-  .MuiDataGrid-cell {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
-
-  .MuiDataGrid-treeDataGroupingCell {
-    font-size: 12px;
-  }
-
-  .MuiDataGrid-footerContainer {
-    min-height: 44px;
-    padding: 0 8px;
-  }
-
-  .MuiTablePagination-displayedRows {
-    font-size: 12px;
-  }
-
-  .MuiTablePagination-selectLabel {
-    display: none;
-  }
-
-  .MuiTablePagination-select {
-    padding-left: 4px;
-    padding-right: 20px;
-    font-size: 12px;
-  }
-}
-
-/* ==========================================
-   RESPONSIVE - SMALL MOBILE
-   ========================================== */
-
-@media (max-width: 479px) {
-  .MuiDataGrid-root {
-    min-width: 500px;
-  }
-
-  .MuiDataGrid-columnHeaderTitle {
-    font-size: 10px;
-  }
-
-  .MuiDataGrid-cell {
-    font-size: 11px;
-    padding: 4px 8px;
-  }
-
-  .MuiDataGrid-treeDataGroupingCell {
-    font-size: 11px;
-  }
-
-  .MuiDataGrid-treeDataGroupingCellToggle {
-    margin-right: 4px;
-  }
-
-  .MuiDataGrid-footerContainer {
-    min-height: 40px;
-    padding: 0 4px;
   }
 }

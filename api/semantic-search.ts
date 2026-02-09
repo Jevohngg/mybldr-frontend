@@ -14,11 +14,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Get API key from server environment (secure)
   // Remove ALL whitespace characters including newlines, tabs, spaces, etc.
-  const rawApiKey = process.env.ANTHROPIC_API_KEY
+  const rawApiKey = process.env.MYBLDR_IBS_DEMO_KEY
   const apiKey = rawApiKey?.replace(/[\s\n\r\t]/g, '')
 
   if (!apiKey || apiKey.length === 0) {
-    console.error('ANTHROPIC_API_KEY not configured on server or is empty')
+    console.error('MYBLDR_IBS_DEMO_KEY not configured on server or is empty')
     console.error('Raw key length:', rawApiKey?.length, 'Cleaned key length:', apiKey?.length)
     return res.status(500).json({ error: 'API key not configured' })
   }

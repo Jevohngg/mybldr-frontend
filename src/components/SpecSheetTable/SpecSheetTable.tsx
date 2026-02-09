@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import {
   DataGridPremium,
   GridRowParams,
@@ -10,15 +10,21 @@ import {
   GridRenderCellParams,
   useGridApiContext,
   GridRenderEditCellParams,
+  GridSortModel,
 } from '@mui/x-data-grid-premium';
 import {
   Box,
   Typography,
   IconButton,
   TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputAdornment,
 } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import SearchIcon from '@mui/icons-material/Search';
 import { SpecSheetTableProps, SpecItem } from './types';
 import { getColumns, defaultVisibleColumns, getGlobalColumns, defaultGlobalVisibleColumns } from './columns';
 import './SpecSheetTable.css';
@@ -27,7 +33,13 @@ interface TreeDataRow extends SpecItem {
   hierarchy: string[];
 }
 
-export function SpecSheetTable({ data, title, variant = 'default' }: SpecSheetTableProps) {
+export function SpecSheetTable({
+  data,
+  title,
+  variant = 'default',
+  loading = false,
+  onSearchChange,
+}: SpecSheetTableProps) {
   const apiRef = useGridApiRef();
   const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>({ type: 'include', ids: new Set() });
   const isGlobal = variant === 'global';
@@ -36,14 +48,62 @@ export function SpecSheetTable({ data, title, variant = 'default' }: SpecSheetTa
   );
   const [rows, setRows] = useState<TreeDataRow[]>([]);
 
-  // Transform flat data into tree structure
+  // Filter state
+  const [searchQuery, setSearchQuery] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
+
+  // Sort model - default sort by category then subCategory
+  const [sortModel, setSortModel] = useState<GridSortModel>([
+    { field: 'category', sort: 'asc' },
+    { field: 'subCategory', sort: 'asc' },
+  ]);
+
+  // Get unique categories for filter dropdown
+  const categories = useMemo(() => {
+    const uniqueCategories = new Set(data.map(item => item.category));
+    return Array.from(uniqueCategories).sort();
+  }, [data]);
+
+  // Filter data based on search query and category filter
+  const filteredData = useMemo(() => {
+    let filtered = data;
+
+    // Apply category filter
+    if (categoryFilter !== 'all') {
+      filtered = filtered.filter(item => item.category === categoryFilter);
+    }
+
+    // Apply search query filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      filtered = filtered.filter(item => {
+        return (
+          item.subCategory?.toLowerCase().includes(query) ||
+          item.description?.toLowerCase().includes(query) ||
+          item.manufacturer?.toLowerCase().includes(query) ||
+          item.category?.toLowerCase().includes(query)
+        );
+      });
+    }
+
+    return filtered;
+  }, [data, searchQuery, categoryFilter]);
+
+  // Transform filtered data into tree structure
   useMemo(() => {
-    const transformedRows = data.map((item) => ({
+    const transformedRows = filteredData.map((item) => ({
       ...item,
       hierarchy: [item.category, item.id],
     }));
     setRows(transformedRows);
-  }, [data]);
+  }, [filteredData]);
+
+  // Notify parent of search changes
+  useEffect(() => {
+    if (onSearchChange) {
+      onSearchChange(searchQuery);
+    }
+  }, [searchQuery, onSearchChange]);
 
   // Custom grouping cell component with expand/collapse toggle
   const CustomGroupingCell = useCallback((params: GridRenderCellParams) => {
@@ -81,6 +141,8 @@ export function SpecSheetTable({ data, title, variant = 'default' }: SpecSheetTa
               color: '#333',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
+              flex: 1,
+              minWidth: 0,
             }}
           >
             {groupNode.groupingKey}
@@ -113,6 +175,8 @@ export function SpecSheetTable({ data, title, variant = 'default' }: SpecSheetTa
             color: '#555',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
+            flex: 1,
+            minWidth: 0,
           }}
         >
           {params.row.subCategory}
@@ -226,31 +290,144 @@ export function SpecSheetTable({ data, title, variant = 'default' }: SpecSheetTa
           </Typography>
         </Box>
       )}
-      <DataGridPremium
-        autoHeight
-        {...(isGlobal && { sx: { minWidth: 'max-content' } })}
-        apiRef={apiRef}
-        rows={rows}
-        columns={columns}
-        treeData
-        getTreeDataPath={getTreeDataPath}
-        groupingColDef={groupingColDef}
-        defaultGroupingExpansionDepth={-1}
-        checkboxSelection
-        disableRowSelectionOnClick
-        rowSelectionModel={rowSelectionModel}
-        onRowSelectionModelChange={handleRowSelectionChange}
-        columnVisibilityModel={{
-          ...columnVisibilityModel,
-          [GRID_TREE_DATA_GROUPING_FIELD]: true,
+
+      {/* Filter Toolbar */}
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 2,
+          p: 2,
+          mb: 2,
+          background: '#FFFFFF',
+          border: '1px solid #E5E7EB',
+          borderRadius: '8px',
         }}
-        onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModel(newModel)}
-        isCellEditable={isCellEditable}
-        processRowUpdate={processRowUpdate}
-        getRowClassName={getRowClassName}
-        rowHeight={52}
-        hideFooter
-      />
+      >
+        {/* Left side - Search and Category Filter */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flex: 1 }}>
+          {/* Search Input */}
+          <TextField
+            size="small"
+            placeholder="Search specifications..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon sx={{ fontSize: 20, color: '#9CA3AF' }} />
+                </InputAdornment>
+              ),
+            }}
+            sx={{
+              minWidth: 300,
+              '& .MuiOutlinedInput-root': {
+                backgroundColor: '#fff',
+                borderRadius: '8px',
+                '& fieldset': {
+                  borderColor: '#E5E7EB',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#D1D5DB',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#3B82F6',
+                  borderWidth: 1,
+                },
+              },
+              '& .MuiOutlinedInput-input': {
+                fontSize: '14px',
+                padding: '8px 12px',
+              },
+            }}
+          />
+
+          {/* Category Filter Dropdown */}
+          <FormControl size="small" sx={{ minWidth: 220 }}>
+            <Select
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+              displayEmpty
+              sx={{
+                backgroundColor: '#fff',
+                borderRadius: '8px',
+                fontSize: '14px',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#E5E7EB',
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#D1D5DB',
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#3B82F6',
+                  borderWidth: 1,
+                },
+              }}
+            >
+              <MenuItem value="all">All Categories</MenuItem>
+              {categories.map((category) => (
+                <MenuItem key={category} value={category}>
+                  {category}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+
+      </Box>
+
+      {/* DataGrid Table */}
+      <div style={{ width: '100%' }}>
+        <DataGridPremium
+          autoHeight
+          apiRef={apiRef}
+          rows={rows}
+          columns={columns}
+          treeData
+          getTreeDataPath={getTreeDataPath}
+          groupingColDef={groupingColDef}
+          defaultGroupingExpansionDepth={-1}
+          checkboxSelection
+          disableRowSelectionOnClick
+          rowSelectionModel={rowSelectionModel}
+          onRowSelectionModelChange={handleRowSelectionChange}
+          columnVisibilityModel={{
+            ...columnVisibilityModel,
+            [GRID_TREE_DATA_GROUPING_FIELD]: true,
+          }}
+          onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModel(newModel)}
+          isCellEditable={isCellEditable}
+          processRowUpdate={processRowUpdate}
+          getRowClassName={getRowClassName}
+          rowHeight={52}
+          hideFooter
+          loading={loading}
+          sortModel={sortModel}
+          onSortModelChange={(newSortModel) => setSortModel(newSortModel)}
+          sortingOrder={['asc', 'desc']}
+          columnBufferPx={1000}
+          slots={{
+            noRowsOverlay: () => (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '100%',
+                  minHeight: 200,
+                }}
+              >
+                <Typography variant="body1" sx={{ color: '#9CA3AF' }}>
+                  {searchQuery || categoryFilter !== 'all'
+                    ? 'No specifications match your filters'
+                    : 'No specifications available'}
+                </Typography>
+              </Box>
+            ),
+          }}
+        />
+      </div>
     </div>
   );
 }

@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useMobileNav } from "../../contexts/MobileNavContext";
 import { communities } from "../../mock-data/communities";
 import { plans } from "../../mock-data/plans";
-import { constructionSpecs } from "../../components/SpecSheetTable/mockData";
+import { masterSpecifications } from "../../data/specifications";
 import PlanDetailModal from "../../components/modals/PlanDetailModal/PlanDetailModal";
 import Button from "../../components/ui/Button";
 import { semanticSearch, type SemanticSearchResponse } from "../../services/semanticSearch";
@@ -206,7 +206,7 @@ export default function TopNav() {
     })), []);
 
   const specificationResults: SearchResult[] = useMemo(() =>
-    constructionSpecs.map(s => ({
+    masterSpecifications.map(s => ({
       id: s.id,
       type: "specification" as const,
       title: s.subCategory,

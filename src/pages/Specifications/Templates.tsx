@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { SpecSheetTable, globalConstructionSpecs } from '@/components/SpecSheetTable';
+import { SpecSheetTable } from '@/components/SpecSheetTable';
+import { masterSpecifications } from '@/data/specifications';
 import styles from './GlobalSpecifications.module.css';
 
 export default function Templates() {
@@ -20,7 +21,7 @@ export default function Templates() {
       <div className={styles.sectionHeader}>All specifications</div>
 
       {/* SpecSheetTable */}
-      <SpecSheetTable data={globalConstructionSpecs} variant="global" />
+      <SpecSheetTable data={masterSpecifications} variant="global" />
     </motion.div>
   );
 }

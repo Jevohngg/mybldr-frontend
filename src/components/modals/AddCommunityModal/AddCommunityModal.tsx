@@ -23,6 +23,7 @@ export default function AddCommunityModal({
 }) {
   const [step, setStep] = React.useState<Step>('upload')
   const [name, setName] = React.useState('')
+  const [nameError, setNameError] = React.useState(false)
   const [progress, setProgress] = React.useState(0)
   const [hasUploadedFile, setHasUploadedFile] = React.useState(false)
 
@@ -39,6 +40,7 @@ export default function AddCommunityModal({
     if (!open) return
     setStep('upload')
     setName('')
+    setNameError(false)
     setProgress(0)
     setHasUploadedFile(false)
     setCommunityId('')
@@ -94,6 +96,10 @@ export default function AddCommunityModal({
   }, [progress, step])
 
   const handleSave = () => {
+    if (!name.trim()) {
+      setNameError(true)
+      return
+    }
     onSave({
       name,
       division,
@@ -119,8 +125,14 @@ export default function AddCommunityModal({
   return (
     <BaseModal open={open} title="Add Community" onClose={onClose} footer={step === 'details' ? footer : undefined} width={880}>
       <div className={styles.field}>
-        <div className="label">Community Name</div>
-        <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter community name" />
+        <div className="label">Community Name <span className={styles.required}>*</span></div>
+        <Input
+          value={name}
+          onChange={(e) => { setName(e.target.value); setNameError(false) }}
+          placeholder="Enter community name"
+          className={nameError ? styles.inputError : ''}
+        />
+        {nameError && <div className={styles.errorText}>Community name is required</div>}
       </div>
 
       {step === 'upload' && (

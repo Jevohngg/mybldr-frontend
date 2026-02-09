@@ -1,9 +1,13 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useData } from '../../app/providers';
-import { SpecSheetTable, constructionSpecs } from '@/components/SpecSheetTable';
+import { SpecSheetTable } from '@/components/SpecSheetTable';
+import { masterSpecifications } from '@/data/specifications';
 import Button from '../../components/ui/Button';
+import BaseModal from '../../components/modals/BaseModal/BaseModal';
+import Input from '../../components/ui/Input';
+import Toast from '../../components/ui/Toast';
 import styles from './Specifications.module.css';
 import { breadcrumbStyles } from '@/components/Breadcrumb';
 
@@ -27,8 +31,8 @@ const initialCommunitySpecs = [
   { id: '5', title: 'Carpet Flooring', description: 'Use nylon broadloom carpet, minimum 28 oz/yd², with a 10-year wear...' },
 ];
 
-// Mock data for Packages table
-const packagesData = [
+// Initial packages data
+const initialPackagesData = [
   { id: '1', name: 'Package 1', variations: 3 },
   { id: '2', name: 'Package 2', variations: 2 },
   { id: '3', name: 'Package 3', variations: 5 },
@@ -43,11 +47,18 @@ const standardSpecs = [
 ];
 
 type ViewType = 'community' | 'package';
+type ImportStep = 'upload' | 'uploading' | 'attached';
 
 interface CommunitySpec {
   id: string;
   title: string;
   description: string;
+}
+
+interface PackageItem {
+  id: string;
+  name: string;
+  variations: number;
 }
 
 export default function Specifications() {
@@ -63,15 +74,131 @@ export default function Specifications() {
   const [communitySpecs, setCommunitySpecs] = useState<CommunitySpec[]>(initialCommunitySpecs);
   const [editingCell, setEditingCell] = useState<{ id: string; field: 'title' | 'description' } | null>(null);
   const [editValue, setEditValue] = useState('');
+  const [newRowId, setNewRowId] = useState<string | null>(null);
+
+  // Community table pagination
+  const [communityPage, setCommunityPage] = useState(0);
+  const communityRowsPerPage = 5;
+  const communityTotalPages = Math.ceil(communitySpecs.length / communityRowsPerPage);
+  const communityStartIndex = communityPage * communityRowsPerPage;
+  const communityEndIndex = Math.min(communityStartIndex + communityRowsPerPage, communitySpecs.length);
+  const paginatedCommunitySpecs = communitySpecs.slice(communityStartIndex, communityEndIndex);
+
+  // Packages state
+  const [packages, setPackages] = useState<PackageItem[]>(initialPackagesData);
+
+  // Packages table pagination
+  const [packagesPage, setPackagesPage] = useState(0);
+  const packagesRowsPerPage = 5;
+  const packagesTotalPages = Math.ceil(packages.length / packagesRowsPerPage);
+  const packagesStartIndex = packagesPage * packagesRowsPerPage;
+  const packagesEndIndex = Math.min(packagesStartIndex + packagesRowsPerPage, packages.length);
+  const paginatedPackages = packages.slice(packagesStartIndex, packagesEndIndex);
+
+  // New package flow state
+  const [isNewPackage, setIsNewPackage] = useState(false);
+  const [packageLoaded, setPackageLoaded] = useState(false);
+  const [isLoadingSpecs, setIsLoadingSpecs] = useState(false);
+
+  // Create Package modal state
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [newPackageName, setNewPackageName] = useState('');
+
+  // Import modal state
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [importStep, setImportStep] = useState<ImportStep>('upload');
+  const [importProgress, setImportProgress] = useState(0);
+
+  // Success toast state
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+
+  // Handle import progress animation
+  useEffect(() => {
+    if (importStep !== 'uploading') return;
+
+    setImportProgress(0);
+    const duration = 2500;
+    const interval = 50;
+    const increment = 100 / (duration / interval);
+
+    const timer = setInterval(() => {
+      setImportProgress(prev => {
+        const next = prev + increment;
+        if (next >= 100) {
+          clearInterval(timer);
+          return 100;
+        }
+        return next;
+      });
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, [importStep]);
+
+  // Transition from uploading to attached when progress completes
+  useEffect(() => {
+    if (importProgress >= 100 && importStep === 'uploading') {
+      const timer = setTimeout(() => {
+        setImportStep('attached');
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [importProgress, importStep]);
 
   const handlePackageClick = (packageName: string) => {
     setSelectedPackage(packageName);
+    setIsNewPackage(false);
+    setPackageLoaded(false);
     setCurrentView('package');
   };
 
   const handleBackClick = () => {
     setCurrentView('community');
     setSelectedPackage(null);
+    setIsNewPackage(false);
+    setPackageLoaded(false);
+    setIsLoadingSpecs(false);
+  };
+
+  const handleCreatePackage = () => {
+    if (!newPackageName.trim()) return;
+
+    const newPkg: PackageItem = {
+      id: String(Date.now()),
+      name: newPackageName.trim(),
+      variations: 0,
+    };
+
+    setPackages(prev => [newPkg, ...prev]);
+    setPackagesPage(0);
+    setSelectedPackage(newPkg.name);
+    setIsNewPackage(true);
+    setPackageLoaded(false);
+    setShowCreateModal(false);
+    setNewPackageName('');
+    setCurrentView('package');
+  };
+
+  const handleOpenImportModal = () => {
+    setImportStep('upload');
+    setImportProgress(0);
+    setShowImportModal(true);
+  };
+
+  const handleImportUpload = () => {
+    setImportStep('uploading');
+  };
+
+  const handleImportConfirm = () => {
+    setShowImportModal(false);
+    setIsLoadingSpecs(true);
+
+    setTimeout(() => {
+      setIsLoadingSpecs(false);
+      setPackageLoaded(true);
+      setIsNewPackage(false);
+      setShowSuccessToast(true);
+    }, 2500);
   };
 
   // Editable cell handlers
@@ -93,321 +220,509 @@ export default function Specifications() {
             : spec
         )
       );
+      if (editingCell.id === newRowId) {
+        setNewRowId(null);
+      }
       setEditingCell(null);
       setEditValue('');
     }
-  }, [editingCell, editValue]);
+  }, [editingCell, editValue, newRowId]);
 
   const handleCellKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      handleCellBlur();
+    if (e.key === 'Enter' || e.key === 'Tab') {
+      if (editingCell && editingCell.field === 'title' && editingCell.id === newRowId) {
+        // Save title and move to description for new rows
+        e.preventDefault();
+        setCommunitySpecs(prev =>
+          prev.map(spec =>
+            spec.id === editingCell.id
+              ? { ...spec, title: editValue }
+              : spec
+          )
+        );
+        setEditingCell({ id: editingCell.id, field: 'description' });
+        setEditValue('');
+      } else {
+        handleCellBlur();
+      }
     } else if (e.key === 'Escape') {
       setEditingCell(null);
       setEditValue('');
     }
-  }, [handleCellBlur]);
+  }, [handleCellBlur, editingCell, newRowId, editValue]);
+
+  const handleAddCommunitySpec = useCallback(() => {
+    const id = `new-${Date.now()}`;
+    const newSpec: CommunitySpec = { id, title: '', description: '' };
+    setCommunitySpecs(prev => [newSpec, ...prev]);
+    setCommunityPage(0);
+    setNewRowId(id);
+    setEditingCell({ id, field: 'title' });
+    setEditValue('');
+  }, []);
+
+  // Show specs table when: existing package OR new package that has been loaded
+  const showSpecTable = !isNewPackage || packageLoaded;
 
   // Community Specifications View
   if (currentView === 'community') {
     return (
+      <>
+        <motion.div
+          className={styles.page}
+          key="community"
+          variants={pageVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={pageTransition}
+        >
+          {/* Page Header */}
+          <div className={styles.pageHeader}>
+            <div className="h1">Specifications</div>
+          </div>
+
+          {/* Community Section */}
+          <div className={styles.card}>
+            {/* Section Header */}
+            <div className={styles.sectionHeader}>
+              <h2 className={styles.sectionTitle}>Community</h2>
+              <Button variant="primary" size="small" onClick={handleAddCommunitySpec}>
+                <span className={styles.buttonContent}>
+                  <img src="/assets/icons/plus.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
+                  <span>Add Community Specification</span>
+                </span>
+              </Button>
+            </div>
+
+            {/* Inner Table Container - table + pagination with border */}
+            <div className={styles.innerTableContainer}>
+              {/* Community Table - Editable */}
+              <div className={styles.tableWrapper}>
+                <table className={styles.table}>
+                  <thead>
+                    <tr className={styles.tableHeaderRow}>
+                      <th className={styles.th}>Title</th>
+                      <th className={styles.th}>Description</th>
+                      <th className={styles.thAction}></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {paginatedCommunitySpecs.map((spec, index) => (
+                      <tr key={spec.id} className={index % 2 === 0 ? styles.rowEven : styles.rowOdd}>
+                        <td
+                          className={styles.tdEditable}
+                          onDoubleClick={() => handleCellDoubleClick(spec.id, 'title', spec.title)}
+                        >
+                          {editingCell?.id === spec.id && editingCell?.field === 'title' ? (
+                            <input
+                              type="text"
+                              value={editValue}
+                              onChange={handleCellChange}
+                              onBlur={handleCellBlur}
+                              onKeyDown={handleCellKeyDown}
+                              className={styles.editInput}
+                              autoFocus
+                            />
+                          ) : (
+                            <span className={styles.cellText}>{spec.title}</span>
+                          )}
+                        </td>
+                        <td
+                          className={styles.tdEditableDescription}
+                          onDoubleClick={() => handleCellDoubleClick(spec.id, 'description', spec.description)}
+                        >
+                          {editingCell?.id === spec.id && editingCell?.field === 'description' ? (
+                            <input
+                              type="text"
+                              value={editValue}
+                              onChange={handleCellChange}
+                              onBlur={handleCellBlur}
+                              onKeyDown={handleCellKeyDown}
+                              className={styles.editInput}
+                              autoFocus
+                            />
+                          ) : (
+                            <span className={styles.cellTextDescription}>{spec.description}</span>
+                          )}
+                        </td>
+                        <td className={styles.tdAction}></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Pagination */}
+              <div className={styles.pagination}>
+                <div className={styles.paginationLeft}>
+                  <span className={styles.paginationLabel}>Rows per page:</span>
+                  <button type="button" className={styles.paginationDropdown}>
+                    <span>{communityRowsPerPage}</span>
+                    <img src="/assets/icons/chevron-down.svg" alt="" className={styles.paginationChevron} draggable={false} />
+                  </button>
+                </div>
+                <span className={styles.paginationInfo}>
+                  {communitySpecs.length === 0
+                    ? '0 of 0'
+                    : `${communityStartIndex + 1}-${communityEndIndex} of ${communitySpecs.length}`}
+                </span>
+                <div className={styles.paginationArrows}>
+                  <button
+                    type="button"
+                    className={styles.paginationArrow}
+                    disabled={communityPage === 0}
+                    onClick={() => setCommunityPage(prev => prev - 1)}
+                  >
+                    <img src="/assets/icons/chevron-left.svg" alt="Previous" draggable={false} />
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.paginationArrow}
+                    disabled={communityPage >= communityTotalPages - 1}
+                    onClick={() => setCommunityPage(prev => prev + 1)}
+                  >
+                    <img src="/assets/icons/chevron-right.svg" alt="Next" draggable={false} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Packages Section */}
+          <div className={styles.card}>
+            {/* Section Header */}
+            <div className={styles.sectionHeader}>
+              <h2 className={styles.sectionTitle}>Packages</h2>
+              <div className={styles.sectionActions}>
+                <Button variant="secondary" size="small">
+                  <span className={styles.buttonContent}>
+                    <span>Import</span>
+                  </span>
+                </Button>
+                <Button variant="primary" size="small" onClick={() => setShowCreateModal(true)}>
+                  <span className={styles.buttonContent}>
+                    <img src="/assets/icons/plus.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
+                    <span>Add Package</span>
+                  </span>
+                </Button>
+              </div>
+            </div>
+
+            {/* Inner Table Container - table + pagination */}
+            <div className={styles.innerTableContainer}>
+              {/* Packages Table - NOT Editable */}
+              <div className={styles.tableWrapper}>
+                <table className={styles.table}>
+                  <thead>
+                    <tr className={styles.tableHeaderRow}>
+                      <th className={styles.th}>Name</th>
+                      <th className={styles.thCenter}>Variations</th>
+                      <th className={styles.thIconCol}>
+                        <img src="/assets/icons/download.svg" alt="" className={styles.headerIcon} draggable={false} />
+                      </th>
+                      <th className={styles.thIconColSmall}></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {paginatedPackages.map((pkg, index) => (
+                      <tr
+                        key={pkg.id}
+                        className={`${index % 2 === 0 ? styles.rowEven : styles.rowOdd} ${styles.rowClickable}`}
+                        onClick={() => handlePackageClick(pkg.name)}
+                      >
+                        <td className={styles.tdClickable}>
+                          <span className={styles.packageName}>{pkg.name}</span>
+                        </td>
+                        <td className={styles.tdCenter}>{pkg.variations}</td>
+                        <td className={styles.tdIconCol}>
+                          <button
+                            type="button"
+                            className={styles.downloadButton}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                            }}
+                          >
+                            <img src="/assets/icons/download.svg" alt="Download" className={styles.downloadIcon} draggable={false} />
+                          </button>
+                        </td>
+                        <td className={styles.tdChevron}>
+                          <img src="/assets/icons/chevron-right.svg" alt="" className={styles.rowChevron} draggable={false} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Pagination */}
+              <div className={styles.pagination}>
+                <div className={styles.paginationLeft}>
+                  <span className={styles.paginationLabel}>Rows per page:</span>
+                  <button type="button" className={styles.paginationDropdown}>
+                    <span>{packagesRowsPerPage}</span>
+                    <img src="/assets/icons/chevron-down.svg" alt="" className={styles.paginationChevron} draggable={false} />
+                  </button>
+                </div>
+                <span className={styles.paginationInfo}>
+                  {packages.length === 0
+                    ? '0 of 0'
+                    : `${packagesStartIndex + 1}-${packagesEndIndex} of ${packages.length}`}
+                </span>
+                <div className={styles.paginationArrows}>
+                  <button
+                    type="button"
+                    className={styles.paginationArrow}
+                    disabled={packagesPage === 0}
+                    onClick={() => setPackagesPage(prev => prev - 1)}
+                  >
+                    <img src="/assets/icons/chevron-left.svg" alt="Previous" draggable={false} />
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.paginationArrow}
+                    disabled={packagesPage >= packagesTotalPages - 1}
+                    onClick={() => setPackagesPage(prev => prev + 1)}
+                  >
+                    <img src="/assets/icons/chevron-right.svg" alt="Next" draggable={false} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Create Package Modal */}
+        <BaseModal
+          open={showCreateModal}
+          title="Add Package"
+          onClose={() => { setShowCreateModal(false); setNewPackageName(''); }}
+          width={480}
+          footer={
+            <div className={styles.footerRow}>
+              <Button size="small" onClick={() => { setShowCreateModal(false); setNewPackageName(''); }}>Cancel</Button>
+              <Button
+                variant="primary"
+                size="small"
+                onClick={handleCreatePackage}
+                disabled={!newPackageName.trim()}
+              >
+                Create
+              </Button>
+            </div>
+          }
+        >
+          <div className={styles.modalField}>
+            <div className="label">Package Name</div>
+            <Input
+              value={newPackageName}
+              onChange={(e) => setNewPackageName(e.target.value)}
+              placeholder="Enter package name"
+              onKeyDown={(e) => { if (e.key === 'Enter' && newPackageName.trim()) handleCreatePackage(); }}
+            />
+          </div>
+        </BaseModal>
+      </>
+    );
+  }
+
+  // Package Detail View
+  return (
+    <>
       <motion.div
         className={styles.page}
-        key="community"
+        key="package"
         variants={pageVariants}
         initial="initial"
         animate="animate"
         exit="exit"
         transition={pageTransition}
       >
-        {/* Page Header */}
-        <div className={styles.pageHeader}>
-          <div className="h1">Specifications</div>
-        </div>
-
-        {/* Community Section */}
-        <div className={styles.card}>
-          {/* Section Header */}
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Community</h2>
-            <Button variant="primary" size="small">
+        {/* Header */}
+        <div className={styles.detailHeader}>
+          <div className={styles.detailHeaderLeft}>
+            <div className={breadcrumbStyles.breadcrumb}>
+              <button
+                type="button"
+                className={breadcrumbStyles.breadcrumbIconButton}
+                onClick={handleBackClick}
+                data-tooltip="Specifications"
+              >
+                <img src="/assets/icons/community.svg" alt="" className={breadcrumbStyles.breadcrumbIcon} draggable={false} />
+              </button>
+              <span className={breadcrumbStyles.breadcrumbSeparator}>/</span>
+              <span className={breadcrumbStyles.breadcrumbCurrent}>{selectedPackage}</span>
+            </div>
+          </div>
+          <div className={styles.detailHeaderRight}>
+            <Button
+              variant="secondary"
+              size="small"
+              className={isNewPackage && !packageLoaded ? styles.buttonDisabled : undefined}
+              disabled={isNewPackage && !packageLoaded}
+            >
+              <span className={styles.buttonContent}>
+                <img src="/assets/icons/download.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
+                <span>Export</span>
+              </span>
+            </Button>
+            <Button variant="primary" size="small" onClick={handleOpenImportModal}>
               <span className={styles.buttonContent}>
                 <img src="/assets/icons/plus.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
-                <span>Add Community Specification</span>
+                <span>Import</span>
               </span>
             </Button>
           </div>
-
-          {/* Inner Table Container - table + pagination with border */}
-          <div className={styles.innerTableContainer}>
-            {/* Community Table - Editable */}
-            <div className={styles.tableWrapper}>
-              <table className={styles.table}>
-                <thead>
-                  <tr className={styles.tableHeaderRow}>
-                    <th className={styles.th}>Title</th>
-                    <th className={styles.th}>Description</th>
-                    <th className={styles.thAction}>
-                      <button type="button" className={styles.addRowButton}>
-                        <img src="/assets/icons/plus-rounded.svg" alt="Add" className={styles.addIcon} draggable={false} />
-                      </button>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {communitySpecs.map((spec, index) => (
-                    <tr key={spec.id} className={index % 2 === 0 ? styles.rowEven : styles.rowOdd}>
-                      <td
-                        className={styles.tdEditable}
-                        onDoubleClick={() => handleCellDoubleClick(spec.id, 'title', spec.title)}
-                      >
-                        {editingCell?.id === spec.id && editingCell?.field === 'title' ? (
-                          <input
-                            type="text"
-                            value={editValue}
-                            onChange={handleCellChange}
-                            onBlur={handleCellBlur}
-                            onKeyDown={handleCellKeyDown}
-                            className={styles.editInput}
-                            autoFocus
-                          />
-                        ) : (
-                          <span className={styles.cellText}>{spec.title}</span>
-                        )}
-                      </td>
-                      <td
-                        className={styles.tdEditableDescription}
-                        onDoubleClick={() => handleCellDoubleClick(spec.id, 'description', spec.description)}
-                      >
-                        {editingCell?.id === spec.id && editingCell?.field === 'description' ? (
-                          <input
-                            type="text"
-                            value={editValue}
-                            onChange={handleCellChange}
-                            onBlur={handleCellBlur}
-                            onKeyDown={handleCellKeyDown}
-                            className={styles.editInput}
-                            autoFocus
-                          />
-                        ) : (
-                          <span className={styles.cellTextDescription}>{spec.description}</span>
-                        )}
-                      </td>
-                      <td className={styles.tdAction}></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Pagination */}
-            <div className={styles.pagination}>
-              <div className={styles.paginationLeft}>
-                <span className={styles.paginationLabel}>Rows per page:</span>
-                <button type="button" className={styles.paginationDropdown}>
-                  <span>5</span>
-                  <img src="/assets/icons/chevron-down.svg" alt="" className={styles.paginationChevron} draggable={false} />
-                </button>
-              </div>
-              <span className={styles.paginationInfo}>1-5 of 13</span>
-              <div className={styles.paginationArrows}>
-                <button type="button" className={styles.paginationArrow} disabled>
-                  <img src="/assets/icons/chevron-left.svg" alt="Previous" draggable={false} />
-                </button>
-                <button type="button" className={styles.paginationArrow}>
-                  <img src="/assets/icons/chevron-right.svg" alt="Next" draggable={false} />
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
 
-        {/* Packages Section */}
-        <div className={styles.card}>
-          {/* Section Header */}
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Packages</h2>
-            <div className={styles.sectionActions}>
-              <Button variant="secondary" size="small">
-                <span className={styles.buttonContent}>
-                  <span>Import</span>
-                </span>
-              </Button>
-              <Button variant="primary" size="small">
-                <span className={styles.buttonContent}>
-                  <img src="/assets/icons/plus.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
-                  <span>Add Package</span>
-                </span>
-              </Button>
+        {/* Main Content Area */}
+        {isLoadingSpecs ? (
+          <div className={styles.loadingState}>
+            <div className={styles.loadingSpinner}>
+              <svg className={styles.loadingSpinnerSvg} viewBox="0 0 50 50">
+                <circle className={styles.loadingSpinnerCircle} cx="25" cy="25" r="20" fill="none" strokeWidth="4" />
+              </svg>
             </div>
+            <div className={styles.loadingText}>Importing specifications...</div>
+            <div className={styles.loadingSubtext}>Analyzing and organizing your spec sheet</div>
           </div>
+        ) : showSpecTable ? (
+          <div className={styles.contentLayout}>
+            {/* Left: SpecSheetTable */}
+            <SpecSheetTable data={masterSpecifications} />
 
-          {/* Inner Table Container - table + pagination */}
-          <div className={styles.innerTableContainer}>
-            {/* Packages Table - NOT Editable */}
-            <div className={styles.tableWrapper}>
-              <table className={styles.table}>
-                <thead>
-                  <tr className={styles.tableHeaderRow}>
-                    <th className={styles.th}>Name</th>
-                    <th className={styles.thCenter}>Variations</th>
-                    <th className={styles.thIconCol}>
-                      <img src="/assets/icons/download.svg" alt="" className={styles.headerIcon} draggable={false} />
-                    </th>
-                    <th className={styles.thIconColSmall}></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {packagesData.map((pkg, index) => (
-                    <tr
-                      key={pkg.id}
-                      className={`${index % 2 === 0 ? styles.rowEven : styles.rowOdd} ${styles.rowClickable}`}
-                      onClick={() => handlePackageClick(pkg.name)}
-                    >
-                      <td className={styles.tdClickable}>
-                        <span className={styles.packageName}>{pkg.name}</span>
-                      </td>
-                      <td className={styles.tdCenter}>{pkg.variations}</td>
-                      <td className={styles.tdIconCol}>
-                        <button
-                          type="button"
-                          className={styles.downloadButton}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                          }}
-                        >
-                          <img src="/assets/icons/download.svg" alt="Download" className={styles.downloadIcon} draggable={false} />
-                        </button>
-                      </td>
-                      <td className={styles.tdChevron}>
-                        <img src="/assets/icons/chevron-right.svg" alt="" className={styles.rowChevron} draggable={false} />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Pagination */}
-            <div className={styles.pagination}>
-              <div className={styles.paginationLeft}>
-                <span className={styles.paginationLabel}>Rows per page:</span>
-                <button type="button" className={styles.paginationDropdown}>
-                  <span>5</span>
-                  <img src="/assets/icons/chevron-down.svg" alt="" className={styles.paginationChevron} draggable={false} />
-                </button>
-              </div>
-              <span className={styles.paginationInfo}>1-5 of 13</span>
-              <div className={styles.paginationArrows}>
-                <button type="button" className={styles.paginationArrow} disabled>
-                  <img src="/assets/icons/chevron-left.svg" alt="Previous" draggable={false} />
-                </button>
-                <button type="button" className={styles.paginationArrow}>
-                  <img src="/assets/icons/chevron-right.svg" alt="Next" draggable={false} />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    );
-  }
-
-  // Package Detail View
-  return (
-    <motion.div
-      className={styles.page}
-      key="package"
-      variants={pageVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      transition={pageTransition}
-    >
-      {/* Header */}
-      <div className={styles.detailHeader}>
-        <div className={styles.detailHeaderLeft}>
-          <div className={breadcrumbStyles.breadcrumb}>
-            <button
-              type="button"
-              className={breadcrumbStyles.breadcrumbIconButton}
-              onClick={handleBackClick}
-              data-tooltip="Specifications"
-            >
-              <img src="/assets/icons/community.svg" alt="" className={breadcrumbStyles.breadcrumbIcon} draggable={false} />
-            </button>
-            <span className={breadcrumbStyles.breadcrumbSeparator}>/</span>
-            <span className={breadcrumbStyles.breadcrumbCurrent}>{selectedPackage}</span>
-          </div>
-        </div>
-        <div className={styles.detailHeaderRight}>
-          <Button variant="secondary" size="small">
-            <span className={styles.buttonContent}>
-              <img src="/assets/icons/download.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
-              <span>Export</span>
-            </span>
-          </Button>
-          <Button variant="primary" size="small">
-            <span className={styles.buttonContent}>
-              <img src="/assets/icons/plus.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
-              <span>Import</span>
-              <img src="/assets/icons/chevron-down-white.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
-            </span>
-          </Button>
-        </div>
-      </div>
-
-      {/* Main Content Area - Two Columns */}
-      <div className={styles.contentLayout}>
-        {/* Left: SpecSheetTable */}
-        <SpecSheetTable data={constructionSpecs} />
-
-        {/* Right: Library Sidebar */}
-        <div className={styles.sidebarPanel}>
-          <div className={styles.sidebarCard}>
-            {/* Library Header */}
-            <div className={styles.libraryHeader}>
-              <h3 className={styles.libraryTitle}>Library</h3>
-            </div>
-
-            {/* Search */}
-            <div className={styles.librarySearch}>
-              <img src="/assets/icons/search.svg" alt="" className={styles.searchIcon} draggable={false} />
-              <input
-                type="text"
-                placeholder="Search your organization"
-                className={styles.searchInput}
-              />
-            </div>
-
-            {/* Standard Specifications Section */}
-            <div className={styles.librarySection}>
-              <button
-                type="button"
-                className={styles.librarySectionHeader}
-                onClick={() => setSidebarExpanded(!sidebarExpanded)}
-              >
-                <span className={styles.librarySectionTitle}>STANDARD SPECIFICATIONS</span>
-                <img
-                  src="/assets/icons/chevron-down.svg"
-                  alt=""
-                  className={`${styles.librarySectionChevron} ${sidebarExpanded ? styles.librarySectionChevronExpanded : ''}`}
-                  draggable={false}
-                />
-              </button>
-              {sidebarExpanded && (
-                <div className={styles.libraryList}>
-                  {standardSpecs.map((spec) => (
-                    <button key={spec.id} type="button" className={styles.libraryItem}>
-                      <img src="/assets/icons/live-spec.svg" alt="" className={styles.libraryItemIcon} draggable={false} />
-                      <span className={styles.libraryItemText}>{spec.name}</span>
-                    </button>
-                  ))}
+            {/* Right: Library Sidebar */}
+            <div className={styles.sidebarPanel}>
+              <div className={styles.sidebarCard}>
+                {/* Library Header */}
+                <div className={styles.libraryHeader}>
+                  <h3 className={styles.libraryTitle}>Library</h3>
                 </div>
-              )}
+
+                {/* Search */}
+                <div className={styles.librarySearch}>
+                  <img src="/assets/icons/search.svg" alt="" className={styles.searchIcon} draggable={false} />
+                  <input
+                    type="text"
+                    placeholder="Search your organization"
+                    className={styles.searchInput}
+                  />
+                </div>
+
+                {/* Standard Specifications Section */}
+                <div className={styles.librarySection}>
+                  <button
+                    type="button"
+                    className={styles.librarySectionHeader}
+                    onClick={() => setSidebarExpanded(!sidebarExpanded)}
+                  >
+                    <span className={styles.librarySectionTitle}>STANDARD SPECIFICATIONS</span>
+                    <img
+                      src="/assets/icons/chevron-down.svg"
+                      alt=""
+                      className={`${styles.librarySectionChevron} ${sidebarExpanded ? styles.librarySectionChevronExpanded : ''}`}
+                      draggable={false}
+                    />
+                  </button>
+                  {sidebarExpanded && (
+                    <div className={styles.libraryList}>
+                      {standardSpecs.map((spec) => (
+                        <button key={spec.id} type="button" className={styles.libraryItem}>
+                          <img src="/assets/icons/live-spec.svg" alt="" className={styles.libraryItemIcon} draggable={false} />
+                          <span className={styles.libraryItemText}>{spec.name}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </motion.div>
+        ) : (
+          <div className={styles.emptyState}>
+            <img src="/assets/icons/specifications.svg" alt="" className={styles.emptyStateIcon} draggable={false} />
+            <div className={styles.emptyStateTitle}>No specifications yet</div>
+            <div className={styles.emptyStateDescription}>Import a spec sheet to get started.</div>
+            <Button variant="primary" size="small" onClick={handleOpenImportModal}>
+              <img src="/assets/icons/plus.svg" alt="" style={{ width: 14, height: 14, filter: 'brightness(0) invert(1)' }} />
+              Import
+            </Button>
+          </div>
+        )}
+      </motion.div>
+
+      {/* Success Toast */}
+      <Toast
+        open={showSuccessToast}
+        message="Specifications imported successfully"
+        onClose={() => setShowSuccessToast(false)}
+      />
+
+      {/* Import Specs Modal */}
+      <BaseModal
+        open={showImportModal}
+        title="Import Specifications"
+        onClose={() => setShowImportModal(false)}
+        width={560}
+        footer={
+          importStep === 'attached' ? (
+            <div className={styles.footerRow}>
+              <Button onClick={() => setShowImportModal(false)}>Cancel</Button>
+              <Button variant="primary" onClick={handleImportConfirm}>Import</Button>
+            </div>
+          ) : undefined
+        }
+      >
+        {importStep === 'upload' && (
+          <div className={styles.uploadArea}>
+            <div className={styles.uploadAreaInner}>
+              <img src="/assets/upload-hero.png" alt="" className={styles.uploadHeroIcon} />
+              <div className={styles.uploadTitle}>Upload your spec sheet</div>
+              <div className={styles.uploadDescription}>
+                Upload a PDF or spreadsheet and we'll extract your specifications automatically.
+              </div>
+              <Button variant="primary" onClick={handleImportUpload}>Upload</Button>
+            </div>
+          </div>
+        )}
+
+        {importStep === 'uploading' && (
+          <div className={styles.uploadingState}>
+            <div className={styles.uploadingTitle}>Processing spec sheet</div>
+            <div className={styles.uploadingSubtext}>Analyzing your document...</div>
+            <div className={styles.progressWrapper}>
+              <div className={styles.progressBar}>
+                <div className={styles.progressFill} style={{ width: `${importProgress}%` }} />
+              </div>
+              <div className={styles.progressLabel}>{Math.round(importProgress)}%</div>
+            </div>
+            <div className={styles.fileRow}>
+              <div className={styles.fileLeft}>
+                <img src="/assets/pdf.png" alt="PDF" className={styles.pdfIcon} />
+                <div>
+                  <div className={styles.fileName}>specifications.pdf</div>
+                  <div className={styles.fileSize}>100kb</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {importStep === 'attached' && (
+          <div>
+            <div className={styles.fileRow}>
+              <div className={styles.fileLeft}>
+                <img src="/assets/pdf.png" alt="PDF" className={styles.pdfIcon} />
+                <div>
+                  <div className={styles.fileName}>specifications.pdf</div>
+                  <div className={styles.fileSize}>100kb</div>
+                </div>
+              </div>
+              <Button onClick={() => { setImportStep('upload'); setImportProgress(0); }}>Update</Button>
+            </div>
+          </div>
+        )}
+      </BaseModal>
+    </>
   );
 }

@@ -260,7 +260,7 @@ function OverviewTab({ lot, plan }: { lot: Lot; plan: Plan }) {
                 <div className={styles.fileTypeBadge}>PDF</div>
               </div>
               <div className={styles.fileInfo}>
-                <span className={styles.fileName}>lot_85_kohler_ridge.pdf</span>
+                <span className={styles.fileName}>{plan.name.replace(/^The\s+/i, '').toLowerCase().replace(/\s+/g, '_')}.pdf</span>
                 <span className={styles.fileSize}>100kb</span>
               </div>
               <div className={styles.fileActions}>

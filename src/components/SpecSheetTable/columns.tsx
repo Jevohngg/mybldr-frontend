@@ -89,6 +89,13 @@ export const getGlobalColumns = (): GridColDef[] => [
     editable: true,
   },
   {
+    field: 'manufacturer',
+    headerName: 'Manufacturer',
+    width: 180,
+    minWidth: 150,
+    editable: true,
+  },
+  {
     field: 'region',
     headerName: 'Region',
     width: 200,
@@ -114,6 +121,7 @@ export const getGlobalColumns = (): GridColDef[] => [
 export const defaultGlobalVisibleColumns = {
   subCategory: true,
   description: true,
+  manufacturer: true,
   region: true,
   division: true,
   community: true,

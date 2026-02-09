@@ -690,7 +690,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                       <div className={styles.fileDetails}>
                         <img src="/assets/pdf.png" alt="" className={styles.pdfIcon} />
                         <div className={styles.fileText}>
-                          <div className={styles.fileName}>master_plan_name.pdf</div>
+                          <div className={styles.fileName}>{(formData.name || SMITH_PLAN_DATA.name).toLowerCase().replace(/\s+/g, '_')}.pdf</div>
                           <div className={styles.fileSize}>100kb</div>
                         </div>
                       </div>
@@ -718,7 +718,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                           <img src="/assets/pdf.png" alt="" className={styles.pdfIconLarge} />
                           <div className={styles.pdfInfo}>
                             <h4 className={styles.pdfTitle}>Master plan set selected</h4>
-                            <div className={styles.pdfFilename}>master_plan_name.pdf</div>
+                            <div className={styles.pdfFilename}>{(formData.name || SMITH_PLAN_DATA.name).toLowerCase().replace(/\s+/g, '_')}.pdf</div>
                           </div>
                         </div>
                         <div className={styles.pdfActions}>
@@ -767,7 +767,7 @@ function OverviewTab({ formData, setFormData, onOpenAIPreview, isNewPlan = false
                   <div className={styles.planSetFileInfo}>
                     <img src="/assets/pdf.png" alt="" className={styles.planSetPdfIcon} />
                     <div className={styles.planSetFileText}>
-                      <div className={styles.planSetFileName}>plan_name.pdf</div>
+                      <div className={styles.planSetFileName}>{formData.name.replace(/^The\s+/i, '').toLowerCase().replace(/\s+/g, '_')}.pdf</div>
                       <div className={styles.planSetFileSize}>100kb</div>
                     </div>
                   </div>

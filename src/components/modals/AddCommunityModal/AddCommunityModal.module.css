@@ -233,4 +233,18 @@ line-height: 1.5rem; /* 150% */
   grid-template-columns: 1fr 1fr;
   gap: 14px 16px;
 }
+.required {
+  color: inherit;
+}
+
+.inputError {
+  border-color: #EF4444 !important;
+}
+
+.errorText {
+  color: #EF4444;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+}
+
 .footerRow { display: flex; gap: 10px; }
