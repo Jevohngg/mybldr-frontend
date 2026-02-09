@@ -31,13 +31,13 @@ const initialCommunitySpecs = [
   { id: '5', title: 'Carpet Flooring', description: 'Use nylon broadloom carpet, minimum 28 oz/yd², with a 10-year wear...' },
 ];
 
-// Initial packages data
+// Initial templates data
 const initialPackagesData = [
-  { id: '1', name: 'Package 1', variations: 3 },
-  { id: '2', name: 'Package 2', variations: 2 },
-  { id: '3', name: 'Package 3', variations: 5 },
-  { id: '4', name: 'Package 4', variations: 1 },
-  { id: '5', name: 'Package 5', variations: 3 },
+  { id: '1', name: 'Standard', variations: 3 },
+  { id: '2', name: 'Move Up', variations: 2 },
+  { id: '3', name: 'Luxury', variations: 5 },
+  { id: '4', name: 'Active Adult', variations: 1 },
+  { id: '5', name: 'Townhome', variations: 3 },
 ];
 
 // Standard specifications for sidebar
@@ -389,11 +389,11 @@ export default function Specifications() {
             </div>
           </div>
 
-          {/* Packages Section */}
+          {/* Templates Section */}
           <div className={styles.card}>
             {/* Section Header */}
             <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>Packages</h2>
+              <h2 className={styles.sectionTitle}>Templates</h2>
               <div className={styles.sectionActions}>
                 <Button variant="secondary" size="small">
                   <span className={styles.buttonContent}>
@@ -403,7 +403,7 @@ export default function Specifications() {
                 <Button variant="primary" size="small" onClick={() => setShowCreateModal(true)}>
                   <span className={styles.buttonContent}>
                     <img src="/assets/icons/plus.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
-                    <span>Add Package</span>
+                    <span>Add Template</span>
                   </span>
                 </Button>
               </div>
@@ -411,7 +411,7 @@ export default function Specifications() {
 
             {/* Inner Table Container - table + pagination */}
             <div className={styles.innerTableContainer}>
-              {/* Packages Table - NOT Editable */}
+              {/* Templates Table - NOT Editable */}
               <div className={styles.tableWrapper}>
                 <table className={styles.table}>
                   <thead>
@@ -492,10 +492,10 @@ export default function Specifications() {
           </div>
         </motion.div>
 
-        {/* Create Package Modal */}
+        {/* Create Template Modal */}
         <BaseModal
           open={showCreateModal}
-          title="Add Package"
+          title="Add Template"
           onClose={() => { setShowCreateModal(false); setNewPackageName(''); }}
           width={480}
           footer={
@@ -513,11 +513,11 @@ export default function Specifications() {
           }
         >
           <div className={styles.modalField}>
-            <div className="label">Package Name</div>
+            <div className="label">Template Name</div>
             <Input
               value={newPackageName}
               onChange={(e) => setNewPackageName(e.target.value)}
-              placeholder="Enter package name"
+              placeholder="Enter template name"
               onKeyDown={(e) => { if (e.key === 'Enter' && newPackageName.trim()) handleCreatePackage(); }}
             />
           </div>
