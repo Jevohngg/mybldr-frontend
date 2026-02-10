@@ -19,10 +19,11 @@ interface PlanDetailModalProps {
   planId: string
   planName: string
   communityCount: number
+  communityName?: string
   isNewPlan?: boolean
 }
 
-export default function PlanDetailModal({ open, onClose, planId, planName, communityCount, isNewPlan = false }: PlanDetailModalProps) {
+export default function PlanDetailModal({ open, onClose, planId, planName, communityCount, communityName, isNewPlan = false }: PlanDetailModalProps) {
   const [activeTab, setActiveTab] = React.useState<TabType>('overview')
   const [aiPreviewOpen, setAiPreviewOpen] = React.useState(false)
   // Lifted extraction state for sidebar components
@@ -188,6 +189,7 @@ export default function PlanDetailModal({ open, onClose, planId, planName, commu
               <PlanDetailSideNav
                 planName={formData.name || planName}
                 communityCount={communityCount}
+                communityName={communityName}
                 activeTab={activeTab}
                 onTabChange={setActiveTab}
               />

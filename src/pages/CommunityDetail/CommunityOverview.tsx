@@ -240,6 +240,7 @@ export default function CommunityOverview() {
         planId={selectedPlan?.id || ''}
         planName={selectedPlan?.name || ''}
         communityCount={selectedPlan?.communityCount || 0}
+        communityName={community.name}
       />
 
       <EditCommunityModal

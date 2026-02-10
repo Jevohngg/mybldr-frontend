@@ -5,11 +5,18 @@ type TabType = 'overview' | 'plans'
 interface PlanDetailSideNavProps {
   planName: string
   communityCount: number
+  communityName?: string
   activeTab: TabType
   onTabChange: (tab: TabType) => void
 }
 
-export default function PlanDetailSideNav({ planName, communityCount, activeTab, onTabChange }: PlanDetailSideNavProps) {
+export default function PlanDetailSideNav({ planName, communityCount, communityName, activeTab, onTabChange }: PlanDetailSideNavProps) {
+  const shortPlanName = planName.replace(/^The\s+/i, '')
+
+  const subtitle = communityName
+    ? `${communityName} · ${shortPlanName}`
+    : `${communityCount} Communities`
+
   return (
     <div className={layout.sidebar}>
       <div className={layout.sidebarHeader}>
@@ -18,7 +25,7 @@ export default function PlanDetailSideNav({ planName, communityCount, activeTab,
         </div>
         <div className={layout.headerInfo}>
           <div className={layout.entityName}>{planName}</div>
-          <div className={layout.entitySubtitle}>{communityCount} Communities</div>
+          <div className={layout.entitySubtitle}>{subtitle}</div>
         </div>
       </div>
 
