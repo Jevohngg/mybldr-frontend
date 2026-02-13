@@ -40,10 +40,13 @@ const initialPackagesData = [
   { id: '5', name: 'Townhome', variations: 3 },
 ];
 
-// Standard specifications for sidebar
-const standardSpecs = [
-  { id: '1', name: 'Live.now' },
-  { id: '2', name: 'Live.in' },
+// All available templates for standard specifications sidebar
+const allTemplates = [
+  { id: '1', name: 'Standard' },
+  { id: '2', name: 'Move Up' },
+  { id: '3', name: 'Luxury' },
+  { id: '4', name: 'Active Adult' },
+  { id: '5', name: 'Townhome' },
 ];
 
 type ViewType = 'community' | 'package';
@@ -626,12 +629,14 @@ export default function Specifications() {
                   </button>
                   {sidebarExpanded && (
                     <div className={styles.libraryList}>
-                      {standardSpecs.map((spec) => (
-                        <button key={spec.id} type="button" className={styles.libraryItem}>
-                          <img src="/assets/icons/live-spec.svg" alt="" className={styles.libraryItemIcon} draggable={false} />
-                          <span className={styles.libraryItemText}>{spec.name}</span>
-                        </button>
-                      ))}
+                      {allTemplates
+                        .filter((template) => template.name !== selectedPackage)
+                        .map((spec) => (
+                          <button key={spec.id} type="button" className={styles.libraryItem}>
+                            <img src="/assets/icons/live-spec.svg" alt="" className={styles.libraryItemIcon} draggable={false} />
+                            <span className={styles.libraryItemText}>{spec.name}</span>
+                          </button>
+                        ))}
                     </div>
                   )}
                 </div>
