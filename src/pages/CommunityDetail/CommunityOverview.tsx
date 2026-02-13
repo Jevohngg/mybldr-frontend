@@ -45,8 +45,8 @@ export default function CommunityOverview() {
   const planObjs = plans.filter((p) => selectedPlans.includes(p.id))
 
   const statsTopRow = [
+    { label: 'Total Lot #', value: '57' },
     { label: 'Sold', value: '7' },
-    { label: 'Released', value: '57' },
     { label: 'Started', value: '2' },
     { label: 'Not Started', value: '55' },
   ] as const
