@@ -612,14 +612,14 @@ export default function Specifications() {
                   />
                 </div>
 
-                {/* Standard Specifications Section */}
+                {/* Templates Section */}
                 <div className={styles.librarySection}>
                   <button
                     type="button"
                     className={styles.librarySectionHeader}
                     onClick={() => setSidebarExpanded(!sidebarExpanded)}
                   >
-                    <span className={styles.librarySectionTitle}>STANDARD SPECIFICATIONS</span>
+                    <span className={styles.librarySectionTitle}>TEMPLATES</span>
                     <img
                       src="/assets/icons/chevron-down.svg"
                       alt=""
@@ -629,14 +629,12 @@ export default function Specifications() {
                   </button>
                   {sidebarExpanded && (
                     <div className={styles.libraryList}>
-                      {allTemplates
-                        .filter((template) => template.name !== selectedPackage)
-                        .map((spec) => (
-                          <button key={spec.id} type="button" className={styles.libraryItem}>
-                            <img src="/assets/icons/live-spec.svg" alt="" className={styles.libraryItemIcon} draggable={false} />
-                            <span className={styles.libraryItemText}>{spec.name}</span>
-                          </button>
-                        ))}
+                      {allTemplates.map((spec) => (
+                        <button key={spec.id} type="button" className={styles.libraryItem}>
+                          <img src="/assets/icons/live-spec.svg" alt="" className={styles.libraryItemIcon} draggable={false} />
+                          <span className={styles.libraryItemText}>{spec.name}</span>
+                        </button>
+                      ))}
                     </div>
                   )}
                 </div>
