@@ -805,6 +805,21 @@
   transition: all 0.2s ease;
 }
 
+.specTableDragOver {
+  position: relative;
+}
+
+.specTableDragOver::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(29, 107, 205, 0.08);
+  border: 2px dashed #1D6BCD;
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 10;
+}
+
 /* ==========================================
    LOADING STATE (Importing Specs)
    ========================================== */

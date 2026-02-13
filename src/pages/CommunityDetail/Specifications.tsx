@@ -120,6 +120,7 @@ export default function Specifications() {
   const [isDragOver, setIsDragOver] = useState(false);
   const [draggedTemplate, setDraggedTemplate] = useState<string | null>(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showReplaceOrAddModal, setShowReplaceOrAddModal] = useState(false);
   const [templateToImport, setTemplateToImport] = useState<string | null>(null);
 
   // Handle import progress animation
@@ -252,7 +253,12 @@ export default function Specifications() {
     const templateName = e.dataTransfer.getData('text/plain');
     if (templateName) {
       setTemplateToImport(templateName);
-      setShowConfirmModal(true);
+      // Show different modal based on whether specs are already loaded
+      if (showSpecTable) {
+        setShowReplaceOrAddModal(true);
+      } else {
+        setShowConfirmModal(true);
+      }
     }
     setDraggedTemplate(null);
   };
@@ -266,6 +272,28 @@ export default function Specifications() {
       setIsLoadingSpecs(false);
       setPackageLoaded(true);
       setIsNewPackage(false);
+      setShowSuccessToast(true);
+    }, 2500);
+  };
+
+  const handleReplaceSpecs = () => {
+    setShowReplaceOrAddModal(false);
+    setTemplateToImport(null);
+    setIsLoadingSpecs(true);
+
+    setTimeout(() => {
+      setIsLoadingSpecs(false);
+      setShowSuccessToast(true);
+    }, 2500);
+  };
+
+  const handleAddSpecs = () => {
+    setShowReplaceOrAddModal(false);
+    setTemplateToImport(null);
+    setIsLoadingSpecs(true);
+
+    setTimeout(() => {
+      setIsLoadingSpecs(false);
       setShowSuccessToast(true);
     }, 2500);
   };
@@ -659,7 +687,15 @@ export default function Specifications() {
           <div className={styles.contentLayout}>
             {/* Left: Empty State or SpecSheetTable */}
             {showSpecTable ? (
-              <SpecSheetTable data={masterSpecifications} />
+              <div
+                className={isDragOver ? styles.specTableDragOver : ''}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                style={{ flex: 1, minWidth: 0, position: 'relative' }}
+              >
+                <SpecSheetTable data={masterSpecifications} />
+              </div>
             ) : (
               <div
                 className={`${styles.emptyState} ${isDragOver ? styles.emptyStateDragOver : ''}`}
@@ -727,10 +763,10 @@ export default function Specifications() {
                           key={spec.id}
                           type="button"
                           className={styles.libraryItem}
-                          draggable={!showSpecTable}
+                          draggable={true}
                           onDragStart={(e) => handleDragStart(e, spec.name)}
                           onDragEnd={handleDragEnd}
-                          style={{ cursor: !showSpecTable ? 'grab' : 'pointer' }}
+                          style={{ cursor: 'grab' }}
                         >
                           <img src="/assets/icons/live-spec.svg" alt="" className={styles.libraryItemIcon} draggable={false} />
                           <span className={styles.libraryItemText}>{spec.name}</span>
@@ -778,6 +814,53 @@ export default function Specifications() {
           <p style={{ fontSize: '14px', lineHeight: '1.5', color: '#6B7280', margin: '12px 0 0 0' }}>
             This will populate your current template with all specifications from {templateToImport}.
           </p>
+        </div>
+      </BaseModal>
+
+      {/* Replace or Add Specifications Modal */}
+      <BaseModal
+        open={showReplaceOrAddModal}
+        title="Import Template Specifications"
+        onClose={() => { setShowReplaceOrAddModal(false); setTemplateToImport(null); }}
+        width={520}
+        footer={
+          <div className={styles.footerRow}>
+            <Button size="small" onClick={() => { setShowReplaceOrAddModal(false); setTemplateToImport(null); }}>Cancel</Button>
+            <Button
+              variant="secondary"
+              size="small"
+              onClick={handleAddSpecs}
+            >
+              Add to Current
+            </Button>
+            <Button
+              variant="primary"
+              size="small"
+              onClick={handleReplaceSpecs}
+            >
+              Replace All
+            </Button>
+          </div>
+        }
+      >
+        <div style={{ padding: '8px 0' }}>
+          <p style={{ fontSize: '14px', lineHeight: '1.5', color: '#3E4041', margin: 0 }}>
+            You already have specifications in your current template. How would you like to import specifications from <strong>{templateToImport}</strong>?
+          </p>
+          <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div style={{ padding: '12px', background: '#F9FAFB', borderRadius: '8px', border: '1px solid #E5E7EB' }}>
+              <div style={{ fontSize: '14px', fontWeight: 600, color: '#3E4041', marginBottom: '4px' }}>Replace All</div>
+              <div style={{ fontSize: '13px', color: '#6B7280', lineHeight: '1.5' }}>
+                Remove all current specifications and replace them with specifications from {templateToImport}.
+              </div>
+            </div>
+            <div style={{ padding: '12px', background: '#F9FAFB', borderRadius: '8px', border: '1px solid #E5E7EB' }}>
+              <div style={{ fontSize: '14px', fontWeight: 600, color: '#3E4041', marginBottom: '4px' }}>Add to Current</div>
+              <div style={{ fontSize: '13px', color: '#6B7280', lineHeight: '1.5' }}>
+                Keep your current specifications and add specifications from {templateToImport}.
+              </div>
+            </div>
+          </div>
         </div>
       </BaseModal>
 
