@@ -122,6 +122,7 @@ export default function Specifications() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showReplaceOrAddModal, setShowReplaceOrAddModal] = useState(false);
   const [templateToImport, setTemplateToImport] = useState<string | null>(null);
+  const [importAction, setImportAction] = useState<'replace' | 'add'>('replace');
 
   // Handle import progress animation
   useEffect(() => {
@@ -255,6 +256,7 @@ export default function Specifications() {
       setTemplateToImport(templateName);
       // Show different modal based on whether specs are already loaded
       if (showSpecTable) {
+        setImportAction('replace'); // Default to replace
         setShowReplaceOrAddModal(true);
       } else {
         setShowConfirmModal(true);
@@ -276,18 +278,7 @@ export default function Specifications() {
     }, 2500);
   };
 
-  const handleReplaceSpecs = () => {
-    setShowReplaceOrAddModal(false);
-    setTemplateToImport(null);
-    setIsLoadingSpecs(true);
-
-    setTimeout(() => {
-      setIsLoadingSpecs(false);
-      setShowSuccessToast(true);
-    }, 2500);
-  };
-
-  const handleAddSpecs = () => {
+  const handleConfirmReplaceOrAdd = () => {
     setShowReplaceOrAddModal(false);
     setTemplateToImport(null);
     setIsLoadingSpecs(true);
@@ -827,39 +818,130 @@ export default function Specifications() {
           <div className={styles.footerRow}>
             <Button size="small" onClick={() => { setShowReplaceOrAddModal(false); setTemplateToImport(null); }}>Cancel</Button>
             <Button
-              variant="secondary"
-              size="small"
-              onClick={handleAddSpecs}
-            >
-              Add to Current
-            </Button>
-            <Button
               variant="primary"
               size="small"
-              onClick={handleReplaceSpecs}
+              onClick={handleConfirmReplaceOrAdd}
             >
-              Replace All
+              Confirm
             </Button>
           </div>
         }
       >
         <div style={{ padding: '8px 0' }}>
-          <p style={{ fontSize: '14px', lineHeight: '1.5', color: '#3E4041', margin: 0 }}>
+          <p style={{ fontSize: '14px', lineHeight: '1.5', color: '#3E4041', margin: '0 0 16px 0' }}>
             You already have specifications in your current template. How would you like to import specifications from <strong>{templateToImport}</strong>?
           </p>
-          <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <div style={{ padding: '12px', background: '#F9FAFB', borderRadius: '8px', border: '1px solid #E5E7EB' }}>
-              <div style={{ fontSize: '14px', fontWeight: 600, color: '#3E4041', marginBottom: '4px' }}>Replace All</div>
-              <div style={{ fontSize: '13px', color: '#6B7280', lineHeight: '1.5' }}>
-                Remove all current specifications and replace them with specifications from {templateToImport}.
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <button
+              onClick={() => setImportAction('replace')}
+              style={{
+                all: 'unset',
+                padding: '12px',
+                background: importAction === 'replace' ? '#EBF5FF' : '#F9FAFB',
+                borderRadius: '8px',
+                border: importAction === 'replace' ? '2px solid #1D6BCD' : '1px solid #E5E7EB',
+                cursor: 'pointer',
+                transition: 'all 0.15s ease',
+                boxSizing: 'border-box'
+              }}
+              onMouseEnter={(e) => {
+                if (importAction !== 'replace') {
+                  e.currentTarget.style.background = '#F3F4F6';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (importAction !== 'replace') {
+                  e.currentTarget.style.background = '#F9FAFB';
+                }
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                <div style={{
+                  width: '18px',
+                  height: '18px',
+                  borderRadius: '50%',
+                  border: importAction === 'replace' ? '2px solid #1D6BCD' : '2px solid #D1D5DB',
+                  background: importAction === 'replace' ? '#1D6BCD' : 'transparent',
+                  flexShrink: 0,
+                  marginTop: '1px',
+                  position: 'relative'
+                }}>
+                  {importAction === 'replace' && (
+                    <div style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '50%',
+                      background: 'white'
+                    }} />
+                  )}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: '14px', fontWeight: 600, color: '#3E4041', marginBottom: '4px' }}>Replace All</div>
+                  <div style={{ fontSize: '13px', color: '#6B7280', lineHeight: '1.5' }}>
+                    Remove all current specifications and replace them with specifications from {templateToImport}.
+                  </div>
+                </div>
               </div>
-            </div>
-            <div style={{ padding: '12px', background: '#F9FAFB', borderRadius: '8px', border: '1px solid #E5E7EB' }}>
-              <div style={{ fontSize: '14px', fontWeight: 600, color: '#3E4041', marginBottom: '4px' }}>Add to Current</div>
-              <div style={{ fontSize: '13px', color: '#6B7280', lineHeight: '1.5' }}>
-                Keep your current specifications and add specifications from {templateToImport}.
+            </button>
+            <button
+              onClick={() => setImportAction('add')}
+              style={{
+                all: 'unset',
+                padding: '12px',
+                background: importAction === 'add' ? '#EBF5FF' : '#F9FAFB',
+                borderRadius: '8px',
+                border: importAction === 'add' ? '2px solid #1D6BCD' : '1px solid #E5E7EB',
+                cursor: 'pointer',
+                transition: 'all 0.15s ease',
+                boxSizing: 'border-box'
+              }}
+              onMouseEnter={(e) => {
+                if (importAction !== 'add') {
+                  e.currentTarget.style.background = '#F3F4F6';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (importAction !== 'add') {
+                  e.currentTarget.style.background = '#F9FAFB';
+                }
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                <div style={{
+                  width: '18px',
+                  height: '18px',
+                  borderRadius: '50%',
+                  border: importAction === 'add' ? '2px solid #1D6BCD' : '2px solid #D1D5DB',
+                  background: importAction === 'add' ? '#1D6BCD' : 'transparent',
+                  flexShrink: 0,
+                  marginTop: '1px',
+                  position: 'relative'
+                }}>
+                  {importAction === 'add' && (
+                    <div style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '50%',
+                      background: 'white'
+                    }} />
+                  )}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: '14px', fontWeight: 600, color: '#3E4041', marginBottom: '4px' }}>Add to Current</div>
+                  <div style={{ fontSize: '13px', color: '#6B7280', lineHeight: '1.5' }}>
+                    Keep your current specifications and add specifications from {templateToImport}.
+                  </div>
+                </div>
               </div>
-            </div>
+            </button>
           </div>
         </div>
       </BaseModal>
