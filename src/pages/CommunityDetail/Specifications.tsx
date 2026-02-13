@@ -776,7 +776,7 @@ export default function Specifications() {
             Are you sure you want to import all specifications from the <strong>{templateToImport}</strong> template?
           </p>
           <p style={{ fontSize: '14px', lineHeight: '1.5', color: '#6B7280', margin: '12px 0 0 0' }}>
-            This will populate your template with all specifications from {templateToImport}.
+            This will populate your current template with all specifications from {templateToImport}.
           </p>
         </div>
       </BaseModal>
