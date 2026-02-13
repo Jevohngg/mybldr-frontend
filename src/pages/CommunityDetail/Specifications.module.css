@@ -773,6 +773,8 @@
   border: 1px solid #E5E7EB;
   border-radius: 8px;
   background: #FAFAFA;
+  flex: 1;
+  min-width: 0;
 }
 
 .emptyStateIcon {
@@ -795,6 +797,12 @@
   font-size: 14px;
   color: #6B7280;
   margin-bottom: 20px;
+}
+
+.emptyStateDragOver {
+  border: 2px dashed #1D6BCD;
+  background: #EBF5FF;
+  transition: all 0.2s ease;
 }
 
 /* ==========================================

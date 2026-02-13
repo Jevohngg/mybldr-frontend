@@ -115,6 +115,13 @@ export default function Specifications() {
   // Success toast state
   const [showSuccessToast, setShowSuccessToast] = useState(false);
 
+  // Drag and drop state
+  const [isDragging, setIsDragging] = useState(false);
+  const [isDragOver, setIsDragOver] = useState(false);
+  const [draggedTemplate, setDraggedTemplate] = useState<string | null>(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [templateToImport, setTemplateToImport] = useState<string | null>(null);
+
   // Handle import progress animation
   useEffect(() => {
     if (importStep !== 'uploading') return;
@@ -194,6 +201,65 @@ export default function Specifications() {
 
   const handleImportConfirm = () => {
     setShowImportModal(false);
+    setIsLoadingSpecs(true);
+
+    setTimeout(() => {
+      setIsLoadingSpecs(false);
+      setPackageLoaded(true);
+      setIsNewPackage(false);
+      setShowSuccessToast(true);
+    }, 2500);
+  };
+
+  // Drag and drop handlers
+  const handleDragStart = (e: React.DragEvent, templateName: string) => {
+    setIsDragging(true);
+    setDraggedTemplate(templateName);
+    e.dataTransfer.effectAllowed = 'copy';
+    e.dataTransfer.setData('text/plain', templateName);
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    setIsDragOver(false);
+    setDraggedTemplate(null);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+    if (!isDragOver) {
+      setIsDragOver(true);
+    }
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    // Only set isDragOver to false if we're leaving the drop zone entirely
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX;
+    const y = e.clientY;
+
+    if (x <= rect.left || x >= rect.right || y <= rect.top || y >= rect.bottom) {
+      setIsDragOver(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    setIsDragging(false);
+
+    const templateName = e.dataTransfer.getData('text/plain');
+    if (templateName) {
+      setTemplateToImport(templateName);
+      setShowConfirmModal(true);
+    }
+    setDraggedTemplate(null);
+  };
+
+  const handleConfirmImport = () => {
+    setShowConfirmModal(false);
+    setTemplateToImport(null);
     setIsLoadingSpecs(true);
 
     setTimeout(() => {
@@ -589,10 +655,37 @@ export default function Specifications() {
             <div className={styles.loadingText}>Importing specifications...</div>
             <div className={styles.loadingSubtext}>Analyzing and organizing your spec sheet</div>
           </div>
-        ) : showSpecTable ? (
+        ) : (
           <div className={styles.contentLayout}>
-            {/* Left: SpecSheetTable */}
-            <SpecSheetTable data={masterSpecifications} />
+            {/* Left: Empty State or SpecSheetTable */}
+            {showSpecTable ? (
+              <SpecSheetTable data={masterSpecifications} />
+            ) : (
+              <div
+                className={`${styles.emptyState} ${isDragOver ? styles.emptyStateDragOver : ''}`}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+              >
+                {isDragOver ? (
+                  <>
+                    <img src="/assets/icons/upload.svg" alt="" className={styles.emptyStateIcon} draggable={false} style={{ opacity: 0.5 }} />
+                    <div className={styles.emptyStateTitle}>Drop to import template</div>
+                    <div className={styles.emptyStateDescription}>Release to import specifications from {draggedTemplate}</div>
+                  </>
+                ) : (
+                  <>
+                    <img src="/assets/icons/specifications.svg" alt="" className={styles.emptyStateIcon} draggable={false} />
+                    <div className={styles.emptyStateTitle}>No specifications yet</div>
+                    <div className={styles.emptyStateDescription}>Drag a template from the library or import a spec sheet to get started.</div>
+                    <Button variant="primary" size="small" onClick={handleOpenImportModal}>
+                      <img src="/assets/icons/plus.svg" alt="" style={{ width: 14, height: 14, filter: 'brightness(0) invert(1)' }} />
+                      Import
+                    </Button>
+                  </>
+                )}
+              </div>
+            )}
 
             {/* Right: Library Sidebar */}
             <div className={styles.sidebarPanel}>
@@ -630,7 +723,15 @@ export default function Specifications() {
                   {sidebarExpanded && (
                     <div className={styles.libraryList}>
                       {allTemplates.map((spec) => (
-                        <button key={spec.id} type="button" className={styles.libraryItem}>
+                        <button
+                          key={spec.id}
+                          type="button"
+                          className={styles.libraryItem}
+                          draggable={!showSpecTable}
+                          onDragStart={(e) => handleDragStart(e, spec.name)}
+                          onDragEnd={handleDragEnd}
+                          style={{ cursor: !showSpecTable ? 'grab' : 'pointer' }}
+                        >
                           <img src="/assets/icons/live-spec.svg" alt="" className={styles.libraryItemIcon} draggable={false} />
                           <span className={styles.libraryItemText}>{spec.name}</span>
                         </button>
@@ -641,16 +742,6 @@ export default function Specifications() {
               </div>
             </div>
           </div>
-        ) : (
-          <div className={styles.emptyState}>
-            <img src="/assets/icons/specifications.svg" alt="" className={styles.emptyStateIcon} draggable={false} />
-            <div className={styles.emptyStateTitle}>No specifications yet</div>
-            <div className={styles.emptyStateDescription}>Import a spec sheet to get started.</div>
-            <Button variant="primary" size="small" onClick={handleOpenImportModal}>
-              <img src="/assets/icons/plus.svg" alt="" style={{ width: 14, height: 14, filter: 'brightness(0) invert(1)' }} />
-              Import
-            </Button>
-          </div>
         )}
       </motion.div>
 
@@ -660,6 +751,35 @@ export default function Specifications() {
         message="Specifications imported successfully"
         onClose={() => setShowSuccessToast(false)}
       />
+
+      {/* Confirm Template Import Modal */}
+      <BaseModal
+        open={showConfirmModal}
+        title="Import Template Specifications"
+        onClose={() => { setShowConfirmModal(false); setTemplateToImport(null); }}
+        width={480}
+        footer={
+          <div className={styles.footerRow}>
+            <Button size="small" onClick={() => { setShowConfirmModal(false); setTemplateToImport(null); }}>Cancel</Button>
+            <Button
+              variant="primary"
+              size="small"
+              onClick={handleConfirmImport}
+            >
+              Import
+            </Button>
+          </div>
+        }
+      >
+        <div style={{ padding: '8px 0' }}>
+          <p style={{ fontSize: '14px', lineHeight: '1.5', color: '#3E4041', margin: 0 }}>
+            Are you sure you want to import all specifications from the <strong>{templateToImport}</strong> template?
+          </p>
+          <p style={{ fontSize: '14px', lineHeight: '1.5', color: '#6B7280', margin: '12px 0 0 0' }}>
+            This will populate your template with all specifications from {templateToImport}.
+          </p>
+        </div>
+      </BaseModal>
 
       {/* Import Specs Modal */}
       <BaseModal
