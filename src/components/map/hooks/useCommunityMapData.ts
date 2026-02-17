@@ -5,9 +5,10 @@ import { useData } from '../../../app/providers'
 interface UseCommunityMapDataProps {
   communityId: string
   communityName: string
+  communityPlanIds?: string[]
 }
 
-export function useCommunityMapData({ communityId, communityName }: UseCommunityMapDataProps) {
+export function useCommunityMapData({ communityId, communityName, communityPlanIds }: UseCommunityMapDataProps) {
   const { lots: allLots } = useData()
   const [lots, setLots] = React.useState<Lot[]>([])
   const [mapImageUrl, setMapImageUrl] = React.useState<string | undefined>(undefined)
@@ -38,7 +39,8 @@ export function useCommunityMapData({ communityId, communityName }: UseCommunity
     communityName,
     lots,
     mapImageUrl,
-  }), [communityId, communityName, lots, mapImageUrl])
+    communityPlanIds,
+  }), [communityId, communityName, lots, mapImageUrl, communityPlanIds])
 
   return {
     mapData,

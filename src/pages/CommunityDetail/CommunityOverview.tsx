@@ -25,6 +25,7 @@ export default function CommunityOverview() {
   const { mapData } = useCommunityMapData({
     communityId: community.id,
     communityName: community.name,
+    communityPlanIds: selectedPlans,
   })
 
   React.useEffect(() => {

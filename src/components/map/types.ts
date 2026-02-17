@@ -24,6 +24,7 @@ export interface CommunityMapData {
   communityName: string
   lots: Lot[]
   mapImageUrl?: string
+  communityPlanIds?: string[]
 }
 
 export interface MapLegendItem {

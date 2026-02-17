@@ -54,7 +54,7 @@ function formatLotNumber(iframeLotNumber: string): string {
 }
 
 export default function CommunityMap({ data }: CommunityMapProps) {
-  const { communityId } = data
+  const { communityId, communityPlanIds = [] } = data
   const navigate = useNavigate()
   const canvasRef = React.useRef<HTMLDivElement>(null)
 
@@ -153,6 +153,7 @@ export default function CommunityMap({ data }: CommunityMapProps) {
               position={popupPosition}
               onClose={() => setSelectedLot(null)}
               onPlanClick={setSelectedPlan}
+              communityPlanIds={communityPlanIds}
             />
           )
         )}

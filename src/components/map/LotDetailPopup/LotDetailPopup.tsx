@@ -9,6 +9,7 @@ interface LotDetailPopupProps {
   position: { x: number; y: number }
   onClose: () => void
   onPlanClick: (plan: Plan) => void
+  communityPlanIds?: string[]
 }
 
 interface Plan {
@@ -20,7 +21,7 @@ interface Plan {
   image: string
 }
 
-export default function LotDetailPopup({ lot, position, onClose, onPlanClick }: LotDetailPopupProps) {
+export default function LotDetailPopup({ lot, position, onClose, onPlanClick, communityPlanIds = [] }: LotDetailPopupProps) {
   const getStatusLabel = (status: string) => {
     switch (status) {
       case 'available':
@@ -60,7 +61,9 @@ export default function LotDetailPopup({ lot, position, onClose, onPlanClick }: 
     }).format(price)
   }
 
-  const matchingPlans = lot.status === 'available' ? plans.slice(0, 8) : []
+  const matchingPlans = lot.status === 'available'
+    ? plans.filter(plan => communityPlanIds.includes(plan.id))
+    : []
 
   const handlePopupInteraction = (e: React.MouseEvent | React.WheelEvent) => {
     e.stopPropagation()
