@@ -374,11 +374,11 @@ export default function Specifications() {
           <div className={styles.card}>
             {/* Section Header */}
             <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>Community</h2>
+              <h2 className={styles.sectionTitle}>Community Requirements</h2>
               <Button variant="primary" size="small" onClick={handleAddCommunitySpec}>
                 <span className={styles.buttonContent}>
                   <img src="/assets/icons/plus.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
-                  <span>Add Community Specification</span>
+                  <span>Add Requirement</span>
                 </span>
               </Button>
             </div>
@@ -477,11 +477,11 @@ export default function Specifications() {
             </div>
           </div>
 
-          {/* Templates Section */}
+          {/* Packages Section */}
           <div className={styles.card}>
             {/* Section Header */}
             <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>Templates</h2>
+              <h2 className={styles.sectionTitle}>Packages</h2>
               <div className={styles.sectionActions}>
                 <Button variant="secondary" size="small">
                   <span className={styles.buttonContent}>
@@ -491,7 +491,7 @@ export default function Specifications() {
                 <Button variant="primary" size="small" onClick={() => setShowCreateModal(true)}>
                   <span className={styles.buttonContent}>
                     <img src="/assets/icons/plus.svg" alt="" className={styles.buttonIconSmall} draggable={false} />
-                    <span>Add Template</span>
+                    <span>Add Package</span>
                   </span>
                 </Button>
               </div>
@@ -499,7 +499,7 @@ export default function Specifications() {
 
             {/* Inner Table Container - table + pagination */}
             <div className={styles.innerTableContainer}>
-              {/* Templates Table - NOT Editable */}
+              {/* Packages Table - NOT Editable */}
               <div className={styles.tableWrapper}>
                 <table className={styles.table}>
                   <thead>
@@ -580,10 +580,10 @@ export default function Specifications() {
           </div>
         </motion.div>
 
-        {/* Create Template Modal */}
+        {/* Create Package Modal */}
         <BaseModal
           open={showCreateModal}
-          title="Add Template"
+          title="Add Package"
           onClose={() => { setShowCreateModal(false); setNewPackageName(''); }}
           width={480}
           footer={
@@ -601,11 +601,11 @@ export default function Specifications() {
           }
         >
           <div className={styles.modalField}>
-            <div className="label">Template Name</div>
+            <div className="label">Package Name</div>
             <Input
               value={newPackageName}
               onChange={(e) => setNewPackageName(e.target.value)}
-              placeholder="Enter template name"
+              placeholder="Enter package name"
               onKeyDown={(e) => { if (e.key === 'Enter' && newPackageName.trim()) handleCreatePackage(); }}
             />
           </div>
@@ -697,14 +697,14 @@ export default function Specifications() {
                 {isDragOver ? (
                   <>
                     <img src="/assets/icons/upload.svg" alt="" className={styles.emptyStateIcon} draggable={false} style={{ opacity: 0.5 }} />
-                    <div className={styles.emptyStateTitle}>Drop to import template</div>
+                    <div className={styles.emptyStateTitle}>Drop to import package</div>
                     <div className={styles.emptyStateDescription}>Release to import specifications from {draggedTemplate}</div>
                   </>
                 ) : (
                   <>
                     <img src="/assets/icons/specifications.svg" alt="" className={styles.emptyStateIcon} draggable={false} />
                     <div className={styles.emptyStateTitle}>No specifications yet</div>
-                    <div className={styles.emptyStateDescription}>Drag a template from the library or import a spec sheet to get started.</div>
+                    <div className={styles.emptyStateDescription}>Drag a package from the library or import a spec sheet to get started.</div>
                     <Button variant="primary" size="small" onClick={handleOpenImportModal}>
                       <img src="/assets/icons/plus.svg" alt="" style={{ width: 14, height: 14, filter: 'brightness(0) invert(1)' }} />
                       Import
@@ -779,10 +779,10 @@ export default function Specifications() {
         onClose={() => setShowSuccessToast(false)}
       />
 
-      {/* Confirm Template Import Modal */}
+      {/* Confirm Package Import Modal */}
       <BaseModal
         open={showConfirmModal}
-        title="Import Template Specifications"
+        title="Import Package Specifications"
         onClose={() => { setShowConfirmModal(false); setTemplateToImport(null); }}
         width={480}
         footer={
@@ -800,10 +800,10 @@ export default function Specifications() {
       >
         <div style={{ padding: '8px 0' }}>
           <p style={{ fontSize: '14px', lineHeight: '1.5', color: '#3E4041', margin: 0 }}>
-            Are you sure you want to import all specifications from the <strong>{templateToImport}</strong> template?
+            Are you sure you want to import all specifications from the <strong>{templateToImport}</strong> package?
           </p>
           <p style={{ fontSize: '14px', lineHeight: '1.5', color: '#6B7280', margin: '12px 0 0 0' }}>
-            This will populate your current template with all specifications from {templateToImport}.
+            This will populate your current package with all specifications from {templateToImport}.
           </p>
         </div>
       </BaseModal>
@@ -811,7 +811,7 @@ export default function Specifications() {
       {/* Replace or Add Specifications Modal */}
       <BaseModal
         open={showReplaceOrAddModal}
-        title="Import Template Specifications"
+        title="Import Package Specifications"
         onClose={() => { setShowReplaceOrAddModal(false); setTemplateToImport(null); }}
         width={520}
         footer={
@@ -829,7 +829,7 @@ export default function Specifications() {
       >
         <div style={{ padding: '8px 0' }}>
           <p style={{ fontSize: '14px', lineHeight: '1.5', color: '#3E4041', margin: '0 0 16px 0' }}>
-            You already have specifications in your current template. How would you like to import specifications from <strong>{templateToImport}</strong>?
+            You already have specifications in your current package. How would you like to import specifications from <strong>{templateToImport}</strong>?
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <button
